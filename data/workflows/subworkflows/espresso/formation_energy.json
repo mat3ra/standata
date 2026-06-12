@@ -206,8 +206,8 @@
                     "endpoint": "refined-properties",
                     "endpoint_options": {
                         "params": {
-                            "query": "{'exabyteId': {'$in': [ELEMENT_MATERIALS[el].exabyteId for el in ELEMENTS]}, 'slug': 'total_energy'}",
-                            "projection": "{'sort': {'precision.value': -1}, 'limit': min(500, max(20, len(ELEMENTS) * 10))}"
+                            "query": "{\n    \"exabyteId\": {\"$in\": [ELEMENT_MATERIALS[el].exabyteId for el in ELEMENTS]},\n    \"slug\": \"total_energy\",\n}",
+                            "projection": "{\n    \"sort\": {\"precision.value\": -1},\n    \"limit\": min(500, max(20, len(ELEMENTS) * 10)),\n}"
                         }
                     },
                     "name": "DATA"
@@ -222,7 +222,7 @@
             "name": "assign-elemental-te-holder-by-symbol",
             "type": "assignment",
             "operand": "ELEMENTAL_TE_HOLDER_BY_SYMBOL",
-            "value": "{el: ([d for d in DATA if (d.exabyteId == ELEMENT_MATERIALS[el].exabyteId or ELEMENT_MATERIALS[el].exabyteId in d.exabyteId)] or [None])[0] for el in ELEMENTS}",
+            "value": "{\n    el: (\n        [\n            d\n            for d in DATA\n            if (\n                d.exabyteId == ELEMENT_MATERIALS[el].exabyteId\n                or ELEMENT_MATERIALS[el].exabyteId in d.exabyteId\n            )\n        ]\n        or [None]\n    )[0]\n    for el in ELEMENTS\n}",
             "input": [
                 {
                     "name": "DATA",
@@ -284,7 +284,7 @@
             "name": "assign-elemental-te-used-by-symbol",
             "type": "assignment",
             "operand": "ELEMENTAL_TE_USED_BY_SYMBOL",
-            "value": "{el: {'formula': el, 'n_atoms': len(ELEMENT_MATERIALS[el].basis.elements), 'is_elemental': True, 'total_energy': ELEMENTAL_TE_HOLDER_BY_SYMBOL[el].data.value, 'total_energy_per_atom': ELEMENTAL_TE_HOLDER_BY_SYMBOL[el].data.value / len(ELEMENT_MATERIALS[el].basis.elements), 'precision_value': ELEMENTAL_TE_HOLDER_BY_SYMBOL[el].precision.value, 'precision_metric': ELEMENTAL_TE_HOLDER_BY_SYMBOL[el].precision.metric} for el in ELEMENTS if ELEMENTAL_TE_HOLDER_BY_SYMBOL[el]}",
+            "value": "{\n    el: {\n        \"formula\": el,\n        \"n_atoms\": len(ELEMENT_MATERIALS[el].basis.elements),\n        \"is_elemental\": True,\n        \"total_energy\": ELEMENTAL_TE_HOLDER_BY_SYMBOL[el].data.value,\n        \"total_energy_per_atom\": ELEMENTAL_TE_HOLDER_BY_SYMBOL[el].data.value\n        / len(ELEMENT_MATERIALS[el].basis.elements),\n        \"precision_value\": ELEMENTAL_TE_HOLDER_BY_SYMBOL[el].precision.value,\n        \"precision_metric\": ELEMENTAL_TE_HOLDER_BY_SYMBOL[el].precision.metric,\n    }\n    for el in ELEMENTS\n    if ELEMENTAL_TE_HOLDER_BY_SYMBOL[el]\n}",
             "input": [],
             "results": [],
             "monitors": [],
@@ -303,7 +303,7 @@
             "name": "assign-elemental-energy-sum",
             "type": "assignment",
             "operand": "E_ELEMENTAL_SUM",
-            "value": "sum(ELEMENTAL_TE_USED_BY_SYMBOL[e['value']]['total_energy_per_atom'] for e in MATERIAL.basis.elements)",
+            "value": "sum(\n    ELEMENTAL_TE_USED_BY_SYMBOL[e[\"value\"]][\"total_energy_per_atom\"]\n    for e in MATERIAL.basis.elements\n)",
             "input": [],
             "results": [],
             "monitors": [],
@@ -337,6 +337,30 @@
             "tags": [],
             "flowchartId": "assign-formation-energy",
             "head": false,
+            "next": "assign-compound-precision",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "assign-compound-precision",
+            "type": "assignment",
+            "operand": "COMPOUND_PRECISION",
+            "value": "{\n    \"precision_value\": context[\"kgrid\"].get(\"gridMetricValue\") or -1,\n    \"precision_metric\": context[\"kgrid\"].get(\"gridMetricType\") or \"unknown\",\n}",
+            "input": [
+                {
+                    "name": "context",
+                    "scope": "pw-scf"
+                }
+            ],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-compound-precision",
+            "head": false,
             "next": "assign-formation-energy-compound-contribution",
             "schemaVersion": "2022.8.16",
             "isDefault": false
@@ -345,7 +369,7 @@
             "name": "assign-formation-energy-compound-contribution",
             "type": "assignment",
             "operand": "FORMATION_ENERGY_COMPOUND_CONTRIBUTION",
-            "value": "{'formula': MATERIAL.formula or MATERIAL.name, 'n_atoms': len(MATERIAL.basis.elements), 'is_elemental': False, 'total_energy': E_MATERIAL, 'total_energy_per_atom': E_MATERIAL / len(MATERIAL.basis.elements), 'precision_value': -1, 'precision_metric': 'unknown'}",
+            "value": "{\n    \"formula\": MATERIAL.formula,\n    \"n_atoms\": len(MATERIAL.basis.elements),\n    \"is_elemental\": False,\n    \"total_energy\": E_MATERIAL,\n    \"total_energy_per_atom\": E_MATERIAL / len(MATERIAL.basis.elements),\n    \"precision_value\": COMPOUND_PRECISION[\"precision_value\"],\n    \"precision_metric\": COMPOUND_PRECISION[\"precision_metric\"],\n}",
             "input": [],
             "results": [],
             "monitors": [],
@@ -364,7 +388,7 @@
             "name": "assign-formation-energy-contributions",
             "type": "assignment",
             "operand": "FORMATION_ENERGY_CONTRIBUTIONS",
-            "value": "[FORMATION_ENERGY_COMPOUND_CONTRIBUTION] + [ELEMENTAL_TE_USED_BY_SYMBOL[el] for el in ELEMENTS if el in ELEMENTAL_TE_USED_BY_SYMBOL]",
+            "value": "[FORMATION_ENERGY_COMPOUND_CONTRIBUTION] + [\n    ELEMENTAL_TE_USED_BY_SYMBOL[el]\n    for el in ELEMENTS\n    if el in ELEMENTAL_TE_USED_BY_SYMBOL\n]",
             "input": [],
             "results": [
                 {

@@ -8,6 +8,7 @@
 #      E_ELEMENTAL_SUM             sum over compound atoms of (ref total_energy / ref atom count)
 #      formation_energy (property) (E_MATERIAL - E_ELEMENTAL_SUM) / N_atoms, eV/atom
 #      formation_energy_contributions (property) total energies used in the calculation
+#      COMPOUND_PRECISION              precision from pw-scf kgrid context for compound row
 application:
   name: espresso
   version: "6.3"
@@ -135,10 +136,22 @@ units:
         - name: formation_energy
   - type: assignment
     config:
+      name: assign-compound-precision
+      flowchartId: assign-compound-precision
+      operand: COMPOUND_PRECISION
+      value: >-
+        {
+            "precision_value": context["kgrid"].get("gridMetricValue"),
+            "precision_metric": context["kgrid"].get("gridMetricType"),
+        }
+      input:
+        - name: context
+          scope: pw-scf
+  - type: assignment
+    config:
       name: assign-formation-energy-compound-contribution
       flowchartId: assign-formation-energy-compound-contribution
       operand: FORMATION_ENERGY_COMPOUND_CONTRIBUTION
-      # TODO: extract precision value and metric from scopeTrack or another source later
       value: >-
         {
             "formula": MATERIAL.formula,
@@ -146,8 +159,8 @@ units:
             "is_elemental": False,
             "total_energy": E_MATERIAL,
             "total_energy_per_atom": E_MATERIAL / len(MATERIAL.basis.elements),
-            "precision_value": -1,
-            "precision_metric": "unknown",
+            "precision_value": COMPOUND_PRECISION["precision_value"],
+            "precision_metric": COMPOUND_PRECISION["precision_metric"],
         }
   - type: assignment
     config:
