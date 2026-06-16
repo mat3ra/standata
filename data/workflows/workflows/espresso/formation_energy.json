@@ -412,10 +412,11 @@
                     "input": [
                         {
                             "type": "api",
-                            "endpoint": "properties/best-by-exabyte-id",
+                            "endpoint": "refined-properties",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'exabyteId': {'$in': [ELEMENT_MATERIALS[el]['_id'] for el in ELEMENTS]}, 'slug': 'total_energy'}"
+                                    "query": "{'exabyteId': {'$in': [ELEMENT_MATERIALS[el]['_id'] for el in ELEMENTS]}, 'slug': 'total_energy', 'systemTags': 'isBest'}",
+                                    "projection": "{}"
                                 }
                             },
                             "name": "DATA"
@@ -430,7 +431,7 @@
                     "name": "assign-elemental-te-holder-by-symbol",
                     "type": "assignment",
                     "operand": "ELEMENTAL_TE_HOLDER_BY_SYMBOL",
-                    "value": "{\n    el: (\n        [\n            d\n            for d in DATA\n            if (\n                d.exabyteId == ELEMENT_MATERIALS[el]['_id']\n                or ELEMENT_MATERIALS[el]['_id'] in d.exabyteId\n            )\n        ]\n        or [None]\n    )[0]\n    for el in ELEMENTS\n}",
+                    "value": "{el: ([d for d in DATA if (  d.exabyteId == ELEMENT_MATERIALS[el]['_id'] or ELEMENT_MATERIALS[el]['_id'] in d.exabyteId  )] or [None])[0] for el in ELEMENTS }",
                     "input": [
                         {
                             "name": "DATA",

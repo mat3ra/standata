@@ -41,12 +41,14 @@ units:
       source: api
       input:
         - type: api
-          endpoint: properties/best-by-exabyte-id
+          endpoint: refined-properties
           endpoint_options:
             params:
               query: >-
                 {'exabyteId': {'$in': [ELEMENT_MATERIALS[el]['_id'] for el in ELEMENTS]},
-                'slug': 'total_energy'}
+                'slug': 'total_energy',
+                'systemTags': 'isBest'}
+              projection: "{}"
           name: DATA
   - type: assignment
     config:
@@ -54,19 +56,9 @@ units:
       flowchartId: assign-elemental-te-holder-by-symbol
       operand: ELEMENTAL_TE_HOLDER_BY_SYMBOL
       value: >-
-        {
-            el: (
-                [
-                    d
-                    for d in DATA
-                    if (
-                        d.exabyteId == ELEMENT_MATERIALS[el]['_id']
-                        or ELEMENT_MATERIALS[el]['_id'] in d.exabyteId
-                    )
-                ]
-                or [None]
-            )[0]
-            for el in ELEMENTS
+        {el: ([d for d in DATA if ( 
+        d.exabyteId == ELEMENT_MATERIALS[el]['_id'] or ELEMENT_MATERIALS[el]['_id'] in d.exabyteId 
+        )] or [None])[0] for el in ELEMENTS
         }
       input:
         - name: DATA
