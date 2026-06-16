@@ -203,11 +203,10 @@
             "input": [
                 {
                     "type": "api",
-                    "endpoint": "refined-properties",
+                    "endpoint": "properties/best-by-exabyte-id",
                     "endpoint_options": {
                         "params": {
-                            "query": "{'exabyteId': {'$in': [ELEMENT_MATERIALS[el]['_id'] for el in ELEMENTS]}, 'slug': 'total_energy'}",
-                            "projection": "{\n    \"sort\": {\"precision.value\": -1},\n    \"limit\": min(500, max(20, len(ELEMENTS) * 10)),\n}"
+                            "query": "{'exabyteId': {'$in': [ELEMENT_MATERIALS[el]['_id'] for el in ELEMENTS]}, 'slug': 'total_energy'}"
                         }
                     },
                     "name": "DATA"
