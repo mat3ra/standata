@@ -45,10 +45,8 @@ units:
           endpoint_options:
             params:
               query: >-
-                {
-                    "exabyteId": {"$in": [ELEMENT_MATERIALS[el].exabyteId for el in ELEMENTS]},
-                    "slug": "total_energy",
-                }
+                {'exabyteId': {'$in': [ELEMENT_MATERIALS[el]['_id'] for el in ELEMENTS]},
+                'slug': 'total_energy'}
               projection: >-
                 {
                     "sort": {"precision.value": -1},
@@ -67,8 +65,8 @@ units:
                     d
                     for d in DATA
                     if (
-                        d.exabyteId == ELEMENT_MATERIALS[el].exabyteId
-                        or ELEMENT_MATERIALS[el].exabyteId in d.exabyteId
+                        d.exabyteId == ELEMENT_MATERIALS[el]['_id']
+                        or ELEMENT_MATERIALS[el]['_id'] in d.exabyteId
                     )
                 ]
                 or [None]
