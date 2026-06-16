@@ -105,11 +105,11 @@
             "input": [
                 {
                     "type": "api",
-                    "endpoint": "materials",
+                    "endpoint": "bank-materials",
                     "endpoint_options": {
                         "params": {
                             "query": "{'tags': 'elemental', 'metadata.element': {'$in': ELEMENTS}}",
-                            "projection": "{}"
+                            "projection": "{'limit': len(ELEMENTS)}"
                         }
                     },
                     "name": "DATA"

@@ -118,11 +118,11 @@
                     "input": [
                         {
                             "type": "api",
-                            "endpoint": "materials",
+                            "endpoint": "bank-materials",
                             "endpoint_options": {
                                 "params": {
                                     "query": "{'tags': 'elemental', 'metadata.element': {'$in': ELEMENTS}}",
-                                    "projection": "{}"
+                                    "projection": "{'limit': len(ELEMENTS)}"
                                 }
                             },
                             "name": "DATA"
@@ -415,7 +415,7 @@
                             "endpoint": "refined-properties",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{\n    \"exabyteId\": {\"$in\": [ELEMENT_MATERIALS[el].exabyteId for el in ELEMENTS]},\n    \"slug\": \"total_energy\",\n}",
+                                    "query": "{'exabyteId': {'$in': [ELEMENT_MATERIALS[el]['_id'] for el in ELEMENTS]}, 'slug': 'total_energy'}",
                                     "projection": "{\n    \"sort\": {\"precision.value\": -1},\n    \"limit\": min(500, max(20, len(ELEMENTS) * 10)),\n}"
                                 }
                             },
@@ -431,7 +431,7 @@
                     "name": "assign-elemental-te-holder-by-symbol",
                     "type": "assignment",
                     "operand": "ELEMENTAL_TE_HOLDER_BY_SYMBOL",
-                    "value": "{\n    el: (\n        [\n            d\n            for d in DATA\n            if (\n                d.exabyteId == ELEMENT_MATERIALS[el].exabyteId\n                or ELEMENT_MATERIALS[el].exabyteId in d.exabyteId\n            )\n        ]\n        or [None]\n    )[0]\n    for el in ELEMENTS\n}",
+                    "value": "{\n    el: (\n        [\n            d\n            for d in DATA\n            if (\n                d.exabyteId == ELEMENT_MATERIALS[el]['_id']\n                or ELEMENT_MATERIALS[el]['_id'] in d.exabyteId\n            )\n        ]\n        or [None]\n    )[0]\n    for el in ELEMENTS\n}",
                     "input": [
                         {
                             "name": "DATA",
@@ -554,7 +554,7 @@
                     "name": "assign-compound-precision",
                     "type": "assignment",
                     "operand": "COMPOUND_PRECISION",
-                    "value": "{\n    \"precision_value\": context[\"kgrid\"].get(\"gridMetricValue\") or -1,\n    \"precision_metric\": context[\"kgrid\"].get(\"gridMetricType\") or \"unknown\",\n}",
+                    "value": "{\n    \"precision_value\": context[\"kgrid\"].get(\"gridMetricValue\"),\n    \"precision_metric\": context[\"kgrid\"].get(\"gridMetricType\"),\n}",
                     "input": [
                         {
                             "name": "context",
