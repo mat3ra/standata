@@ -1,0 +1,6 @@
+path: "/opt/diff/ordern/cg"
+data:
+    key: type
+    value: !esse "methods-category/mathematical/opt/diff/ordern/enum-options#/conjugateGradient/enum[0]"
+    name: "Conjugate Gradient"
+# terminal node, no children

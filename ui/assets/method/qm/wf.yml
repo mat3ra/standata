@@ -1,0 +1,11 @@
+path: "/qm/wf"
+data:
+    key: tier2
+    value: !esse "methods-category/physical/qm/enum-options#/wavefunction/enum[0]"
+    name: "Wave Function"
+children:
+    - !include "method/qm/wf/ao.yml"
+    - !include "method/qm/wf/pw.yml"
+    - !include "method/qm/wf/psp.yml"
+    - !include "method/qm/wf/smearing.yml"
+    - !include "method/qm/wf/tetrahedron.yml"

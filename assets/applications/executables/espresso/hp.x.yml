@@ -1,0 +1,19 @@
+monitors:
+  - name: standard_output
+results:
+  - name: hubbard_u
+  - name: hubbard_v_nn
+  - name: hubbard_v
+flavors:
+  hp:
+    input:
+      - name: hp.in
+    results:
+      - name: hubbard_u
+      - name: hubbard_v_nn
+      - name: hubbard_v
+    monitors:
+      - name: standard_output
+    applicationName: espresso
+    executableName: hp.x
+supportedApplicationVersions: ">=7.0"

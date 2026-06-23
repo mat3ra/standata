@@ -1,0 +1,42 @@
+isDefault: true
+hasAdvancedComputeOptions: false
+postProcessors:
+  - name: error_handler
+monitors:
+  - name: standard_output
+results:
+  - name: zero_point_energy
+  - name: thermal_correction_to_energy
+  - name: thermal_correction_to_enthalpy
+  - name: total_energy
+  - name: total_energy_contributions
+  - name: homo_energy
+  - name: lumo_energy
+flavors:
+  nwchem_total_energy:
+    isDefault: true
+    input:
+      - name: nwchem_total_energy.inp
+    results:
+      - name: total_energy
+      - name: total_energy_contributions
+      - name: homo_energy
+      - name: lumo_energy
+    monitors:
+      - name: standard_output
+    applicationName: nwchem
+    executableName: nwchem
+  nwchem_frequency:
+    isDefault: false
+    input:
+      - name: nwchem_frequency.inp
+    results:
+      - name: total_energy
+      - name: total_energy_contributions
+      - name: zero_point_energy
+      - name: thermal_correction_to_energy
+      - name: thermal_correction_to_enthalpy
+    monitors:
+      - name: standard_output
+    applicationName: nwchem
+    executableName: nwchem

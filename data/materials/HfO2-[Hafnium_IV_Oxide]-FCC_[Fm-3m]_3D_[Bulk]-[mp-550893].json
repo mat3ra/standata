@@ -1,0 +1,177 @@
+{
+  "name": "HfO2, Hafnium IV Oxide, FCC (Fm-3m) 3D (Bulk), mp-550893",
+  "lattice": {
+    "a": 5.032159,
+    "b": 5.032159,
+    "c": 5.032159,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0,
+    "units": {
+      "length": "angstrom",
+      "angle": "degree"
+    },
+    "type": "FCC"
+  },
+  "basis": {
+    "elements": [
+      {
+        "id": 0,
+        "value": "Hf"
+      },
+      {
+        "id": 1,
+        "value": "Hf"
+      },
+      {
+        "id": 2,
+        "value": "Hf"
+      },
+      {
+        "id": 3,
+        "value": "Hf"
+      },
+      {
+        "id": 4,
+        "value": "O"
+      },
+      {
+        "id": 5,
+        "value": "O"
+      },
+      {
+        "id": 6,
+        "value": "O"
+      },
+      {
+        "id": 7,
+        "value": "O"
+      },
+      {
+        "id": 8,
+        "value": "O"
+      },
+      {
+        "id": 9,
+        "value": "O"
+      },
+      {
+        "id": 10,
+        "value": "O"
+      },
+      {
+        "id": 11,
+        "value": "O"
+      }
+    ],
+    "coordinates": [
+      {
+        "id": 0,
+        "value": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": 1,
+        "value": [
+          0.0,
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": 2,
+        "value": [
+          0.5,
+          0.0,
+          0.5
+        ]
+      },
+      {
+        "id": 3,
+        "value": [
+          0.5,
+          0.5,
+          0.0
+        ]
+      },
+      {
+        "id": 4,
+        "value": [
+          0.25,
+          0.25,
+          0.75
+        ]
+      },
+      {
+        "id": 5,
+        "value": [
+          0.25,
+          0.75,
+          0.75
+        ]
+      },
+      {
+        "id": 6,
+        "value": [
+          0.25,
+          0.75,
+          0.25
+        ]
+      },
+      {
+        "id": 7,
+        "value": [
+          0.25,
+          0.25,
+          0.25
+        ]
+      },
+      {
+        "id": 8,
+        "value": [
+          0.75,
+          0.25,
+          0.25
+        ]
+      },
+      {
+        "id": 9,
+        "value": [
+          0.75,
+          0.75,
+          0.25
+        ]
+      },
+      {
+        "id": 10,
+        "value": [
+          0.75,
+          0.75,
+          0.75
+        ]
+      },
+      {
+        "id": 11,
+        "value": [
+          0.75,
+          0.25,
+          0.75
+        ]
+      }
+    ],
+    "units": "crystal",
+    "constraints": [],
+    "labels": []
+  },
+  "external": {
+    "id": "mp-550893",
+    "source": "MaterialsProject",
+    "doi": "10.17188/1267443",
+    "url": "https://next-gen.materialsproject.org/materials/mp-550893",
+    "origin": true
+  },
+  "isNonPeriodic": false
+}

@@ -1,0 +1,19 @@
+{
+    "parameters": {
+        "hubbardType": "u",
+        "spinOrbitCoupling": true,
+        "functional": "pz"
+    },
+    "categories": {
+        "tier1": "pb",
+        "tier2": "qm",
+        "tier3": "dft",
+        "type": "ksdft",
+        "subtype": "lda"
+    },
+    "tags": [
+        "density functional theory"
+    ],
+    "name": "DFT LDA PZ+U (SOC)",
+    "path": "/pb/qm/dft/ksdft/lda?hubbardType=u&spinOrbitCoupling=true&functional=pz"
+}

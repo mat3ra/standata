@@ -1,0 +1,59 @@
+application:
+  name: shell
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: Resolve Bulk From Slab By Bulk ID
+units:
+  - type: assignment
+    config:
+      name: assign-bulk-id
+      flowchartId: assign-bulk-id
+      operand: BULK_ID
+      value: "SLAB.metadata.get('bulkId') if SLAB.metadata else None"
+  - type: assignment
+    config:
+      name: init-bulk
+      flowchartId: init-bulk
+      operand: BULK
+      value: "None"
+  - type: condition
+    config:
+      name: check-bulk-id
+      flowchartId: check-bulk-id
+      statement: "BULK_ID is None"
+      then: done
+      else: io-bulk
+  - type: io
+    config:
+      name: io-bulk
+      flowchartId: io-bulk
+      subtype: input
+      source: api
+      input:
+        - type: api
+          endpoint: materials
+          endpoint_options:
+            params:
+              query: "{'_id': BULK_ID}"
+              projection: "{}"
+          name: DATA
+  - type: assignment
+    config:
+      name: assign-bulk
+      flowchartId: assign-bulk
+      operand: BULK
+      value: "DATA[0] if DATA else None"
+      input:
+        - name: DATA
+          scope: io-bulk
+  - type: assignment
+    config:
+      name: done
+      flowchartId: done
+      operand: BULK
+      value: "BULK"
+      input:
+        - name: BULK
+          scope: global

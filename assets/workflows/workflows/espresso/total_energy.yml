@@ -1,0 +1,6 @@
+name: Total Energy
+units:
+  - name: total_energy
+    type: subworkflow
+tags:
+  - default

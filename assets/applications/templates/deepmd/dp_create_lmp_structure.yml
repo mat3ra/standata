@@ -1,0 +1,5 @@
+- content: !readFile 'input_files_templates/deepmd/espresso_to_lammps_structure.py'
+  name: espresso_to_lammps_structure.py
+  contextProviders: []
+  applicationName: deepmd
+  executableName: python

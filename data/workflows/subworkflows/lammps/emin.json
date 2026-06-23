@@ -1,0 +1,101 @@
+{
+    "_id": "3a7a763d-bb3a-5681-8744-771b9e4a07d2",
+    "name": "Energy minimization",
+    "application": {
+        "name": "lammps"
+    },
+    "properties": [],
+    "model": {
+        "type": "unknown",
+        "subtype": "unknown",
+        "method": {
+            "type": "unknown",
+            "subtype": "unknown",
+            "data": {}
+        }
+    },
+    "units": [
+        {
+            "type": "execution",
+            "name": "emin_lammps",
+            "head": true,
+            "results": [],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                }
+            ],
+            "flowchartId": "ba4021a0-4006-55ab-a652-009caec65a60",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "lammps",
+                "runConfig": {
+                    "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\n$EXEC_CMD mpirun -machinefile {MACHINEFILE} -np {NP} {EXECUTABLE} -i {INPUTFILE} -l {OUTPUTFILE}\n",
+                    "outFileName": "log.out"
+                },
+                "shortName": "lmp",
+                "summary": "LAMMPS",
+                "version": "2025.07.22.2",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "applicationName": "lammps",
+                "applicationVersion": "*",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "name": "lmp",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "applicationName": "lammps",
+                "applicationVersion": "*",
+                "executableName": "lmp",
+                "input": [
+                    {
+                        "name": "in.emin"
+                    }
+                ],
+                "isDefault": true,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    }
+                ],
+                "name": "emin",
+                "postProcessors": [],
+                "preProcessors": [],
+                "results": [],
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [
+                {
+                    "template": {
+                        "applicationName": "lammps",
+                        "applicationVersion": "*",
+                        "content": "# From https://github.com/lammps/lammps/blob/develop/examples/min/in.min\n\nunits\t\tlj\ndimension\t2\natom_style\tatomic\n\nlattice\t\tsq2 0.8442\nregion\t\tbox block 0 20 0 20 -0.1 0.1\ncreate_box\t1 box\ncreate_atoms\t1 box\nmass\t\t1 1.0\n\nvelocity\tall create 5.0 87287 loop geom\n\npair_style\tlj/cut 2.5\npair_coeff\t1 1 1.0 1.0 2.5\npair_modify\tshift yes\n\nneighbor\t0.3 bin\nneigh_modify\tdelay 0 every 1 check yes\n\nfix\t\t1 all nve\nfix\t\t2 all enforce2d\n\n#dump\t\t1 all atom 100 dump.min\n\n#dump\t\t2 all image 50 image.*.jpg type type &\n#\t\tzoom 1.6 adiam 1.5\n#dump_modify\t2 pad 4\n\n#dump\t\t3 all movie 50 movie.mpg type type &\n#\t\tzoom 1.6 adiam 1.5\n#dump_modify\t3 pad 4\n\nthermo\t\t100\n\nrun\t\t1000\n\nneigh_modify\tdelay 0 every 1 check yes\n\n#dump_modify\t1 every 25\n\nthermo\t\t50\nminimize\t1.0e-6 0.001 1000 10000\n",
+                        "contextProviders": [],
+                        "executableName": "lmp",
+                        "name": "in.emin",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                }
+            ],
+            "context": [],
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "isDraft": false
+}

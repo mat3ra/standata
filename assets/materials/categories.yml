@@ -1,0 +1,491 @@
+categories:
+  type:
+    - semiconductor
+    - solar energy material
+    - storage medium
+    - organic electronics
+    - battery/energy storage
+    - composite
+    - polymer
+    - metals & alloys
+    - solvent
+    - catalysis
+    - consumer packaged goods
+    - glass
+    - ceramic
+  form_factor:
+    - bulk
+    - layer
+    - interface
+  dimensionality:
+    - 0D
+    - 1D
+    - 2D
+    - 3D
+    - 4D
+  electrical_conductivity:
+    - metal
+    - semi-metal
+    - semiconductor
+    - insulator
+  magnetism:
+    - ferromagnetic
+    - anti-ferromagnetic
+    - paramagnetic
+    - diamagnetic
+    - non-magnetic
+  superconductivity:
+    - type I
+    - type II
+  composition:
+    - oxide
+    - nitride
+    - carbide
+
+entities:
+  - filename: C-[Graphene]-HEX_[P6%2Fmmm]_2D_[Monolayer]-[2dm-3993].json
+    categories:
+      - 2D
+      - layer
+      - semi-metal
+      - non-magnetic
+  - filename: C-[Graphite]-HEX_[P6_3%2Fmmc]_3D_[Bulk]-[mp-48].json
+    categories:
+      - 3D
+      - bulk
+      - semi-metal
+      - non-magnetic
+      - battery/energy storage
+  - filename: BN-[Hexagonal_Boron_Nitride]-HEX_[P6%2Fmmm]_2D_[Monolayer]-[2dm-4991].json
+    categories:
+      - 2D
+      - layer
+      - insulator
+      - non-magnetic
+  - filename: BN-[Boron_Nitride]-HEX_[P6_3%2Fmmc]_3D_[Bulk]-[mp-7991].json
+    categories:
+      - 3D
+      - bulk
+      - insulator
+      - non-magnetic
+  - filename: NaCl-[Sodium_Chloride]-FCC_[Fm-3m]_3D_[Bulk]-[mp-22862].json
+    categories:
+      - 3D
+      - bulk
+      - insulator
+      - non-magnetic
+  - filename: Si-[Silicon]-FCC_[Fd-3m]_3D_[Bulk]-[mp-149].json
+    categories:
+      - 3D
+      - bulk
+      - semiconductor
+      - non-magnetic
+  - filename: Si-[Silicene]-HEX_[P-3m1]_2D_[Monolayer]-[2dm-5934].json
+    categories:
+      - 2D
+      - layer
+      - semiconductor
+      - non-magnetic
+  - filename: WS2-[Tungsten_Disulfide]-HEX_[P6_3%2Fmmc]_3D_[Bulk]-[mp-224].json
+    categories:
+      - 3D
+      - bulk
+      - semiconductor
+      - non-magnetic
+  - filename: WS2-[Tungsten_Disulfide]-HEX_[P-6m2]_2D_[Monolayer]-[2dm-3749].json
+    categories:
+      - 2D
+      - layer
+      - semiconductor
+      - non-magnetic
+  - filename: Ni-[Nickel]-FCC_[Fm-3m]_3D_[Bulk]-[mp-23].json
+    categories:
+      - 3D
+      - bulk
+      - metal
+      - ferromagnetic
+  - filename: Cu-[Copper]-FCC_[Fm-3m]_3D_[Bulk]-[mp-30].json
+    categories:
+      - 3D
+      - bulk
+      - metal
+      - non-magnetic
+      - metals & alloys
+  - filename: Au-[Gold]-FCC_[Fm-3m]_3D_[Bulk]-[mp-81].json
+    categories:
+      - 3D
+      - bulk
+      - metal
+      - non-magnetic
+      - metals & alloys
+  - filename: ZnO-[Zinc_Oxide]-HEX_[P6_3mc]_3D_[Bulk]-[mp-2133].json
+    categories:
+      - 3D
+      - bulk
+      - semiconductor
+      - non-magnetic
+      - oxide
+  - filename: Al2O3-[Sapphire]-RHL_[R-3c]_3D_[Bulk]-[mp-1143].json
+    categories:
+      - 3D
+      - bulk
+      - insulator
+      - non-magnetic
+      - oxide
+  - filename: SiO2-[Quartz]-HEX_[P3_121]_3D_[Bulk]-[mp-7000].json
+    categories:
+      - 3D
+      - bulk
+      - insulator
+      - non-magnetic
+      - oxide
+      - glass
+  - filename: ZrO2-[Zirconium_Dioxide]-MCL_[P2_1%2Fc]_3D_[Bulk]-[mp-2858].json
+    categories:
+      - 3D
+      - bulk
+      - insulator
+      - non-magnetic
+      - oxide
+  - filename: HfO2-[Hafnium_IV_Oxide]-MCL_[P2_1%2Fc]_3D_[Bulk]-[mp-352].json
+    categories:
+      - 3D
+      - bulk
+      - insulator
+      - non-magnetic
+      - oxide
+  - filename: Y2O3-[Yttrium_III_Oxide]-MCLC_[C2%2Fm]_3D_[Bulk]-[mp-558573].json
+    categories:
+      - 3D
+      - bulk
+      - insulator
+      - non-magnetic
+      - oxide
+  - filename: VO2-[Vanadium_IV_Oxide]-TET_[P4_2%2Fmnm]_3D_[Bulk]-[mp-19094].json
+    categories:
+      - 3D
+      - bulk
+      - semiconductor
+      - ferromagnetic
+      - oxide
+  - filename: TiO2-[Titanium_Oxide]-TET_[P4_2%2Fmnm]_3D_[Bulk]-[mp-2657].json
+    categories:
+      - 3D
+      - bulk
+      - insulator
+      - non-magnetic
+      - oxide
+  - filename: MoS2-[Molybdenum_Disulfide]-HEX_[P_3%2Fmmc]_3D_[Bulk]-[mp-2815].json
+    categories:
+      - 3D
+      - bulk
+      - semiconductor
+      - non-magnetic
+  - filename: MoS2-[Molybdenum_Disulfide]-HEX_[P-6m2]_2D_[Monolayer]-[2dm-3150].json
+    categories:
+      - 2D
+      - layer
+      - semiconductor
+      - non-magnetic
+  - filename: Te2Mo-[Molybdenum_Telluride]-HEX_[P6_3%2Fmmc]_3D_[Bulk]-[mp-602].json
+    categories:
+      - 3D
+      - bulk
+      - semiconductor
+      - non-magnetic
+  - filename: Te2Mo-[Molybdenum_Telluride]-HEX_[P-6m2]_2D_[Monolayer]-[2dm-5370].json
+    categories:
+      - 2D
+      - layer
+      - semiconductor
+      - non-magnetic
+  - filename: WSe2-[Tungsten_Diselenide]-HEX_[P6_3%2Fmmc]_3D_[Bulk]-[mp-1821].json
+    categories:
+      - 3D
+      - bulk
+      - semiconductor
+      - non-magnetic
+  - filename: WSe2-[Tungsten_Diselenide]-HEX_[P-6m2]_2D_[Monolayer]-[2dm-3594].json
+    categories:
+      - 2D
+      - layer
+      - semiconductor
+      - non-magnetic
+  - filename: GaN-[Gallium_Nitride]-HEX_[P6_3mc]_3D_[Bulk]-[mp-804].json
+    categories:
+      - 3D
+      - bulk
+      - semiconductor
+      - non-magnetic
+      - nitride
+  - filename: GaAs-[Gallium_Arsenide]-FCC_[F-43m]_3D_[Bulk]-[mp-2534].json
+    categories:
+      - 3D
+      - bulk
+      - semiconductor
+      - non-magnetic
+  - filename: AlN-[Aluminum_Nitride]-HEX_[P6_3mc]_3D_[Bulk]-[mp-661].json
+    categories:
+      - 3D
+      - bulk
+      - insulator
+      - non-magnetic
+      - nitride
+      - ceramic
+  - filename: TiN-[Titanium_Nitride]-FCC_[Fm-3m]_3D_[Bulk]-[mp-492].json
+    categories:
+      - 3D
+      - bulk
+      - metal
+      - non-magnetic
+      - nitride
+      - ceramic
+  - filename: C-[Diamond]-FCC_[Fd-3m]_3D_[Bulk]-[mp-66].json
+    categories:
+      - 3D
+      - bulk
+      - insulator
+      - non-magnetic
+  - filename: Pt-[Platinum]-FCC_[Fm-3m]_3D_[Bulk]-[mp-126].json
+    categories:
+      - 3D
+      - bulk
+      - metal
+      - non-magnetic
+      - catalysis
+  - filename: SrTiO3-[Strontium_Titanate]-CUB_[Pm-3m]_3D_[Bulk]-[mp-5229].json
+    categories:
+      - 3D
+      - bulk
+      - insulator
+      - non-magnetic
+      - oxide
+  - filename: SiO2-[Cristobalite]-TET_[I-42d]_3D_[Bulk]-[mp-546794].json
+    categories:
+      - 3D
+      - bulk
+      - insulator
+      - non-magnetic
+      - oxide
+      - glass
+  - filename: Si-[Silicon_(100)_surface_(reconstructed)]-TRI_[P1]_2D_[Surface]-[mavrl-si-100-r].json
+    categories:
+      - 2D
+      - layer
+      - semiconductor
+      - non-magnetic
+  - filename: Si-[Silicon_(100)_surface]-TRI_[P1]_2D_[Surface]-[mavrl-si-100].json
+    categories:
+      - 2D
+      - layer
+      - semiconductor
+      - non-magnetic
+  - filename: NbS2-[Niobium_Disulfide]-HEX_[P6_3%2Fmmc]_3D_[Bulk]-[mp-10033].json
+    categories:
+      - 3D
+      - bulk
+      - semiconductor
+      - ferromagnetic
+  - filename: NbSe2-[Niobium_Diselenide]-HEX_[P6_3%2Fmmc]_3D_[Bulk]-[mp-2207].json
+    categories:
+      - 3D
+      - bulk
+      - semiconductor
+      - ferromagnetic
+  - filename: HfO2-[Hafnium_IV_Oxide]-ORC_[Pnma]_3D_[Bulk]-[mp-741].json
+    categories:
+      - 3D
+      - bulk
+      - insulator
+      - non-magnetic
+      - oxide
+  - filename: HfO2-[Hafnium_IV_Oxide]-FCC_[Fm-3m]_3D_[Bulk]-[mp-550893].json
+    categories:
+      - 3D
+      - bulk
+      - insulator
+      - non-magnetic
+      - oxide
+  - filename: SnO-[Tin_Oxide]-TET_[P4%2Fnmm]_3D_[Bulk]-[mp-2097].json
+    categories:
+      - 3D
+      - bulk
+      - semiconductor
+      - non-magnetic
+      - oxide
+  - filename: NbSe2-[Niobium_Diselenide]-HEX_[P-6m2]_2D_[Monolayer]-[2dm-3941].json
+    categories:
+      - 2D
+      - layer
+      - semiconductor
+      - ferromagnetic
+  - filename: NbS2-[Niobium_Disulfide]-HEX_[P-6m2]_2D_[Monolayer]-[2dm-3019].json
+    categories:
+      - 2D
+      - layer
+      - semiconductor
+      - ferromagnetic
+  - filename: C-[Graphene_Zigzag_Nanoribbon_(W=4_L=10)]-ORC_[Pmm2]_2D_[Nanoribbon]-[m3-z53HK5wLAvRoWDwr6].json
+    categories:
+      - 2D
+      - layer
+      - semi-metal
+      - non-magnetic
+  - filename: SiGe-[Silicon-Germanium]-FCC_[F-43m]_3D_[Bulk]-[mp-1219182].json
+    categories:
+      - 3D
+      - bulk
+      - semiconductor
+      - non-magnetic
+  - filename: Ge-[Germanium]-FCC_[Fd-3m]_3D_[Bulk]-[mp-32].json
+    categories:
+      - 3D
+      - bulk
+      - semi-metal
+      - non-magnetic
+  - filename: Al-[Aluminum]-FCC_[Fm-3m]_3D_[Bulk]-[mp-134].json
+    categories:
+      - 3D
+      - bulk
+      - metal
+      - non-magnetic
+      - metals & alloys
+  - filename: As-[Arsenic]-ORC_[Cmce]_3D_[Bulk]-[mp-158].json
+    categories:
+      - 3D
+      - bulk
+      - semiconductor
+      - non-magnetic
+  - filename: B-[Boron]-RHL_[R-3m]_3D_[Bulk]-[mp-160].json
+    categories:
+      - 3D
+      - bulk
+      - semiconductor
+      - non-magnetic
+  - filename: Cl2-[Chlorine]-ORC_[Cmce]_3D_[Bulk]-[mp-22848].json
+    categories:
+      - 3D
+      - bulk
+      - insulator
+      - non-magnetic
+  - filename: Ga-[Gallium]-ORC_[Cmce]_3D_[Bulk]-[mp-142].json
+    categories:
+      - 3D
+      - bulk
+      - metal
+      - non-magnetic
+      - metals & alloys
+  - filename: Hf-[Hafnium]-HEX_[P6_3%2Fmmc]_3D_[Bulk]-[mp-103].json
+    categories:
+      - 3D
+      - bulk
+      - metal
+      - non-magnetic
+      - metals & alloys
+  - filename: Mo-[Molybdenum]-BCC_[Im-3m]_3D_[Bulk]-[mp-129].json
+    categories:
+      - 3D
+      - bulk
+      - metal
+      - non-magnetic
+      - metals & alloys
+  - filename: N2-[Nitrogen]-FCC_[P2_13]_3D_[Bulk]-[mp-154].json
+    categories:
+      - 3D
+      - bulk
+      - insulator
+      - non-magnetic
+  - filename: Na-[Sodium]-HEX_[P6_3%2Fmmc]_3D_[Bulk]-[mp-10172].json
+    categories:
+      - 3D
+      - bulk
+      - metal
+      - non-magnetic
+      - metals & alloys
+  - filename: Nb-[Niobium]-BCC_[Im-3m]_3D_[Bulk]-[mp-75].json
+    categories:
+      - 3D
+      - bulk
+      - metal
+      - non-magnetic
+      - metals & alloys
+  - filename: O2-[Oxygen]-MCLC_[C2%2Fm]_3D_[Bulk]-[mp-12957].json
+    categories:
+      - 3D
+      - bulk
+      - insulator
+      - non-magnetic
+  - filename: S-[Sulfur]-ORC_[Fddd]_3D_[Bulk]-[mp-77].json
+    categories:
+      - 3D
+      - bulk
+      - insulator
+      - non-magnetic
+  - filename: Se-[Selenium]-MCL_[P2_1%2Fc]_3D_[Bulk]-[mp-570481].json
+    categories:
+      - 3D
+      - bulk
+      - semiconductor
+      - non-magnetic
+  - filename: Sn-[Tin]-FCC_[Fd-3m]_3D_[Bulk]-[mp-117].json
+    categories:
+      - 3D
+      - bulk
+      - metal
+      - non-magnetic
+      - metals & alloys
+  - filename: Sr-[Strontium]-HEX_[P6_3%2Fmmc]_3D_[Bulk]-[mp-139].json
+    categories:
+      - 3D
+      - bulk
+      - metal
+      - non-magnetic
+      - metals & alloys
+  - filename: Te-[Tellurium]-RHL_[P3_121]_3D_[Bulk]-[mp-19].json
+    categories:
+      - 3D
+      - bulk
+      - semiconductor
+      - non-magnetic
+  - filename: Ti-[Titanium]-HEX_[P6%2Fmmm]_3D_[Bulk]-[mp-72].json
+    categories:
+      - 3D
+      - bulk
+      - metal
+      - non-magnetic
+      - metals & alloys
+  - filename: V-[Vanadium]-BCC_[Im-3m]_3D_[Bulk]-[mp-146].json
+    categories:
+      - 3D
+      - bulk
+      - metal
+      - non-magnetic
+      - metals & alloys
+  - filename: W-[Tungsten]-BCC_[Im-3m]_3D_[Bulk]-[mp-91].json
+    categories:
+      - 3D
+      - bulk
+      - metal
+      - non-magnetic
+      - metals & alloys
+  - filename: Y-[Yttrium]-HEX_[P6_3%2Fmmc]_3D_[Bulk]-[mp-112].json
+    categories:
+      - 3D
+      - bulk
+      - metal
+      - non-magnetic
+      - metals & alloys
+  - filename: Zn-[Zinc]-HEX_[P6_3%2Fmmc]_3D_[Bulk]-[mp-79].json
+    categories:
+      - 3D
+      - bulk
+      - metal
+      - non-magnetic
+      - metals & alloys
+  - filename: Zr-[Zirconium]-HEX_[P6_3%2Fmmc]_3D_[Bulk]-[mp-131].json
+    categories:
+      - 3D
+      - bulk
+      - metal
+      - non-magnetic
+      - metals & alloys

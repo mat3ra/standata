@@ -1,0 +1,20 @@
+# Formation energy per atom (eV/atom):
+#   E_form = (E_MATERIAL - E_ELEMENTAL_SUM) / N_atoms
+#
+# Context flow:
+#   MATERIAL_ID (job input)
+#     -> MATERIAL                          compound structure
+#     -> ELEMENTS                         unique element symbols, e.g. ["Ga", "As"]
+#     -> ELEMENT_MATERIALS                elemental ref material per symbol (Standata bank)
+#     -> E_MATERIAL                         compound total_energy (eV) from QE pw.x
+#     -> E_ELEMENTAL_BY_SYMBOL              total_energy (eV) per element ref, highest precision
+#     -> E_ELEMENTAL_SUM                    sum of ref energy per atom in compound
+#     -> formation_energy (property)        (E_MATERIAL - E_ELEMENTAL_SUM) / N_atoms, eV/atom
+#
+# Elemental refs: platform materials with tags: elemental, metadata.element.
+name: Formation Energy
+units:
+  - name: shell/utils/get_elemental_materials
+    type: subworkflow
+  - name: formation_energy
+    type: subworkflow

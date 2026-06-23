@@ -1,0 +1,93 @@
+{
+    "_id": "8bcfd726-4fcd-5b2f-b91e-493c61ee9014",
+    "name": "Get Bulk Energy",
+    "application": {
+        "name": "shell"
+    },
+    "properties": [],
+    "model": {
+        "type": "unknown",
+        "subtype": "unknown",
+        "method": {
+            "type": "unknown",
+            "subtype": "unknown",
+            "data": {}
+        }
+    },
+    "units": [
+        {
+            "name": "io-e-bulk",
+            "type": "io",
+            "subtype": "input",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "io-e-bulk",
+            "source": "api",
+            "input": [
+                {
+                    "type": "api",
+                    "endpoint": "refined-properties",
+                    "endpoint_options": {
+                        "params": {
+                            "query": "{'exabyteId': BULK.exabyteId, 'data.name': 'total_energy', 'group': {'$regex': 'APP:'}}",
+                            "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
+                        }
+                    },
+                    "name": "DATA"
+                }
+            ],
+            "head": true,
+            "next": "assign-e-bulk",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "assign-e-bulk",
+            "type": "assignment",
+            "operand": "E_BULK",
+            "value": "DATA[0].data.value if DATA else None",
+            "input": [
+                {
+                    "name": "DATA",
+                    "scope": "io-e-bulk"
+                }
+            ],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-e-bulk",
+            "head": false,
+            "next": "assert-e-bulk",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "assert-e-bulk",
+            "type": "assertion",
+            "statement": "E_BULK != None",
+            "errorMessage": "Bulk total energy does not exist for the resolved bulk material. Run a bulk total energy workflow first.",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assert-e-bulk",
+            "head": false,
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "isDraft": false
+}

@@ -1,0 +1,31 @@
+name: Wavefunction Amplitude
+
+# To plot a different band, edit the workflow in the UI:
+#   1. Open "Wavefunction Amplitude" subworkflow unit
+#   2. Find the "Select Band" assignment (last assignment unit before pp_wfn)
+#   3. Change the value for "KBAND_VALUE" to one of:
+#      - 'KBAND_VALUE_BELOW_EF' (to plot the highest occupied band)
+#      - 'KBAND_VALUE_BELOW_EF+1'  (to plot the lowest unoccupied band)
+
+properties:
+  - atomic_forces
+  - band_structure
+  - fermi_energy
+  - file_content
+  - pressure
+  - stress_tensor
+  - total_energy
+  - total_energy_contributions
+  - total_force
+  - wavefunction_amplitude
+
+units:
+  - name: wavefunction_amplitude
+    type: subworkflow
+
+  - name: plot_wavefunction
+    type: subworkflow
+
+tags:
+  - wfn
+  - wfn_plot

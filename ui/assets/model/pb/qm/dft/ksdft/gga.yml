@@ -1,0 +1,11 @@
+path: "/pb/qm/dft/ksdft/gga"
+data:
+    key: subtype
+    value: !esse "models-category/pb/qm/dft/ksdft/enum-options#/generalizedGradientApproximation/enum[0]"
+    name: "GGA"
+# terminal node, no children
+staticOptions:
+    - !parameter
+      key: functional
+      values: !esse "model/mixins/dft/enum-options#/gga/enum"
+      namesMap: !include "manifest/names_map.yml#/gga"

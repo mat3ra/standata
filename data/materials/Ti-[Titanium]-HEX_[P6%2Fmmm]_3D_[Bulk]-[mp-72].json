@@ -1,0 +1,75 @@
+{
+  "name": "Ti, Titanium, HEX (P6/mmm) 3D (Bulk), mp-72",
+  "lattice": {
+    "a": 4.567375,
+    "b": 4.567374,
+    "c": 2.826244,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0,
+    "units": {
+      "length": "angstrom",
+      "angle": "degree"
+    },
+    "type": "HEX"
+  },
+  "basis": {
+    "elements": [
+      {
+        "id": 0,
+        "value": "Ti"
+      },
+      {
+        "id": 1,
+        "value": "Ti"
+      },
+      {
+        "id": 2,
+        "value": "Ti"
+      }
+    ],
+    "coordinates": [
+      {
+        "id": 0,
+        "value": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": 1,
+        "value": [
+          0.333333,
+          0.666667,
+          0.5
+        ]
+      },
+      {
+        "id": 2,
+        "value": [
+          0.666667,
+          0.333333,
+          0.5
+        ]
+      }
+    ],
+    "units": "crystal",
+    "constraints": [],
+    "labels": []
+  },
+  "external": {
+    "id": "mp-72",
+    "source": "MaterialsProject",
+    "doi": "10.17188/1287108",
+    "url": "https://next-gen.materialsproject.org/materials/mp-72",
+    "origin": true
+  },
+  "isNonPeriodic": false,
+  "metadata": {
+    "element": "Ti"
+  },
+  "tags": [
+    "elemental"
+  ]
+}

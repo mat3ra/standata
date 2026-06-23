@@ -1,0 +1,6 @@
+path: "/qm/wf/smearing/gaussian"
+data:
+    key: subtype
+    value: !esse "methods-category/physical/qm/wf/enum-options#/smearingSubtypes/enum[0]"
+    name: "Gaussian"
+# terminal node, no children

@@ -1,0 +1,8 @@
+path: "/qm/wf/smearing"
+data:
+    key: type
+    value: !esse "methods-category/physical/qm/wf/enum-options#/smearing/enum[0]"
+    name: "Occupation Number Smearing"
+children:
+    - !include "method/qm/wf/smearing/gaussian.yml"
+    - !include "method/qm/wf/smearing/methfessel_paxton.yml"

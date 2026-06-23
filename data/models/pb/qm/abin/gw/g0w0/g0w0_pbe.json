@@ -1,0 +1,15 @@
+{
+    "parameters": {
+        "functional": "pbe",
+        "require": "pb/qm/dft/ksdft/gga?functional=pbe"
+    },
+    "categories": {
+        "subtype": "g0w0",
+        "tier1": "pb",
+        "tier2": "qm",
+        "tier3": "abin",
+        "type": "gw"
+    },
+    "name": "G0W0@PBE",
+    "path": "/pb/qm/abin/gw/g0w0?functional=pbe&require=pb%2Fqm%2Fdft%2Fksdft%2Fgga%3Ffunctional%3Dpbe"
+}

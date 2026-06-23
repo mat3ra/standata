@@ -1,0 +1,498 @@
+{
+    "_id": "3d4480be-238a-514b-b236-45042cc6d9a4",
+    "name": "Molecular Dynamics - DeePMD",
+    "subworkflows": [
+        {
+            "_id": "bf0d584b-0a7f-5174-8132-f8f0c8969bc5",
+            "name": "CP-MD",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "espresso",
+                "shortName": "qe",
+                "summary": "Quantum ESPRESSO",
+                "version": "6.3",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [],
+            "model": {
+                "type": "dft",
+                "subtype": "gga",
+                "method": {
+                    "type": "pseudopotential",
+                    "subtype": "us",
+                    "data": {}
+                },
+                "functional": "pbe"
+            },
+            "units": [
+                {
+                    "type": "execution",
+                    "name": "cp",
+                    "head": true,
+                    "results": [],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "c2bfdd05-9192-5160-b0f0-4248441a92b5",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": false,
+                        "name": "cp.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "cp.x",
+                        "input": [
+                            {
+                                "name": "cp.in"
+                            }
+                        ],
+                        "isDefault": true,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "cp",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "{% if subworkflowContext.MATERIAL_INDEX %}\n{%- set input = input.perMaterial[subworkflowContext.MATERIAL_INDEX] -%}\n{% endif -%}\n&CONTROL\n    calculation = 'cp'\n    restart_mode = '{{ input.RESTART_MODE }}'\n    tstress = .true.\n    tprnfor = .true.\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}'{% endraw %}\n    prefix = 'cp'\n    pseudo_dir = {% raw %}'{{ JOB_WORK_DIR }}/pseudo'{% endraw %}\n    nstep = {{ dynamics.numberOfSteps }}\n    iprint = 1\n    dt = {{ dynamics.timeStep }}\n/\n&SYSTEM\n    ibrav = {{ input.IBRAV }}\n    nat = {{ input.NAT }}\n    ntyp = {{ input.NTYP }}\n    ecutwfc = {{ cutoffs.wavefunction }}\n    ecutrho = {{ cutoffs.density }}\n    nr1b = 20\n    nr2b = 20\n    nr3b = 20\n/\n&ELECTRONS\n    electron_dynamics = 'verlet'\n    electron_velocities = 'zero'\n    emass = {{ dynamics.electronMass }}\n!! consider the below parameters if orthogonalization fails\n!   orthogonalization = 'ortho'\n!   ortho_eps = 1d-11\n/\n&IONS\n    ion_dynamics = 'verlet'\n    ion_velocities = 'zero'\n    tempw = {{ dynamics.temperature }}\n/\n&CELL\n/\nATOMIC_SPECIES\n{% for specie in input.ATOMIC_SPECIES -%}\n{{ specie.X }} {{ specie.Mass_X|sprintf(\"%f\") }} {{ specie.PseudoPot_X }}\n{% endfor %}\nATOMIC_POSITIONS crystal\n{%- set print_constraints = false %}\n{%- for position in input.ATOMIC_POSITIONS %}\n    {%- if position[\"if_pos(1)\"] != 1 or position[\"if_pos(2)\"] != 1 or position[\"if_pos(3)\"] != 1 %}\n        {%- set print_constraints = true %}\n    {%- endif %}\n{%- endfor %}\n{% for position in input.ATOMIC_POSITIONS -%}\n{{ position.X|sprintf(\"%-3s\") }} {{ position.x|sprintf(\"%14.9f\") }} {{ position.y|sprintf(\"%14.9f\") }} {{ position.z|sprintf(\"%14.9f\") }}{% if print_constraints %} {{ position[\"if_pos(1)\"] }} {{ position[\"if_pos(2)\"] }} {{ position[\"if_pos(3)\"] }}{% endif %}\n{% endfor %}\nCELL_PARAMETERS angstrom\n{{ input.CELL_PARAMETERS.v1[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v2[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v3[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[2]|sprintf(\"%14.9f\") }}\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "QEPWXInputDataManager"
+                                    },
+                                    {
+                                        "name": "PlanewaveCutoffDataManager"
+                                    },
+                                    {
+                                        "name": "IonDynamicsContextProvider"
+                                    }
+                                ],
+                                "executableName": "cp.x",
+                                "name": "cp.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
+            "_id": "9ec0f0e4-0f69-5fc7-a6b4-5c5df9499e61",
+            "name": "DeePMD",
+            "application": {
+                "build": "CPU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "deepmd",
+                "shortName": "dp",
+                "summary": "DeepMD",
+                "version": "3.1.2",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [],
+            "model": {
+                "type": "unknown",
+                "subtype": "unknown",
+                "method": {
+                    "type": "unknown",
+                    "subtype": "unknown",
+                    "data": {}
+                }
+            },
+            "units": [
+                {
+                    "type": "execution",
+                    "name": "espresso_cp_to_deepmd",
+                    "head": true,
+                    "results": [],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "eab537e7-8806-5499-ac68-2eafc1551248",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "CPU",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "deepmd",
+                        "shortName": "dp",
+                        "summary": "DeepMD",
+                        "version": "3.1.2",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "deepmd",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "name": "python",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "deepmd",
+                        "applicationVersion": "*",
+                        "executableName": "python",
+                        "input": [
+                            {
+                                "name": "espresso_cp_to_deepmd.py"
+                            }
+                        ],
+                        "isDefault": true,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "espresso_cp_to_deepmd",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "deepmd",
+                                "applicationVersion": "*",
+                                "content": "import dpdata\nimport numpy as np\n\n# https://docs.deepmodeling.com/projects/dpdata/en/master/formats/QECPTrajFormat.html\ndata = dpdata.LabeledSystem(\"cp\", fmt=\"qe/cp/traj\")\nprint(\"Dataset contains total {0} frames\".format(len(data)))\n\n# randomly choose 20% index for validation_data\nsize = len(data)\nsize_validation = round(size * 0.2)\n\nindex_validation = np.random.choice(size, size=size_validation, replace=False)\nindex_training = list(set(range(size)) - set(index_validation))\n\ndata_training = data.sub_system(index_training)\ndata_validation = data.sub_system(index_validation)\n\nprint(\"Using {0} frames as training set\".format(len(data_training)))\nprint(\"Using {0} frames as validation set\".format(len(data_validation)))\n\n# save training and validation sets\ndata_training.to_deepmd_npy(\"./training\")\ndata_validation.to_deepmd_npy(\"./validation\")\n",
+                                "contextProviders": [],
+                                "executableName": "python",
+                                "name": "espresso_cp_to_deepmd.py",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "2c2e5fba-8192-5c20-8963-200a7bbb1021",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "dp_train_se_e2_r",
+                    "head": false,
+                    "results": [],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "2c2e5fba-8192-5c20-8963-200a7bbb1021",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "CPU",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "deepmd",
+                        "shortName": "dp",
+                        "summary": "DeepMD",
+                        "version": "3.1.2",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "deepmd",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": false,
+                        "name": "dp",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "deepmd",
+                        "applicationVersion": "*",
+                        "executableName": "dp",
+                        "input": [
+                            {
+                                "name": "dp_train_se_e2_r.json"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "dp_train_se_e2_r",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "deepmd",
+                                "applicationVersion": "*",
+                                "content": "{\n    \"model\": {\n        \"type_map\": [\n            \"O\",\n            \"H\"\n        ],\n        \"descriptor\": {\n            \"type\": \"se_e2_r\",\n            \"sel\": [\n                23,\n                46\n            ],\n            \"rcut_smth\": 0.50,\n            \"rcut\": 5.00,\n            \"neuron\": [\n                5,\n                5,\n                5\n            ],\n            \"resnet_dt\": false,\n            \"seed\": 1\n        },\n        \"fitting_net\": {\n            \"neuron\": [\n                60,\n                60,\n                60\n            ],\n            \"resnet_dt\": true,\n            \"seed\": 1\n        }\n    },\n    \"learning_rate\": {\n        \"type\": \"exp\",\n        \"decay_steps\": 1000,\n        \"start_lr\": 0.005,\n        \"stop_lr\": 3.51e-6\n    },\n    \"loss\": {\n        \"start_pref_e\": 0.02,\n        \"limit_pref_e\": 1,\n        \"start_pref_f\": 1000,\n        \"limit_pref_f\": 1,\n        \"start_pref_v\": 0,\n        \"limit_pref_v\": 0\n    },\n    \"training\": {\n        \"training_data\": {\n            \"systems\": [\n                \"./training/\"\n            ],\n            \"batch_size\": \"auto\"\n        },\n        \"validation_data\": {\n            \"systems\": [\n                \"./validation/\"\n            ],\n            \"batch_size\": \"auto\"\n        },\n        \"numb_steps\": 301,\n        \"seed\": 1,\n        \"disp_file\": \"lcurve.out\",\n        \"disp_freq\": 10,\n        \"numb_test\": 1,\n        \"save_freq\": 100\n    }\n}\n",
+                                "contextProviders": [],
+                                "executableName": "dp",
+                                "name": "dp_train_se_e2_r.json",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "54509dae-51a5-5479-b6dd-0d8c1ab45aa1",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "espresso_to_lammps_structure",
+                    "head": false,
+                    "results": [],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "54509dae-51a5-5479-b6dd-0d8c1ab45aa1",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "CPU",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "deepmd",
+                        "shortName": "dp",
+                        "summary": "DeepMD",
+                        "version": "3.1.2",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "deepmd",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "name": "python",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "deepmd",
+                        "applicationVersion": "*",
+                        "executableName": "python",
+                        "input": [
+                            {
+                                "name": "espresso_to_lammps_structure.py"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "espresso_to_lammps_structure",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "deepmd",
+                                "applicationVersion": "*",
+                                "content": "import dpdata\n\n# load cp data files\n# https://docs.deepmodeling.com/projects/dpdata/en/master/formats/QECPTrajFormat.html\nsystem = dpdata.LabeledSystem(\"cp\", fmt=\"qe/cp/traj\")\n\n# convert dpdata to lammps format\n# below procedure will convert input QE structure to lammps format, user may\n# want to generate supercell or other complex structure for lammps calculation\nsystem.to_lmp(\"system.lmp\")\n",
+                                "contextProviders": [],
+                                "executableName": "python",
+                                "name": "espresso_to_lammps_structure.py",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "b58ea2e2-7dd8-5f37-8c2c-2c27dd065999",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "lammps_md",
+                    "head": false,
+                    "results": [],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "b58ea2e2-7dd8-5f37-8c2c-2c27dd065999",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "CPU",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "deepmd",
+                        "shortName": "dp",
+                        "summary": "DeepMD",
+                        "version": "3.1.2",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "deepmd",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": false,
+                        "name": "lmp",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "deepmd",
+                        "applicationVersion": "*",
+                        "executableName": "lmp",
+                        "input": [
+                            {
+                                "name": "in.lammps"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "lammps_md",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "deepmd",
+                                "applicationVersion": "*",
+                                "content": "# LAMMPS input, deepmd-kit version. Built from bulk water calculation.\n\nunits           metal\nboundary        p p p\natom_style      atomic\n\nneighbor        2.0 bin\nneigh_modify    every 10 delay 0 check no\n\nread_data       system.lmp\nmass            1 16\nmass            2 2\n\npair_style\t    deepmd ./graph.pb\npair_coeff      * *\n\nvelocity        all create 330.0 23456789\n\nfix             1 all nvt temp 330.0 330.0 0.5\ntimestep        0.0005\nthermo_style    custom step pe ke etotal temp press vol\nthermo          100\ndump            1 all custom 100 system.dump id type x y z\n\nrun             100\n",
+                                "contextProviders": [],
+                                "executableName": "lmp",
+                                "name": "in.lammps",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        }
+    ],
+    "units": [
+        {
+            "type": "subworkflow",
+            "name": "CP-MD",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "bf0d584b-0a7f-5174-8132-f8f0c8969bc5",
+            "flowchartId": "6ad0fa11-2db6-51ab-8ff9-638ed36d60b2",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "subworkflow",
+            "name": "DeePMD",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "9ec0f0e4-0f69-5fc7-a6b4-5c5df9499e61",
+            "flowchartId": "6d6d3a90-a3e9-555a-accd-b3764cd7888e",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "properties": [],
+    "workflows": [],
+    "schemaVersion": "2022.8.16",
+    "application": {
+        "name": "deepmd"
+    }
+}

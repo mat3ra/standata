@@ -1,45 +1,17 @@
 {
-    "extends": ["@exabyte-io/eslint-config"],
-    "settings": {
-        "import/resolver": {
-            "node": {
-                "paths": ["src/js"]
-            },
-            "exports": {}
-        }
-    },
-    "overrides": [
-        {
-            "files": [
-                "*.js",
-                "*.ts",
-                "*.tsx"
-            ],
-            "extends": [
-                "@exabyte-io/eslint-config",
-                "eslint:recommended",
-                "plugin:@typescript-eslint/eslint-recommended",
-                "plugin:@typescript-eslint/recommended",
-                "plugin:import/typescript"
-            ],
-            "parser": "@typescript-eslint/parser",
-            "rules": {
-                "@typescript-eslint/ban-ts-comment": "off",
-                "import/no-absolute-path": "off",
-                "import/extensions": "off",
-                "react/forbid-prop-types": "off",
-                "react/jsx-filename-extension": "off",
-                "react/require-default-props": "off",
-                "no-use-before-define": "off",
-                "no-restricted-exports": "off",
-                "no-shadow": "off",
-                "@typescript-eslint/no-use-before-define": [
-                    "error"
-                ]
-            },
-            "plugins": [
-                "@typescript-eslint"
-            ]
-        }
-    ]
+  "extends": ["@exabyte-io/eslint-config"],
+  "ignorePatterns": ["dist/"],
+  "settings": {
+    "import/resolver": {
+      "node": { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+    }
+  },
+  "overrides": [
+    {
+      "files": ["scripts/**/*.ts", "scripts/**/*.js"],
+      "rules": {
+        "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
+      }
+    }
+  ]
 }

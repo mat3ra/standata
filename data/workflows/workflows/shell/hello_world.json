@@ -1,0 +1,135 @@
+{
+    "_id": "d2fd444c-06b4-5d66-baeb-449c680ae1bf",
+    "name": "Shell Script",
+    "subworkflows": [
+        {
+            "_id": "ce33d4cf-e0d2-5020-854d-9ea1fe5c8512",
+            "name": "Shell Hello World",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": false,
+                "name": "shell",
+                "shortName": "sh",
+                "summary": "Shell Script",
+                "version": "5.1.8",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [],
+            "model": {
+                "type": "unknown",
+                "subtype": "unknown",
+                "method": {
+                    "type": "unknown",
+                    "subtype": "unknown",
+                    "data": {}
+                }
+            },
+            "units": [
+                {
+                    "type": "execution",
+                    "name": "shell",
+                    "head": true,
+                    "results": [],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "99304304-e873-5c89-ae83-91e61a7f629c",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": false,
+                        "name": "shell",
+                        "shortName": "sh",
+                        "summary": "Shell Script",
+                        "version": "5.1.8",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "shell",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "name": "sh",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "shell",
+                        "applicationVersion": "*",
+                        "executableName": "sh",
+                        "input": [
+                            {
+                                "name": "hello_world.sh"
+                            }
+                        ],
+                        "isDefault": true,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "hello_world",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "shell",
+                                "applicationVersion": "*",
+                                "content": "#!/bin/bash\n# ---------------------------------------------------------------- #\n#                                                                  #\n#  Example shell script for Mat3ra.com platform.                   #\n#                                                                  #\n#  Will be used as follows:                                        #\n#                                                                  #\n#    1. shebang line is read from the first line above             #\n#    2. based on shebang one of the shell types is selected:       #\n#       - /bin/bash                                                #\n#       - /bin/csh                                                 #\n#       - /bin/tclsh                                               #\n#       - /bin/tcsh                                                #\n#       - /bin/zsh                                                 #\n#    3. runtime directory for this calculation is created          #\n#    4. the content of the script is executed                      #\n#                                                                  #\n#  Adjust the content below to include your code.                  #\n#                                                                  #\n# ---------------------------------------------------------------- #\n\necho \"Hello world!\"\n",
+                                "contextProviders": [],
+                                "executableName": "sh",
+                                "name": "hello_world.sh",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        }
+    ],
+    "units": [
+        {
+            "type": "subworkflow",
+            "name": "Shell Hello World",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "ce33d4cf-e0d2-5020-854d-9ea1fe5c8512",
+            "flowchartId": "319307c2-bf22-5bf2-b4e9-a4cdf671b786",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "properties": [],
+    "workflows": [],
+    "schemaVersion": "2022.8.16",
+    "application": {
+        "name": "shell"
+    }
+}

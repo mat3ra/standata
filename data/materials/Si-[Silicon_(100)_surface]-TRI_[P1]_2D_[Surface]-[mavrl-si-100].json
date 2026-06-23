@@ -1,0 +1,129 @@
+{
+  "name": "Si, Silicon (100) surface, TRI (P1) 2D (Surface), mavrl-si-100",
+  "lattice": {
+    "a": 3.866975,
+    "b": 3.866975,
+    "c": 21.874912,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0,
+    "units": {
+      "length": "angstrom",
+      "angle": "degree"
+    },
+    "type": "TRI"
+  },
+  "basis": {
+    "elements": [
+      {
+        "id": 0,
+        "value": "Si"
+      },
+      {
+        "id": 1,
+        "value": "Si"
+      },
+      {
+        "id": 2,
+        "value": "Si"
+      },
+      {
+        "id": 3,
+        "value": "Si"
+      },
+      {
+        "id": 4,
+        "value": "Si"
+      },
+      {
+        "id": 5,
+        "value": "Si"
+      },
+      {
+        "id": 6,
+        "value": "Si"
+      },
+      {
+        "id": 7,
+        "value": "Si"
+      }
+    ],
+    "coordinates": [
+      {
+        "id": 0,
+        "value": [
+          0.0,
+          0.0,
+          0.999183
+        ]
+      },
+      {
+        "id": 1,
+        "value": [
+          0.0,
+          0.5,
+          0.81265
+        ]
+      },
+      {
+        "id": 2,
+        "value": [
+          0.5,
+          0.5,
+          0.874754
+        ]
+      },
+      {
+        "id": 3,
+        "value": [
+          0.5,
+          0.0,
+          0.937279
+        ]
+      },
+      {
+        "id": 4,
+        "value": [
+          0.0,
+          0.0,
+          0.74985
+        ]
+      },
+      {
+        "id": 5,
+        "value": [
+          0.0,
+          0.5,
+          0.563317
+        ]
+      },
+      {
+        "id": 6,
+        "value": [
+          0.5,
+          0.5,
+          0.625221
+        ]
+      },
+      {
+        "id": 7,
+        "value": [
+          0.5,
+          0.0,
+          0.687746
+        ]
+      }
+    ],
+    "units": "crystal",
+    "constraints": [],
+    "labels": []
+  },
+  "external": {
+    "id": "mavrl-si-100",
+    "source": "MaterialsVirtualLab",
+    "doi": "10.1038/sdata.2016.80",
+    "url": "https://crystalium.materialsvirtuallab.org/",
+    "origin": true
+  },
+  "isNonPeriodic": false
+}

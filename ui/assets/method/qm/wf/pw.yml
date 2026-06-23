@@ -1,0 +1,6 @@
+path: "/qm/wf/pw"
+data:
+    key: type
+    value: !esse "methods-category/physical/qm/wf/enum-options#/planewave/enum[0]"
+    name: "Plane Wave"
+# terminal node, no children

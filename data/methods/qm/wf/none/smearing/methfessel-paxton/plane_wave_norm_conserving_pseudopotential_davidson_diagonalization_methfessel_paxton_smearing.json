@@ -1,0 +1,56 @@
+{
+    "units": [
+        {
+            "categories": {
+                "subtype": "methfessel-paxton",
+                "tier1": "qm",
+                "tier2": "wf",
+                "type": "smearing"
+            },
+            "tags": [
+                "occupation number"
+            ],
+            "name": "Methfessel-Paxton Smearing",
+            "path": "/qm/wf/none/smearing/methfessel-paxton"
+        },
+        {
+            "categories": {
+                "tier1": "linalg",
+                "tier2": "diag",
+                "type": "davidson"
+            },
+            "tags": [
+                "diagonalization"
+            ],
+            "name": "Davidson Diagonalization",
+            "path": "/linalg/diag/none/davidson/none"
+        },
+        {
+            "categories": {
+                "subtype": "nc",
+                "tier1": "qm",
+                "tier2": "wf",
+                "type": "psp"
+            },
+            "tags": [
+                "pseudopotential"
+            ],
+            "name": "Norm-conserving Pseudopotential",
+            "path": "/qm/wf/none/psp/nc"
+        },
+        {
+            "categories": {
+                "tier1": "qm",
+                "tier2": "wf",
+                "type": "pw"
+            },
+            "tags": [
+                "plane wave"
+            ],
+            "name": "Wave function: Plane wave",
+            "path": "/qm/wf/none/pw/none"
+        }
+    ],
+    "name": "Plane-wave Norm-conserving Pseudopotential (Davidson Diagonalization, Methfessel-paxton Smearing)",
+    "path": "/qm/wf/none/smearing/methfessel-paxton::/linalg/diag/none/davidson/none::/qm/wf/none/psp/nc::/qm/wf/none/pw/none"
+}

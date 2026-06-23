@@ -1,0 +1,21 @@
+# Expects MATERIAL in workflow context. Assigns unique element symbols to ELEMENTS.
+application:
+  name: shell
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: Assign Elements From Material
+units:
+  - type: assignment
+    config:
+      name: assign-elements
+      flowchartId: assign-elements
+      operand: ELEMENTS
+      value: "sorted(list(set([e['value'] for e in MATERIAL.basis.elements])))"
+  - type: assertion
+    config:
+      name: assert-elements
+      flowchartId: assert-elements
+      statement: "len(ELEMENTS) > 0"
+      errorMessage: Material has no elements in its basis.

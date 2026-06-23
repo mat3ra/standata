@@ -1,0 +1,18 @@
+{
+    "parameters": {
+        "dispersionCorrection": "dft-d3",
+        "functional": "pz"
+    },
+    "categories": {
+        "tier1": "pb",
+        "tier2": "qm",
+        "tier3": "dft",
+        "type": "ksdft",
+        "subtype": "lda"
+    },
+    "tags": [
+        "density functional theory"
+    ],
+    "name": "DFT LDA PZ-D3",
+    "path": "/pb/qm/dft/ksdft/lda?dispersionCorrection=dft-d3&functional=pz"
+}

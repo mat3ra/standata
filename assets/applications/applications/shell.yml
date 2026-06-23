@@ -1,0 +1,8 @@
+name: shell
+shortName: sh
+summary: Shell Script
+defaultVersion: '5.1.8'
+versions:
+  - version: '5.1.8'
+    isDefault: true
+    build: GNU

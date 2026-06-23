@@ -1,0 +1,14 @@
+application:
+  name: lammps
+  version: 2025.07.22.2
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: Energy minimization
+units:
+  - config:
+      execName: lmp
+      flavorName: emin
+      name: emin_lammps
+    type: executionBuilder

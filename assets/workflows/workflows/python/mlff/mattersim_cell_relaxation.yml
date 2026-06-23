@@ -1,0 +1,4 @@
+name: Cell Relaxation - MatterSim python workflow
+units:
+- name: mattersim_cell_relaxation
+  type: subworkflow

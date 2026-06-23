@@ -1,0 +1,18 @@
+{
+    "parameters": {
+        "dispersionCorrection": "dft-d3",
+        "functional": "hse06"
+    },
+    "categories": {
+        "tier1": "pb",
+        "tier2": "qm",
+        "tier3": "dft",
+        "type": "ksdft",
+        "subtype": "hybrid"
+    },
+    "tags": [
+        "density functional theory"
+    ],
+    "name": "DFT Hybrid HSE-D3",
+    "path": "/pb/qm/dft/ksdft/hybrid?dispersionCorrection=dft-d3&functional=hse06"
+}

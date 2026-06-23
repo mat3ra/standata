@@ -1,0 +1,63 @@
+monitors:
+  - name: standard_output
+results:
+  - name: phonon_dos
+  - name: phonon_dispersions
+  - name: zero_point_energy
+flavors:
+  ph_path:
+    input:
+      - name: ph_path.in
+    results:
+      - name: phonon_dispersions
+    monitors:
+      - name: standard_output
+    applicationName: espresso
+    executableName: ph.x
+
+  ph_grid:
+    input:
+      - name: ph_grid.in
+    results:
+      - name: phonon_dos
+    monitors:
+      - name: standard_output
+    applicationName: espresso
+    executableName: ph.x
+
+  ph_gamma:
+    input:
+      - name: ph_gamma.in
+    results:
+      - name: zero_point_energy
+    monitors:
+      - name: standard_output
+    applicationName: espresso
+    executableName: ph.x
+
+  ph_init_qpoints:
+    input:
+      - name: ph_init_qpoints.in
+    results: []
+    monitors:
+      - name: standard_output
+    applicationName: espresso
+    executableName: ph.x
+
+  ph_grid_restart:
+    input:
+      - name: ph_grid_restart.in
+    results: []
+    monitors:
+      - name: standard_output
+    applicationName: espresso
+    executableName: ph.x
+
+  ph_single_irr_qpt:
+    input:
+      - name: ph_single_irr_qpt.in
+    results: []
+    monitors:
+      - name: standard_output
+    applicationName: espresso
+    executableName: ph.x

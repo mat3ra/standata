@@ -1,0 +1,18 @@
+{
+    "parameters": {
+        "spinPolarization": "collinear",
+        "functional": "pbesol"
+    },
+    "categories": {
+        "tier1": "pb",
+        "tier2": "qm",
+        "tier3": "dft",
+        "type": "ksdft",
+        "subtype": "gga"
+    },
+    "tags": [
+        "density functional theory"
+    ],
+    "name": "DFT GGA PBESOL (collinear)",
+    "path": "/pb/qm/dft/ksdft/gga?spinPolarization=collinear&functional=pbesol"
+}

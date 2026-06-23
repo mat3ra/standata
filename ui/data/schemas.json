@@ -1,0 +1,41 @@
+{
+    "categories": {
+        "tier1": {
+            "ui:title": "Tier 1"
+        },
+        "tier2": {
+            "ui:title": "Tier 2"
+        },
+        "tier3": {
+            "ui:title": "Tier 3"
+        },
+        "type": {
+            "ui:title": "Type"
+        },
+        "subtype": {
+            "ui:title": "Subtype"
+        }
+    },
+    "modelParameters": {
+        "functional": {
+            "ui:title": "Functional"
+        },
+        "dispersionCorrection": {
+            "ui:title": "Dispersion Correction"
+        },
+        "spinOrbitCoupling": {
+            "ui:title": "Spin-Orbit Coupling"
+        },
+        "hubbardType": {
+            "ui:title": "Hubbard Term"
+        },
+        "spinPolarization": {
+            "ui:title": "Spin-Polarization"
+        }
+    },
+    "methodParameters": {
+        "basisSlug": {
+            "ui:title": "Basis Set"
+        }
+    }
+}

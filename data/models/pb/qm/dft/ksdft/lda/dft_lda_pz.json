@@ -1,0 +1,17 @@
+{
+    "parameters": {
+        "functional": "pz"
+    },
+    "categories": {
+        "tier1": "pb",
+        "tier2": "qm",
+        "tier3": "dft",
+        "type": "ksdft",
+        "subtype": "lda"
+    },
+    "tags": [
+        "density functional theory"
+    ],
+    "name": "DFT LDA PZ",
+    "path": "/pb/qm/dft/ksdft/lda?functional=pz"
+}

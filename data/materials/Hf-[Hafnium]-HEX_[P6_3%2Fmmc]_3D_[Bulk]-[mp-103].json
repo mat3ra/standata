@@ -1,0 +1,63 @@
+{
+  "name": "Hf, Hafnium, HEX (P6_3/mmc) 3D (Bulk), mp-103",
+  "lattice": {
+    "a": 3.192385,
+    "b": 3.192384,
+    "c": 5.045042,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0,
+    "units": {
+      "length": "angstrom",
+      "angle": "degree"
+    },
+    "type": "HEX"
+  },
+  "basis": {
+    "elements": [
+      {
+        "id": 0,
+        "value": "Hf"
+      },
+      {
+        "id": 1,
+        "value": "Hf"
+      }
+    ],
+    "coordinates": [
+      {
+        "id": 0,
+        "value": [
+          0.333333,
+          0.666667,
+          0.25
+        ]
+      },
+      {
+        "id": 1,
+        "value": [
+          0.666667,
+          0.333333,
+          0.75
+        ]
+      }
+    ],
+    "units": "crystal",
+    "constraints": [],
+    "labels": []
+  },
+  "external": {
+    "id": "mp-103",
+    "source": "MaterialsProject",
+    "doi": "10.17188/1186884",
+    "url": "https://next-gen.materialsproject.org/materials/mp-103",
+    "origin": true
+  },
+  "isNonPeriodic": false,
+  "metadata": {
+    "element": "Hf"
+  },
+  "tags": [
+    "elemental"
+  ]
+}

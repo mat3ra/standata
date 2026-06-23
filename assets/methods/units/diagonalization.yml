@@ -1,0 +1,25 @@
+!combine
+name:
+  template: '{{ categories.type }} Diagonalization'
+  substitutions:
+    cg: Conjugate Gradient
+config:
+  categories:
+    tier1: opt
+    tier2: diff
+    tier3: ordern
+    type: cg
+  tags:
+    - diagonalization
+  schema: !esse 'methods-directory/mathematical/cg'
+extraConfigs: !combine
+  name:
+    template: '{{ categories.type | title }} Diagonalization'
+  config:
+    categories:
+      tier1: linalg
+      tier2: diag
+      type: davidson
+    tags:
+      - diagonalization
+    schema: !esse 'methods-directory/mathematical/davidson'

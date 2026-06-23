@@ -1,0 +1,22 @@
+{
+    "units": [
+        {
+            "parameters": {
+                "basisSlug": "6-31G"
+            },
+            "categories": {
+                "tier1": "qm",
+                "tier2": "wf",
+                "type": "ao",
+                "subtype": "pople"
+            },
+            "tags": [
+                "atomic orbital"
+            ],
+            "name": "Wave function: LCAO - Pople basis set (6-31G)",
+            "path": "/qm/wf/none/ao/pople?basisSlug=6-31G"
+        }
+    ],
+    "name": "Wave function: LCAO - Pople basis set (6-31G)",
+    "path": "/qm/wf/none/ao/pople?basisSlug=6-31G"
+}

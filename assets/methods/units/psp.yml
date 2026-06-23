@@ -1,0 +1,24 @@
+#
+# Pseudopotential method units
+#
+!combine
+name:
+  template: '{{ categories.subtype }} Pseudopotential'
+  substitutions:
+    us: Ultra-soft
+    nc: Norm-conserving
+    nc-fr: Norm-conserving Fully-relativistic
+    paw: Projector-augmented wave
+forEach:
+  - !parameter
+    key: categories.subtype
+    values: !esse 'methods-category/physical/qm/wf/enum-options#/pseudoSubtypes/enum'
+    exclude: '^coulomb'
+config:
+  categories:
+    tier1: qm
+    tier2: wf
+    type: psp
+  tags:
+    - pseudopotential
+  schema: !esse 'methods-directory/physical/psp'

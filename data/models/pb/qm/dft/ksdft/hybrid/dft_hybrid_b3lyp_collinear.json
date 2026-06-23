@@ -1,0 +1,18 @@
+{
+    "parameters": {
+        "spinPolarization": "collinear",
+        "functional": "b3lyp"
+    },
+    "categories": {
+        "tier1": "pb",
+        "tier2": "qm",
+        "tier3": "dft",
+        "type": "ksdft",
+        "subtype": "hybrid"
+    },
+    "tags": [
+        "density functional theory"
+    ],
+    "name": "DFT Hybrid B3LYP (collinear)",
+    "path": "/pb/qm/dft/ksdft/hybrid?spinPolarization=collinear&functional=b3lyp"
+}

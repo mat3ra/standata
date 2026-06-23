@@ -1,0 +1,87 @@
+{
+  "name": "Pt, Platinum, FCC (Fm-3m) 3D (Bulk), mp-126",
+  "lattice": {
+    "a": 3.94315,
+    "b": 3.94315,
+    "c": 3.94315,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0,
+    "units": {
+      "length": "angstrom",
+      "angle": "degree"
+    },
+    "type": "FCC"
+  },
+  "basis": {
+    "elements": [
+      {
+        "id": 0,
+        "value": "Pt"
+      },
+      {
+        "id": 1,
+        "value": "Pt"
+      },
+      {
+        "id": 2,
+        "value": "Pt"
+      },
+      {
+        "id": 3,
+        "value": "Pt"
+      }
+    ],
+    "coordinates": [
+      {
+        "id": 0,
+        "value": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": 1,
+        "value": [
+          0.0,
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": 2,
+        "value": [
+          0.5,
+          0.0,
+          0.5
+        ]
+      },
+      {
+        "id": 3,
+        "value": [
+          0.5,
+          0.5,
+          0.0
+        ]
+      }
+    ],
+    "units": "crystal",
+    "constraints": [],
+    "labels": []
+  },
+  "external": {
+    "id": "mp-126",
+    "source": "MaterialsProject",
+    "doi": "10.17188/1204433",
+    "url": "https://next-gen.materialsproject.org/materials/mp-126",
+    "origin": true
+  },
+  "isNonPeriodic": false,
+  "metadata": {
+    "element": "Pt"
+  },
+  "tags": [
+    "elemental"
+  ]
+}

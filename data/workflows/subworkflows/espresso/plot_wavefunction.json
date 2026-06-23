@@ -1,0 +1,129 @@
+{
+    "_id": "e4ec581f-1cb3-5036-b698-999a96711559",
+    "name": "Plot Wavefunction",
+    "application": {
+        "name": "espresso"
+    },
+    "properties": [
+        "file_content"
+    ],
+    "model": {
+        "type": "unknown",
+        "subtype": "unknown",
+        "method": {
+            "type": "unknown",
+            "subtype": "unknown",
+            "data": {}
+        }
+    },
+    "units": [
+        {
+            "type": "execution",
+            "name": "plot WFN",
+            "head": true,
+            "results": [
+                {
+                    "name": "file_content",
+                    "basename": "wf_r.png",
+                    "filetype": "image"
+                }
+            ],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                }
+            ],
+            "flowchartId": "57fca898-8e8b-5ef2-81a5-9d2b612bc18d",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "python",
+                "shortName": "py",
+                "summary": "Python Script",
+                "version": "3.10.13",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "applicationName": "python",
+                "applicationVersion": "*",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "name": "python",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "applicationName": "python",
+                "applicationVersion": "*",
+                "executableName": "python",
+                "input": [
+                    {
+                        "name": "script.py",
+                        "templateName": "plot_wavefunction.py"
+                    },
+                    {
+                        "name": "requirements.txt",
+                        "templateName": "requirements_plot_wavefunction.txt"
+                    }
+                ],
+                "isDefault": false,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    }
+                ],
+                "name": "plot_wavefunction",
+                "postProcessors": [],
+                "preProcessors": [],
+                "results": [
+                    {
+                        "basename": "wf_r.png",
+                        "filetype": "image",
+                        "name": "file_content"
+                    }
+                ],
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [
+                {
+                    "template": {
+                        "applicationName": "python",
+                        "applicationVersion": "*",
+                        "content": "# ---------------------------------------------------------------- #\n#  Generate wavefunction plot from pp.x output                     #\n#  And saves static                                                #\n# ---------------------------------------------------------------- #\n\nimport matplotlib\nimport numpy as np\n\nmatplotlib.use('Agg')  # Non-interactive backend\nimport matplotlib.pyplot as plt\n\n# Load wavefunction data from pp.x output\ndata = np.loadtxt('wf_r.dat')\nz = data[:, 0]\npsi_r = data[:, 1]\n\n# Calculate wavefunction amplitude\npsi_amplitude = np.abs(psi_r)\n\n# Create static PNG plot\nfig, ax = plt.subplots(figsize=(10, 6))\nax.plot(z, psi_amplitude, 'b-', linewidth=2)\nax.set_xlabel('Position z (alat)', fontsize=12)\nax.set_ylabel('Wavefunction amplitude |ψ| (a.u.)', fontsize=12)\nax.set_title('Wavefunction along z-axis', fontsize=14)\nax.grid(True, alpha=0.3)\nplt.tight_layout()\nplt.savefig('wf_r.png', dpi=150, bbox_inches='tight')\nplt.close()\n",
+                        "contextProviders": [],
+                        "executableName": "python",
+                        "name": "script.py",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                },
+                {
+                    "template": {
+                        "applicationName": "python",
+                        "applicationVersion": "*",
+                        "content": "# ------------------------------------------------------------------ #\n#                                                                    #\n#  Python package requirements for plot_wavefunction unit            #\n#                                                                    #\n# ------------------------------------------------------------------ #\n\nnumpy<2\nmatplotlib\n\n",
+                        "contextProviders": [],
+                        "executableName": "python",
+                        "name": "requirements.txt",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                }
+            ],
+            "context": [],
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "isDraft": false
+}

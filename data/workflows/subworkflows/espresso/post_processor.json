@@ -1,0 +1,97 @@
+{
+    "_id": "7239fc3a-b343-513f-af35-e8687e1829da",
+    "name": "post-processor",
+    "application": {
+        "name": "espresso"
+    },
+    "properties": [],
+    "model": {
+        "type": "unknown",
+        "subtype": "unknown",
+        "method": {
+            "type": "unknown",
+            "subtype": "unknown",
+            "data": {}
+        }
+    },
+    "units": [
+        {
+            "type": "execution",
+            "name": "shell",
+            "head": true,
+            "results": [],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                }
+            ],
+            "flowchartId": "99304304-e873-5c89-ae83-91e61a7f629c",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": false,
+                "name": "shell",
+                "shortName": "sh",
+                "summary": "Shell Script",
+                "version": "5.1.8",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "applicationName": "shell",
+                "applicationVersion": "*",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "name": "sh",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "applicationName": "shell",
+                "applicationVersion": "*",
+                "executableName": "sh",
+                "input": [
+                    {
+                        "name": "espresso_collect_dynmat.sh"
+                    }
+                ],
+                "isDefault": false,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    }
+                ],
+                "name": "espresso_collect_dynmat",
+                "postProcessors": [],
+                "preProcessors": [],
+                "results": [],
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [
+                {
+                    "template": {
+                        "applicationName": "shell",
+                        "applicationVersion": "*",
+                        "content": "{% raw %}\n#!/bin/bash\n\ncp {{ JOB_SCRATCH_DIR }}/outdir/_ph0/__prefix__.phsave/dynmat* {{ JOB_WORK_DIR }}/../outdir/_ph0/__prefix__.phsave\n{% endraw %}\n",
+                        "contextProviders": [],
+                        "executableName": "sh",
+                        "name": "espresso_collect_dynmat.sh",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                }
+            ],
+            "context": [],
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "isDraft": false
+}

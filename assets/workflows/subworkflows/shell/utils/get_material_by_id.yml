@@ -1,0 +1,35 @@
+# Loads the compound structure selected for the job.
+#
+# In:  MATERIAL_ID (job/workflow input)
+# Out: MATERIAL (material document)
+application:
+  name: shell
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: Get Material By ID
+units:
+  - type: io
+    config:
+      name: io-material
+      flowchartId: io-material
+      subtype: input
+      source: api
+      input:
+        - type: api
+          endpoint: materials
+          endpoint_options:
+            params:
+              query: "{'_id': MATERIAL_ID}"
+              projection: "{}"
+          name: DATA
+  - type: assignment
+    config:
+      name: assign-material
+      flowchartId: assign-material
+      operand: MATERIAL
+      value: "DATA[0] if len(DATA) == 1 else None"
+      input:
+        - name: DATA
+          scope: io-material

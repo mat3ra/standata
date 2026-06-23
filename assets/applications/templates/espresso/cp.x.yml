@@ -1,0 +1,17 @@
+- content: !readFile 'input_files_templates/espresso/cp.j2.in'
+  name: cp.in
+  contextProviders:
+    - name: QEPWXInputDataManager
+    - name: PlanewaveCutoffDataManager
+    - name: IonDynamicsContextProvider
+  applicationName: espresso
+  executableName: cp.x
+
+- content: !readFile 'input_files_templates/espresso/cp_wf.j2.in'
+  name: cp_wf.in
+  contextProviders:
+    - name: QEPWXInputDataManager
+    - name: PlanewaveCutoffDataManager
+    - name: IonDynamicsContextProvider
+  applicationName: espresso
+  executableName: cp.x

@@ -1,0 +1,11 @@
+path: "/pb/qm/dft/ksdft/hybrid"
+data:
+    key: subtype
+    value: !esse "models-category/pb/qm/dft/ksdft/enum-options#/hybrid/enum[0]"
+    name: "Hybrid Functional"
+# terminal node, no children
+staticOptions:
+    - !parameter
+      key: functional
+      values: !esse "model/mixins/dft/enum-options#/hybrid/enum"
+      namesMap: !include "manifest/names_map.yml#/hybrid"

@@ -1,0 +1,108 @@
+{
+    "_id": "bf0d584b-0a7f-5174-8132-f8f0c8969bc5",
+    "name": "CP-MD",
+    "application": {
+        "name": "deepmd"
+    },
+    "properties": [],
+    "model": {
+        "type": "dft",
+        "subtype": "gga",
+        "method": {
+            "type": "pseudopotential",
+            "subtype": "us",
+            "data": {}
+        },
+        "functional": "pbe"
+    },
+    "units": [
+        {
+            "type": "execution",
+            "name": "cp",
+            "head": true,
+            "results": [],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                }
+            ],
+            "flowchartId": "c2bfdd05-9192-5160-b0f0-4248441a92b5",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "espresso",
+                "shortName": "qe",
+                "summary": "Quantum ESPRESSO",
+                "version": "6.3",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "applicationName": "espresso",
+                "applicationVersion": "*",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": false,
+                "name": "cp.x",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "applicationName": "espresso",
+                "applicationVersion": "*",
+                "executableName": "cp.x",
+                "input": [
+                    {
+                        "name": "cp.in"
+                    }
+                ],
+                "isDefault": true,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    }
+                ],
+                "name": "cp",
+                "postProcessors": [],
+                "preProcessors": [],
+                "results": [],
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [
+                {
+                    "template": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "content": "{% if subworkflowContext.MATERIAL_INDEX %}\n{%- set input = input.perMaterial[subworkflowContext.MATERIAL_INDEX] -%}\n{% endif -%}\n&CONTROL\n    calculation = 'cp'\n    restart_mode = '{{ input.RESTART_MODE }}'\n    tstress = .true.\n    tprnfor = .true.\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}'{% endraw %}\n    prefix = 'cp'\n    pseudo_dir = {% raw %}'{{ JOB_WORK_DIR }}/pseudo'{% endraw %}\n    nstep = {{ dynamics.numberOfSteps }}\n    iprint = 1\n    dt = {{ dynamics.timeStep }}\n/\n&SYSTEM\n    ibrav = {{ input.IBRAV }}\n    nat = {{ input.NAT }}\n    ntyp = {{ input.NTYP }}\n    ecutwfc = {{ cutoffs.wavefunction }}\n    ecutrho = {{ cutoffs.density }}\n    nr1b = 20\n    nr2b = 20\n    nr3b = 20\n/\n&ELECTRONS\n    electron_dynamics = 'verlet'\n    electron_velocities = 'zero'\n    emass = {{ dynamics.electronMass }}\n!! consider the below parameters if orthogonalization fails\n!   orthogonalization = 'ortho'\n!   ortho_eps = 1d-11\n/\n&IONS\n    ion_dynamics = 'verlet'\n    ion_velocities = 'zero'\n    tempw = {{ dynamics.temperature }}\n/\n&CELL\n/\nATOMIC_SPECIES\n{% for specie in input.ATOMIC_SPECIES -%}\n{{ specie.X }} {{ specie.Mass_X|sprintf(\"%f\") }} {{ specie.PseudoPot_X }}\n{% endfor %}\nATOMIC_POSITIONS crystal\n{%- set print_constraints = false %}\n{%- for position in input.ATOMIC_POSITIONS %}\n    {%- if position[\"if_pos(1)\"] != 1 or position[\"if_pos(2)\"] != 1 or position[\"if_pos(3)\"] != 1 %}\n        {%- set print_constraints = true %}\n    {%- endif %}\n{%- endfor %}\n{% for position in input.ATOMIC_POSITIONS -%}\n{{ position.X|sprintf(\"%-3s\") }} {{ position.x|sprintf(\"%14.9f\") }} {{ position.y|sprintf(\"%14.9f\") }} {{ position.z|sprintf(\"%14.9f\") }}{% if print_constraints %} {{ position[\"if_pos(1)\"] }} {{ position[\"if_pos(2)\"] }} {{ position[\"if_pos(3)\"] }}{% endif %}\n{% endfor %}\nCELL_PARAMETERS angstrom\n{{ input.CELL_PARAMETERS.v1[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v2[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v3[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[2]|sprintf(\"%14.9f\") }}\n",
+                        "contextProviders": [
+                            {
+                                "name": "QEPWXInputDataManager"
+                            },
+                            {
+                                "name": "PlanewaveCutoffDataManager"
+                            },
+                            {
+                                "name": "IonDynamicsContextProvider"
+                            }
+                        ],
+                        "executableName": "cp.x",
+                        "name": "cp.in",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                }
+            ],
+            "context": [],
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "isDraft": false
+}

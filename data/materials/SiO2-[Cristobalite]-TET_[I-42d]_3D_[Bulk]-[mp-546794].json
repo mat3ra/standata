@@ -1,0 +1,177 @@
+{
+  "name": "SiO2, Cristobalite, TET (I-42d) 3D (Bulk), mp-546794",
+  "lattice": {
+    "a": 4.954581,
+    "b": 4.954581,
+    "c": 7.311342,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0,
+    "units": {
+      "length": "angstrom",
+      "angle": "degree"
+    },
+    "type": "TET"
+  },
+  "basis": {
+    "elements": [
+      {
+        "id": 0,
+        "value": "Si"
+      },
+      {
+        "id": 1,
+        "value": "Si"
+      },
+      {
+        "id": 2,
+        "value": "Si"
+      },
+      {
+        "id": 3,
+        "value": "Si"
+      },
+      {
+        "id": 4,
+        "value": "O"
+      },
+      {
+        "id": 5,
+        "value": "O"
+      },
+      {
+        "id": 6,
+        "value": "O"
+      },
+      {
+        "id": 7,
+        "value": "O"
+      },
+      {
+        "id": 8,
+        "value": "O"
+      },
+      {
+        "id": 9,
+        "value": "O"
+      },
+      {
+        "id": 10,
+        "value": "O"
+      },
+      {
+        "id": 11,
+        "value": "O"
+      }
+    ],
+    "coordinates": [
+      {
+        "id": 0,
+        "value": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": 1,
+        "value": [
+          0.5,
+          0.0,
+          0.75
+        ]
+      },
+      {
+        "id": 2,
+        "value": [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": 3,
+        "value": [
+          0.0,
+          0.5,
+          0.25
+        ]
+      },
+      {
+        "id": 4,
+        "value": [
+          0.59678613,
+          0.75,
+          0.625
+        ]
+      },
+      {
+        "id": 5,
+        "value": [
+          0.75,
+          0.09678613,
+          0.875
+        ]
+      },
+      {
+        "id": 6,
+        "value": [
+          0.25,
+          0.90321387,
+          0.875
+        ]
+      },
+      {
+        "id": 7,
+        "value": [
+          0.40321387,
+          0.25,
+          0.625
+        ]
+      },
+      {
+        "id": 8,
+        "value": [
+          0.09678613,
+          0.25,
+          0.125
+        ]
+      },
+      {
+        "id": 9,
+        "value": [
+          0.25,
+          0.59678613,
+          0.375
+        ]
+      },
+      {
+        "id": 10,
+        "value": [
+          0.75,
+          0.40321387,
+          0.375
+        ]
+      },
+      {
+        "id": 11,
+        "value": [
+          0.90321387,
+          0.75,
+          0.125
+        ]
+      }
+    ],
+    "units": "crystal",
+    "constraints": [],
+    "labels": []
+  },
+  "external": {
+    "id": "mp-546794",
+    "source": "MaterialsProject",
+    "doi": "10.17188/1267252",
+    "url": "https://next-gen.materialsproject.org/materials/mp-546794",
+    "origin": true
+  },
+  "isNonPeriodic": false
+}

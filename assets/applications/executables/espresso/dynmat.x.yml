@@ -1,0 +1,12 @@
+monitors:
+  - name: standard_output
+results: []
+flavors:
+  dynmat:
+    input:
+      - name: dynmat_grid.in
+    results: []
+    monitors:
+      - name: standard_output
+    applicationName: espresso
+    executableName: dynmat.x

@@ -1,0 +1,7 @@
+path: "/pb/qm/abin"
+data:
+    key: tier3
+    value: !esse "models-category/pb/qm/enum-options#/abInitio/enum[0]"
+    name: "Ab Initio"
+children:
+    - !include "model/pb/qm/abin/gw.yml"

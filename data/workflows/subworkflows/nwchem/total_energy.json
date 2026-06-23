@@ -1,0 +1,133 @@
+{
+    "_id": "9e7a15b7-0b7d-5a8e-be7f-b8fcacd5cc13",
+    "name": "Total Energy",
+    "application": {
+        "name": "nwchem"
+    },
+    "properties": [
+        "homo_energy",
+        "lumo_energy",
+        "total_energy",
+        "total_energy_contributions"
+    ],
+    "model": {
+        "type": "dft",
+        "subtype": "gga",
+        "method": {
+            "type": "localorbital",
+            "subtype": "pople",
+            "data": {}
+        },
+        "functional": "pbe"
+    },
+    "units": [
+        {
+            "type": "execution",
+            "name": "nwchem_total_energy",
+            "head": true,
+            "results": [
+                {
+                    "name": "total_energy"
+                },
+                {
+                    "name": "total_energy_contributions"
+                },
+                {
+                    "name": "homo_energy"
+                },
+                {
+                    "name": "lumo_energy"
+                }
+            ],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                }
+            ],
+            "flowchartId": "6f1eda0b-ebe1-5ccd-92dc-c2e55de5e0c7",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "nwchem",
+                "shortName": "nwchem",
+                "summary": "NWChem",
+                "version": "7.0.2",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "applicationName": "nwchem",
+                "applicationVersion": "*",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "name": "nwchem",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "applicationName": "nwchem",
+                "applicationVersion": "*",
+                "executableName": "nwchem",
+                "input": [
+                    {
+                        "name": "nwchem_total_energy.inp"
+                    }
+                ],
+                "isDefault": true,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    }
+                ],
+                "name": "nwchem_total_energy",
+                "postProcessors": [],
+                "preProcessors": [],
+                "results": [
+                    {
+                        "name": "total_energy"
+                    },
+                    {
+                        "name": "total_energy_contributions"
+                    },
+                    {
+                        "name": "homo_energy"
+                    },
+                    {
+                        "name": "lumo_energy"
+                    }
+                ],
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [
+                {
+                    "template": {
+                        "applicationName": "nwchem",
+                        "applicationVersion": "*",
+                        "content": " start nwchem\n title \"Test\"\n charge {{ input.CHARGE }}\n geometry units au noautosym\n {{ input.ATOMIC_POSITIONS }}\n end\n basis\n   * library {{ input.BASIS }}\n end\n dft\n xc {{ input.FUNCTIONAL }}\n mult {{ input.MULT }}\n end\n task dft energy\n",
+                        "contextProviders": [
+                            {
+                                "name": "NWChemInputDataManager"
+                            }
+                        ],
+                        "executableName": "nwchem",
+                        "name": "nwchem_total_energy.inp",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                }
+            ],
+            "context": [],
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "isDraft": false
+}

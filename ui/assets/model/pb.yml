@@ -1,0 +1,7 @@
+path: "/pb"
+data:
+    key: tier1
+    value: !esse "models-category/enum-options#/physicsBased/enum[0]"
+    name: "Physics-based"
+children:
+    - !include "model/pb/qm.yml"

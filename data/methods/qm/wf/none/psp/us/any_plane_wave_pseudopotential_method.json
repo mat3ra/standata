@@ -1,0 +1,70 @@
+{
+    "units": [
+        {
+            "categories": {
+                "subtype": "us",
+                "tier1": "qm",
+                "tier2": "wf",
+                "type": "psp"
+            },
+            "tags": [
+                "pseudopotential"
+            ],
+            "name": "Ultra-soft Pseudopotential",
+            "path": "/qm/wf/none/psp/us"
+        },
+        {
+            "categories": {
+                "subtype": "nc",
+                "tier1": "qm",
+                "tier2": "wf",
+                "type": "psp"
+            },
+            "tags": [
+                "pseudopotential"
+            ],
+            "name": "Norm-conserving Pseudopotential",
+            "path": "/qm/wf/none/psp/nc"
+        },
+        {
+            "categories": {
+                "subtype": "nc-fr",
+                "tier1": "qm",
+                "tier2": "wf",
+                "type": "psp"
+            },
+            "tags": [
+                "pseudopotential"
+            ],
+            "name": "Norm-conserving Fully-relativistic Pseudopotential",
+            "path": "/qm/wf/none/psp/nc-fr"
+        },
+        {
+            "categories": {
+                "subtype": "paw",
+                "tier1": "qm",
+                "tier2": "wf",
+                "type": "psp"
+            },
+            "tags": [
+                "pseudopotential"
+            ],
+            "name": "Projector-augmented wave Pseudopotential",
+            "path": "/qm/wf/none/psp/paw"
+        },
+        {
+            "categories": {
+                "tier1": "qm",
+                "tier2": "wf",
+                "type": "pw"
+            },
+            "tags": [
+                "plane wave"
+            ],
+            "name": "Wave function: Plane wave",
+            "path": "/qm/wf/none/pw/none"
+        }
+    ],
+    "name": "Any Plane-wave Pseudopotential Method",
+    "path": "/qm/wf/none/psp/us::/qm/wf/none/psp/nc::/qm/wf/none/psp/nc-fr::/qm/wf/none/psp/paw::/qm/wf/none/pw/none"
+}

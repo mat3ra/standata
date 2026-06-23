@@ -1,0 +1,22 @@
+application:
+  name: python
+  version: 3.10.13
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: Plot Wavefunction
+properties:
+  - file_content
+units:
+  - attributes:
+      results:
+        - name: file_content
+          basename: "wf_r.png"
+          filetype: "image"
+    config:
+      execName: python
+      flavorName: plot_wavefunction
+      name: plot WFN
+    type: executionBuilder
+

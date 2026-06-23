@@ -1,0 +1,6 @@
+path: "/linalg/diag/davidson"
+data:
+    key: type
+    value: !esse "methods-category/mathematical/linalg/diag/enum-options#/davidson/enum[0]"
+    name: Davidson Diagonalization
+# terminal node, no children

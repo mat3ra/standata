@@ -1,0 +1,16 @@
+name: deepmd
+shortName: dp
+summary: DeepMD
+defaultVersion: '3.1.2'
+isUsingMaterial: true
+versions:
+  - version: '3.1.2'
+    isDefault: true
+    build: CPU
+    buildConfig:
+      moduleName: '3.1.2-cpu'
+      imageName: 'deepmd'
+      imageTag: '3.1.2-cpu-0'
+      bio: 'DeepMD 3.1.2 (CPU build)'
+      dependencies: []
+      environmentVariables: {}

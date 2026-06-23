@@ -1,0 +1,57 @@
+{
+    "units": [
+        {
+            "categories": {
+                "subtype": "methfessel-paxton",
+                "tier1": "qm",
+                "tier2": "wf",
+                "type": "smearing"
+            },
+            "tags": [
+                "occupation number"
+            ],
+            "name": "Methfessel-Paxton Smearing",
+            "path": "/qm/wf/none/smearing/methfessel-paxton"
+        },
+        {
+            "categories": {
+                "tier1": "opt",
+                "tier2": "diff",
+                "tier3": "ordern",
+                "type": "cg"
+            },
+            "tags": [
+                "diagonalization"
+            ],
+            "name": "Conjugate Gradient Diagonalization",
+            "path": "/opt/diff/ordern/cg/none"
+        },
+        {
+            "categories": {
+                "subtype": "nc-fr",
+                "tier1": "qm",
+                "tier2": "wf",
+                "type": "psp"
+            },
+            "tags": [
+                "pseudopotential"
+            ],
+            "name": "Norm-conserving Fully-relativistic Pseudopotential",
+            "path": "/qm/wf/none/psp/nc-fr"
+        },
+        {
+            "categories": {
+                "tier1": "qm",
+                "tier2": "wf",
+                "type": "pw"
+            },
+            "tags": [
+                "plane wave"
+            ],
+            "name": "Wave function: Plane wave",
+            "path": "/qm/wf/none/pw/none"
+        }
+    ],
+    "name": "Plane-wave Norm-conserving Fully-relativistic Pseudopotential (Conjugate Gradient Diagonalization, Methfessel-paxton Smearing)",
+    "path": "/qm/wf/none/smearing/methfessel-paxton::/opt/diff/ordern/cg/none::/qm/wf/none/psp/nc-fr::/qm/wf/none/pw/none"
+}

@@ -1,0 +1,558 @@
+categories:
+  properties:
+    - atomic_forces
+    - average_potential_profile
+    - band_gaps
+    - band_structure
+    - charge_density_profile
+    - density_of_states
+    - dielectric_tensor
+    - fermi_energy
+    - file_content
+    - final_structure
+    - formation_energy
+    - formation_energy_contributions
+    - homo_energy
+    - lumo_energy
+    - phonon_dispersions
+    - phonon_dos
+    - potential_profile
+    - pressure
+    - reaction_energy_barrier
+    - reaction_energy_profile
+    - stress_tensor
+    - surface_energy
+    - thermal_correction_to_energy
+    - thermal_correction_to_enthalpy
+    - total_energy
+    - total_energy_contributions
+    - total_force
+    - valence_band_offset
+    - wavefunction_amplitude
+    - workflow:pyml_predict
+    - zero_point_energy
+  tags:
+    - default
+    - variable-cell_relaxation
+    - wfn
+    - wfn_plot
+  application:
+    - deepmd
+    - espresso
+    - lammps
+    - nwchem
+    - python
+    - shell
+    - vasp
+entities:
+  - filename: deepmd/deepmd.json
+    categories:
+      - deepmd
+  - filename: espresso/average_electrostatic_potential.json
+    categories:
+      - atomic_forces
+      - average_potential_profile
+      - espresso
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+  - filename: espresso/band_gap_dos_hse.json
+    categories:
+      - atomic_forces
+      - band_gaps
+      - density_of_states
+      - espresso
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+  - filename: espresso/band_gap.json
+    categories:
+      - atomic_forces
+      - band_gaps
+      - espresso
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+  - filename: espresso/band_structure_dos.json
+    categories:
+      - atomic_forces
+      - band_gaps
+      - band_structure
+      - density_of_states
+      - espresso
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+  - filename: espresso/band_structure_hse.json
+    categories:
+      - atomic_forces
+      - espresso
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+  - filename: espresso/band_structure_magn.json
+    categories:
+      - atomic_forces
+      - band_structure
+      - espresso
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+  - filename: espresso/band_structure_soc.json
+    categories:
+      - atomic_forces
+      - band_structure
+      - espresso
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+  - filename: espresso/band_structure.json
+    categories:
+      - atomic_forces
+      - band_structure
+      - espresso
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+  - filename: espresso/dielectric_tensor.json
+    categories:
+      - atomic_forces
+      - band_gaps
+      - dielectric_tensor
+      - espresso
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+  - filename: espresso/dos.json
+    categories:
+      - atomic_forces
+      - band_gaps
+      - density_of_states
+      - espresso
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+  - filename: espresso/electronic_density_mesh.json
+    categories:
+      - atomic_forces
+      - espresso
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+  - filename: espresso/esm_relax.json
+    categories:
+      - atomic_forces
+      - charge_density_profile
+      - espresso
+      - fermi_energy
+      - potential_profile
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+  - filename: espresso/esm.json
+    categories:
+      - atomic_forces
+      - charge_density_profile
+      - espresso
+      - fermi_energy
+      - potential_profile
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+  - filename: espresso/fixed_cell_relaxation.json
+    categories:
+      - atomic_forces
+      - espresso
+      - fermi_energy
+      - final_structure
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_force
+  - filename: espresso/formation_energy.json
+    categories:
+      - atomic_forces
+      - espresso
+      - fermi_energy
+      - formation_energy
+      - formation_energy_contributions
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+  - filename: espresso/gw_band_structure_band_gap_full_frequency.json
+    categories:
+      - atomic_forces
+      - band_gaps
+      - band_structure
+      - espresso
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+  - filename: espresso/gw_band_structure_band_gap_plasmon_pole.json
+    categories:
+      - atomic_forces
+      - band_gaps
+      - band_structure
+      - espresso
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+  - filename: espresso/kpoint_convergence.json
+    categories:
+      - atomic_forces
+      - espresso
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_force
+  - filename: espresso/neb.json
+    categories:
+      - espresso
+      - reaction_energy_barrier
+      - reaction_energy_profile
+  - filename: espresso/phonon_dispersions.json
+    categories:
+      - atomic_forces
+      - espresso
+      - fermi_energy
+      - phonon_dispersions
+      - phonon_dos
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+  - filename: espresso/phonon_dos_dispersion.json
+    categories:
+      - atomic_forces
+      - espresso
+      - fermi_energy
+      - phonon_dispersions
+      - phonon_dos
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+  - filename: espresso/phonon_dos.json
+    categories:
+      - atomic_forces
+      - espresso
+      - fermi_energy
+      - phonon_dos
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+  - filename: espresso/phonon_map.json
+    categories:
+      - atomic_forces
+      - espresso
+      - fermi_energy
+      - phonon_dispersions
+      - phonon_dos
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+  - filename: espresso/recalculate_bands.json
+    categories:
+      - band_structure
+      - espresso
+  - filename: espresso/surface_energy.json
+    categories:
+      - atomic_forces
+      - espresso
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - surface_energy
+      - total_energy
+      - total_energy_contributions
+      - total_force
+  - filename: espresso/total_energy.json
+    categories:
+      - atomic_forces
+      - default
+      - espresso
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+  - filename: espresso/valence_band_offset.json
+    categories:
+      - atomic_forces
+      - average_potential_profile
+      - band_gaps
+      - espresso
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+      - valence_band_offset
+  - filename: espresso/variable_cell_relaxation.json
+    categories:
+      - atomic_forces
+      - espresso
+      - fermi_energy
+      - final_structure
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_force
+      - variable-cell_relaxation
+  - filename: espresso/wavefunction_amplitude.json
+    categories:
+      - atomic_forces
+      - band_structure
+      - espresso
+      - fermi_energy
+      - file_content
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+      - wavefunction_amplitude
+      - wfn
+      - wfn_plot
+  - filename: espresso/zero_point_energy.json
+    categories:
+      - atomic_forces
+      - espresso
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+      - zero_point_energy
+  - filename: lammps/emin.json
+    categories:
+      - lammps
+  - filename: nwchem/frequency.json
+    categories:
+      - nwchem
+      - thermal_correction_to_energy
+      - thermal_correction_to_enthalpy
+      - total_energy
+      - total_energy_contributions
+      - zero_point_energy
+  - filename: nwchem/total_energy.json
+    categories:
+      - homo_energy
+      - lumo_energy
+      - nwchem
+      - total_energy
+      - total_energy_contributions
+  - filename: python/ml/classification_workflow.json
+    categories:
+      - file_content
+      - python
+      - workflow:pyml_predict
+  - filename: python/ml/clustering_workflow.json
+    categories:
+      - file_content
+      - python
+      - workflow:pyml_predict
+  - filename: python/ml/regression_workflow.json
+    categories:
+      - file_content
+      - python
+      - workflow:pyml_predict
+  - filename: python/mlff/mattersim_cell_relaxation.json
+    categories:
+      - file_content
+      - python
+  - filename: python/mlff/mattersim_phonon_dispersion.json
+    categories:
+      - file_content
+      - python
+  - filename: python/mlff/mattersim_total_energy.json
+    categories:
+      - file_content
+      - python
+  - filename: python/python_script.json
+    categories:
+      - python
+  - filename: shell/batch_espresso_pwscf.json
+    categories:
+      - shell
+  - filename: shell/hello_world.json
+    categories:
+      - shell
+  - filename: vasp/band_gap.json
+    categories:
+      - atomic_forces
+      - band_gaps
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+      - vasp
+  - filename: vasp/band_structure_dos.json
+    categories:
+      - atomic_forces
+      - band_structure
+      - density_of_states
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+      - vasp
+  - filename: vasp/band_structure.json
+    categories:
+      - atomic_forces
+      - band_structure
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+      - vasp
+  - filename: vasp/dos.json
+    categories:
+      - atomic_forces
+      - density_of_states
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+      - vasp
+  - filename: vasp/fixed_cell_relaxation.json
+    categories:
+      - atomic_forces
+      - fermi_energy
+      - final_structure
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_force
+      - vasp
+  - filename: vasp/kpoint_convergence.json
+    categories:
+      - atomic_forces
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+      - vasp
+  - filename: vasp/neb.json
+    categories:
+      - atomic_forces
+      - fermi_energy
+      - pressure
+      - reaction_energy_barrier
+      - reaction_energy_profile
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+      - vasp
+  - filename: vasp/recalculate_bands.json
+    categories:
+      - band_structure
+      - vasp
+  - filename: vasp/surface_energy.json
+    categories:
+      - atomic_forces
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - surface_energy
+      - total_energy
+      - total_energy_contributions
+      - total_force
+      - vasp
+  - filename: vasp/total_energy.json
+    categories:
+      - atomic_forces
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+      - vasp
+  - filename: vasp/variable_cell_relaxation.json
+    categories:
+      - atomic_forces
+      - fermi_energy
+      - final_structure
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_force
+      - variable-cell_relaxation
+      - vasp
+  - filename: vasp/zero_point_energy.json
+    categories:
+      - atomic_forces
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_force
+      - vasp
+      - zero_point_energy

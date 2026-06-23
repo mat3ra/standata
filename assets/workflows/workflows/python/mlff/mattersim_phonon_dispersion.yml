@@ -1,0 +1,4 @@
+name: Phonon Dispersion - MatterSim python workflow
+units:
+- name: mattersim_phonon_dispersion
+  type: subworkflow

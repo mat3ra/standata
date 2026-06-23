@@ -1,0 +1,6 @@
+path: "/qm/wf/smearing/methfessel-paxton"
+data:
+    key: subtype
+    value: !esse "methods-category/physical/qm/wf/enum-options#/smearingSubtypes/enum[2]"
+    name: "Methfessel-Paxton"
+# terminal node, no children

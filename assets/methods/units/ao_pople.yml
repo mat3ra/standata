@@ -1,0 +1,20 @@
+#
+# Atomic orbital method unit
+#
+!combine
+name:
+  template: 'Wave function: LCAO - Pople basis set ({{ parameters.basisSlug }})'
+forEach:
+  - !parameter
+    key: parameters.basisSlug
+    values: !esse 'methods-directory/physical/ao/enum-options#/popleAoBasis/enum'
+    exclude: '^(?!6-31G).*$'
+config:
+  categories:
+    tier1: qm
+    tier2: wf
+    type: ao
+    subtype: pople
+  tags:
+    - atomic orbital
+  schema: !esse 'methods-directory/physical/ao/pople'

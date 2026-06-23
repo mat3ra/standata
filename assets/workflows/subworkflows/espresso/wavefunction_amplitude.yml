@@ -1,0 +1,82 @@
+application:
+  name: espresso
+  version: '6.3'
+method:
+  name: PseudopotentialMethod
+model:
+  name: DFTModel
+name: Wavefunction Amplitude
+properties:
+  - atomic_forces
+  - fermi_energy
+  - pressure
+  - stress_tensor
+  - total_energy
+  - total_energy_contributions
+  - total_force
+  - band_structure
+  - wavefunction_amplitude
+units:
+  - config:
+      execName: pw.x
+      flavorName: pw_scf
+      name: pw_scf
+      flowchartId: pw-scf
+    functions:
+      head: true
+    type: executionBuilder
+    attributes:
+      results:
+        - name: atomic_forces
+        - name: band_structure
+        - name: fermi_energy
+        - name: pressure
+        - name: stress_tensor
+        - name: total_energy
+        - name: total_energy_contributions
+        - name: total_force
+  - config:
+      name: Extract Band Energies
+      operand: band_energies
+      value: >-
+        [band_data[0] for band_data in (band_structure['yDataSeries'] if (band_structure and
+        'yDataSeries' in band_structure) else [])]
+      flowchartId: extract-band-energies
+      input:
+        - name: band_structure
+          scope: pw-scf
+    type: assignment
+  - config:
+      name: Find Indices Below Fermi
+      operand: indices_below_fermi
+      value: "[i for i in range(len(band_energies)) if band_energies[i] <= fermi_energy]"
+      flowchartId: indices-below-fermi
+      input:
+        - name: fermi_energy
+          scope: pw-scf
+    type: assignment
+  - config:
+      name: Store Band Below EF
+      operand: KBAND_VALUE_BELOW_EF
+      value: "indices_below_fermi[-1] + 1 if len(indices_below_fermi) > 0 else 1"
+    type: assignment
+  - config:
+      name: Select Band
+      operand: KBAND_VALUE
+      value: "KBAND_VALUE_BELOW_EF"
+    type: assignment
+  - config:
+      execName: pp.x
+      flavorName: pp_wfn
+      name: pp_wfn
+      flowchartId: pp-wfn
+      input:
+        - name: KBAND_VALUE
+    type: executionBuilder
+    attributes:
+      results:
+        - name: wavefunction_amplitude
+tags:
+  - wfn
+  - wfn_plot
+

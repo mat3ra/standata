@@ -1,0 +1,177 @@
+{
+  "name": "HfO2, Hafnium IV Oxide, ORC (Pnma) 3D (Bulk), mp-741",
+  "lattice": {
+    "a": 3.333597,
+    "b": 5.556395,
+    "c": 6.504995,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0,
+    "units": {
+      "length": "angstrom",
+      "angle": "degree"
+    },
+    "type": "ORC"
+  },
+  "basis": {
+    "elements": [
+      {
+        "id": 0,
+        "value": "Hf"
+      },
+      {
+        "id": 1,
+        "value": "Hf"
+      },
+      {
+        "id": 2,
+        "value": "Hf"
+      },
+      {
+        "id": 3,
+        "value": "Hf"
+      },
+      {
+        "id": 4,
+        "value": "O"
+      },
+      {
+        "id": 5,
+        "value": "O"
+      },
+      {
+        "id": 6,
+        "value": "O"
+      },
+      {
+        "id": 7,
+        "value": "O"
+      },
+      {
+        "id": 8,
+        "value": "O"
+      },
+      {
+        "id": 9,
+        "value": "O"
+      },
+      {
+        "id": 10,
+        "value": "O"
+      },
+      {
+        "id": 11,
+        "value": "O"
+      }
+    ],
+    "coordinates": [
+      {
+        "id": 0,
+        "value": [
+          0.25,
+          0.751318,
+          0.107871
+        ]
+      },
+      {
+        "id": 1,
+        "value": [
+          0.75,
+          0.248682,
+          0.892129
+        ]
+      },
+      {
+        "id": 2,
+        "value": [
+          0.25,
+          0.251318,
+          0.392129
+        ]
+      },
+      {
+        "id": 3,
+        "value": [
+          0.75,
+          0.748682,
+          0.607871
+        ]
+      },
+      {
+        "id": 4,
+        "value": [
+          0.75,
+          0.979206,
+          0.341453
+        ]
+      },
+      {
+        "id": 5,
+        "value": [
+          0.25,
+          0.020794,
+          0.658547
+        ]
+      },
+      {
+        "id": 6,
+        "value": [
+          0.75,
+          0.479206,
+          0.158547
+        ]
+      },
+      {
+        "id": 7,
+        "value": [
+          0.25,
+          0.520794,
+          0.841453
+        ]
+      },
+      {
+        "id": 8,
+        "value": [
+          0.75,
+          0.860501,
+          0.9234
+        ]
+      },
+      {
+        "id": 9,
+        "value": [
+          0.25,
+          0.139499,
+          0.0766
+        ]
+      },
+      {
+        "id": 10,
+        "value": [
+          0.75,
+          0.360501,
+          0.5766
+        ]
+      },
+      {
+        "id": 11,
+        "value": [
+          0.25,
+          0.639499,
+          0.4234
+        ]
+      }
+    ],
+    "units": "crystal",
+    "constraints": [],
+    "labels": []
+  },
+  "external": {
+    "id": "mp-741",
+    "source": "MaterialsProject",
+    "doi": "10.17188/1287952",
+    "url": "https://next-gen.materialsproject.org/materials/mp-741",
+    "origin": true
+  },
+  "isNonPeriodic": false
+}

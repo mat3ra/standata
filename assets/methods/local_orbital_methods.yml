@@ -1,0 +1,9 @@
+!combine
+name:
+  template: '{{ units[0]["name"] }}'
+forEach:
+  - key: units
+    action: push
+    values: !include assets/methods/units/ao_pople.yml
+config:
+  schema: !esse method/categorized-method

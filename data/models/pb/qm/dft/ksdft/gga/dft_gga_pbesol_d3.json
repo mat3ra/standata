@@ -1,0 +1,18 @@
+{
+    "parameters": {
+        "dispersionCorrection": "dft-d3",
+        "functional": "pbesol"
+    },
+    "categories": {
+        "tier1": "pb",
+        "tier2": "qm",
+        "tier3": "dft",
+        "type": "ksdft",
+        "subtype": "gga"
+    },
+    "tags": [
+        "density functional theory"
+    ],
+    "name": "DFT GGA PBESOL-D3",
+    "path": "/pb/qm/dft/ksdft/gga?dispersionCorrection=dft-d3&functional=pbesol"
+}

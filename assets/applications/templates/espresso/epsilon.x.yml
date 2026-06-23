@@ -1,0 +1,5 @@
+- content: !readFile 'input_files_templates/espresso/epsilon.j2.in'
+  name: epsilon.in
+  contextProviders: []
+  applicationName: espresso
+  executableName: epsilon.x

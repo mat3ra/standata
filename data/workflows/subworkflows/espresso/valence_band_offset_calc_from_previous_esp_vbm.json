@@ -1,0 +1,102 @@
+{
+    "_id": "1b70e606-a7ee-599e-89e0-91a7dc5faa4a",
+    "name": "Calculate VBO",
+    "application": {
+        "name": "espresso"
+    },
+    "properties": [
+        "valence_band_offset"
+    ],
+    "model": {
+        "type": "unknown",
+        "subtype": "unknown",
+        "method": {
+            "type": "unknown",
+            "subtype": "unknown",
+            "data": {}
+        }
+    },
+    "units": [
+        {
+            "name": "Difference of valence band maxima",
+            "type": "assignment",
+            "operand": "VBM_DIFF",
+            "value": "VBM_LEFT - VBM_RIGHT",
+            "input": [],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "bd4eaa98-b001-5694-87ef-ec77540502ab",
+            "head": true,
+            "next": "2626f7bb-d392-5fd4-ab71-329b508de347",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "Difference of macroscopically averaged ESP in bulk",
+            "type": "assignment",
+            "operand": "AVG_ESP_DIFF",
+            "value": "AVG_ESP_LEFT[0] - AVG_ESP_RIGHT[0]",
+            "input": [],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "2626f7bb-d392-5fd4-ab71-329b508de347",
+            "head": false,
+            "next": "b7307787-53e2-599b-ad12-d627b04074b4",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "Lineup of macroscopically averaged ESP in interface",
+            "type": "assignment",
+            "operand": "ESP_LINEUP",
+            "value": "np.abs(AVG_ESP_INTERFACE[0] - AVG_ESP_INTERFACE[1])",
+            "input": [],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "b7307787-53e2-599b-ad12-d627b04074b4",
+            "head": false,
+            "next": "197f4b4d-cb7b-57be-a885-d44cb1f61905",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "Valence Band Offset",
+            "type": "assignment",
+            "operand": "VALENCE_BAND_OFFSET",
+            "value": "abs(VBM_DIFF - AVG_ESP_DIFF + (np.sign(AVG_ESP_DIFF) * ESP_LINEUP))",
+            "input": [],
+            "results": [
+                {
+                    "name": "valence_band_offset"
+                }
+            ],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "197f4b4d-cb7b-57be-a885-d44cb1f61905",
+            "head": false,
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "isDraft": false
+}

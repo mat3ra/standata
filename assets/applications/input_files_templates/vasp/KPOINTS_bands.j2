@@ -1,0 +1,6 @@
+kpoints path
+{{kpath.length}}
+reciprocal
+{% for point in kpath -%}
+{% for d in point.coordinates %}{{d|sprintf("%14.9f")}} {% endfor -%}{{point.steps}}
+{% endfor %}

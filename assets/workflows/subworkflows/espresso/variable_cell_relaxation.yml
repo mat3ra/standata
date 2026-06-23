@@ -1,0 +1,20 @@
+application:
+  name: espresso
+  version: '6.3'
+config:
+  systemName: espresso-variable-cell-relaxation
+method:
+  name: PseudopotentialMethod
+model:
+  name: DFTModel
+name: Variable-cell Relaxation
+units:
+  - config:
+      execName: pw.x
+      flavorName: pw_vc-relax
+      name: pw_vc-relax
+    functions:
+      head: true
+    type: executionBuilder
+tags:
+  - variable-cell_relaxation

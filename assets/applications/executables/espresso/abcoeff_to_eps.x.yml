@@ -1,0 +1,12 @@
+monitors:
+  - name: standard_output
+results: []
+flavors:
+  abcoeff_to_eps_simple:
+    input:
+      - name: abcoeff_to_eps_simple.in
+    results: []
+    monitors:
+      - name: standard_output
+    applicationName: espresso
+    executableName: abcoeff_to_eps.x

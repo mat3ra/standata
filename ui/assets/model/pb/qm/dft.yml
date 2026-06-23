@@ -1,0 +1,7 @@
+path: "/pb/qm/dft"
+data:
+    key: tier3
+    value: !esse "models-category/pb/qm/enum-options#/densityFunctional/enum[0]"
+    name: "Density Functional Theory"
+children:
+    - !include "model/pb/qm/dft/ksdft.yml"

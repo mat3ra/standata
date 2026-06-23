@@ -1,0 +1,114 @@
+{
+    "_id": "a2785cc5-2427-5c7a-b30f-7077475b948c",
+    "name": "Extract KPOINTS",
+    "application": {
+        "name": "espresso"
+    },
+    "properties": [],
+    "model": {
+        "type": "unknown",
+        "subtype": "unknown",
+        "method": {
+            "type": "unknown",
+            "subtype": "unknown",
+            "data": {}
+        }
+    },
+    "units": [
+        {
+            "type": "execution",
+            "name": "Extract kpoints",
+            "head": true,
+            "results": [],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                }
+            ],
+            "flowchartId": "a716b133-2d04-50b5-b497-100265e3fa24",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "python",
+                "shortName": "py",
+                "summary": "Python Script",
+                "version": "3.10.13",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "applicationName": "python",
+                "applicationVersion": "*",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "name": "python",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "applicationName": "python",
+                "applicationVersion": "*",
+                "executableName": "python",
+                "input": [
+                    {
+                        "name": "espresso_extract_kpoints.py"
+                    },
+                    {
+                        "name": "requirements.txt",
+                        "templateName": "requirements_empty.txt"
+                    }
+                ],
+                "isDefault": false,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    }
+                ],
+                "name": "espresso_extract_kpoints",
+                "postProcessors": [],
+                "preProcessors": [],
+                "results": [],
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [
+                {
+                    "template": {
+                        "applicationName": "python",
+                        "applicationVersion": "*",
+                        "content": "import json\nimport re\n\ndouble_regex = r'[-+]?\\d*\\.\\d+(?:[eE][-+]?\\d+)?'\nregex = r\"\\s+k\\(\\s+\\d*\\)\\s+=\\s+\\(\\s+({0})\\s+({0})\\s+({0})\\),\\s+wk\\s+=\\s+({0}).+?\\n\".format(double_regex)\n\nwith open(\"pw_scf.out\") as f:\n    text = f.read()\n\npattern = re.compile(regex, re.I | re.MULTILINE)\nmatch = pattern.findall(text[text.rfind(\" cryst. coord.\"):])\nkpoints = [{\"coordinates\": list(map(float, m[:3])), \"weight\": float(m[3])} for m in match]\nprint(json.dumps({\"name\": \"KPOINTS\", \"value\": kpoints, \"scope\": \"global\"}, indent=4))\n",
+                        "contextProviders": [],
+                        "executableName": "python",
+                        "name": "espresso_extract_kpoints.py",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                },
+                {
+                    "template": {
+                        "applicationName": "python",
+                        "applicationVersion": "*",
+                        "content": "# ------------------------------------------------------------------ #\n#                                                                    #\n#  Example Python package requirements for the Mat3ra platform       #\n#                                                                    #\n#  Will be used as follows:                                          #\n#                                                                    #\n#    1. A runtime directory for this calculation is created          #\n#    2. This list is used to populate a Python virtual environment   #\n#    3. The virtual environment is activated                         #\n#    4. The Python process running the script included within this   #\n#       job is started                                               #\n#                                                                    #\n#  For more information visit:                                       #\n#   - https://pip.pypa.io/en/stable/reference/pip_install            #\n#   - https://virtualenv.pypa.io/en/stable/                          #\n#                                                                    #\n#  Please add any packages required for this unit below following    #\n#  the requirements.txt specification:                               #\n#  https://pip.pypa.io/en/stable/reference/requirements-file-format/ #\n# ------------------------------------------------------------------ #\n",
+                        "contextProviders": [],
+                        "executableName": "python",
+                        "name": "requirements.txt",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                }
+            ],
+            "context": [],
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "isDraft": false
+}

@@ -1,0 +1,63 @@
+{
+  "name": "Y, Yttrium, HEX (P6_3/mmc) 3D (Bulk), mp-112",
+  "lattice": {
+    "a": 3.64257,
+    "b": 3.642569,
+    "c": 5.879158,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0,
+    "units": {
+      "length": "angstrom",
+      "angle": "degree"
+    },
+    "type": "HEX"
+  },
+  "basis": {
+    "elements": [
+      {
+        "id": 0,
+        "value": "Y"
+      },
+      {
+        "id": 1,
+        "value": "Y"
+      }
+    ],
+    "coordinates": [
+      {
+        "id": 0,
+        "value": [
+          0.333333,
+          0.666667,
+          0.25
+        ]
+      },
+      {
+        "id": 1,
+        "value": [
+          0.666667,
+          0.333333,
+          0.75
+        ]
+      }
+    ],
+    "units": "crystal",
+    "constraints": [],
+    "labels": []
+  },
+  "external": {
+    "id": "mp-112",
+    "source": "MaterialsProject",
+    "doi": "10.17188/1187627",
+    "url": "https://next-gen.materialsproject.org/materials/mp-112",
+    "origin": true
+  },
+  "isNonPeriodic": false,
+  "metadata": {
+    "element": "Y"
+  },
+  "tags": [
+    "elemental"
+  ]
+}

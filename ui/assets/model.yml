@@ -1,0 +1,5 @@
+path: "/"
+# Note: root node has no data on its own
+data: null
+children:
+    - !include "model/pb.yml"

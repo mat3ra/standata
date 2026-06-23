@@ -1,0 +1,19 @@
+{
+    "parameters": {
+        "spinPolarization": "collinear",
+        "dispersionCorrection": "dft-d3",
+        "functional": "pbe"
+    },
+    "categories": {
+        "tier1": "pb",
+        "tier2": "qm",
+        "tier3": "dft",
+        "type": "ksdft",
+        "subtype": "gga"
+    },
+    "tags": [
+        "density functional theory"
+    ],
+    "name": "DFT GGA PBE-D3 (collinear)",
+    "path": "/pb/qm/dft/ksdft/gga?spinPolarization=collinear&dispersionCorrection=dft-d3&functional=pbe"
+}

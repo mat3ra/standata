@@ -1,0 +1,42 @@
+name: Surface Energy
+properties:
+  - atomic_forces
+  - fermi_energy
+  - pressure
+  - stress_tensor
+  - surface_energy
+  - total_energy
+  - total_energy_contributions
+  - total_force
+units:
+  - name: shell/utils/get_material_by_id
+    type: subworkflow
+    unitConfigs:
+      - index: 1
+        type: assignment
+        config:
+          attributes:
+            operand: SLAB
+  - name: shell/utils/resolve_bulk_from_slab_by_bulk_id
+    type: subworkflow
+  - name: shell/utils/resolve_bulk_from_slab_by_build
+    type: subworkflow
+  - name: shell/utils/get_e_bulk
+    type: subworkflow
+    unitConfigs:
+      - index: 0
+        type: io
+        config:
+          attributes:
+            input:
+              - type: api
+                endpoint: refined-properties
+                endpoint_options:
+                  params:
+                    query: >-
+                      {'exabyteId': BULK.exabyteId, 'data.name': 'total_energy',
+                      'group': {'$regex': 'qe:'}}
+                    projection: "{'sort': {'precision.value': -1}, 'limit': 1}"
+                name: DATA
+  - name: surface_energy
+    type: subworkflow

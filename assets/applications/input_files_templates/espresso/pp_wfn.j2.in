@@ -1,0 +1,16 @@
+&INPUTPP
+    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}
+    prefix = '__prefix__'
+    plot_num = 7
+    kpoint = 1
+    kband = {% raw %}{{ KBAND_VALUE | default(1) }}{% endraw %}
+    lsign = .true.
+/
+&PLOT
+    iflag = 1
+    fileout = 'wf_r.dat'
+    output_format = 0
+    x0(1) = 0.0, x0(2) = 0.0, x0(3) = 0.0
+    e1(1) = 0.0, e1(2) = 0.0, e1(3) = {{material.lattice.c/material.lattice.a}}
+    nx = 200
+/

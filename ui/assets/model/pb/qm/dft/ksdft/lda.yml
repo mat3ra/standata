@@ -1,0 +1,11 @@
+path: "/pb/qm/dft/ksdft/lda"
+data:
+    key: subtype
+    value: !esse "models-category/pb/qm/dft/ksdft/enum-options#/localDensityApproximation/enum[0]"
+    name: "LDA"
+# terminal node, no children
+staticOptions:
+    - !parameter
+      key: functional
+      values: !esse "model/mixins/dft/enum-options#/lda/enum"
+      namesMap: !include "manifest/names_map.yml#/lda"

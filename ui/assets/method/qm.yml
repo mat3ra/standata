@@ -1,0 +1,7 @@
+path: "/qm"
+data:
+    key: tier1
+    value: !esse "methods-category/physical/enum-options#/quantumMechanical/enum[0]"
+    name: "Quantum-Mechanical"
+children:
+    - !include "method/qm/wf.yml"

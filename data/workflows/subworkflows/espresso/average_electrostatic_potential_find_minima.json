@@ -1,0 +1,139 @@
+{
+    "_id": "e5bee93f-2b6b-5d91-9a53-5ed309a918d3",
+    "name": "Find ESP Value",
+    "application": {
+        "name": "espresso"
+    },
+    "properties": [],
+    "model": {
+        "type": "unknown",
+        "subtype": "unknown",
+        "method": {
+            "type": "unknown",
+            "subtype": "unknown",
+            "data": {}
+        }
+    },
+    "units": [
+        {
+            "type": "execution",
+            "name": "Find Extrema",
+            "head": true,
+            "results": [],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                }
+            ],
+            "flowchartId": "python-find-extrema",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "python",
+                "shortName": "py",
+                "summary": "Python Script",
+                "version": "3.10.13",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "applicationName": "python",
+                "applicationVersion": "*",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "name": "python",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "applicationName": "python",
+                "applicationVersion": "*",
+                "executableName": "python",
+                "input": [
+                    {
+                        "name": "find_extrema.py",
+                        "templateName": "find_extrema.py"
+                    },
+                    {
+                        "name": "requirements.txt",
+                        "templateName": "processing_requirements.txt"
+                    }
+                ],
+                "isDefault": false,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    }
+                ],
+                "name": "generic:processing:find_extrema:scipy",
+                "postProcessors": [],
+                "preProcessors": [],
+                "results": [],
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [
+                {
+                    "template": {
+                        "applicationName": "python",
+                        "applicationVersion": "*",
+                        "content": "# ----------------------------------------------------------- #\n# This script aims to determine extrema for a given array.    #\n# Please adjust the parameters according to your data.        #\n# Note: This template expects the array to be defined in the  #\n# context as 'array_from_context' (see details below).        #\n# ----------------------------------------------------------- #\nimport json\n\nimport numpy as np\nfrom munch import Munch\nfrom scipy.signal import find_peaks\n\n# Data From Context\n# -----------------\n# The array 'array_from_context' is a 1D list (float or int) that has to be defined in\n# a preceding assignment unit in order to be extracted from the context.\n# Example: [0.0, 1.0, 4.0, 3.0]\n# Upon rendering the following Jinja template the extracted array will be inserted.\n{% raw %}Y = np.array({{array_from_context}}){% endraw %}\n\n# Settings\n# --------\nprominence = 0.3  # required prominence in the unit of the data array\n\n# Find Extrema\n# ------------\nmax_indices, _ = find_peaks(Y, prominence=prominence)\nmin_indices, _ = find_peaks(-1 * Y, prominence=prominence)\n\nresult = {\n    \"maxima\": Y[max_indices].tolist(),\n    \"minima\": Y[min_indices].tolist(),\n}\n\n# print final values to standard output (STDOUT),\n# so that they can be read by a subsequent assignment unit (using value=STDOUT)\nprint(json.dumps(result, indent=4))\n",
+                        "contextProviders": [],
+                        "executableName": "python",
+                        "name": "find_extrema.py",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                },
+                {
+                    "template": {
+                        "applicationName": "python",
+                        "applicationVersion": "*",
+                        "content": "# ----------------------------------------------------------------- #\n#                                                                   #\n#  Example Python package requirements for the Mat3ra platform      #\n#                                                                   #\n#  Will be used as follows:                                         #\n#                                                                   #\n#    1. A runtime directory for this calculation is created         #\n#    2. This list is used to populate a Python virtual environment  #\n#    3. The virtual environment is activated                        #\n#    4. The Python process running the script included within this  #\n#       job is started                                              #\n#                                                                   #\n#  For more information visit:                                      #\n#   - https://pip.pypa.io/en/stable/reference/pip_install           #\n#   - https://virtualenv.pypa.io/en/stable/                         #\n#                                                                   #\n# ----------------------------------------------------------------- #\n\n\nmunch>=3.0.0\nnumpy>=1.19.5\nscipy>=1.5.4\nmatplotlib>=3.0.0\n",
+                        "contextProviders": [],
+                        "executableName": "python",
+                        "name": "requirements.txt",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                }
+            ],
+            "context": [],
+            "next": "8fce780b-5555-5b73-b3d1-1bb24a4c759d",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "Set Average ESP Value",
+            "type": "assignment",
+            "operand": "AVG_ESP",
+            "value": "json.loads(STDOUT)['minima']",
+            "input": [
+                {
+                    "name": "STDOUT",
+                    "scope": "python-find-extrema"
+                }
+            ],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "8fce780b-5555-5b73-b3d1-1bb24a4c759d",
+            "head": false,
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "isDraft": false
+}

@@ -1,0 +1,75 @@
+{
+    "_id": "ad32fd60-cdf4-5c4a-8ad8-0cd8eafa4572",
+    "name": "Get Material By ID",
+    "application": {
+        "name": "shell"
+    },
+    "properties": [],
+    "model": {
+        "type": "unknown",
+        "subtype": "unknown",
+        "method": {
+            "type": "unknown",
+            "subtype": "unknown",
+            "data": {}
+        }
+    },
+    "units": [
+        {
+            "name": "io-material",
+            "type": "io",
+            "subtype": "input",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "io-material",
+            "source": "api",
+            "input": [
+                {
+                    "type": "api",
+                    "endpoint": "materials",
+                    "endpoint_options": {
+                        "params": {
+                            "query": "{'_id': MATERIAL_ID}",
+                            "projection": "{}"
+                        }
+                    },
+                    "name": "DATA"
+                }
+            ],
+            "head": true,
+            "next": "assign-material",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "assign-material",
+            "type": "assignment",
+            "operand": "MATERIAL",
+            "value": "DATA[0] if len(DATA) == 1 else None",
+            "input": [
+                {
+                    "name": "DATA",
+                    "scope": "io-material"
+                }
+            ],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-material",
+            "head": false,
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "isDraft": false
+}

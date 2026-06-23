@@ -1,0 +1,253 @@
+{
+    "_id": "f25b44b7-74ba-59ca-b86a-abcc53530e5f",
+    "name": "Zero Point Energy",
+    "subworkflows": [
+        {
+            "_id": "2667054e-3c04-50a9-bd95-55c530d727c9",
+            "name": "Zero Point Energy",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isLicensed": true,
+                "isUsingMaterial": true,
+                "name": "vasp",
+                "shortName": "vasp",
+                "summary": "Vienna Ab-initio Simulation Package",
+                "version": "5.4.4",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [
+                "atomic_forces",
+                "fermi_energy",
+                "pressure",
+                "stress_tensor",
+                "total_energy",
+                "total_force",
+                "zero_point_energy"
+            ],
+            "model": {
+                "type": "dft",
+                "subtype": "gga",
+                "method": {
+                    "type": "pseudopotential",
+                    "subtype": "paw",
+                    "data": {}
+                },
+                "functional": "pbe"
+            },
+            "units": [
+                {
+                    "type": "execution",
+                    "name": "vasp_zpe",
+                    "head": true,
+                    "results": [
+                        {
+                            "name": "total_energy"
+                        },
+                        {
+                            "name": "fermi_energy"
+                        },
+                        {
+                            "name": "pressure"
+                        },
+                        {
+                            "name": "atomic_forces"
+                        },
+                        {
+                            "name": "stress_tensor"
+                        },
+                        {
+                            "name": "total_force"
+                        },
+                        {
+                            "name": "zero_point_energy"
+                        }
+                    ],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        },
+                        {
+                            "name": "convergence_electronic"
+                        },
+                        {
+                            "name": "convergence_ionic"
+                        }
+                    ],
+                    "flowchartId": "c205541a-c734-5c4a-b0ca-a07d05c3e0ea",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isLicensed": true,
+                        "isUsingMaterial": true,
+                        "name": "vasp",
+                        "shortName": "vasp",
+                        "summary": "Vienna Ab-initio Simulation Package",
+                        "version": "5.4.4",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "vasp",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "name": "vasp",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "vasp",
+                        "applicationVersion": "*",
+                        "executableName": "vasp",
+                        "input": [
+                            {
+                                "name": "INCAR",
+                                "templateName": "INCAR_ZPE"
+                            },
+                            {
+                                "name": "KPOINTS",
+                                "templateName": "KPOINTS"
+                            },
+                            {
+                                "name": "POSCAR",
+                                "templateName": "POSCAR"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            },
+                            {
+                                "name": "convergence_electronic"
+                            },
+                            {
+                                "name": "convergence_ionic"
+                            }
+                        ],
+                        "name": "vasp_zpe",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [
+                            {
+                                "name": "total_energy"
+                            },
+                            {
+                                "name": "fermi_energy"
+                            },
+                            {
+                                "name": "pressure"
+                            },
+                            {
+                                "name": "atomic_forces"
+                            },
+                            {
+                                "name": "stress_tensor"
+                            },
+                            {
+                                "name": "total_force"
+                            },
+                            {
+                                "name": "zero_point_energy"
+                            }
+                        ],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "vasp",
+                                "applicationVersion": "*",
+                                "content": "ISMEAR = 1\nSIGMA = 0.1\nIBRION = 5\n",
+                                "contextProviders": [],
+                                "executableName": "vasp",
+                                "name": "INCAR",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        },
+                        {
+                            "template": {
+                                "applicationName": "vasp",
+                                "applicationVersion": "*",
+                                "content": "Automatic mesh\n0\nGamma\n  {% for d in kgrid.dimensions %}{{d}} {% endfor %}\n  {% for s in kgrid.shifts %}{{s}} {% endfor %}\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "KGridFormDataManager"
+                                    }
+                                ],
+                                "executableName": "vasp",
+                                "name": "KPOINTS",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        },
+                        {
+                            "template": {
+                                "applicationName": "vasp",
+                                "applicationVersion": "*",
+                                "content": "{{ input.POSCAR }}\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "VASPInputDataManager"
+                                    }
+                                ],
+                                "executableName": "vasp",
+                                "name": "POSCAR",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        }
+    ],
+    "units": [
+        {
+            "type": "subworkflow",
+            "name": "Zero Point Energy",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "2667054e-3c04-50a9-bd95-55c530d727c9",
+            "flowchartId": "d906bd20-eb92-5a01-a0e2-c81a2d9b2a41",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "properties": [
+        "atomic_forces",
+        "fermi_energy",
+        "pressure",
+        "stress_tensor",
+        "total_energy",
+        "total_force",
+        "zero_point_energy"
+    ],
+    "workflows": [],
+    "schemaVersion": "2022.8.16",
+    "application": {
+        "name": "vasp"
+    }
+}

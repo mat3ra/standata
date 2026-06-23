@@ -1,0 +1,6 @@
+path: "/qm/wf/tetrahedron/bloechl"
+data:
+    key: subtype
+    value: !esse "methods-category/physical/qm/wf/enum-options#/tetrahedronSubtypes/enum[2]"
+    name: "Bloechl"
+# terminal node, no children

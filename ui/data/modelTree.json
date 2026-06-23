@@ -1,0 +1,107 @@
+{
+    "path": "/",
+    "data": null,
+    "children": [
+        {
+            "path": "/pb",
+            "data": {
+                "key": "tier1",
+                "value": "pb",
+                "name": "Physics-based"
+            },
+            "children": [
+                {
+                    "path": "/pb/qm",
+                    "data": {
+                        "key": "tier2",
+                        "value": "qm",
+                        "name": "Quantum-mechanical"
+                    },
+                    "children": [
+                        {
+                            "path": "/pb/qm/dft",
+                            "data": {
+                                "key": "tier3",
+                                "value": "dft",
+                                "name": "Density Functional Theory"
+                            },
+                            "children": [
+                                {
+                                    "path": "/pb/qm/dft/ksdft",
+                                    "data": {
+                                        "key": "type",
+                                        "value": "ksdft",
+                                        "name": "Kohn-Sham DFT"
+                                    },
+                                    "children": [
+                                        {
+                                            "path": "/pb/qm/dft/ksdft/lda",
+                                            "data": {
+                                                "key": "subtype",
+                                                "value": "lda",
+                                                "name": "LDA"
+                                            },
+                                            "staticOptions": [
+                                                {
+                                                    "key": "functional",
+                                                    "values": [
+                                                        "pz"
+                                                    ],
+                                                    "namesMap": {
+                                                        "pz": "PZ"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "path": "/pb/qm/dft/ksdft/gga",
+                                            "data": {
+                                                "key": "subtype",
+                                                "value": "gga",
+                                                "name": "GGA"
+                                            },
+                                            "staticOptions": [
+                                                {
+                                                    "key": "functional",
+                                                    "values": [
+                                                        "pbe",
+                                                        "pbesol"
+                                                    ],
+                                                    "namesMap": {
+                                                        "pbe": "PBE",
+                                                        "pbesol": "PBESOL"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "path": "/pb/qm/dft/ksdft/hybrid",
+                                            "data": {
+                                                "key": "subtype",
+                                                "value": "hybrid",
+                                                "name": "Hybrid Functional"
+                                            },
+                                            "staticOptions": [
+                                                {
+                                                    "key": "functional",
+                                                    "values": [
+                                                        "hse06",
+                                                        "b3lyp"
+                                                    ],
+                                                    "namesMap": {
+                                                        "hse06": "HSE06",
+                                                        "b3lyp": "B3LYP"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

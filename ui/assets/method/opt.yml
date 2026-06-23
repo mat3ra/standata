@@ -1,0 +1,7 @@
+path: "/opt"
+data:
+    key: tier1
+    value: !esse "methods-category/mathematical/enum-options#/optimization/enum[0]"
+    name: "Differentiation"
+children:
+    - !include "method/opt/diff.yml"

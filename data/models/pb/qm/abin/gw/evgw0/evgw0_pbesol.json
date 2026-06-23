@@ -1,0 +1,15 @@
+{
+    "parameters": {
+        "functional": "pbesol",
+        "require": "pb/qm/dft/ksdft/gga?functional=pbe"
+    },
+    "categories": {
+        "subtype": "evgw0",
+        "tier1": "pb",
+        "tier2": "qm",
+        "tier3": "abin",
+        "type": "gw"
+    },
+    "name": "evGW0@pbesol",
+    "path": "/pb/qm/abin/gw/evgw0?functional=pbesol&require=pb%2Fqm%2Fdft%2Fksdft%2Fgga%3Ffunctional%3Dpbe"
+}

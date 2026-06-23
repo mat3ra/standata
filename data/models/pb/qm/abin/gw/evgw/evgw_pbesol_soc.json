@@ -1,0 +1,16 @@
+{
+    "parameters": {
+        "spinOrbitCoupling": true,
+        "functional": "pbesol",
+        "require": "pb/qm/dft/ksdft/gga?functional=pbe&spinOrbitCoupling=true"
+    },
+    "categories": {
+        "subtype": "evgw",
+        "tier1": "pb",
+        "tier2": "qm",
+        "tier3": "abin",
+        "type": "gw"
+    },
+    "name": "evGW@pbesol (SOC)",
+    "path": "/pb/qm/abin/gw/evgw?spinOrbitCoupling=true&functional=pbesol&require=pb%2Fqm%2Fdft%2Fksdft%2Fgga%3Ffunctional%3Dpbe%26spinOrbitCoupling%3Dtrue"
+}

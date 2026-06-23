@@ -1,0 +1,15 @@
+path: "/qm/wf/ao"
+data:
+    key: type
+    value: !esse "methods-category/physical/qm/wf/enum-options#/atomicOrbital/enum[0]"
+    name: "Atomic Orbital"
+children:
+    - path: "/qm/wf/ao/pople"
+      data:
+          key: subtype
+          value: !esse "methods-category/physical/qm/wf/enum-options#/aoTypes/enum[0]"
+          name: "Pople Basis"
+      staticOptions:
+          - !parameter
+            key: basisSlug
+            values: !esse "methods-directory/physical/ao/enum-options#/popleAoBasis/enum"

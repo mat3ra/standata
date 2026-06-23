@@ -1,0 +1,17 @@
+- content: !readFile 'input_files_templates/espresso/bands.j2.in'
+  name: bands.in
+  contextProviders: []
+  applicationName: espresso
+  executableName: bands.x
+
+- content: !readFile 'input_files_templates/espresso/bands_spin_up.j2.in'
+  name: bands_spin_up.in
+  contextProviders: []
+  applicationName: espresso
+  executableName: bands.x
+
+- content: !readFile 'input_files_templates/espresso/bands_spin_dn.j2.in'
+  name: bands_spin_dn.in
+  contextProviders: []
+  applicationName: espresso
+  executableName: bands.x

@@ -1,0 +1,104 @@
+<<<<<<< HEAD
+{"_id":"ce33d4cf-e0d2-5020-854d-9ea1fe5c8512","name":"Shell Hello World","application":{"name":"shell"},"properties":[],"model":{"type":"unknown","subtype":"unknown","method":{"type":"unknown","subtype":"unknown","data":{}}},"units":[{"type":"execution","name":"shell","head":true,"results":[],"monitors":[{"name":"standard_output"}],"flowchartId":"99304304-e873-5c89-ae83-91e61a7f629c","preProcessors":[],"postProcessors":[],"status":"idle","statusTrack":[],"tags":[],"application":{"build":"GNU","hasAdvancedComputeOptions":false,"isDefault":true,"isDefaultVersion":true,"isLicensed":false,"isUsingMaterial":false,"name":"shell","shortName":"sh","summary":"Shell Script","version":"5.1.8","schemaVersion":"2022.8.16"},"executable":{"applicationName":"shell","applicationVersion":"*","hasAdvancedComputeOptions":false,"isDefault":true,"name":"sh","schemaVersion":"2022.8.16"},"flavor":{"applicationName":"shell","applicationVersion":"*","executableName":"sh","input":[{"name":"hello_world.sh"}],"isDefault":true,"monitors":[{"name":"standard_output"}],"name":"hello_world","postProcessors":[],"preProcessors":[],"results":[],"schemaVersion":"2022.8.16"},"input":[{"template":{"applicationName":"shell","applicationVersion":"*","content":"#!/bin/bash\n# ---------------------------------------------------------------- #\n#                                                                  #\n#  Example shell script for Mat3ra.com platform.                   #\n#                                                                  #\n#  Will be used as follows:                                        #\n#                                                                  #\n#    1. shebang line is read from the first line above             #\n#    2. based on shebang one of the shell types is selected:       #\n#       - /bin/bash                                                #\n#       - /bin/csh                                                 #\n#       - /bin/tclsh                                               #\n#       - /bin/tcsh                                                #\n#       - /bin/zsh                                                 #\n#    3. runtime directory for this calculation is created          #\n#    4. the content of the script is executed                      #\n#                                                                  #\n#  Adjust the content below to include your code.                  #\n#                                                                  #\n# ---------------------------------------------------------------- #\n\necho \"Hello world!\"\n","contextProviders":[],"executableName":"sh","name":"hello_world.sh","schemaVersion":"2022.8.16"},"rendered":"","isManuallyChanged":false}],"context":[],"schemaVersion":"2022.8.16","isDefault":false}],"schemaVersion":"2022.8.16","isDraft":false}
+=======
+<<<<<<< HEAD
+{
+    "_id": "ce33d4cf-e0d2-5020-854d-9ea1fe5c8512",
+    "name": "Shell Hello World",
+    "application": {
+        "name": "shell"
+    },
+    "properties": [],
+    "model": {
+        "type": "unknown",
+        "subtype": "unknown",
+        "method": {
+            "type": "unknown",
+            "subtype": "unknown",
+            "data": {}
+        }
+    },
+    "units": [
+        {
+            "type": "execution",
+            "name": "shell",
+            "head": true,
+            "results": [],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                }
+            ],
+            "flowchartId": "99304304-e873-5c89-ae83-91e61a7f629c",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "name": "shell",
+                "shortName": "sh",
+                "summary": "Shell Script",
+                "build": "GNU",
+                "isDefault": true,
+                "version": "5.1.8",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "preProcessors": [],
+                "postProcessors": [],
+                "isDefault": true,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    }
+                ],
+                "name": "sh",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "preProcessors": [],
+                "postProcessors": [],
+                "results": [],
+                "applicationName": "shell",
+                "executableName": "sh",
+                "input": [
+                    {
+                        "name": "hello_world.sh"
+                    }
+                ],
+                "isDefault": true,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    }
+                ],
+                "name": "hello_world",
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [
+                {
+                    "template": {
+                        "applicationName": "shell",
+                        "content": "#!/bin/bash\n# ---------------------------------------------------------------- #\n#                                                                  #\n#  Example shell script for Exabyte.io platform.                   #\n#                                                                  #\n#  Will be used as follows:                                        #\n#                                                                  #\n#    1. shebang line is read from the first line above             #\n#    2. based on shebang one of the shell types is selected:       #\n#       - /bin/bash                                                #\n#       - /bin/csh                                                 #\n#       - /bin/tclsh                                               #\n#       - /bin/tcsh                                                #\n#       - /bin/zsh                                                 #\n#    3. runtime directory for this calculation is created          #\n#    4. the content of the script is executed                      #\n#                                                                  #\n#  Adjust the content below to include your code.                  #\n#                                                                  #\n# ---------------------------------------------------------------- #\n\necho \"Hello world!\"\n",
+                        "contextProviders": [],
+                        "executableName": "sh",
+                        "name": "hello_world.sh",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                }
+            ],
+            "context": [],
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "isDraft": false
+}
+=======
+{"_id":"ce33d4cf-e0d2-5020-854d-9ea1fe5c8512","name":"Shell Hello World","application":{"name":"shell"},"properties":[],"model":{"type":"unknown","subtype":"unknown","method":{"type":"unknown","subtype":"unknown","data":{}}},"units":[{"type":"execution","name":"shell","head":true,"results":[],"monitors":[{"name":"standard_output"}],"flowchartId":"99304304-e873-5c89-ae83-91e61a7f629c","preProcessors":[],"postProcessors":[],"application":{"name":"shell","shortName":"sh","summary":"Shell Script","build":"GNU","isDefault":true,"version":"5.1.8","schemaVersion":"2022.8.16"},"executable":{"isDefault":true,"monitors":["standard_output"],"name":"sh","schemaVersion":"2022.8.16"},"flavor":{"applicationName":"shell","executableName":"sh","input":[{"name":"hello_world.sh"}],"isDefault":true,"monitors":["standard_output"],"name":"hello_world","schemaVersion":"2022.8.16"},"status":"idle","statusTrack":[],"tags":[],"input":[{"applicationName":"shell","content":"#!/bin/bash\n# ---------------------------------------------------------------- #\n#                                                                  #\n#  Example shell script for Exabyte.io platform.                   #\n#                                                                  #\n#  Will be used as follows:                                        #\n#                                                                  #\n#    1. shebang line is read from the first line above             #\n#    2. based on shebang one of the shell types is selected:       #\n#       - /bin/bash                                                #\n#       - /bin/csh                                                 #\n#       - /bin/tclsh                                               #\n#       - /bin/tcsh                                                #\n#       - /bin/zsh                                                 #\n#    3. runtime directory for this calculation is created          #\n#    4. the content of the script is executed                      #\n#                                                                  #\n#  Adjust the content below to include your code.                  #\n#                                                                  #\n# ---------------------------------------------------------------- #\n\necho \"Hello world!\"\n","contextProviders":[],"executableName":"sh","name":"hello_world.sh","rendered":"#!/bin/bash\n# ---------------------------------------------------------------- #\n#                                                                  #\n#  Example shell script for Exabyte.io platform.                   #\n#                                                                  #\n#  Will be used as follows:                                        #\n#                                                                  #\n#    1. shebang line is read from the first line above             #\n#    2. based on shebang one of the shell types is selected:       #\n#       - /bin/bash                                                #\n#       - /bin/csh                                                 #\n#       - /bin/tclsh                                               #\n#       - /bin/tcsh                                                #\n#       - /bin/zsh                                                 #\n#    3. runtime directory for this calculation is created          #\n#    4. the content of the script is executed                      #\n#                                                                  #\n#  Adjust the content below to include your code.                  #\n#                                                                  #\n# ---------------------------------------------------------------- #\n\necho \"Hello world!\"\n","schemaVersion":"2022.8.16"}]}]}
+>>>>>>> b3dcfaf50512fa2fe03d96b6e1d3a8d02b801da1
+>>>>>>> 88bccc4ec7129a26f12ddf3f4c0f6cb8f700e408

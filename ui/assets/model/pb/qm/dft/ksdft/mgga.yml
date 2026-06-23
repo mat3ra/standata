@@ -1,0 +1,11 @@
+path: "/pb/qm/dft/ksdft/mgga"
+data:
+    key: subtype
+    value: !esse "models-category/pb/qm/dft/ksdft/enum-options#/metaGGA/enum[0]"
+    name: "meta-GGA"
+# terminal node, no children
+staticOptions:
+    - !parameter
+      key: functional
+      values: !esse "model/mixins/dft/enum-options#/mgga/enum"
+      namesMap: !include "manifest/names_map.yml#/mgga"

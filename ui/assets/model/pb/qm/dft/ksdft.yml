@@ -1,0 +1,28 @@
+path: "/pb/qm/dft/ksdft"
+data:
+    key: type
+    value: !esse "models-category/pb/qm/dft/enum-options#/kohnSham/enum[0]"
+    name: "Kohn-Sham DFT"
+children:
+    - !include "model/pb/qm/dft/ksdft/lda.yml"
+    - !include "model/pb/qm/dft/ksdft/gga.yml"
+    - !include "model/pb/qm/dft/ksdft/hybrid.yml"
+# TODO: reactivate once available on the frontend
+#  - !include "model/pb/qm/dft/ksdft/mgga.yml"
+#staticOptions:
+#    - !parameter
+#        key: spinPolarization
+#        values: !esse "model/mixins/enum-options#/spinPolarization/enum"
+#        exclude: "^non-collinear"
+#    - !parameter
+#        key: dispersionCorrection
+#        values: !esse "model/mixins/enum-options#/dispersionCorrection/enum"
+#        exclude: "^(?!.*dft-d3).*$"
+#        namesMap:
+#            dft-d3: DFT-D3
+#    - !parameter
+#        key: spinOrbitCoupling
+#        values: [true]
+#    - !parameter
+#        key: hubbardType
+#        values: !esse "model/mixins/enum-options#/hubbardType/enum"

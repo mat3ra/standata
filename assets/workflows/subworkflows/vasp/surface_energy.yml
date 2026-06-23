@@ -1,0 +1,50 @@
+application:
+  name: vasp
+  version: 5.4.4
+method:
+  name: PseudopotentialMethod
+model:
+  name: DFTModel
+name: Surface Energy - VASP
+units:
+  - type: assignment
+    config:
+      flowchartId: assign-surface-area
+      name: assign-surface-area
+      operand: A
+      value: "np.linalg.norm(np.cross(SLAB.lattice.vectors.a, SLAB.lattice.vectors.b))"
+  - type: assignment
+    config:
+      flowchartId: assign-n-bulk
+      name: assign-n-bulk
+      operand: N_BULK
+      value: "len(BULK.basis.elements)"
+  - type: assignment
+    config:
+      flowchartId: assign-n-slab
+      name: assign-n-slab
+      operand: N_SLAB
+      value: "len(SLAB.basis.elements)"
+  - type: executionBuilder
+    config:
+      execName: vasp
+      flavorName: vasp_symprec
+      flowchartId: vasp-surface-energy
+      name: vasp_symprec
+  - type: assignment
+    config:
+      flowchartId: assign-e-slab
+      input:
+        - name: total_energy
+          scope: vasp-surface-energy
+      name: assign-e-slab
+      operand: E_SLAB
+      value: total_energy
+  - type: assignment
+    config:
+      flowchartId: assign-surface-energy
+      name: assign-surface-energy
+      operand: SURFACE_ENERGY
+      results:
+        - name: surface_energy
+      value: "1 / (2 * A) * (E_SLAB - E_BULK * (N_SLAB / N_BULK))"

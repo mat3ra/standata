@@ -1,0 +1,27 @@
+{
+    "name": "espresso",
+    "shortName": "qe",
+    "summary": "Quantum ESPRESSO",
+    "isUsingMaterial": true,
+    "version": "7.5",
+    "isDefault": false,
+    "isDefaultVersion": false,
+    "build": "Intel",
+    "hasAdvancedComputeOptions": true,
+    "buildConfig": {
+        "moduleName": "7.5-host-intel-2023.1-libxc-7.0",
+        "imageName": "espresso",
+        "imageTag": "7.5-host-intel-2023.1-libxc-7.0-2",
+        "bio": "Quantum ESPRESSO 7.5 (Intel OneAPI 2023.1.0, LibXC 7.0)",
+        "dependencies": [
+            "intel/oneapi-2023.1.0"
+        ],
+        "environmentVariables": {
+            "SOFTWARE_LIBRARIES_PATH": "/export/compute/software/libraries",
+            "APPTAINERENV_PREPEND_PATH": "$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mpi/2021.9.0/libfabric/bin:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mpi/2021.9.0/bin:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mkl/2023.1.0/bin/intel64:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/dev-utilities/2021.9.0/bin:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/debugger/2023.1.0/gdb/intel64/bin:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/lib/oclfpga/bin:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/bin/intel64:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/bin",
+            "APPTAINERENV_LD_LIBRARY_PATH": "$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/tbb/2021.9.0/lib/intel64/gcc4.8:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mpi/2021.9.0/libfabric/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mpi/2021.9.0/lib/release:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mpi/2021.9.0/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mkl/2023.1.0/lib/intel64:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/debugger/2023.1.0/gdb/intel64/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/debugger/2023.1.0/libipt/intel64/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/debugger/2023.1.0/dep/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/lib/x64:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/lib/oclfpga/host/linux64/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/compiler/lib/intel64_lin:\\${LD_LIBRARY_PATH}",
+            "APPTAINERENV_I_MPI_ROOT": "$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mpi/2021.9.0",
+            "APPTAINERENV_MKLROOT": "$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mkl/2023.1.0"
+        }
+    }
+}

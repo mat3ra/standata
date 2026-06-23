@@ -1,0 +1,6 @@
+- content: !readFile 'input_files_templates/espresso/hp.j2.in'
+  name: hp.in
+  contextProviders:
+    - name: QGridFormDataManager
+  applicationName: espresso
+  executableName: hp.x

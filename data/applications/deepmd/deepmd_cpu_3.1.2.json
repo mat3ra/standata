@@ -1,0 +1,19 @@
+{
+    "name": "deepmd",
+    "shortName": "dp",
+    "summary": "DeepMD",
+    "isUsingMaterial": true,
+    "version": "3.1.2",
+    "isDefault": true,
+    "isDefaultVersion": true,
+    "build": "CPU",
+    "hasAdvancedComputeOptions": false,
+    "buildConfig": {
+        "moduleName": "3.1.2-cpu",
+        "imageName": "deepmd",
+        "imageTag": "3.1.2-cpu-0",
+        "bio": "DeepMD 3.1.2 (CPU build)",
+        "dependencies": [],
+        "environmentVariables": {}
+    }
+}

@@ -1,0 +1,66 @@
+name: espresso
+shortName: qe
+summary: Quantum ESPRESSO
+defaultVersion: '6.3'
+isUsingMaterial: true
+versions:
+  #### version 6.3 ####
+  - version: '6.3'
+    # This sets the default build for each version
+    isDefault: true
+    build: GNU
+    hasAdvancedComputeOptions: true
+    buildConfig:
+      moduleName: '6.3-gnu'
+      imageName: 'espresso'
+      imageTag: '6.3-gnu-1'
+      bio: 'Quantum ESPRESSO 6.3 (GCC 11.5.0, OpenMPI 4.1.1 and OpenBLAS)'
+      dependencies:
+        - 'mpi/ompi-4.1.1'
+      environmentVariables: {}
+  #### version 7.5 ####
+  - version: '7.5'
+    isDefault: true
+    build: GNU
+    hasAdvancedComputeOptions: true
+    buildConfig:
+      moduleName: '7.5-gnu'
+      imageName: 'espresso'
+      imageTag: '7.5-gnu-1'
+      bio: 'Quantum ESPRESSO 7.5 (GCC 11.5.0, OpenMPI 4.1.1 and OpenBLAS)'
+      dependencies:
+        - 'mpi/ompi-4.1.1'
+      environmentVariables: {}
+  - version: '7.5'
+    isDefault: false
+    build: Intel
+    hasAdvancedComputeOptions: true
+    buildConfig:
+      moduleName: '7.5-host-intel-2023.1-libxc-7.0'
+      imageName: 'espresso'
+      imageTag: '7.5-host-intel-2023.1-libxc-7.0-2'
+      bio: 'Quantum ESPRESSO 7.5 (Intel OneAPI 2023.1.0, LibXC 7.0)'
+      dependencies:
+        - 'intel/oneapi-2023.1.0'
+      environmentVariables:
+        SOFTWARE_LIBRARIES_PATH: '/export/compute/software/libraries'
+        APPTAINERENV_PREPEND_PATH: '$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mpi/2021.9.0/libfabric/bin:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mpi/2021.9.0/bin:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mkl/2023.1.0/bin/intel64:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/dev-utilities/2021.9.0/bin:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/debugger/2023.1.0/gdb/intel64/bin:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/lib/oclfpga/bin:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/bin/intel64:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/bin'
+        APPTAINERENV_LD_LIBRARY_PATH: '$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/tbb/2021.9.0/lib/intel64/gcc4.8:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mpi/2021.9.0/libfabric/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mpi/2021.9.0/lib/release:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mpi/2021.9.0/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mkl/2023.1.0/lib/intel64:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/debugger/2023.1.0/gdb/intel64/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/debugger/2023.1.0/libipt/intel64/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/debugger/2023.1.0/dep/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/lib/x64:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/lib/oclfpga/host/linux64/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/compiler/lib/intel64_lin:\${LD_LIBRARY_PATH}'
+        APPTAINERENV_I_MPI_ROOT: '$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mpi/2021.9.0'
+        APPTAINERENV_MKLROOT: '$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mkl/2023.1.0'
+  - version: '7.5'
+    isDefault: false
+    build: CUDA
+    hasAdvancedComputeOptions: true
+    buildConfig:
+      moduleName: '7.5-cuda-12.8'
+      imageName: 'espresso'
+      imageTag: '7.5-host-cuda-12.8-0'
+      bio: 'Quantum ESPRESSO 7.5 (CUDA 12.8)'
+      dependencies:
+        - 'nvhpc/25.3-cuda-12.8'
+      environmentVariables:
+        SOFTWARE_LIBRARIES_PATH: '/export/compute/software/libraries'
+        SOFTWARE_COMPILERS_PATH: '/export/compute/software/compilers'
+        APPTAINERENV_PREPEND_PATH: '$env(SOFTWARE_LIBRARIES_PATH)/nvhpc-25.3-cuda-12.8/Linux_x86_64/25.3/comm_libs/12.8/hpcx/hpcx-2.22.1/hcoll/bin:$env(SOFTWARE_LIBRARIES_PATH)/nvhpc-25.3-cuda-12.8/Linux_x86_64/25.3/comm_libs/12.8/hpcx/hpcx-2.22.1/ompi/bin:$env(SOFTWARE_LIBRARIES_PATH)/nvhpc-25.3-cuda-12.8/Linux_x86_64/25.3/comm_libs/12.8/hpcx/hpcx-2.22.1/ucx/mt/bin:$env(SOFTWARE_COMPILERS_PATH)/compilers/gcc/11.2.0/bin'
+        APPTAINERENV_LD_LIBRARY_PATH: '$env(SOFTWARE_LIBRARIES_PATH)/nvhpc-25.3-cuda-12.8/Linux_x86_64/25.3/comm_libs/12.8/hpcx/hpcx-2.22.1/hcoll/lib:$env(SOFTWARE_LIBRARIES_PATH)/nvhpc-25.3-cuda-12.8/Linux_x86_64/25.3/comm_libs/12.8/hpcx/hpcx-2.22.1/ompi/lib:$env(SOFTWARE_LIBRARIES_PATH)/nvhpc-25.3-cuda-12.8/Linux_x86_64/25.3/comm_libs/12.8/hpcx/hpcx-2.22.1/nccl_rdma_sharp_plugin/lib:$env(SOFTWARE_LIBRARIES_PATH)/nvhpc-25.3-cuda-12.8/Linux_x86_64/25.3/comm_libs/12.8/hpcx/hpcx-2.22.1/sharp/lib:$env(SOFTWARE_LIBRARIES_PATH)/nvhpc-25.3-cuda-12.8/Linux_x86_64/25.3/comm_libs/12.8/hpcx/hpcx-2.22.1/ucx/mt/lib:$env(SOFTWARE_LIBRARIES_PATH)/nvhpc-25.3-cuda-12.8/Linux_x86_64/25.3/comm_libs/12.8/hpcx/hpcx-2.22.1/ucx/mt/lib/ucx:$env(SOFTWARE_LIBRARIES_PATH)/nvhpc-25.3-cuda-12.8/Linux_x86_64/25.3/comm_libs/12.8/nccl/lib:$env(SOFTWARE_LIBRARIES_PATH)/nvhpc-25.3-cuda-12.8/Linux_x86_64/25.3/compilers/lib:$env(SOFTWARE_LIBRARIES_PATH)/nvhpc-25.3-cuda-12.8/Linux_x86_64/25.3/cuda/12.8/lib64:$env(SOFTWARE_LIBRARIES_PATH)/nvhpc-25.3-cuda-12.8/Linux_x86_64/25.3/math_libs/12.8/lib64:$env(SOFTWARE_COMPILERS_PATH)/gcc/11.2.0/lib64:\${LD_LIBRARY_PATH}'

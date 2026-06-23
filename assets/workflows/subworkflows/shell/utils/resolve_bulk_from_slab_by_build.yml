@@ -1,0 +1,83 @@
+application:
+  name: shell
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: Resolve Bulk From Slab By Build
+units:
+  - type: condition
+    config:
+      name: is-bulk-present
+      flowchartId: is-bulk-present
+      statement: "BULK is not None"
+      then: done
+      else: assign-crystal
+  - type: assignment
+    config:
+      name: assign-crystal
+      flowchartId: assign-crystal
+      operand: LAST_BUILD_CRYSTAL
+      value: >-
+        (((SLAB.metadata.get('build') or [{}])[-1].get('configuration') or {}).get(
+        'stack_components'
+        ) or [{}])[0].get('crystal') if SLAB.metadata else None
+  - type: assignment
+    config:
+      name: assign-bulk-query
+      flowchartId: assign-bulk-query
+      operand: BULK_QUERY
+      value: >-
+        {'scaledHash': LAST_BUILD_CRYSTAL.get('scaledHash')}
+        if LAST_BUILD_CRYSTAL and LAST_BUILD_CRYSTAL.get('scaledHash')
+        else {'hash': LAST_BUILD_CRYSTAL.get('hash')}
+        if LAST_BUILD_CRYSTAL and LAST_BUILD_CRYSTAL.get('hash')
+        else None
+  - type: assertion
+    config:
+      name: assert-bulk-query
+      flowchartId: assert-bulk-query
+      statement: "BULK_QUERY != None"
+      errorMessage: >-
+        Surface slab build metadata does not carry a crystal scaledHash or hash.
+        Upload the bulk material and run its total energy workflow first.
+  - type: io
+    config:
+      name: io-bulk
+      flowchartId: io-bulk
+      subtype: input
+      source: api
+      input:
+        - type: api
+          endpoint: materials
+          endpoint_options:
+            params:
+              query: "BULK_QUERY"
+              projection: "{}"
+          name: DATA
+  - type: assignment
+    config:
+      name: assign-bulk
+      flowchartId: assign-bulk
+      operand: BULK
+      value: "DATA[0] if DATA else None"
+      input:
+        - name: DATA
+          scope: io-bulk
+  - type: assertion
+    config:
+      name: assert-bulk
+      flowchartId: assert-bulk
+      statement: "BULK != None"
+      errorMessage: >-
+        No bulk material matched the resolved slab build metadata query.
+        Upload the bulk material and run its total energy workflow first.
+  - type: assignment
+    config:
+      name: done
+      flowchartId: done
+      operand: BULK
+      value: "BULK"
+      input:
+        - name: BULK
+          scope: global

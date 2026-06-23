@@ -1,0 +1,51 @@
+{
+  "name": "V, Vanadium, BCC (Im-3m) 3D (Bulk), mp-146",
+  "lattice": {
+    "a": 2.582834,
+    "b": 2.582833,
+    "c": 2.582834,
+    "alpha": 109.4712,
+    "beta": 109.4712,
+    "gamma": 109.4712,
+    "units": {
+      "length": "angstrom",
+      "angle": "degree"
+    },
+    "type": "BCC"
+  },
+  "basis": {
+    "elements": [
+      {
+        "id": 0,
+        "value": "V"
+      }
+    ],
+    "coordinates": [
+      {
+        "id": 0,
+        "value": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "units": "crystal",
+    "constraints": [],
+    "labels": []
+  },
+  "external": {
+    "id": "mp-146",
+    "source": "MaterialsProject",
+    "doi": "10.17188/1190785",
+    "url": "https://next-gen.materialsproject.org/materials/mp-146",
+    "origin": true
+  },
+  "isNonPeriodic": false,
+  "metadata": {
+    "element": "V"
+  },
+  "tags": [
+    "elemental"
+  ]
+}

@@ -1,0 +1,9 @@
+path: "/"
+# Note: root node has no data on its own
+data: null
+children:
+    - !include "method/linalg.yml"
+    - !include "method/qm.yml"
+# Conjugate gradient not available on frontend yet
+# TODO: Activate filter option once implemented
+#  - !include "method/opt.yml"

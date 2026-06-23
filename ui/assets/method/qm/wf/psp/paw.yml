@@ -1,0 +1,6 @@
+path: "/qm/wf/psp/paw"
+data:
+    key: subtype
+    value: !esse "methods-category/physical/qm/wf/enum-options#/pseudoSubtypes/enum[3]"
+    name: "Projector-Augmented Wave"
+# terminal node, no children

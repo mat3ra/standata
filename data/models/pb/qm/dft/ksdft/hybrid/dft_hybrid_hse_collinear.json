@@ -1,0 +1,18 @@
+{
+    "parameters": {
+        "spinPolarization": "collinear",
+        "functional": "hse06"
+    },
+    "categories": {
+        "tier1": "pb",
+        "tier2": "qm",
+        "tier3": "dft",
+        "type": "ksdft",
+        "subtype": "hybrid"
+    },
+    "tags": [
+        "density functional theory"
+    ],
+    "name": "DFT Hybrid HSE (collinear)",
+    "path": "/pb/qm/dft/ksdft/hybrid?spinPolarization=collinear&functional=hse06"
+}

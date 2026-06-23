@@ -1,0 +1,106 @@
+- content: !readFile 'input_files_templates/vasp/INCAR.j2'
+  name: INCAR
+  contextProviders: []
+  applicationName: vasp
+  executableName: vasp
+
+- content: !readFile 'input_files_templates/vasp/INCAR_SYMPREC.j2'
+  name: INCAR_SYMPREC
+  contextProviders: []
+  applicationName: vasp
+  executableName: vasp
+
+- content: !readFile 'input_files_templates/vasp/INCAR_bands.j2'
+  name: INCAR_BANDS
+  contextProviders: []
+  applicationName: vasp
+  executableName: vasp
+
+- content: !readFile 'input_files_templates/vasp/INCAR_zpe.j2'
+  name: INCAR_ZPE
+  contextProviders: []
+  applicationName: vasp
+  executableName: vasp
+
+- content: !readFile 'input_files_templates/vasp/INCAR_relax.j2'
+  name: INCAR_RELAX
+  contextProviders: []
+  applicationName: vasp
+  executableName: vasp
+
+- content: !readFile 'input_files_templates/vasp/INCAR_vc_relax.j2'
+  name: INCAR_VC_RELAX
+  contextProviders: []
+  applicationName: vasp
+  executableName: vasp
+
+- content: !concatString
+    - !readFile 'input_files_templates/vasp/INCAR.j2'
+    - !readFile 'input_files_templates/vasp/_MIXIN_INCAR_hse.j2'
+  name: INCAR_HSE
+  contextProviders: []
+  applicationName: vasp
+  executableName: vasp
+
+- content: !concatString
+    - !readFile 'input_files_templates/vasp/INCAR_bands.j2'
+    - !readFile 'input_files_templates/vasp/_MIXIN_INCAR_hse.j2'
+  name: INCAR_BANDS_HSE
+  contextProviders: []
+  applicationName: vasp
+  executableName: vasp
+
+- content: !readFile 'input_files_templates/vasp/KPOINTS.j2'
+  name: KPOINTS
+  contextProviders:
+    - name: KGridFormDataManager
+  applicationName: vasp
+  executableName: vasp
+
+- content: !readFile 'input_files_templates/vasp/KPOINTS_bands.j2'
+  name: KPOINTS_BANDS
+  contextProviders:
+    - name: KPathFormDataManager
+  applicationName: vasp
+  executableName: vasp
+
+- content: !readFile 'input_files_templates/vasp/KPOINTS_conv.j2'
+  name: KPOINTS_CONV
+  contextProviders: []
+  applicationName: vasp
+  executableName: vasp
+
+- content: !readFile 'input_files_templates/vasp/POSCAR.j2'
+  name: POSCAR
+  contextProviders:
+    - name: VASPInputDataManager
+  applicationName: vasp
+  executableName: vasp
+
+- content: !readFile 'input_files_templates/vasp/INCAR_neb.j2'
+  name: INCAR_NEB
+  contextProviders:
+    - name: NEBFormDataManager
+    - name: VASPNEBInputDataManager
+  applicationName: vasp
+  executableName: vasp
+
+- content: !readFile 'input_files_templates/vasp/INCAR_neb_initial_final.j2'
+  name: INCAR_NEB_INITIAL_FINAL
+  contextProviders: []
+  applicationName: vasp
+  executableName: vasp
+
+- content: !readFile 'input_files_templates/vasp/POSCAR_NEB_initial.j2'
+  name: POSCAR_NEB_INITIAL
+  contextProviders:
+    - name: VASPNEBInputDataManager
+  applicationName: vasp
+  executableName: vasp
+
+- content: !readFile 'input_files_templates/vasp/POSCAR_NEB_final.j2'
+  name: POSCAR_NEB_FINAL
+  contextProviders:
+    - name: VASPNEBInputDataManager
+  applicationName: vasp
+  executableName: vasp

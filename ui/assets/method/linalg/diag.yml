@@ -1,0 +1,7 @@
+path: "/linalg/diag"
+data:
+    key: tier2
+    value: !esse "methods-category/mathematical/linalg/enum-options#/diagonalization/enum[0]"
+    name: Diagonalization
+children:
+    - !include "method/linalg/diag/davidson.yml"

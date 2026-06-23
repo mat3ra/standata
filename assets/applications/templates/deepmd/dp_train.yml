@@ -1,0 +1,5 @@
+- content: !readFile 'input_files_templates/deepmd/dp_train_se_e2_r.json'
+  name: dp_train_se_e2_r.json
+  contextProviders: []
+  applicationName: deepmd
+  executableName: dp

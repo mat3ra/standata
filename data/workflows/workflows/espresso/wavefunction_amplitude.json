@@ -1,0 +1,548 @@
+{
+    "_id": "196d364a-5a30-549b-a898-8b9704b50ff1",
+    "name": "Wavefunction Amplitude",
+    "subworkflows": [
+        {
+            "_id": "6a670ac8-6c12-5285-a6f8-9bf579fc88ee",
+            "name": "Wavefunction Amplitude",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "espresso",
+                "shortName": "qe",
+                "summary": "Quantum ESPRESSO",
+                "version": "6.3",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [
+                "atomic_forces",
+                "band_structure",
+                "fermi_energy",
+                "pressure",
+                "stress_tensor",
+                "total_energy",
+                "total_energy_contributions",
+                "total_force",
+                "wavefunction_amplitude"
+            ],
+            "model": {
+                "type": "dft",
+                "subtype": "gga",
+                "method": {
+                    "type": "pseudopotential",
+                    "subtype": "us",
+                    "data": {}
+                },
+                "functional": "pbe"
+            },
+            "units": [
+                {
+                    "type": "execution",
+                    "name": "pw_scf",
+                    "head": true,
+                    "results": [
+                        {
+                            "name": "atomic_forces"
+                        },
+                        {
+                            "name": "band_structure"
+                        },
+                        {
+                            "name": "fermi_energy"
+                        },
+                        {
+                            "name": "pressure"
+                        },
+                        {
+                            "name": "stress_tensor"
+                        },
+                        {
+                            "name": "total_energy"
+                        },
+                        {
+                            "name": "total_energy_contributions"
+                        },
+                        {
+                            "name": "total_force"
+                        }
+                    ],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        },
+                        {
+                            "name": "convergence_electronic"
+                        }
+                    ],
+                    "flowchartId": "pw-scf",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "name": "pw.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "pw.x",
+                        "input": [
+                            {
+                                "name": "pw_scf.in"
+                            }
+                        ],
+                        "isDefault": true,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            },
+                            {
+                                "name": "convergence_electronic"
+                            }
+                        ],
+                        "name": "pw_scf",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [
+                            {
+                                "name": "atomic_forces"
+                            },
+                            {
+                                "name": "fermi_energy"
+                            },
+                            {
+                                "name": "pressure"
+                            },
+                            {
+                                "name": "stress_tensor"
+                            },
+                            {
+                                "name": "total_energy"
+                            },
+                            {
+                                "name": "total_energy_contributions"
+                            },
+                            {
+                                "name": "total_force"
+                            }
+                        ],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "{% if subworkflowContext.MATERIAL_INDEX %}\n{%- set input = input.perMaterial[subworkflowContext.MATERIAL_INDEX] -%}\n{% endif -%}\n&CONTROL\n    calculation = 'scf'\n    title = ''\n    verbosity = 'low'\n    restart_mode = '{{ input.RESTART_MODE }}'\n    wf_collect = .true.\n    tstress = .true.\n    tprnfor = .true.\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    wfcdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    prefix = '__prefix__'\n    pseudo_dir = {% raw %}'{{ JOB_WORK_DIR }}/pseudo'{% endraw %}\n/\n&SYSTEM\n    ibrav = {{ input.IBRAV }}\n    nat = {{ input.NAT }}\n    ntyp = {{ input.NTYP }}\n    ecutwfc = {{ cutoffs.wavefunction }}\n    ecutrho = {{ cutoffs.density }}\n    occupations = 'smearing'\n    degauss = 0.005\n/\n&ELECTRONS\n    diagonalization = 'david'\n    diago_david_ndim = 4\n    diago_full_acc = .true.\n    mixing_beta = 0.3\n    startingwfc = 'atomic+random'\n/\n&IONS\n/\n&CELL\n/\nATOMIC_SPECIES\n{% for specie in input.ATOMIC_SPECIES -%}\n{{ specie.X }} {{ specie.Mass_X|sprintf(\"%f\") }} {{ specie.PseudoPot_X }}\n{% endfor %}\nATOMIC_POSITIONS crystal\n{%- set print_constraints = false %}\n{%- for position in input.ATOMIC_POSITIONS %}\n    {%- if position[\"if_pos(1)\"] != 1 or position[\"if_pos(2)\"] != 1 or position[\"if_pos(3)\"] != 1 %}\n        {%- set print_constraints = true %}\n    {%- endif %}\n{%- endfor %}\n{% for position in input.ATOMIC_POSITIONS -%}\n{{ position.X|sprintf(\"%-3s\") }} {{ position.x|sprintf(\"%14.9f\") }} {{ position.y|sprintf(\"%14.9f\") }} {{ position.z|sprintf(\"%14.9f\") }}{% if print_constraints %} {{ position[\"if_pos(1)\"] }} {{ position[\"if_pos(2)\"] }} {{ position[\"if_pos(3)\"] }}{% endif %}\n{% endfor %}\nCELL_PARAMETERS angstrom\n{{ input.CELL_PARAMETERS.v1[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v2[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v3[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[2]|sprintf(\"%14.9f\") }}\nK_POINTS automatic\n{% for d in kgrid.dimensions %}{{d}} {% endfor %}{% for s in kgrid.shifts %}{{s}} {% endfor %}\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "KGridFormDataManager"
+                                    },
+                                    {
+                                        "name": "QEPWXInputDataManager"
+                                    },
+                                    {
+                                        "name": "PlanewaveCutoffDataManager"
+                                    }
+                                ],
+                                "executableName": "pw.x",
+                                "name": "pw_scf.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "extract-band-energies",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "Extract Band Energies",
+                    "type": "assignment",
+                    "operand": "band_energies",
+                    "value": "[band_data[0] for band_data in (band_structure['yDataSeries'] if (band_structure and 'yDataSeries' in band_structure) else [])]",
+                    "input": [
+                        {
+                            "name": "band_structure",
+                            "scope": "pw-scf"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "extract-band-energies",
+                    "head": false,
+                    "next": "indices-below-fermi",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "Find Indices Below Fermi",
+                    "type": "assignment",
+                    "operand": "indices_below_fermi",
+                    "value": "[i for i in range(len(band_energies)) if band_energies[i] <= fermi_energy]",
+                    "input": [
+                        {
+                            "name": "fermi_energy",
+                            "scope": "pw-scf"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "indices-below-fermi",
+                    "head": false,
+                    "next": "8771dc7f-878e-5f13-a840-a3a416854f1e",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "Store Band Below EF",
+                    "type": "assignment",
+                    "operand": "KBAND_VALUE_BELOW_EF",
+                    "value": "indices_below_fermi[-1] + 1 if len(indices_below_fermi) > 0 else 1",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "8771dc7f-878e-5f13-a840-a3a416854f1e",
+                    "head": false,
+                    "next": "57a07d7d-3f68-5f31-97ad-ebe8c5593cd2",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "Select Band",
+                    "type": "assignment",
+                    "operand": "KBAND_VALUE",
+                    "value": "KBAND_VALUE_BELOW_EF",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "57a07d7d-3f68-5f31-97ad-ebe8c5593cd2",
+                    "head": false,
+                    "next": "pp-wfn",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "pp_wfn",
+                    "head": false,
+                    "results": [
+                        {
+                            "name": "wavefunction_amplitude"
+                        }
+                    ],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "pp-wfn",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": false,
+                        "name": "pp.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "pp.x",
+                        "input": [
+                            {
+                                "name": "pp_wfn.in"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "pp_wfn",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [
+                            {
+                                "name": "wavefunction_amplitude"
+                            }
+                        ],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "&INPUTPP\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    prefix = '__prefix__'\n    plot_num = 7\n    kpoint = 1\n    kband = {% raw %}{{ KBAND_VALUE | default(1) }}{% endraw %}\n    lsign = .true.\n/\n&PLOT\n    iflag = 1\n    fileout = 'wf_r.dat'\n    output_format = 0\n    x0(1) = 0.0, x0(2) = 0.0, x0(3) = 0.0\n    e1(1) = 0.0, e1(2) = 0.0, e1(3) = {{material.lattice.c/material.lattice.a}}\n    nx = 200\n/\n",
+                                "contextProviders": [],
+                                "executableName": "pp.x",
+                                "name": "pp_wfn.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
+            "_id": "e4ec581f-1cb3-5036-b698-999a96711559",
+            "name": "Plot Wavefunction",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "python",
+                "shortName": "py",
+                "summary": "Python Script",
+                "version": "3.10.13",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [
+                "file_content"
+            ],
+            "model": {
+                "type": "unknown",
+                "subtype": "unknown",
+                "method": {
+                    "type": "unknown",
+                    "subtype": "unknown",
+                    "data": {}
+                }
+            },
+            "units": [
+                {
+                    "type": "execution",
+                    "name": "plot WFN",
+                    "head": true,
+                    "results": [
+                        {
+                            "name": "file_content",
+                            "basename": "wf_r.png",
+                            "filetype": "image"
+                        }
+                    ],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "57fca898-8e8b-5ef2-81a5-9d2b612bc18d",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "python",
+                        "shortName": "py",
+                        "summary": "Python Script",
+                        "version": "3.10.13",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "python",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "name": "python",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "python",
+                        "applicationVersion": "*",
+                        "executableName": "python",
+                        "input": [
+                            {
+                                "name": "script.py",
+                                "templateName": "plot_wavefunction.py"
+                            },
+                            {
+                                "name": "requirements.txt",
+                                "templateName": "requirements_plot_wavefunction.txt"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "plot_wavefunction",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [
+                            {
+                                "basename": "wf_r.png",
+                                "filetype": "image",
+                                "name": "file_content"
+                            }
+                        ],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "python",
+                                "applicationVersion": "*",
+                                "content": "# ---------------------------------------------------------------- #\n#  Generate wavefunction plot from pp.x output                     #\n#  And saves static                                                #\n# ---------------------------------------------------------------- #\n\nimport matplotlib\nimport numpy as np\n\nmatplotlib.use('Agg')  # Non-interactive backend\nimport matplotlib.pyplot as plt\n\n# Load wavefunction data from pp.x output\ndata = np.loadtxt('wf_r.dat')\nz = data[:, 0]\npsi_r = data[:, 1]\n\n# Calculate wavefunction amplitude\npsi_amplitude = np.abs(psi_r)\n\n# Create static PNG plot\nfig, ax = plt.subplots(figsize=(10, 6))\nax.plot(z, psi_amplitude, 'b-', linewidth=2)\nax.set_xlabel('Position z (alat)', fontsize=12)\nax.set_ylabel('Wavefunction amplitude |ψ| (a.u.)', fontsize=12)\nax.set_title('Wavefunction along z-axis', fontsize=14)\nax.grid(True, alpha=0.3)\nplt.tight_layout()\nplt.savefig('wf_r.png', dpi=150, bbox_inches='tight')\nplt.close()\n",
+                                "contextProviders": [],
+                                "executableName": "python",
+                                "name": "script.py",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        },
+                        {
+                            "template": {
+                                "applicationName": "python",
+                                "applicationVersion": "*",
+                                "content": "# ------------------------------------------------------------------ #\n#                                                                    #\n#  Python package requirements for plot_wavefunction unit            #\n#                                                                    #\n# ------------------------------------------------------------------ #\n\nnumpy<2\nmatplotlib\n\n",
+                                "contextProviders": [],
+                                "executableName": "python",
+                                "name": "requirements.txt",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        }
+    ],
+    "units": [
+        {
+            "type": "subworkflow",
+            "name": "Wavefunction Amplitude",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "6a670ac8-6c12-5285-a6f8-9bf579fc88ee",
+            "flowchartId": "36467db9-279f-52a3-a6ef-ffdc26d875ed",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "subworkflow",
+            "name": "Plot Wavefunction",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "e4ec581f-1cb3-5036-b698-999a96711559",
+            "flowchartId": "4ce49281-e731-550e-af66-6d2408db8237",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "properties": [
+        "atomic_forces",
+        "band_structure",
+        "fermi_energy",
+        "pressure",
+        "stress_tensor",
+        "total_energy",
+        "total_energy_contributions",
+        "total_force",
+        "wavefunction_amplitude",
+        "file_content"
+    ],
+    "workflows": [],
+    "schemaVersion": "2022.8.16",
+    "tags": [
+        "wfn",
+        "wfn_plot"
+    ],
+    "application": {
+        "name": "espresso"
+    }
+}

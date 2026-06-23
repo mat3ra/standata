@@ -1,0 +1,38 @@
+- !combine
+  name:
+    # yamllint disable-line rule:line-length
+    template: 'DFT {{ categories.subtype | capitalize }} {{ parameters.functional }}{{ "-" + parameters.dispersionCorrection if parameters.dispersionCorrection }}{{ " (SOC)" if parameters.spinOrbitCoupling }}{{ " (" + parameters.spinPolarization + ")" if parameters.spinPolarization }}'
+    substitutions:
+      hse06: HSE
+      b3lyp: B3LYP
+      dft-d3: D3
+  forEach:
+    - !parameter
+      key: parameters.functional
+      values: !esse 'model/mixins/dft/enum-options#/hybrid/enum'
+    - !parameter
+      key: parameters.dispersionCorrection
+      values: !esse 'model/mixins/enum-options#/dispersionCorrection/enum'
+      exclude: '^(?!.*dft-d3).*$'
+      isOptional: true
+    - !parameter
+      key: parameters.spinOrbitCoupling
+      values: [true]
+      isOptional: true
+    - !parameter
+      key: parameters.spinPolarization
+      values: !esse 'model/mixins/enum-options#/spinPolarization/enum'
+      exclude: '^non-collinear'
+      isOptional: true
+  exclusions:
+    - [parameters.spinPolarization, parameters.spinOrbitCoupling]
+  config:
+    categories:
+      tier1: pb
+      tier2: qm
+      tier3: dft
+      type: ksdft
+      subtype: hybrid
+    tags:
+      - density functional theory
+    schema: !esse 'models-directory/hybrid'

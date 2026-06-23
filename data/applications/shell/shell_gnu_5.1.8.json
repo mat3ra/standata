@@ -1,0 +1,11 @@
+{
+    "name": "shell",
+    "shortName": "sh",
+    "summary": "Shell Script",
+    "isUsingMaterial": false,
+    "version": "5.1.8",
+    "isDefault": true,
+    "isDefaultVersion": true,
+    "build": "GNU",
+    "hasAdvancedComputeOptions": false
+}

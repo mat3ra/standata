@@ -1,9 +1,0 @@
-{
-    "name": "python",
-    "shortName": "py",
-    "summary": "Python Script",
-    "version": "3.8.6",
-    "build": "Default",
-    "hasAdvancedComputeOptions": false,
-    "isLicensed": false
-}

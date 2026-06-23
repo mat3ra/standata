@@ -1,0 +1,69 @@
+categories:
+  model:
+    - atomistic
+    - macroscopic
+    - mesoscopic
+    - quantum-mechanical
+    - statistical
+  language_type:
+    - scripting
+    - compiled
+  purpose:
+    - modeling
+    - programming_language
+  defaults:
+    - default_version
+    - default_build
+    - default
+
+entities:
+  - filename: espresso/espresso_gnu_6.3.json
+    categories:
+      - quantum-mechanical
+      - modeling
+      - compiled
+      - default_version
+      - default_build
+      - default
+  - filename: deepmd/deepmd_cpu_3.1.2.json
+    categories:
+      - default
+      - default_build
+      - default_version
+      - modeling
+      - statistical
+  - filename: lammps/lammps_gnu_2025.07.22.2.json
+    categories:
+      - default
+      - default_build
+      - default_version
+      - modeling
+      - statistical
+  - filename: vasp/vasp_gnu_5.4.4.json
+    categories:
+      - quantum-mechanical
+      - modeling
+      - compiled
+      - default_version
+      - default_build
+      - default
+  - filename: nwchem/nwchem_gnu_7.0.2.json
+    categories:
+      - quantum-mechanical
+      - modeling
+      - compiled
+      - default_version
+      - default_build
+      - default
+  - filename: python/python_gnu_3.10.13.json
+    categories:
+      - programming_language
+      - scripting
+      - default_version
+      - default
+  - filename: shell/shell_gnu_5.1.8.json
+    categories:
+      - programming_language
+      - scripting
+      - default_version
+      - default

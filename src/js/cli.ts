@@ -1,11 +1,11 @@
-import { command, option, optional, positional, run } from "cmd-ts";
-import { Directory, File } from "cmd-ts/batteries/fs";
+import { command, option, optional, positional, run, string } from "cmd-ts";
 import * as fs from "fs";
 import yaml from "js-yaml";
 import * as path from "path";
 import * as process from "process";
 
-import { Standata, StandataConfig } from "./base";
+import { Standata } from "./base";
+import { StandataConfig } from "./types/standata";
 
 function readEntityConfig(entityConfig: string): StandataConfig {
     const fileContent = fs.readFileSync(path.resolve(entityConfig), { encoding: "utf-8" });
@@ -48,12 +48,12 @@ const app = command({
     description: "Sort entity files by category (as symlinks).",
     args: {
         entityConfigPath: positional({
-            type: File,
+            type: string,
             displayName: "CONFIG",
             description: "The entity config file (usually 'categories.yml')",
         }),
         destination: option({
-            type: optional(Directory),
+            type: optional(string),
             long: "destination",
             short: "d",
             description: "Where to place symlink directory.",

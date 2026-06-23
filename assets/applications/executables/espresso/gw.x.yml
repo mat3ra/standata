@@ -1,0 +1,30 @@
+monitors:
+  - name: standard_output
+results:
+  - name: band_structure
+  - name: fermi_energy
+  - name: band_gaps
+flavors:
+  gw_bands_plasmon_pole:
+    input:
+      - name: gw_bands_plasmon_pole.in
+    results:
+      - name: band_structure
+      - name: fermi_energy
+      - name: band_gaps
+    monitors:
+      - name: standard_output
+    applicationName: espresso
+    executableName: gw.x
+
+  gw_bands_full_frequency:
+    input:
+      - name: gw_bands_full_frequency.in
+    results:
+      - name: band_structure
+      - name: fermi_energy
+      - name: band_gaps
+    monitors:
+      - name: standard_output
+    applicationName: espresso
+    executableName: gw.x

@@ -1,0 +1,19 @@
+{
+    "parameters": {
+        "spinPolarization": "collinear",
+        "hubbardType": "u",
+        "functional": "pz"
+    },
+    "categories": {
+        "tier1": "pb",
+        "tier2": "qm",
+        "tier3": "dft",
+        "type": "ksdft",
+        "subtype": "lda"
+    },
+    "tags": [
+        "density functional theory"
+    ],
+    "name": "DFT LDA PZ+U (collinear)",
+    "path": "/pb/qm/dft/ksdft/lda?spinPolarization=collinear&hubbardType=u&functional=pz"
+}

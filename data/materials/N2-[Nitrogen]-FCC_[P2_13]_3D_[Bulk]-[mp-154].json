@@ -1,0 +1,135 @@
+{
+  "name": "N2, Nitrogen, FCC (P2_13) 3D (Bulk), mp-154",
+  "lattice": {
+    "a": 5.815102,
+    "b": 5.815102,
+    "c": 5.815102,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0,
+    "units": {
+      "length": "angstrom",
+      "angle": "degree"
+    },
+    "type": "FCC"
+  },
+  "basis": {
+    "elements": [
+      {
+        "id": 0,
+        "value": "N"
+      },
+      {
+        "id": 1,
+        "value": "N"
+      },
+      {
+        "id": 2,
+        "value": "N"
+      },
+      {
+        "id": 3,
+        "value": "N"
+      },
+      {
+        "id": 4,
+        "value": "N"
+      },
+      {
+        "id": 5,
+        "value": "N"
+      },
+      {
+        "id": 6,
+        "value": "N"
+      },
+      {
+        "id": 7,
+        "value": "N"
+      }
+    ],
+    "coordinates": [
+      {
+        "id": 0,
+        "value": [
+          0.06390144,
+          0.06390144,
+          0.06390144
+        ]
+      },
+      {
+        "id": 1,
+        "value": [
+          0.43609856,
+          0.93609856,
+          0.56390144
+        ]
+      },
+      {
+        "id": 2,
+        "value": [
+          0.56390144,
+          0.43609856,
+          0.93609856
+        ]
+      },
+      {
+        "id": 3,
+        "value": [
+          0.93609856,
+          0.56390144,
+          0.43609856
+        ]
+      },
+      {
+        "id": 4,
+        "value": [
+          0.95413886,
+          0.95413886,
+          0.95413886
+        ]
+      },
+      {
+        "id": 5,
+        "value": [
+          0.54586114,
+          0.04586114,
+          0.45413886
+        ]
+      },
+      {
+        "id": 6,
+        "value": [
+          0.45413886,
+          0.54586114,
+          0.04586114
+        ]
+      },
+      {
+        "id": 7,
+        "value": [
+          0.04586114,
+          0.45413886,
+          0.54586114
+        ]
+      }
+    ],
+    "units": "crystal",
+    "constraints": [],
+    "labels": []
+  },
+  "external": {
+    "id": "mp-154",
+    "source": "MaterialsProject",
+    "doi": "10.17188/1191155",
+    "url": "https://next-gen.materialsproject.org/materials/mp-154",
+    "origin": true
+  },
+  "isNonPeriodic": false,
+  "metadata": {
+    "element": "N"
+  },
+  "tags": [
+    "elemental"
+  ]
+}

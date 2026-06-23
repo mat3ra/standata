@@ -1,0 +1,225 @@
+{
+  "name": "Si, Silicon (100) surface (reconstructed), TRI (P1) 2D (Surface), mavrl-si-100-r",
+  "lattice": {
+    "a": 7.733949,
+    "b": 3.866975,
+    "c": 21.874912,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0,
+    "units": {
+      "length": "angstrom",
+      "angle": "degree"
+    },
+    "type": "TRI"
+  },
+  "basis": {
+    "elements": [
+      {
+        "id": 0,
+        "value": "Si"
+      },
+      {
+        "id": 1,
+        "value": "Si"
+      },
+      {
+        "id": 2,
+        "value": "Si"
+      },
+      {
+        "id": 3,
+        "value": "Si"
+      },
+      {
+        "id": 4,
+        "value": "Si"
+      },
+      {
+        "id": 5,
+        "value": "Si"
+      },
+      {
+        "id": 6,
+        "value": "Si"
+      },
+      {
+        "id": 7,
+        "value": "Si"
+      },
+      {
+        "id": 8,
+        "value": "Si"
+      },
+      {
+        "id": 9,
+        "value": "Si"
+      },
+      {
+        "id": 10,
+        "value": "Si"
+      },
+      {
+        "id": 11,
+        "value": "Si"
+      },
+      {
+        "id": 12,
+        "value": "Si"
+      },
+      {
+        "id": 13,
+        "value": "Si"
+      },
+      {
+        "id": 14,
+        "value": "Si"
+      },
+      {
+        "id": 15,
+        "value": "Si"
+      }
+    ],
+    "coordinates": [
+      {
+        "id": 0,
+        "value": [
+          0.991208,
+          0.0,
+          0.786609
+        ]
+      },
+      {
+        "id": 1,
+        "value": [
+          0.508313,
+          0.0,
+          0.775584
+        ]
+      },
+      {
+        "id": 2,
+        "value": [
+          0.997425,
+          0.5,
+          0.850596
+        ]
+      },
+      {
+        "id": 3,
+        "value": [
+          0.498162,
+          0.5,
+          0.83682
+        ]
+      },
+      {
+        "id": 4,
+        "value": [
+          0.264643,
+          0.5,
+          0.907008
+        ]
+      },
+      {
+        "id": 5,
+        "value": [
+          0.736349,
+          0.5,
+          0.90915
+        ]
+      },
+      {
+        "id": 6,
+        "value": [
+          0.307094,
+          0.0,
+          0.970707
+        ]
+      },
+      {
+        "id": 7,
+        "value": [
+          0.592885,
+          0.0,
+          0.941019
+        ]
+      },
+      {
+        "id": 8,
+        "value": [
+          0.157115,
+          0.0,
+          0.558981
+        ]
+      },
+      {
+        "id": 9,
+        "value": [
+          0.442906,
+          0.0,
+          0.529293
+        ]
+      },
+      {
+        "id": 10,
+        "value": [
+          0.013651,
+          0.5,
+          0.59085
+        ]
+      },
+      {
+        "id": 11,
+        "value": [
+          0.485357,
+          0.5,
+          0.592992
+        ]
+      },
+      {
+        "id": 12,
+        "value": [
+          0.251838,
+          0.5,
+          0.66318
+        ]
+      },
+      {
+        "id": 13,
+        "value": [
+          0.752575,
+          0.5,
+          0.649404
+        ]
+      },
+      {
+        "id": 14,
+        "value": [
+          0.241687,
+          0.0,
+          0.724416
+        ]
+      },
+      {
+        "id": 15,
+        "value": [
+          0.758792,
+          0.0,
+          0.713391
+        ]
+      }
+    ],
+    "units": "crystal",
+    "constraints": [],
+    "labels": []
+  },
+  "external": {
+    "id": "mavrl-si-100-r",
+    "source": "MaterialsVirtualLab",
+    "doi": "10.1038/sdata.2016.80",
+    "url": "https://crystalium.materialsvirtuallab.org/",
+    "origin": true
+  },
+  "isNonPeriodic": false
+}

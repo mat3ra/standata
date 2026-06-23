@@ -1,0 +1,57 @@
+{
+    "units": [
+        {
+            "categories": {
+                "subtype": "linear",
+                "tier1": "qm",
+                "tier2": "wf",
+                "type": "tetrahedron"
+            },
+            "tags": [
+                "occupation number"
+            ],
+            "name": "Linear Tetrahedron Method",
+            "path": "/qm/wf/none/tetrahedron/linear"
+        },
+        {
+            "categories": {
+                "tier1": "opt",
+                "tier2": "diff",
+                "tier3": "ordern",
+                "type": "cg"
+            },
+            "tags": [
+                "diagonalization"
+            ],
+            "name": "Conjugate Gradient Diagonalization",
+            "path": "/opt/diff/ordern/cg/none"
+        },
+        {
+            "categories": {
+                "subtype": "nc",
+                "tier1": "qm",
+                "tier2": "wf",
+                "type": "psp"
+            },
+            "tags": [
+                "pseudopotential"
+            ],
+            "name": "Norm-conserving Pseudopotential",
+            "path": "/qm/wf/none/psp/nc"
+        },
+        {
+            "categories": {
+                "tier1": "qm",
+                "tier2": "wf",
+                "type": "pw"
+            },
+            "tags": [
+                "plane wave"
+            ],
+            "name": "Wave function: Plane wave",
+            "path": "/qm/wf/none/pw/none"
+        }
+    ],
+    "name": "Plane-wave Norm-conserving Pseudopotential (Conjugate Gradient Diagonalization, Linear Tetrahedron Method)",
+    "path": "/qm/wf/none/tetrahedron/linear::/opt/diff/ordern/cg/none::/qm/wf/none/psp/nc::/qm/wf/none/pw/none"
+}

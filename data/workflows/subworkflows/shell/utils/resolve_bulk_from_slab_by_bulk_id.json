@@ -1,0 +1,158 @@
+{
+    "_id": "31958c8b-58fc-53c0-be83-c2675f37c7aa",
+    "name": "Resolve Bulk From Slab By Bulk ID",
+    "application": {
+        "name": "shell"
+    },
+    "properties": [],
+    "model": {
+        "type": "unknown",
+        "subtype": "unknown",
+        "method": {
+            "type": "unknown",
+            "subtype": "unknown",
+            "data": {}
+        }
+    },
+    "units": [
+        {
+            "name": "assign-bulk-id",
+            "type": "assignment",
+            "operand": "BULK_ID",
+            "value": "SLAB.metadata.get('bulkId') if SLAB.metadata else None",
+            "input": [],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-bulk-id",
+            "head": true,
+            "next": "init-bulk",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "init-bulk",
+            "type": "assignment",
+            "operand": "BULK",
+            "value": "None",
+            "input": [],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "init-bulk",
+            "head": false,
+            "next": "check-bulk-id",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "check-bulk-id",
+            "type": "condition",
+            "input": [],
+            "statement": "BULK_ID is None",
+            "maxOccurrences": 100,
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "check-bulk-id",
+            "then": "done",
+            "else": "io-bulk",
+            "head": false,
+            "next": "io-bulk",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "io-bulk",
+            "type": "io",
+            "subtype": "input",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "io-bulk",
+            "source": "api",
+            "input": [
+                {
+                    "type": "api",
+                    "endpoint": "materials",
+                    "endpoint_options": {
+                        "params": {
+                            "query": "{'_id': BULK_ID}",
+                            "projection": "{}"
+                        }
+                    },
+                    "name": "DATA"
+                }
+            ],
+            "head": false,
+            "next": "assign-bulk",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "assign-bulk",
+            "type": "assignment",
+            "operand": "BULK",
+            "value": "DATA[0] if DATA else None",
+            "input": [
+                {
+                    "name": "DATA",
+                    "scope": "io-bulk"
+                }
+            ],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-bulk",
+            "head": false,
+            "next": "done",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "done",
+            "type": "assignment",
+            "operand": "BULK",
+            "value": "BULK",
+            "input": [
+                {
+                    "name": "BULK",
+                    "scope": "global"
+                }
+            ],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "done",
+            "head": false,
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "isDraft": false
+}

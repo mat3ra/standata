@@ -1,0 +1,9 @@
+path: "/qm/wf/tetrahedron"
+data:
+    key: type
+    value: !esse "methods-category/physical/qm/wf/enum-options#/tetrahedron/enum[0]"
+    name: "Tetrahedron Method"
+children:
+    - !include "method/qm/wf/tetrahedron/linear.yml"
+    - !include "method/qm/wf/tetrahedron/optimized.yml"
+    - !include "method/qm/wf/tetrahedron/bloechl.yml"

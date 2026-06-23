@@ -1,0 +1,10 @@
+path: "/qm/wf/psp"
+data:
+    key: type
+    value: !esse "methods-category/physical/qm/wf/enum-options#/pseudization/enum[0]"
+    name: "Pseudopotential"
+children:
+    - !include "method/qm/wf/psp/us.yml"
+    - !include "method/qm/wf/psp/nc.yml"
+    - !include "method/qm/wf/psp/nc-fr.yml"
+    - !include "method/qm/wf/psp/paw.yml"

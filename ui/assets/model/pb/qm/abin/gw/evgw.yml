@@ -1,0 +1,6 @@
+path: "/pb/qm/abin/gw/evgw"
+data:
+    key: subtype
+    value: !esse "models-category/pb/qm/abin/enum-options#/gwSubtypes/enum[2]"
+    name: "evGW - eigenvalue self-consistent GW"
+# terminal node, no children

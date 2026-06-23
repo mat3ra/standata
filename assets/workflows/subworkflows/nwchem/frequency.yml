@@ -1,0 +1,16 @@
+application:
+  name: nwchem
+  version: 7.0.2
+method:
+  name: LocalOrbitalMethod
+model:
+  name: DFTModel
+name: Frequency
+units:
+  - config:
+      execName: nwchem
+      flavorName: nwchem_frequency
+      name: nwchem_frequency
+    functions:
+      head: true
+    type: executionBuilder

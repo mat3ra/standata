@@ -1,0 +1,36 @@
+application:
+  name: python
+  version: 3.10.13
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: Total Energy - MatterSim
+units:
+  - config:
+      name: io-material
+      subtype: input
+      source: api
+      flowchartId: io-material-flowchart-id-ac93759e
+      input:
+        - type: api
+          endpoint: materials
+          endpoint_options:
+            params:
+              query: "{'_id': MATERIAL_ID}"
+              projection: "{}"
+          name: DATA
+    type: io
+  - config:
+      name: assign-material
+      operand: MATERIAL
+      value: "DATA[0]"
+      input:
+        - name: DATA
+          scope: io-material-flowchart-id-ac93759e
+    type: assignment
+  - config:
+      execName: python
+      flavorName: mlff:mattersim:total_energy
+      name: mattersim_total_energy
+    type: executionBuilder

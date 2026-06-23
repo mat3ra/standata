@@ -1,0 +1,31 @@
+!combine
+name:
+  # note the order of units is reversed as compared to the list below,
+  # i.e. units[3] is the plane wave unit
+  # yamllint disable-line rule:line-length
+  template: '{{ units[3]["categories"]["type"] }} {{ units[2]["categories"]["subtype"] + " Pseudopotential" }} ({{ units[1]["name"] }}, {{ units[0]["categories"]["subtype"] | title }} {{"Tetrahedron Method" if units[0]["categories"]["type"] == "tetrahedron" else "Smearing"}})'
+  substitutions:
+    pw: Plane-wave
+    nc: Norm-conserving
+    nc-fr: Norm-conserving Fully-relativistic
+    paw: Projector-augmented Wave
+    us: Ultra-soft
+forEach:
+  - !parameter
+    key: units
+    action: push
+    ref: assets/methods/units/pw.yml
+  - !parameter
+    key: units
+    action: push
+    ref: assets/methods/units/psp.yml
+  - !parameter
+    key: units
+    action: push
+    ref: assets/methods/units/diagonalization.yml
+  - !parameter
+    key: units
+    action: push
+    ref: assets/methods/units/occupations.yml
+config:
+  schema: !esse method/categorized-method

@@ -1,0 +1,63 @@
+{
+  "name": "Sr, Strontium, HEX (P6_3/mmc) 3D (Bulk), mp-139",
+  "lattice": {
+    "a": 4.301199,
+    "b": 4.301198,
+    "c": 7.044557,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0,
+    "units": {
+      "length": "angstrom",
+      "angle": "degree"
+    },
+    "type": "HEX"
+  },
+  "basis": {
+    "elements": [
+      {
+        "id": 0,
+        "value": "Sr"
+      },
+      {
+        "id": 1,
+        "value": "Sr"
+      }
+    ],
+    "coordinates": [
+      {
+        "id": 0,
+        "value": [
+          0.333333,
+          0.666667,
+          0.25
+        ]
+      },
+      {
+        "id": 1,
+        "value": [
+          0.666667,
+          0.333333,
+          0.75
+        ]
+      }
+    ],
+    "units": "crystal",
+    "constraints": [],
+    "labels": []
+  },
+  "external": {
+    "id": "mp-139",
+    "source": "MaterialsProject",
+    "doi": "10.17188/1189798",
+    "url": "https://next-gen.materialsproject.org/materials/mp-139",
+    "origin": true
+  },
+  "isNonPeriodic": false,
+  "metadata": {
+    "element": "Sr"
+  },
+  "tags": [
+    "elemental"
+  ]
+}

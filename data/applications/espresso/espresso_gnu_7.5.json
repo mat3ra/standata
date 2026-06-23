@@ -1,0 +1,21 @@
+{
+    "name": "espresso",
+    "shortName": "qe",
+    "summary": "Quantum ESPRESSO",
+    "isUsingMaterial": true,
+    "version": "7.5",
+    "isDefault": true,
+    "isDefaultVersion": false,
+    "build": "GNU",
+    "hasAdvancedComputeOptions": true,
+    "buildConfig": {
+        "moduleName": "7.5-gnu",
+        "imageName": "espresso",
+        "imageTag": "7.5-gnu-1",
+        "bio": "Quantum ESPRESSO 7.5 (GCC 11.5.0, OpenMPI 4.1.1 and OpenBLAS)",
+        "dependencies": [
+            "mpi/ompi-4.1.1"
+        ],
+        "environmentVariables": {}
+    }
+}

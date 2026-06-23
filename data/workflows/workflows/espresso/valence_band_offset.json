@@ -1,0 +1,2477 @@
+{
+    "_id": "d8e08cac-7747-50aa-b925-41f214d722c6",
+    "name": "Valence Band Offset (2D)",
+    "subworkflows": [
+        {
+            "_id": "9c65d03e-6a30-58f3-947a-f174342be0c3",
+            "name": "BS + Avg ESP (Interface)",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "espresso",
+                "shortName": "qe",
+                "summary": "Quantum ESPRESSO",
+                "version": "6.3",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [
+                "atomic_forces",
+                "average_potential_profile",
+                "band_gaps",
+                "fermi_energy",
+                "pressure",
+                "stress_tensor",
+                "total_energy",
+                "total_energy_contributions",
+                "total_force"
+            ],
+            "model": {
+                "type": "dft",
+                "subtype": "gga",
+                "method": {
+                    "type": "pseudopotential",
+                    "subtype": "us",
+                    "data": {}
+                },
+                "functional": "pbe"
+            },
+            "units": [
+                {
+                    "name": "Set Material Index (Interface)",
+                    "type": "assignment",
+                    "operand": "MATERIAL_INDEX",
+                    "value": "0",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "0f21d8c4-ab32-53ba-b40d-fc9b6608e1b9",
+                    "head": true,
+                    "next": "9fc7a088-5533-5f70-bb33-f676ec65f565",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "pw_scf",
+                    "head": false,
+                    "results": [
+                        {
+                            "name": "atomic_forces"
+                        },
+                        {
+                            "name": "fermi_energy"
+                        },
+                        {
+                            "name": "pressure"
+                        },
+                        {
+                            "name": "stress_tensor"
+                        },
+                        {
+                            "name": "total_energy"
+                        },
+                        {
+                            "name": "total_energy_contributions"
+                        },
+                        {
+                            "name": "total_force"
+                        }
+                    ],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        },
+                        {
+                            "name": "convergence_electronic"
+                        }
+                    ],
+                    "flowchartId": "9fc7a088-5533-5f70-bb33-f676ec65f565",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "name": "pw.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "pw.x",
+                        "input": [
+                            {
+                                "name": "pw_scf.in"
+                            }
+                        ],
+                        "isDefault": true,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            },
+                            {
+                                "name": "convergence_electronic"
+                            }
+                        ],
+                        "name": "pw_scf",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [
+                            {
+                                "name": "atomic_forces"
+                            },
+                            {
+                                "name": "fermi_energy"
+                            },
+                            {
+                                "name": "pressure"
+                            },
+                            {
+                                "name": "stress_tensor"
+                            },
+                            {
+                                "name": "total_energy"
+                            },
+                            {
+                                "name": "total_energy_contributions"
+                            },
+                            {
+                                "name": "total_force"
+                            }
+                        ],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "{% if subworkflowContext.MATERIAL_INDEX %}\n{%- set input = input.perMaterial[subworkflowContext.MATERIAL_INDEX] -%}\n{% endif -%}\n&CONTROL\n    calculation = 'scf'\n    title = ''\n    verbosity = 'low'\n    restart_mode = '{{ input.RESTART_MODE }}'\n    wf_collect = .true.\n    tstress = .true.\n    tprnfor = .true.\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    wfcdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    prefix = '__prefix__'\n    pseudo_dir = {% raw %}'{{ JOB_WORK_DIR }}/pseudo'{% endraw %}\n/\n&SYSTEM\n    ibrav = {{ input.IBRAV }}\n    nat = {{ input.NAT }}\n    ntyp = {{ input.NTYP }}\n    ecutwfc = {{ cutoffs.wavefunction }}\n    ecutrho = {{ cutoffs.density }}\n    occupations = 'smearing'\n    degauss = 0.005\n/\n&ELECTRONS\n    diagonalization = 'david'\n    diago_david_ndim = 4\n    diago_full_acc = .true.\n    mixing_beta = 0.3\n    startingwfc = 'atomic+random'\n/\n&IONS\n/\n&CELL\n/\nATOMIC_SPECIES\n{% for specie in input.ATOMIC_SPECIES -%}\n{{ specie.X }} {{ specie.Mass_X|sprintf(\"%f\") }} {{ specie.PseudoPot_X }}\n{% endfor %}\nATOMIC_POSITIONS crystal\n{%- set print_constraints = false %}\n{%- for position in input.ATOMIC_POSITIONS %}\n    {%- if position[\"if_pos(1)\"] != 1 or position[\"if_pos(2)\"] != 1 or position[\"if_pos(3)\"] != 1 %}\n        {%- set print_constraints = true %}\n    {%- endif %}\n{%- endfor %}\n{% for position in input.ATOMIC_POSITIONS -%}\n{{ position.X|sprintf(\"%-3s\") }} {{ position.x|sprintf(\"%14.9f\") }} {{ position.y|sprintf(\"%14.9f\") }} {{ position.z|sprintf(\"%14.9f\") }}{% if print_constraints %} {{ position[\"if_pos(1)\"] }} {{ position[\"if_pos(2)\"] }} {{ position[\"if_pos(3)\"] }}{% endif %}\n{% endfor %}\nCELL_PARAMETERS angstrom\n{{ input.CELL_PARAMETERS.v1[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v2[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v3[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[2]|sprintf(\"%14.9f\") }}\nK_POINTS automatic\n{% for d in kgrid.dimensions %}{{d}} {% endfor %}{% for s in kgrid.shifts %}{{s}} {% endfor %}\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "KGridFormDataManager"
+                                    },
+                                    {
+                                        "name": "QEPWXInputDataManager"
+                                    },
+                                    {
+                                        "name": "PlanewaveCutoffDataManager"
+                                    }
+                                ],
+                                "executableName": "pw.x",
+                                "name": "pw_scf.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "pw-bands-calculate-band-gap",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "pw_bands",
+                    "head": false,
+                    "results": [
+                        {
+                            "name": "band_gaps"
+                        }
+                    ],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "pw-bands-calculate-band-gap",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "name": "pw.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "pw.x",
+                        "input": [
+                            {
+                                "name": "pw_bands.in"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "pw_bands",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [
+                            {
+                                "name": "band_structure"
+                            }
+                        ],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "{% if subworkflowContext.MATERIAL_INDEX %}\n{%- set input = input.perMaterial[subworkflowContext.MATERIAL_INDEX] -%}\n{% endif -%}\n&CONTROL\n    calculation = 'bands'\n    title = ''\n    verbosity = 'low'\n    restart_mode = '{{input.RESTART_MODE}}'\n    wf_collect = .true.\n    tstress = .true.\n    tprnfor = .true.\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    wfcdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    prefix = '__prefix__'\n    pseudo_dir = {% raw %}'{{ JOB_WORK_DIR }}/pseudo'{% endraw %}\n/\n&SYSTEM\n    ibrav = {{ input.IBRAV }}\n    nat = {{ input.NAT }}\n    ntyp = {{ input.NTYP }}\n    ecutwfc = {{ cutoffs.wavefunction }}\n    ecutrho = {{ cutoffs.density }}\n    occupations = 'smearing'\n    degauss = 0.005\n/\n&ELECTRONS\n    diagonalization = 'david'\n    diago_david_ndim = 4\n    diago_full_acc = .true.\n    mixing_beta = 0.3\n/\n&IONS\n/\n&CELL\n/\nATOMIC_SPECIES\n{% for specie in input.ATOMIC_SPECIES -%}\n{{ specie.X }} {{ specie.Mass_X|sprintf(\"%f\") }} {{ specie.PseudoPot_X }}\n{% endfor %}\nATOMIC_POSITIONS crystal\n{%- set print_constraints = false %}\n{%- for position in input.ATOMIC_POSITIONS %}\n    {%- if position[\"if_pos(1)\"] != 1 or position[\"if_pos(2)\"] != 1 or position[\"if_pos(3)\"] != 1 %}\n        {%- set print_constraints = true %}\n    {%- endif %}\n{%- endfor %}\n{% for position in input.ATOMIC_POSITIONS -%}\n{{ position.X|sprintf(\"%-3s\") }} {{ position.x|sprintf(\"%14.9f\") }} {{ position.y|sprintf(\"%14.9f\") }} {{ position.z|sprintf(\"%14.9f\") }}{% if print_constraints %} {{ position[\"if_pos(1)\"] }} {{ position[\"if_pos(2)\"] }} {{ position[\"if_pos(3)\"] }}{% endif %}\n{% endfor %}\nCELL_PARAMETERS angstrom\n{{ input.CELL_PARAMETERS.v1[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v2[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v3[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[2]|sprintf(\"%14.9f\") }}\nK_POINTS crystal_b\n{{kpath.length}}\n{% for point in kpath -%}\n{% for d in point.coordinates %}{{d|sprintf(\"%14.9f\")}} {% endfor -%}{{point.steps}}\n{% endfor %}\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "KPathFormDataManager"
+                                    },
+                                    {
+                                        "name": "QEPWXInputDataManager"
+                                    },
+                                    {
+                                        "name": "PlanewaveCutoffDataManager"
+                                    }
+                                ],
+                                "executableName": "pw.x",
+                                "name": "pw_bands.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "a667d9fd-35d5-5897-be0e-fa0247233649",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "Select indirect band gap",
+                    "type": "assignment",
+                    "operand": "BAND_GAP_INDIRECT",
+                    "value": "[bandgap for bandgap in band_gaps['values'] if bandgap['type'] == 'indirect'][0]",
+                    "input": [
+                        {
+                            "name": "band_gaps",
+                            "scope": "pw-bands-calculate-band-gap"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "a667d9fd-35d5-5897-be0e-fa0247233649",
+                    "head": false,
+                    "next": "08819369-b541-5b51-8a40-0ee135039482",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "Set Valence Band Maximum",
+                    "type": "assignment",
+                    "operand": "VBM",
+                    "value": "BAND_GAP_INDIRECT['eigenvalueValence']",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "08819369-b541-5b51-8a40-0ee135039482",
+                    "head": false,
+                    "next": "771fbb40-ea80-5ba4-ae3f-6cd9a56c26e2",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "bands",
+                    "head": false,
+                    "results": [],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "771fbb40-ea80-5ba4-ae3f-6cd9a56c26e2",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": false,
+                        "name": "bands.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "bands.x",
+                        "input": [
+                            {
+                                "name": "bands.in"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "bands",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "&BANDS\n    prefix = '__prefix__'\n    lsym = .false.\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    filband = {% raw %}'{{ JOB_WORK_DIR }}/bands.dat'{% endraw %}\n    no_overlap = .true.\n/\n",
+                                "contextProviders": [],
+                                "executableName": "bands.x",
+                                "name": "bands.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "9ed927b1-3d84-5730-a6a8-1b1cfba39bde",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "Electrostatic Potential (ESP)",
+                    "head": false,
+                    "results": [],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "9ed927b1-3d84-5730-a6a8-1b1cfba39bde",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": false,
+                        "name": "pp.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "pp.x",
+                        "input": [
+                            {
+                                "name": "pp_electrostatic_potential.in"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "pp_electrostatic_potential",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "&INPUTPP\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    prefix = '__prefix__'\n    filplot = 'pp.dat'\n    plot_num = 11\n/\n",
+                                "contextProviders": [],
+                                "executableName": "pp.x",
+                                "name": "pp_electrostatic_potential.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "average-electrostatic-potential",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "average ESP",
+                    "head": false,
+                    "results": [
+                        {
+                            "name": "average_potential_profile"
+                        }
+                    ],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "average-electrostatic-potential",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": false,
+                        "name": "average.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "average.x",
+                        "input": [
+                            {
+                                "name": "average.in"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "average_potential",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [
+                            {
+                                "name": "average_potential_profile"
+                            }
+                        ],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "1\npp.dat\n1.0\n3000\n3\n3.0000\n",
+                                "contextProviders": [],
+                                "executableName": "average.x",
+                                "name": "average.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "c6c11873-91d7-5422-8302-3dcc1ce971e9",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "Set Macroscopically Averaged ESP Data",
+                    "type": "assignment",
+                    "operand": "array_from_context",
+                    "value": "average_potential_profile['yDataSeries'][1]",
+                    "input": [
+                        {
+                            "name": "average_potential_profile",
+                            "scope": "average-electrostatic-potential"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "c6c11873-91d7-5422-8302-3dcc1ce971e9",
+                    "head": false,
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
+            "_id": "ce26adc1-6a26-53ef-9626-5eb6a6b9ccb7",
+            "name": "Find ESP Values (Interface)",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "python",
+                "shortName": "py",
+                "summary": "Python Script",
+                "version": "3.10.13",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [],
+            "model": {
+                "type": "unknown",
+                "subtype": "unknown",
+                "method": {
+                    "type": "unknown",
+                    "subtype": "unknown",
+                    "data": {}
+                }
+            },
+            "units": [
+                {
+                    "type": "execution",
+                    "name": "Find Extrema",
+                    "head": true,
+                    "results": [],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "python-find-extrema",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "python",
+                        "shortName": "py",
+                        "summary": "Python Script",
+                        "version": "3.10.13",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "python",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "name": "python",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "python",
+                        "applicationVersion": "*",
+                        "executableName": "python",
+                        "input": [
+                            {
+                                "name": "find_extrema.py",
+                                "templateName": "find_extrema.py"
+                            },
+                            {
+                                "name": "requirements.txt",
+                                "templateName": "processing_requirements.txt"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "generic:processing:find_extrema:scipy",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "python",
+                                "applicationVersion": "*",
+                                "content": "# ----------------------------------------------------------- #\n# This script aims to determine extrema for a given array.    #\n# Please adjust the parameters according to your data.        #\n# Note: This template expects the array to be defined in the  #\n# context as 'array_from_context' (see details below).        #\n# ----------------------------------------------------------- #\nimport json\n\nimport numpy as np\nfrom munch import Munch\nfrom scipy.signal import find_peaks\n\n# Data From Context\n# -----------------\n# The array 'array_from_context' is a 1D list (float or int) that has to be defined in\n# a preceding assignment unit in order to be extracted from the context.\n# Example: [0.0, 1.0, 4.0, 3.0]\n# Upon rendering the following Jinja template the extracted array will be inserted.\n{% raw %}Y = np.array({{array_from_context}}){% endraw %}\n\n# Settings\n# --------\nprominence = 0.3  # required prominence in the unit of the data array\n\n# Find Extrema\n# ------------\nmax_indices, _ = find_peaks(Y, prominence=prominence)\nmin_indices, _ = find_peaks(-1 * Y, prominence=prominence)\n\nresult = {\n    \"maxima\": Y[max_indices].tolist(),\n    \"minima\": Y[min_indices].tolist(),\n}\n\n# print final values to standard output (STDOUT),\n# so that they can be read by a subsequent assignment unit (using value=STDOUT)\nprint(json.dumps(result, indent=4))\n",
+                                "contextProviders": [],
+                                "executableName": "python",
+                                "name": "find_extrema.py",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        },
+                        {
+                            "template": {
+                                "applicationName": "python",
+                                "applicationVersion": "*",
+                                "content": "# ----------------------------------------------------------------- #\n#                                                                   #\n#  Example Python package requirements for the Mat3ra platform      #\n#                                                                   #\n#  Will be used as follows:                                         #\n#                                                                   #\n#    1. A runtime directory for this calculation is created         #\n#    2. This list is used to populate a Python virtual environment  #\n#    3. The virtual environment is activated                        #\n#    4. The Python process running the script included within this  #\n#       job is started                                              #\n#                                                                   #\n#  For more information visit:                                      #\n#   - https://pip.pypa.io/en/stable/reference/pip_install           #\n#   - https://virtualenv.pypa.io/en/stable/                         #\n#                                                                   #\n# ----------------------------------------------------------------- #\n\n\nmunch>=3.0.0\nnumpy>=1.19.5\nscipy>=1.5.4\nmatplotlib>=3.0.0\n",
+                                "contextProviders": [],
+                                "executableName": "python",
+                                "name": "requirements.txt",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "8fce780b-5555-5b73-b3d1-1bb24a4c759d",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "Set Average ESP Value",
+                    "type": "assignment",
+                    "operand": "AVG_ESP_INTERFACE",
+                    "value": "json.loads(STDOUT)['minima']",
+                    "input": [
+                        {
+                            "name": "STDOUT",
+                            "scope": "python-find-extrema"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "8fce780b-5555-5b73-b3d1-1bb24a4c759d",
+                    "head": false,
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
+            "_id": "ba46d9b4-610f-537e-ae39-e39ce5240cda",
+            "name": "BS + Avg ESP (interface left)",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "espresso",
+                "shortName": "qe",
+                "summary": "Quantum ESPRESSO",
+                "version": "6.3",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [
+                "atomic_forces",
+                "average_potential_profile",
+                "band_gaps",
+                "fermi_energy",
+                "pressure",
+                "stress_tensor",
+                "total_energy",
+                "total_energy_contributions",
+                "total_force"
+            ],
+            "model": {
+                "type": "dft",
+                "subtype": "gga",
+                "method": {
+                    "type": "pseudopotential",
+                    "subtype": "us",
+                    "data": {}
+                },
+                "functional": "pbe"
+            },
+            "units": [
+                {
+                    "name": "Set Material Index (Interface left)",
+                    "type": "assignment",
+                    "operand": "MATERIAL_INDEX",
+                    "value": "1",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "0bd31760-f6e4-5826-b282-882c06c97f94",
+                    "head": true,
+                    "next": "3e6d3a1e-8d6c-5d5f-9a97-ffc0b895ef08",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "pw_scf",
+                    "head": false,
+                    "results": [
+                        {
+                            "name": "atomic_forces"
+                        },
+                        {
+                            "name": "fermi_energy"
+                        },
+                        {
+                            "name": "pressure"
+                        },
+                        {
+                            "name": "stress_tensor"
+                        },
+                        {
+                            "name": "total_energy"
+                        },
+                        {
+                            "name": "total_energy_contributions"
+                        },
+                        {
+                            "name": "total_force"
+                        }
+                    ],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        },
+                        {
+                            "name": "convergence_electronic"
+                        }
+                    ],
+                    "flowchartId": "3e6d3a1e-8d6c-5d5f-9a97-ffc0b895ef08",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "name": "pw.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "pw.x",
+                        "input": [
+                            {
+                                "name": "pw_scf.in"
+                            }
+                        ],
+                        "isDefault": true,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            },
+                            {
+                                "name": "convergence_electronic"
+                            }
+                        ],
+                        "name": "pw_scf",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [
+                            {
+                                "name": "atomic_forces"
+                            },
+                            {
+                                "name": "fermi_energy"
+                            },
+                            {
+                                "name": "pressure"
+                            },
+                            {
+                                "name": "stress_tensor"
+                            },
+                            {
+                                "name": "total_energy"
+                            },
+                            {
+                                "name": "total_energy_contributions"
+                            },
+                            {
+                                "name": "total_force"
+                            }
+                        ],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "{% if subworkflowContext.MATERIAL_INDEX %}\n{%- set input = input.perMaterial[subworkflowContext.MATERIAL_INDEX] -%}\n{% endif -%}\n&CONTROL\n    calculation = 'scf'\n    title = ''\n    verbosity = 'low'\n    restart_mode = '{{ input.RESTART_MODE }}'\n    wf_collect = .true.\n    tstress = .true.\n    tprnfor = .true.\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    wfcdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    prefix = '__prefix__'\n    pseudo_dir = {% raw %}'{{ JOB_WORK_DIR }}/pseudo'{% endraw %}\n/\n&SYSTEM\n    ibrav = {{ input.IBRAV }}\n    nat = {{ input.NAT }}\n    ntyp = {{ input.NTYP }}\n    ecutwfc = {{ cutoffs.wavefunction }}\n    ecutrho = {{ cutoffs.density }}\n    occupations = 'smearing'\n    degauss = 0.005\n/\n&ELECTRONS\n    diagonalization = 'david'\n    diago_david_ndim = 4\n    diago_full_acc = .true.\n    mixing_beta = 0.3\n    startingwfc = 'atomic+random'\n/\n&IONS\n/\n&CELL\n/\nATOMIC_SPECIES\n{% for specie in input.ATOMIC_SPECIES -%}\n{{ specie.X }} {{ specie.Mass_X|sprintf(\"%f\") }} {{ specie.PseudoPot_X }}\n{% endfor %}\nATOMIC_POSITIONS crystal\n{%- set print_constraints = false %}\n{%- for position in input.ATOMIC_POSITIONS %}\n    {%- if position[\"if_pos(1)\"] != 1 or position[\"if_pos(2)\"] != 1 or position[\"if_pos(3)\"] != 1 %}\n        {%- set print_constraints = true %}\n    {%- endif %}\n{%- endfor %}\n{% for position in input.ATOMIC_POSITIONS -%}\n{{ position.X|sprintf(\"%-3s\") }} {{ position.x|sprintf(\"%14.9f\") }} {{ position.y|sprintf(\"%14.9f\") }} {{ position.z|sprintf(\"%14.9f\") }}{% if print_constraints %} {{ position[\"if_pos(1)\"] }} {{ position[\"if_pos(2)\"] }} {{ position[\"if_pos(3)\"] }}{% endif %}\n{% endfor %}\nCELL_PARAMETERS angstrom\n{{ input.CELL_PARAMETERS.v1[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v2[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v3[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[2]|sprintf(\"%14.9f\") }}\nK_POINTS automatic\n{% for d in kgrid.dimensions %}{{d}} {% endfor %}{% for s in kgrid.shifts %}{{s}} {% endfor %}\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "KGridFormDataManager"
+                                    },
+                                    {
+                                        "name": "QEPWXInputDataManager"
+                                    },
+                                    {
+                                        "name": "PlanewaveCutoffDataManager"
+                                    }
+                                ],
+                                "executableName": "pw.x",
+                                "name": "pw_scf.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "pw-bands-calculate-band-gap-left",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "pw_bands",
+                    "head": false,
+                    "results": [
+                        {
+                            "name": "band_gaps"
+                        }
+                    ],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "pw-bands-calculate-band-gap-left",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "name": "pw.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "pw.x",
+                        "input": [
+                            {
+                                "name": "pw_bands.in"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "pw_bands",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [
+                            {
+                                "name": "band_structure"
+                            }
+                        ],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "{% if subworkflowContext.MATERIAL_INDEX %}\n{%- set input = input.perMaterial[subworkflowContext.MATERIAL_INDEX] -%}\n{% endif -%}\n&CONTROL\n    calculation = 'bands'\n    title = ''\n    verbosity = 'low'\n    restart_mode = '{{input.RESTART_MODE}}'\n    wf_collect = .true.\n    tstress = .true.\n    tprnfor = .true.\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    wfcdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    prefix = '__prefix__'\n    pseudo_dir = {% raw %}'{{ JOB_WORK_DIR }}/pseudo'{% endraw %}\n/\n&SYSTEM\n    ibrav = {{ input.IBRAV }}\n    nat = {{ input.NAT }}\n    ntyp = {{ input.NTYP }}\n    ecutwfc = {{ cutoffs.wavefunction }}\n    ecutrho = {{ cutoffs.density }}\n    occupations = 'smearing'\n    degauss = 0.005\n/\n&ELECTRONS\n    diagonalization = 'david'\n    diago_david_ndim = 4\n    diago_full_acc = .true.\n    mixing_beta = 0.3\n/\n&IONS\n/\n&CELL\n/\nATOMIC_SPECIES\n{% for specie in input.ATOMIC_SPECIES -%}\n{{ specie.X }} {{ specie.Mass_X|sprintf(\"%f\") }} {{ specie.PseudoPot_X }}\n{% endfor %}\nATOMIC_POSITIONS crystal\n{%- set print_constraints = false %}\n{%- for position in input.ATOMIC_POSITIONS %}\n    {%- if position[\"if_pos(1)\"] != 1 or position[\"if_pos(2)\"] != 1 or position[\"if_pos(3)\"] != 1 %}\n        {%- set print_constraints = true %}\n    {%- endif %}\n{%- endfor %}\n{% for position in input.ATOMIC_POSITIONS -%}\n{{ position.X|sprintf(\"%-3s\") }} {{ position.x|sprintf(\"%14.9f\") }} {{ position.y|sprintf(\"%14.9f\") }} {{ position.z|sprintf(\"%14.9f\") }}{% if print_constraints %} {{ position[\"if_pos(1)\"] }} {{ position[\"if_pos(2)\"] }} {{ position[\"if_pos(3)\"] }}{% endif %}\n{% endfor %}\nCELL_PARAMETERS angstrom\n{{ input.CELL_PARAMETERS.v1[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v2[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v3[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[2]|sprintf(\"%14.9f\") }}\nK_POINTS crystal_b\n{{kpath.length}}\n{% for point in kpath -%}\n{% for d in point.coordinates %}{{d|sprintf(\"%14.9f\")}} {% endfor -%}{{point.steps}}\n{% endfor %}\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "KPathFormDataManager"
+                                    },
+                                    {
+                                        "name": "QEPWXInputDataManager"
+                                    },
+                                    {
+                                        "name": "PlanewaveCutoffDataManager"
+                                    }
+                                ],
+                                "executableName": "pw.x",
+                                "name": "pw_bands.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "a667d9fd-35d5-5897-be0e-fa0247233649",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "Select indirect band gap",
+                    "type": "assignment",
+                    "operand": "BAND_GAP_INDIRECT",
+                    "value": "[bandgap for bandgap in band_gaps['values'] if bandgap['type'] == 'indirect'][0]",
+                    "input": [
+                        {
+                            "name": "band_gaps",
+                            "scope": "pw-bands-calculate-band-gap-left"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "a667d9fd-35d5-5897-be0e-fa0247233649",
+                    "head": false,
+                    "next": "08819369-b541-5b51-8a40-0ee135039482",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "Set Valence Band Maximum",
+                    "type": "assignment",
+                    "operand": "VBM_LEFT",
+                    "value": "BAND_GAP_INDIRECT['eigenvalueValence']",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "08819369-b541-5b51-8a40-0ee135039482",
+                    "head": false,
+                    "next": "dfc4f1c5-5856-588a-99df-6d5fb46bb429",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "bands",
+                    "head": false,
+                    "results": [],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "dfc4f1c5-5856-588a-99df-6d5fb46bb429",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": false,
+                        "name": "bands.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "bands.x",
+                        "input": [
+                            {
+                                "name": "bands.in"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "bands",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "&BANDS\n    prefix = '__prefix__'\n    lsym = .false.\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    filband = {% raw %}'{{ JOB_WORK_DIR }}/bands.dat'{% endraw %}\n    no_overlap = .true.\n/\n",
+                                "contextProviders": [],
+                                "executableName": "bands.x",
+                                "name": "bands.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "b1bb2b3e-3197-5bcd-85b0-959cc357c8d3",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "Electrostatic Potential (ESP)",
+                    "head": false,
+                    "results": [],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "b1bb2b3e-3197-5bcd-85b0-959cc357c8d3",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": false,
+                        "name": "pp.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "pp.x",
+                        "input": [
+                            {
+                                "name": "pp_electrostatic_potential.in"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "pp_electrostatic_potential",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "&INPUTPP\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    prefix = '__prefix__'\n    filplot = 'pp.dat'\n    plot_num = 11\n/\n",
+                                "contextProviders": [],
+                                "executableName": "pp.x",
+                                "name": "pp_electrostatic_potential.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "average-electrostatic-potential-left",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "average ESP",
+                    "head": false,
+                    "results": [
+                        {
+                            "name": "average_potential_profile"
+                        }
+                    ],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "average-electrostatic-potential-left",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": false,
+                        "name": "average.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "average.x",
+                        "input": [
+                            {
+                                "name": "average.in"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "average_potential",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [
+                            {
+                                "name": "average_potential_profile"
+                            }
+                        ],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "1\npp.dat\n1.0\n3000\n3\n3.0000\n",
+                                "contextProviders": [],
+                                "executableName": "average.x",
+                                "name": "average.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "c6c11873-91d7-5422-8302-3dcc1ce971e9",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "Set Macroscopically Averaged ESP Data",
+                    "type": "assignment",
+                    "operand": "array_from_context",
+                    "value": "average_potential_profile['yDataSeries'][1]",
+                    "input": [
+                        {
+                            "name": "average_potential_profile",
+                            "scope": "average-electrostatic-potential-left"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "c6c11873-91d7-5422-8302-3dcc1ce971e9",
+                    "head": false,
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
+            "_id": "6c303926-905c-5749-81d5-2d2964fdf09a",
+            "name": "Find ESP Value (Interface left)",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "python",
+                "shortName": "py",
+                "summary": "Python Script",
+                "version": "3.10.13",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [],
+            "model": {
+                "type": "unknown",
+                "subtype": "unknown",
+                "method": {
+                    "type": "unknown",
+                    "subtype": "unknown",
+                    "data": {}
+                }
+            },
+            "units": [
+                {
+                    "type": "execution",
+                    "name": "Find Extrema",
+                    "head": true,
+                    "results": [],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "python-find-extrema-left",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "python",
+                        "shortName": "py",
+                        "summary": "Python Script",
+                        "version": "3.10.13",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "python",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "name": "python",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "python",
+                        "applicationVersion": "*",
+                        "executableName": "python",
+                        "input": [
+                            {
+                                "name": "find_extrema.py",
+                                "templateName": "find_extrema.py"
+                            },
+                            {
+                                "name": "requirements.txt",
+                                "templateName": "processing_requirements.txt"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "generic:processing:find_extrema:scipy",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "python",
+                                "applicationVersion": "*",
+                                "content": "# ----------------------------------------------------------- #\n# This script aims to determine extrema for a given array.    #\n# Please adjust the parameters according to your data.        #\n# Note: This template expects the array to be defined in the  #\n# context as 'array_from_context' (see details below).        #\n# ----------------------------------------------------------- #\nimport json\n\nimport numpy as np\nfrom munch import Munch\nfrom scipy.signal import find_peaks\n\n# Data From Context\n# -----------------\n# The array 'array_from_context' is a 1D list (float or int) that has to be defined in\n# a preceding assignment unit in order to be extracted from the context.\n# Example: [0.0, 1.0, 4.0, 3.0]\n# Upon rendering the following Jinja template the extracted array will be inserted.\n{% raw %}Y = np.array({{array_from_context}}){% endraw %}\n\n# Settings\n# --------\nprominence = 0.3  # required prominence in the unit of the data array\n\n# Find Extrema\n# ------------\nmax_indices, _ = find_peaks(Y, prominence=prominence)\nmin_indices, _ = find_peaks(-1 * Y, prominence=prominence)\n\nresult = {\n    \"maxima\": Y[max_indices].tolist(),\n    \"minima\": Y[min_indices].tolist(),\n}\n\n# print final values to standard output (STDOUT),\n# so that they can be read by a subsequent assignment unit (using value=STDOUT)\nprint(json.dumps(result, indent=4))\n",
+                                "contextProviders": [],
+                                "executableName": "python",
+                                "name": "find_extrema.py",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        },
+                        {
+                            "template": {
+                                "applicationName": "python",
+                                "applicationVersion": "*",
+                                "content": "# ----------------------------------------------------------------- #\n#                                                                   #\n#  Example Python package requirements for the Mat3ra platform      #\n#                                                                   #\n#  Will be used as follows:                                         #\n#                                                                   #\n#    1. A runtime directory for this calculation is created         #\n#    2. This list is used to populate a Python virtual environment  #\n#    3. The virtual environment is activated                        #\n#    4. The Python process running the script included within this  #\n#       job is started                                              #\n#                                                                   #\n#  For more information visit:                                      #\n#   - https://pip.pypa.io/en/stable/reference/pip_install           #\n#   - https://virtualenv.pypa.io/en/stable/                         #\n#                                                                   #\n# ----------------------------------------------------------------- #\n\n\nmunch>=3.0.0\nnumpy>=1.19.5\nscipy>=1.5.4\nmatplotlib>=3.0.0\n",
+                                "contextProviders": [],
+                                "executableName": "python",
+                                "name": "requirements.txt",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "8fce780b-5555-5b73-b3d1-1bb24a4c759d",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "Set Average ESP Value",
+                    "type": "assignment",
+                    "operand": "AVG_ESP_LEFT",
+                    "value": "json.loads(STDOUT)['minima']",
+                    "input": [
+                        {
+                            "name": "STDOUT",
+                            "scope": "python-find-extrema-left"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "8fce780b-5555-5b73-b3d1-1bb24a4c759d",
+                    "head": false,
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
+            "_id": "aa611fe8-1e6a-5e5c-976a-f64bfaaaace9",
+            "name": "BS + Avg ESP (interface right)",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "espresso",
+                "shortName": "qe",
+                "summary": "Quantum ESPRESSO",
+                "version": "6.3",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [
+                "atomic_forces",
+                "average_potential_profile",
+                "band_gaps",
+                "fermi_energy",
+                "pressure",
+                "stress_tensor",
+                "total_energy",
+                "total_energy_contributions",
+                "total_force"
+            ],
+            "model": {
+                "type": "dft",
+                "subtype": "gga",
+                "method": {
+                    "type": "pseudopotential",
+                    "subtype": "us",
+                    "data": {}
+                },
+                "functional": "pbe"
+            },
+            "units": [
+                {
+                    "name": "Set Material Index (Interface right)",
+                    "type": "assignment",
+                    "operand": "MATERIAL_INDEX",
+                    "value": "2",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "a05809d1-cc0d-5a0b-bf5e-d43b90a6ac4b",
+                    "head": true,
+                    "next": "b89d6348-3915-5c24-9fbb-350bc98ac708",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "pw_scf",
+                    "head": false,
+                    "results": [
+                        {
+                            "name": "atomic_forces"
+                        },
+                        {
+                            "name": "fermi_energy"
+                        },
+                        {
+                            "name": "pressure"
+                        },
+                        {
+                            "name": "stress_tensor"
+                        },
+                        {
+                            "name": "total_energy"
+                        },
+                        {
+                            "name": "total_energy_contributions"
+                        },
+                        {
+                            "name": "total_force"
+                        }
+                    ],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        },
+                        {
+                            "name": "convergence_electronic"
+                        }
+                    ],
+                    "flowchartId": "b89d6348-3915-5c24-9fbb-350bc98ac708",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "name": "pw.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "pw.x",
+                        "input": [
+                            {
+                                "name": "pw_scf.in"
+                            }
+                        ],
+                        "isDefault": true,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            },
+                            {
+                                "name": "convergence_electronic"
+                            }
+                        ],
+                        "name": "pw_scf",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [
+                            {
+                                "name": "atomic_forces"
+                            },
+                            {
+                                "name": "fermi_energy"
+                            },
+                            {
+                                "name": "pressure"
+                            },
+                            {
+                                "name": "stress_tensor"
+                            },
+                            {
+                                "name": "total_energy"
+                            },
+                            {
+                                "name": "total_energy_contributions"
+                            },
+                            {
+                                "name": "total_force"
+                            }
+                        ],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "{% if subworkflowContext.MATERIAL_INDEX %}\n{%- set input = input.perMaterial[subworkflowContext.MATERIAL_INDEX] -%}\n{% endif -%}\n&CONTROL\n    calculation = 'scf'\n    title = ''\n    verbosity = 'low'\n    restart_mode = '{{ input.RESTART_MODE }}'\n    wf_collect = .true.\n    tstress = .true.\n    tprnfor = .true.\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    wfcdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    prefix = '__prefix__'\n    pseudo_dir = {% raw %}'{{ JOB_WORK_DIR }}/pseudo'{% endraw %}\n/\n&SYSTEM\n    ibrav = {{ input.IBRAV }}\n    nat = {{ input.NAT }}\n    ntyp = {{ input.NTYP }}\n    ecutwfc = {{ cutoffs.wavefunction }}\n    ecutrho = {{ cutoffs.density }}\n    occupations = 'smearing'\n    degauss = 0.005\n/\n&ELECTRONS\n    diagonalization = 'david'\n    diago_david_ndim = 4\n    diago_full_acc = .true.\n    mixing_beta = 0.3\n    startingwfc = 'atomic+random'\n/\n&IONS\n/\n&CELL\n/\nATOMIC_SPECIES\n{% for specie in input.ATOMIC_SPECIES -%}\n{{ specie.X }} {{ specie.Mass_X|sprintf(\"%f\") }} {{ specie.PseudoPot_X }}\n{% endfor %}\nATOMIC_POSITIONS crystal\n{%- set print_constraints = false %}\n{%- for position in input.ATOMIC_POSITIONS %}\n    {%- if position[\"if_pos(1)\"] != 1 or position[\"if_pos(2)\"] != 1 or position[\"if_pos(3)\"] != 1 %}\n        {%- set print_constraints = true %}\n    {%- endif %}\n{%- endfor %}\n{% for position in input.ATOMIC_POSITIONS -%}\n{{ position.X|sprintf(\"%-3s\") }} {{ position.x|sprintf(\"%14.9f\") }} {{ position.y|sprintf(\"%14.9f\") }} {{ position.z|sprintf(\"%14.9f\") }}{% if print_constraints %} {{ position[\"if_pos(1)\"] }} {{ position[\"if_pos(2)\"] }} {{ position[\"if_pos(3)\"] }}{% endif %}\n{% endfor %}\nCELL_PARAMETERS angstrom\n{{ input.CELL_PARAMETERS.v1[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v2[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v3[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[2]|sprintf(\"%14.9f\") }}\nK_POINTS automatic\n{% for d in kgrid.dimensions %}{{d}} {% endfor %}{% for s in kgrid.shifts %}{{s}} {% endfor %}\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "KGridFormDataManager"
+                                    },
+                                    {
+                                        "name": "QEPWXInputDataManager"
+                                    },
+                                    {
+                                        "name": "PlanewaveCutoffDataManager"
+                                    }
+                                ],
+                                "executableName": "pw.x",
+                                "name": "pw_scf.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "pw-bands-calculate-band-gap-right",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "pw_bands",
+                    "head": false,
+                    "results": [
+                        {
+                            "name": "band_gaps"
+                        }
+                    ],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "pw-bands-calculate-band-gap-right",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "name": "pw.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "pw.x",
+                        "input": [
+                            {
+                                "name": "pw_bands.in"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "pw_bands",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [
+                            {
+                                "name": "band_structure"
+                            }
+                        ],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "{% if subworkflowContext.MATERIAL_INDEX %}\n{%- set input = input.perMaterial[subworkflowContext.MATERIAL_INDEX] -%}\n{% endif -%}\n&CONTROL\n    calculation = 'bands'\n    title = ''\n    verbosity = 'low'\n    restart_mode = '{{input.RESTART_MODE}}'\n    wf_collect = .true.\n    tstress = .true.\n    tprnfor = .true.\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    wfcdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    prefix = '__prefix__'\n    pseudo_dir = {% raw %}'{{ JOB_WORK_DIR }}/pseudo'{% endraw %}\n/\n&SYSTEM\n    ibrav = {{ input.IBRAV }}\n    nat = {{ input.NAT }}\n    ntyp = {{ input.NTYP }}\n    ecutwfc = {{ cutoffs.wavefunction }}\n    ecutrho = {{ cutoffs.density }}\n    occupations = 'smearing'\n    degauss = 0.005\n/\n&ELECTRONS\n    diagonalization = 'david'\n    diago_david_ndim = 4\n    diago_full_acc = .true.\n    mixing_beta = 0.3\n/\n&IONS\n/\n&CELL\n/\nATOMIC_SPECIES\n{% for specie in input.ATOMIC_SPECIES -%}\n{{ specie.X }} {{ specie.Mass_X|sprintf(\"%f\") }} {{ specie.PseudoPot_X }}\n{% endfor %}\nATOMIC_POSITIONS crystal\n{%- set print_constraints = false %}\n{%- for position in input.ATOMIC_POSITIONS %}\n    {%- if position[\"if_pos(1)\"] != 1 or position[\"if_pos(2)\"] != 1 or position[\"if_pos(3)\"] != 1 %}\n        {%- set print_constraints = true %}\n    {%- endif %}\n{%- endfor %}\n{% for position in input.ATOMIC_POSITIONS -%}\n{{ position.X|sprintf(\"%-3s\") }} {{ position.x|sprintf(\"%14.9f\") }} {{ position.y|sprintf(\"%14.9f\") }} {{ position.z|sprintf(\"%14.9f\") }}{% if print_constraints %} {{ position[\"if_pos(1)\"] }} {{ position[\"if_pos(2)\"] }} {{ position[\"if_pos(3)\"] }}{% endif %}\n{% endfor %}\nCELL_PARAMETERS angstrom\n{{ input.CELL_PARAMETERS.v1[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v2[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v3[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[2]|sprintf(\"%14.9f\") }}\nK_POINTS crystal_b\n{{kpath.length}}\n{% for point in kpath -%}\n{% for d in point.coordinates %}{{d|sprintf(\"%14.9f\")}} {% endfor -%}{{point.steps}}\n{% endfor %}\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "KPathFormDataManager"
+                                    },
+                                    {
+                                        "name": "QEPWXInputDataManager"
+                                    },
+                                    {
+                                        "name": "PlanewaveCutoffDataManager"
+                                    }
+                                ],
+                                "executableName": "pw.x",
+                                "name": "pw_bands.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "a667d9fd-35d5-5897-be0e-fa0247233649",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "Select indirect band gap",
+                    "type": "assignment",
+                    "operand": "BAND_GAP_INDIRECT",
+                    "value": "[bandgap for bandgap in band_gaps['values'] if bandgap['type'] == 'indirect'][0]",
+                    "input": [
+                        {
+                            "name": "band_gaps",
+                            "scope": "pw-bands-calculate-band-gap-right"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "a667d9fd-35d5-5897-be0e-fa0247233649",
+                    "head": false,
+                    "next": "08819369-b541-5b51-8a40-0ee135039482",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "Set Valence Band Maximum",
+                    "type": "assignment",
+                    "operand": "VBM_RIGHT",
+                    "value": "BAND_GAP_INDIRECT['eigenvalueValence']",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "08819369-b541-5b51-8a40-0ee135039482",
+                    "head": false,
+                    "next": "bc3f514c-4bed-521b-85a3-4e0edfdc3585",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "bands",
+                    "head": false,
+                    "results": [],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "bc3f514c-4bed-521b-85a3-4e0edfdc3585",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": false,
+                        "name": "bands.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "bands.x",
+                        "input": [
+                            {
+                                "name": "bands.in"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "bands",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "&BANDS\n    prefix = '__prefix__'\n    lsym = .false.\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    filband = {% raw %}'{{ JOB_WORK_DIR }}/bands.dat'{% endraw %}\n    no_overlap = .true.\n/\n",
+                                "contextProviders": [],
+                                "executableName": "bands.x",
+                                "name": "bands.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "28bb682d-d287-5beb-8a67-826449c474ee",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "Electrostatic Potential (ESP)",
+                    "head": false,
+                    "results": [],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "28bb682d-d287-5beb-8a67-826449c474ee",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": false,
+                        "name": "pp.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "pp.x",
+                        "input": [
+                            {
+                                "name": "pp_electrostatic_potential.in"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "pp_electrostatic_potential",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "&INPUTPP\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    prefix = '__prefix__'\n    filplot = 'pp.dat'\n    plot_num = 11\n/\n",
+                                "contextProviders": [],
+                                "executableName": "pp.x",
+                                "name": "pp_electrostatic_potential.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "average-electrostatic-potential-right",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "average ESP",
+                    "head": false,
+                    "results": [
+                        {
+                            "name": "average_potential_profile"
+                        }
+                    ],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "average-electrostatic-potential-right",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": false,
+                        "name": "average.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "average.x",
+                        "input": [
+                            {
+                                "name": "average.in"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "average_potential",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [
+                            {
+                                "name": "average_potential_profile"
+                            }
+                        ],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "1\npp.dat\n1.0\n3000\n3\n3.0000\n",
+                                "contextProviders": [],
+                                "executableName": "average.x",
+                                "name": "average.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "c6c11873-91d7-5422-8302-3dcc1ce971e9",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "Set Macroscopically Averaged ESP Data",
+                    "type": "assignment",
+                    "operand": "array_from_context",
+                    "value": "average_potential_profile['yDataSeries'][1]",
+                    "input": [
+                        {
+                            "name": "average_potential_profile",
+                            "scope": "average-electrostatic-potential-right"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "c6c11873-91d7-5422-8302-3dcc1ce971e9",
+                    "head": false,
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
+            "_id": "736295e8-2ee0-5974-83bc-362061ac0688",
+            "name": "Find ESP Value (Interface right)",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "python",
+                "shortName": "py",
+                "summary": "Python Script",
+                "version": "3.10.13",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [],
+            "model": {
+                "type": "unknown",
+                "subtype": "unknown",
+                "method": {
+                    "type": "unknown",
+                    "subtype": "unknown",
+                    "data": {}
+                }
+            },
+            "units": [
+                {
+                    "type": "execution",
+                    "name": "Find Extrema",
+                    "head": true,
+                    "results": [],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "python-find-extrema-right",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "python",
+                        "shortName": "py",
+                        "summary": "Python Script",
+                        "version": "3.10.13",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "python",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "name": "python",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "python",
+                        "applicationVersion": "*",
+                        "executableName": "python",
+                        "input": [
+                            {
+                                "name": "find_extrema.py",
+                                "templateName": "find_extrema.py"
+                            },
+                            {
+                                "name": "requirements.txt",
+                                "templateName": "processing_requirements.txt"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "generic:processing:find_extrema:scipy",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "python",
+                                "applicationVersion": "*",
+                                "content": "# ----------------------------------------------------------- #\n# This script aims to determine extrema for a given array.    #\n# Please adjust the parameters according to your data.        #\n# Note: This template expects the array to be defined in the  #\n# context as 'array_from_context' (see details below).        #\n# ----------------------------------------------------------- #\nimport json\n\nimport numpy as np\nfrom munch import Munch\nfrom scipy.signal import find_peaks\n\n# Data From Context\n# -----------------\n# The array 'array_from_context' is a 1D list (float or int) that has to be defined in\n# a preceding assignment unit in order to be extracted from the context.\n# Example: [0.0, 1.0, 4.0, 3.0]\n# Upon rendering the following Jinja template the extracted array will be inserted.\n{% raw %}Y = np.array({{array_from_context}}){% endraw %}\n\n# Settings\n# --------\nprominence = 0.3  # required prominence in the unit of the data array\n\n# Find Extrema\n# ------------\nmax_indices, _ = find_peaks(Y, prominence=prominence)\nmin_indices, _ = find_peaks(-1 * Y, prominence=prominence)\n\nresult = {\n    \"maxima\": Y[max_indices].tolist(),\n    \"minima\": Y[min_indices].tolist(),\n}\n\n# print final values to standard output (STDOUT),\n# so that they can be read by a subsequent assignment unit (using value=STDOUT)\nprint(json.dumps(result, indent=4))\n",
+                                "contextProviders": [],
+                                "executableName": "python",
+                                "name": "find_extrema.py",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        },
+                        {
+                            "template": {
+                                "applicationName": "python",
+                                "applicationVersion": "*",
+                                "content": "# ----------------------------------------------------------------- #\n#                                                                   #\n#  Example Python package requirements for the Mat3ra platform      #\n#                                                                   #\n#  Will be used as follows:                                         #\n#                                                                   #\n#    1. A runtime directory for this calculation is created         #\n#    2. This list is used to populate a Python virtual environment  #\n#    3. The virtual environment is activated                        #\n#    4. The Python process running the script included within this  #\n#       job is started                                              #\n#                                                                   #\n#  For more information visit:                                      #\n#   - https://pip.pypa.io/en/stable/reference/pip_install           #\n#   - https://virtualenv.pypa.io/en/stable/                         #\n#                                                                   #\n# ----------------------------------------------------------------- #\n\n\nmunch>=3.0.0\nnumpy>=1.19.5\nscipy>=1.5.4\nmatplotlib>=3.0.0\n",
+                                "contextProviders": [],
+                                "executableName": "python",
+                                "name": "requirements.txt",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "8fce780b-5555-5b73-b3d1-1bb24a4c759d",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "Set Average ESP Value",
+                    "type": "assignment",
+                    "operand": "AVG_ESP_RIGHT",
+                    "value": "json.loads(STDOUT)['minima']",
+                    "input": [
+                        {
+                            "name": "STDOUT",
+                            "scope": "python-find-extrema-right"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "8fce780b-5555-5b73-b3d1-1bb24a4c759d",
+                    "head": false,
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
+            "_id": "1b70e606-a7ee-599e-89e0-91a7dc5faa4a",
+            "name": "Calculate VBO",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "python",
+                "shortName": "py",
+                "summary": "Python Script",
+                "version": "3.10.13",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [
+                "valence_band_offset"
+            ],
+            "model": {
+                "type": "unknown",
+                "subtype": "unknown",
+                "method": {
+                    "type": "unknown",
+                    "subtype": "unknown",
+                    "data": {}
+                }
+            },
+            "units": [
+                {
+                    "name": "Difference of valence band maxima",
+                    "type": "assignment",
+                    "operand": "VBM_DIFF",
+                    "value": "VBM_LEFT - VBM_RIGHT",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "bd4eaa98-b001-5694-87ef-ec77540502ab",
+                    "head": true,
+                    "next": "2626f7bb-d392-5fd4-ab71-329b508de347",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "Difference of macroscopically averaged ESP in bulk",
+                    "type": "assignment",
+                    "operand": "AVG_ESP_DIFF",
+                    "value": "AVG_ESP_LEFT[0] - AVG_ESP_RIGHT[0]",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "2626f7bb-d392-5fd4-ab71-329b508de347",
+                    "head": false,
+                    "next": "b7307787-53e2-599b-ad12-d627b04074b4",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "Lineup of macroscopically averaged ESP in interface",
+                    "type": "assignment",
+                    "operand": "ESP_LINEUP",
+                    "value": "np.abs(AVG_ESP_INTERFACE[0] - AVG_ESP_INTERFACE[1])",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "b7307787-53e2-599b-ad12-d627b04074b4",
+                    "head": false,
+                    "next": "197f4b4d-cb7b-57be-a885-d44cb1f61905",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "Valence Band Offset",
+                    "type": "assignment",
+                    "operand": "VALENCE_BAND_OFFSET",
+                    "value": "abs(VBM_DIFF - AVG_ESP_DIFF + (np.sign(AVG_ESP_DIFF) * ESP_LINEUP))",
+                    "input": [],
+                    "results": [
+                        {
+                            "name": "valence_band_offset"
+                        }
+                    ],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "197f4b4d-cb7b-57be-a885-d44cb1f61905",
+                    "head": false,
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        }
+    ],
+    "units": [
+        {
+            "type": "subworkflow",
+            "name": "BS + Avg ESP (Interface)",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "9c65d03e-6a30-58f3-947a-f174342be0c3",
+            "flowchartId": "fd622b5c-5c02-594e-b582-b245c17ca9a4",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "subworkflow",
+            "name": "Find ESP Values (Interface)",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "ce26adc1-6a26-53ef-9626-5eb6a6b9ccb7",
+            "flowchartId": "ad3b1e4c-5965-5605-a067-dd0c59907c4b",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "subworkflow",
+            "name": "BS + Avg ESP (interface left)",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "ba46d9b4-610f-537e-ae39-e39ce5240cda",
+            "flowchartId": "8d5b4734-edfd-55cc-ad80-aaa72487398d",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "subworkflow",
+            "name": "Find ESP Value (Interface left)",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "6c303926-905c-5749-81d5-2d2964fdf09a",
+            "flowchartId": "102ec582-5b75-52f5-8b39-19ca725ed47a",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "subworkflow",
+            "name": "BS + Avg ESP (interface right)",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "aa611fe8-1e6a-5e5c-976a-f64bfaaaace9",
+            "flowchartId": "603c45db-93aa-54ce-a7fe-6e9b65b0037d",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "subworkflow",
+            "name": "Find ESP Value (Interface right)",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "736295e8-2ee0-5974-83bc-362061ac0688",
+            "flowchartId": "e3444d35-cc41-59f5-8481-78d0c383b84e",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "subworkflow",
+            "name": "Calculate VBO",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "1b70e606-a7ee-599e-89e0-91a7dc5faa4a",
+            "flowchartId": "0e0b141a-39ca-52bc-9094-e5f96dc72f39",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "properties": [
+        "atomic_forces",
+        "average_potential_profile",
+        "band_gaps",
+        "fermi_energy",
+        "pressure",
+        "stress_tensor",
+        "total_energy",
+        "total_energy_contributions",
+        "total_force",
+        "valence_band_offset"
+    ],
+    "workflows": [],
+    "isMultiMaterial": true,
+    "schemaVersion": "2022.8.16",
+    "application": {
+        "name": "espresso"
+    }
+}

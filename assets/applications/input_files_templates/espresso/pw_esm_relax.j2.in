@@ -1,0 +1,58 @@
+&CONTROL
+    calculation = 'relax'
+    title = ''
+    verbosity = 'low'
+    restart_mode = '{{ input.RESTART_MODE }}'
+    wf_collect = .true.
+    tstress = .true.
+    tprnfor = .true.
+    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}
+    wfcdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}
+    prefix = '__prefix__'
+    pseudo_dir = {% raw %}'{{ JOB_WORK_DIR }}/pseudo'{% endraw %}
+/
+&SYSTEM
+    ibrav = {{ input.IBRAV }}
+    nat = {{ input.NAT }}
+    ntyp = {{ input.NTYP }}
+    ecutwfc = {{ cutoffs.wavefunction }}
+    ecutrho = {{ cutoffs.density }}
+    occupations = 'smearing'
+    degauss = 0.005
+    assume_isolated = 'esm'
+    esm_bc = '{{ boundaryConditions.type }}'
+    fcp_mu = {{ boundaryConditions.targetFermiEnergy }}
+    esm_w = {{ boundaryConditions.offset }}
+    esm_efield = {{ boundaryConditions.electricField }}
+/
+&ELECTRONS
+    diagonalization = 'david'
+    diago_david_ndim = 4
+    diago_full_acc = .true.
+    mixing_beta = 0.3
+    startingwfc = 'atomic+random'
+/
+&IONS
+/
+&CELL
+/
+ATOMIC_SPECIES
+{% for specie in input.ATOMIC_SPECIES -%}
+{{ specie.X }} {{ specie.Mass_X|sprintf("%f") }} {{ specie.PseudoPot_X }}
+{% endfor %}
+ATOMIC_POSITIONS crystal
+{%- set print_constraints = false %}
+{%- for position in input.ATOMIC_POSITIONS %}
+    {%- if position["if_pos(1)"] != 1 or position["if_pos(2)"] != 1 or position["if_pos(3)"] != 1 %}
+        {%- set print_constraints = true %}
+    {%- endif %}
+{%- endfor %}
+{% for position in input.ATOMIC_POSITIONS -%}
+{{ position.X|sprintf("%-3s") }} {{ position.x|sprintf("%14.9f") }} {{ position.y|sprintf("%14.9f") }} {{ position.z|sprintf("%14.9f") }}{% if print_constraints %} {{ position["if_pos(1)"] }} {{ position["if_pos(2)"] }} {{ position["if_pos(3)"] }}{% endif %}
+{% endfor %}
+CELL_PARAMETERS angstrom
+{{ input.CELL_PARAMETERS.v1[0]|sprintf("%14.9f") }} {{ input.CELL_PARAMETERS.v1[1]|sprintf("%14.9f") }} {{ input.CELL_PARAMETERS.v1[2]|sprintf("%14.9f") }}
+{{ input.CELL_PARAMETERS.v2[0]|sprintf("%14.9f") }} {{ input.CELL_PARAMETERS.v2[1]|sprintf("%14.9f") }} {{ input.CELL_PARAMETERS.v2[2]|sprintf("%14.9f") }}
+{{ input.CELL_PARAMETERS.v3[0]|sprintf("%14.9f") }} {{ input.CELL_PARAMETERS.v3[1]|sprintf("%14.9f") }} {{ input.CELL_PARAMETERS.v3[2]|sprintf("%14.9f") }}
+K_POINTS automatic
+{% for d in kgrid.dimensions %}{{d}} {% endfor %}{% for s in kgrid.shifts %}{{s}} {% endfor %}

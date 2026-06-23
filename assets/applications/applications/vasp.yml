@@ -1,0 +1,19 @@
+name: vasp
+shortName: vasp
+summary: Vienna Ab-initio Simulation Package
+defaultVersion: '5.4.4'
+isLicensed: true
+isUsingMaterial: true
+versions:
+  #### version 5.4.4 ####
+  - version: '5.4.4'
+    isDefault: true
+    build: GNU
+    buildConfig:
+      moduleName: '5.4.4-gnu'
+      imageName: 'vasp'
+      imageTag: '5.4.4-gnu-0'
+      bio: 'VASP 5.4.4 (GCC 11.5.0, OpenMPI 4.1.1, OpenBLAS, FFTW, ScaLAPACK)'
+      dependencies:
+        - 'mpi/ompi-4.1.1'
+      environmentVariables: {}

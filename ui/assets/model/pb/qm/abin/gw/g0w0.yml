@@ -1,0 +1,6 @@
+path: "/pb/qm/abin/gw/g0w0"
+data:
+    key: subtype
+    value: !esse "models-category/pb/qm/abin/enum-options#/gwSubtypes/enum[0]"
+    name: "G0W0"
+# terminal node, no children

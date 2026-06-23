@@ -1,0 +1,7 @@
+name: Average Electrostatic Potential
+config:
+  attributes:
+    isMultiMaterial: true
+units:
+  - name: average_electrostatic_potential
+    type: subworkflow

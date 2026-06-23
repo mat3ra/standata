@@ -1,0 +1,24 @@
+{
+    "name": "nwchem",
+    "shortName": "nwchem",
+    "summary": "NWChem",
+    "isUsingMaterial": true,
+    "version": "7.0.2",
+    "isDefault": true,
+    "isDefaultVersion": true,
+    "build": "GNU",
+    "hasAdvancedComputeOptions": false,
+    "buildConfig": {
+        "moduleName": "7.0.2-gnu",
+        "imageName": "nwchem",
+        "imageTag": "7.0.2-gnu-0",
+        "bio": "NWChem 7.0.2 (GCC 11.5.0, OpenMPI 4.1.1, OpenBLAS)",
+        "dependencies": [
+            "mpi/ompi-4.1.1"
+        ],
+        "environmentVariables": {
+            "APPTAINERENV_NWCHEM_BASIS_LIBRARY": "/opt/nwchem-7.0.2/data/libraries/",
+            "NWCHEMRC_PATH": "/opt/nwchem-7.0.2/data/default.nwchemrc"
+        }
+    }
+}

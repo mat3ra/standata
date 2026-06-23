@@ -1,0 +1,44 @@
+# This subworkflow is used to get the bulk total energy for a given bulk material and assign to E_BULK
+# It assumes that the bulk total energy has already been calculated and uploaded as a refined property
+# BULK is the material structure from the platform and should be present in the workflow's context
+application:
+  name: shell
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: Get Bulk Energy
+units:
+  - type: io
+    config:
+      name: io-e-bulk
+      flowchartId: io-e-bulk
+      subtype: input
+      source: api
+      input:
+        - type: api
+          endpoint: refined-properties
+          endpoint_options:
+            params:
+              # `APP` is used as a placeholder meant to be replaced by an app
+              # shortname in the workflow yaml that uses it
+              query: "{'exabyteId': BULK.exabyteId, 'data.name': 'total_energy', 'group': {'$regex': 'APP:'}}"
+              projection: "{'sort': {'precision.value': -1}, 'limit': 1}"
+          name: DATA
+  - type: assignment
+    config:
+      name: assign-e-bulk
+      flowchartId: assign-e-bulk
+      operand: E_BULK
+      value: "DATA[0].data.value if DATA else None"
+      input:
+        - name: DATA
+          scope: io-e-bulk
+  - type: assertion
+    config:
+      name: assert-e-bulk
+      flowchartId: assert-e-bulk
+      statement: "E_BULK != None"
+      errorMessage: >-
+        Bulk total energy does not exist for the resolved bulk material. Run a
+        bulk total energy workflow first.

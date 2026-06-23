@@ -1,0 +1,1271 @@
+{
+    "_id": "23b9058b-884c-52d4-82a8-ee162b9761e0",
+    "name": "Phonon Map",
+    "subworkflows": [
+        {
+            "_id": "79f2cb6a-7994-5369-8c85-af07c55ad26f",
+            "name": "Preliminary SCF Calculation",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "espresso",
+                "shortName": "qe",
+                "summary": "Quantum ESPRESSO",
+                "version": "6.3",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [
+                "atomic_forces",
+                "fermi_energy",
+                "pressure",
+                "stress_tensor",
+                "total_energy",
+                "total_energy_contributions",
+                "total_force"
+            ],
+            "model": {
+                "type": "dft",
+                "subtype": "gga",
+                "method": {
+                    "type": "pseudopotential",
+                    "subtype": "us",
+                    "data": {}
+                },
+                "functional": "pbe"
+            },
+            "units": [
+                {
+                    "type": "execution",
+                    "name": "pw_scf",
+                    "head": true,
+                    "results": [
+                        {
+                            "name": "atomic_forces"
+                        },
+                        {
+                            "name": "fermi_energy"
+                        },
+                        {
+                            "name": "pressure"
+                        },
+                        {
+                            "name": "stress_tensor"
+                        },
+                        {
+                            "name": "total_energy"
+                        },
+                        {
+                            "name": "total_energy_contributions"
+                        },
+                        {
+                            "name": "total_force"
+                        }
+                    ],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        },
+                        {
+                            "name": "convergence_electronic"
+                        }
+                    ],
+                    "flowchartId": "9fc7a088-5533-5f70-bb33-f676ec65f565",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "name": "pw.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "pw.x",
+                        "input": [
+                            {
+                                "name": "pw_scf.in"
+                            }
+                        ],
+                        "isDefault": true,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            },
+                            {
+                                "name": "convergence_electronic"
+                            }
+                        ],
+                        "name": "pw_scf",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [
+                            {
+                                "name": "atomic_forces"
+                            },
+                            {
+                                "name": "fermi_energy"
+                            },
+                            {
+                                "name": "pressure"
+                            },
+                            {
+                                "name": "stress_tensor"
+                            },
+                            {
+                                "name": "total_energy"
+                            },
+                            {
+                                "name": "total_energy_contributions"
+                            },
+                            {
+                                "name": "total_force"
+                            }
+                        ],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "{% if subworkflowContext.MATERIAL_INDEX %}\n{%- set input = input.perMaterial[subworkflowContext.MATERIAL_INDEX] -%}\n{% endif -%}\n&CONTROL\n    calculation = 'scf'\n    title = ''\n    verbosity = 'low'\n    restart_mode = '{{ input.RESTART_MODE }}'\n    wf_collect = .true.\n    tstress = .true.\n    tprnfor = .true.\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    wfcdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    prefix = '__prefix__'\n    pseudo_dir = {% raw %}'{{ JOB_WORK_DIR }}/pseudo'{% endraw %}\n/\n&SYSTEM\n    ibrav = {{ input.IBRAV }}\n    nat = {{ input.NAT }}\n    ntyp = {{ input.NTYP }}\n    ecutwfc = {{ cutoffs.wavefunction }}\n    ecutrho = {{ cutoffs.density }}\n    occupations = 'smearing'\n    degauss = 0.005\n/\n&ELECTRONS\n    diagonalization = 'david'\n    diago_david_ndim = 4\n    diago_full_acc = .true.\n    mixing_beta = 0.3\n    startingwfc = 'atomic+random'\n/\n&IONS\n/\n&CELL\n/\nATOMIC_SPECIES\n{% for specie in input.ATOMIC_SPECIES -%}\n{{ specie.X }} {{ specie.Mass_X|sprintf(\"%f\") }} {{ specie.PseudoPot_X }}\n{% endfor %}\nATOMIC_POSITIONS crystal\n{%- set print_constraints = false %}\n{%- for position in input.ATOMIC_POSITIONS %}\n    {%- if position[\"if_pos(1)\"] != 1 or position[\"if_pos(2)\"] != 1 or position[\"if_pos(3)\"] != 1 %}\n        {%- set print_constraints = true %}\n    {%- endif %}\n{%- endfor %}\n{% for position in input.ATOMIC_POSITIONS -%}\n{{ position.X|sprintf(\"%-3s\") }} {{ position.x|sprintf(\"%14.9f\") }} {{ position.y|sprintf(\"%14.9f\") }} {{ position.z|sprintf(\"%14.9f\") }}{% if print_constraints %} {{ position[\"if_pos(1)\"] }} {{ position[\"if_pos(2)\"] }} {{ position[\"if_pos(3)\"] }}{% endif %}\n{% endfor %}\nCELL_PARAMETERS angstrom\n{{ input.CELL_PARAMETERS.v1[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v2[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v3[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[2]|sprintf(\"%14.9f\") }}\nK_POINTS automatic\n{% for d in kgrid.dimensions %}{{d}} {% endfor %}{% for s in kgrid.shifts %}{{s}} {% endfor %}\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "KGridFormDataManager"
+                                    },
+                                    {
+                                        "name": "QEPWXInputDataManager"
+                                    },
+                                    {
+                                        "name": "PlanewaveCutoffDataManager"
+                                    }
+                                ],
+                                "executableName": "pw.x",
+                                "name": "pw_scf.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
+            "_id": "2f017bcb-f4ba-55b8-b939-1f780679a88e",
+            "name": "ph-init-qpoints",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "espresso",
+                "shortName": "qe",
+                "summary": "Quantum ESPRESSO",
+                "version": "6.3",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [],
+            "model": {
+                "type": "dft",
+                "subtype": "gga",
+                "method": {
+                    "type": "pseudopotential",
+                    "subtype": "us",
+                    "data": {}
+                },
+                "functional": "pbe"
+            },
+            "units": [
+                {
+                    "type": "execution",
+                    "name": "ph_init_qpoints",
+                    "head": true,
+                    "results": [],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "b8ea6a33-38f3-5434-b17e-b5eae8fff9fc",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": false,
+                        "name": "ph.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "ph.x",
+                        "input": [
+                            {
+                                "name": "ph_init_qpoints.in"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "ph_init_qpoints",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "&INPUTPH\n    tr2_ph = 1.0d-18,\n    recover = .false.\n    start_irr = 0\n    last_irr = 0\n    ldisp = .true.\n    fildyn = 'dyn0'\n    prefix = '__prefix__'\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    {% for d in qgrid.dimensions -%}\n    nq{{loop.index}} = {{d}}\n    {% endfor %}\n/\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "QGridFormDataManager"
+                                    }
+                                ],
+                                "executableName": "ph.x",
+                                "name": "ph_init_qpoints.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
+            "_id": "e4b6b2e7-7d8f-5ae1-b6bd-ee81ecbca11a",
+            "name": "espresso-xml-get-qpt-irr",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "python",
+                "shortName": "py",
+                "summary": "Python Script",
+                "version": "3.10.13",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [],
+            "model": {
+                "type": "unknown",
+                "subtype": "unknown",
+                "method": {
+                    "type": "unknown",
+                    "subtype": "unknown",
+                    "data": {}
+                }
+            },
+            "units": [
+                {
+                    "type": "execution",
+                    "name": "python",
+                    "head": true,
+                    "results": [],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "9b8a495e-1ac1-56a7-b2e0-af1b405a1219",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "python",
+                        "shortName": "py",
+                        "summary": "Python Script",
+                        "version": "3.10.13",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "python",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "name": "python",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "python",
+                        "applicationVersion": "*",
+                        "executableName": "python",
+                        "input": [
+                            {
+                                "name": "espresso_xml_get_qpt_irr.py"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "espresso_xml_get_qpt_irr",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "python",
+                                "applicationVersion": "*",
+                                "content": "# ---------------------------------------------------------- #\n#                                                            #\n#  This script extracts q-points and irreducible             #\n#  representations from Quantum ESPRESSO xml data.           #\n#                                                            #\n#  Expects control_ph.xml and patterns.?.xml files to exist  #\n#                                                            #\n# ---------------------------------------------------------- #\nfrom __future__ import print_function\n\nimport json\nfrom xml.dom import minidom\n\n{#    JOB_WORK_DIR will be initialized at runtime => avoid substituion below    #}\n{% raw %}\nCONTROL_PH_FILENAME = \"{{JOB_WORK_DIR}}/outdir/_ph0/__prefix__.phsave/control_ph.xml\"\nPATTERNS_FILENAME = \"{{JOB_WORK_DIR}}/outdir/_ph0/__prefix__.phsave/patterns.{}.xml\"\n{% endraw %}\n\n# get integer content of an xml tag in a document\ndef get_int_by_tag_name(doc, tag_name):\n    element = doc.getElementsByTagName(tag_name)\n    return int(element[0].firstChild.nodeValue)\n\nvalues = []\n\n# get number of q-points and cycle through them\nxmldoc = minidom.parse(CONTROL_PH_FILENAME)\nnumber_of_qpoints = get_int_by_tag_name(xmldoc, \"NUMBER_OF_Q_POINTS\")\n\nfor i in range(number_of_qpoints):\n    # get number of irreducible representations per qpoint\n    xmldoc = minidom.parse(PATTERNS_FILENAME.format(i+1))\n    number_of_irr_per_qpoint = get_int_by_tag_name(xmldoc, \"NUMBER_IRR_REP\")\n    # add each distinct combination of qpoint and irr as a separate entry\n    for j in range(number_of_irr_per_qpoint):\n      values.append({\n          \"qpoint\": i + 1,\n          \"irr\": j + 1\n      })\n\n# store final values in standard output (STDOUT)\nprint(json.dumps(values, indent=4))\n",
+                                "contextProviders": [],
+                                "executableName": "python",
+                                "name": "espresso_xml_get_qpt_irr.py",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "assignment",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assignment",
+                    "type": "assignment",
+                    "input": [
+                        {
+                            "scope": "9b8a495e-1ac1-56a7-b2e0-af1b405a1219",
+                            "name": "STDOUT"
+                        }
+                    ],
+                    "operand": "Q_POINTS",
+                    "value": "json.loads(STDOUT)",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "monitors": [],
+                    "results": [],
+                    "flowchartId": "assignment",
+                    "head": false,
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
+            "_id": "545a66e2-dfbe-513e-acaf-d79d0d139b9c",
+            "name": "reduce",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "espresso",
+                "shortName": "qe",
+                "summary": "Quantum ESPRESSO",
+                "version": "6.3",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [
+                "phonon_dispersions",
+                "phonon_dos"
+            ],
+            "model": {
+                "type": "dft",
+                "subtype": "gga",
+                "method": {
+                    "type": "pseudopotential",
+                    "subtype": "us",
+                    "data": {}
+                },
+                "functional": "pbe"
+            },
+            "units": [
+                {
+                    "type": "execution",
+                    "name": "ph_grid_restart",
+                    "head": true,
+                    "results": [],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "cb206177-a4af-599a-81ba-6c88d24253b6",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": false,
+                        "name": "ph.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "ph.x",
+                        "input": [
+                            {
+                                "name": "ph_grid_restart.in"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "ph_grid_restart",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "&INPUTPH\n    tr2_ph = 1.0d-18,\n    recover = .true.\n    ldisp = .true.\n    prefix = '__prefix__'\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    fildyn = 'dyn'\n    {% for d in qgrid.dimensions -%}\n    nq{{loop.index}} = {{d}}\n    {% endfor %}\n/\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "QGridFormDataManager"
+                                    }
+                                ],
+                                "executableName": "ph.x",
+                                "name": "ph_grid_restart.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "3b4507a7-9244-540b-abe0-66bceab700f5",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "q2r",
+                    "head": false,
+                    "results": [],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "3b4507a7-9244-540b-abe0-66bceab700f5",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": false,
+                        "name": "q2r.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "q2r.x",
+                        "input": [
+                            {
+                                "name": "q2r.in"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "q2r",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "&INPUT\n    fildyn = 'dyn'\n    zasr = 'simple'\n    flfrc = 'force_constants.fc'\n/\n",
+                                "contextProviders": [],
+                                "executableName": "q2r.x",
+                                "name": "q2r.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "8fe6a24b-c994-55a2-a448-88657292e8c2",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "matdyn_grid",
+                    "head": false,
+                    "results": [
+                        {
+                            "name": "phonon_dos"
+                        }
+                    ],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "8fe6a24b-c994-55a2-a448-88657292e8c2",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": false,
+                        "name": "matdyn.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "matdyn.x",
+                        "input": [
+                            {
+                                "name": "matdyn_grid.in"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "matdyn_grid",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [
+                            {
+                                "name": "phonon_dos"
+                            }
+                        ],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "&INPUT\n    asr = 'simple'\n    flfrc = 'force_constants.fc'\n    flfrq = 'frequencies.freq'\n    dos = .true.\n    fldos = 'phonon_dos.out'\n    deltaE = 1.d0\n    {% for d in igrid.dimensions -%}\n    nk{{loop.index}} = {{d}}\n    {% endfor %}\n /\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "IGridFormDataManager"
+                                    }
+                                ],
+                                "executableName": "matdyn.x",
+                                "name": "matdyn_grid.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "a7fded20-889b-54fc-bbb0-456e82689ab1",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "matdyn_path",
+                    "head": false,
+                    "results": [
+                        {
+                            "name": "phonon_dispersions"
+                        }
+                    ],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "a7fded20-889b-54fc-bbb0-456e82689ab1",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": false,
+                        "name": "matdyn.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "matdyn.x",
+                        "input": [
+                            {
+                                "name": "matdyn_path.in"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "matdyn_path",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [
+                            {
+                                "name": "phonon_dispersions"
+                            }
+                        ],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "&INPUT\n    asr = 'simple'\n    flfrc ='force_constants.fc'\n    flfrq ='frequencies.freq'\n    flvec ='normal_modes.out'\n    q_in_band_form = .true.\n /\n{{ipath.length}}\n{% for point in ipath -%}\n{% for d in point.coordinates %}{{d|sprintf(\"%14.9f\")}} {% endfor -%}{{point.steps}}\n{% endfor %}\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "IPathFormDataManager"
+                                    }
+                                ],
+                                "executableName": "matdyn.x",
+                                "name": "matdyn_path.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        }
+    ],
+    "units": [
+        {
+            "type": "subworkflow",
+            "name": "Preliminary SCF Calculation",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "79f2cb6a-7994-5369-8c85-af07c55ad26f",
+            "flowchartId": "b6a2b27a-0fec-5e0e-8974-073ee9d2ad83",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "subworkflow",
+            "name": "ph-init-qpoints",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "2f017bcb-f4ba-55b8-b939-1f780679a88e",
+            "flowchartId": "4bb74dfb-46a6-5bf4-a477-5d374dc2e271",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "subworkflow",
+            "name": "espresso-xml-get-qpt-irr",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "e4b6b2e7-7d8f-5ae1-b6bd-ee81ecbca11a",
+            "flowchartId": "9894b91f-6e97-5ee6-af02-0bef26bd62c0",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "map",
+            "type": "map",
+            "input": {
+                "target": "MAP_DATA",
+                "scope": "global",
+                "name": "Q_POINTS",
+                "values": [],
+                "useValues": false
+            },
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "workflowId": "731d3397-3278-516a-b28e-53626ef50f0a",
+            "flowchartId": "24e3c1f0-8090-512e-9727-8770071d17c8",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "subworkflow",
+            "name": "reduce",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "545a66e2-dfbe-513e-acaf-d79d0d139b9c",
+            "flowchartId": "55a9e9fb-3545-5c4b-a1bb-b64a899b78c6",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "properties": [
+        "atomic_forces",
+        "fermi_energy",
+        "pressure",
+        "stress_tensor",
+        "total_energy",
+        "total_energy_contributions",
+        "total_force",
+        "phonon_dispersions",
+        "phonon_dos"
+    ],
+    "workflows": [
+        {
+            "_id": "731d3397-3278-516a-b28e-53626ef50f0a",
+            "name": "phonon_map_workflow",
+            "subworkflows": [
+                {
+                    "_id": "03f3a8a3-1fd0-5007-925f-fba78be63a51",
+                    "name": "pre-processor",
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": false,
+                        "name": "shell",
+                        "shortName": "sh",
+                        "summary": "Shell Script",
+                        "version": "5.1.8",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "properties": [],
+                    "model": {
+                        "type": "unknown",
+                        "subtype": "unknown",
+                        "method": {
+                            "type": "unknown",
+                            "subtype": "unknown",
+                            "data": {}
+                        }
+                    },
+                    "units": [
+                        {
+                            "type": "execution",
+                            "name": "shell",
+                            "head": true,
+                            "results": [],
+                            "monitors": [
+                                {
+                                    "name": "standard_output"
+                                }
+                            ],
+                            "flowchartId": "99304304-e873-5c89-ae83-91e61a7f629c",
+                            "preProcessors": [],
+                            "postProcessors": [],
+                            "status": "idle",
+                            "statusTrack": [],
+                            "tags": [],
+                            "application": {
+                                "build": "GNU",
+                                "hasAdvancedComputeOptions": false,
+                                "isDefault": true,
+                                "isDefaultVersion": true,
+                                "isUsingMaterial": false,
+                                "name": "shell",
+                                "shortName": "sh",
+                                "summary": "Shell Script",
+                                "version": "5.1.8",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "executable": {
+                                "applicationName": "shell",
+                                "applicationVersion": "*",
+                                "hasAdvancedComputeOptions": false,
+                                "isDefault": true,
+                                "name": "sh",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "flavor": {
+                                "applicationName": "shell",
+                                "applicationVersion": "*",
+                                "executableName": "sh",
+                                "input": [
+                                    {
+                                        "name": "espresso_link_outdir_save.sh"
+                                    }
+                                ],
+                                "isDefault": false,
+                                "monitors": [
+                                    {
+                                        "name": "standard_output"
+                                    }
+                                ],
+                                "name": "espresso_link_outdir_save",
+                                "postProcessors": [],
+                                "preProcessors": [],
+                                "results": [],
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "input": [
+                                {
+                                    "template": {
+                                        "applicationName": "shell",
+                                        "applicationVersion": "*",
+                                        "content": "{% raw %}\n#!/bin/bash\n\nmkdir -p {{ JOB_SCRATCH_DIR }}/outdir/_ph0\ncd {{ JOB_SCRATCH_DIR }}/outdir\ncp -r {{ JOB_WORK_DIR }}/../outdir/__prefix__.* .\n{% endraw %}\n",
+                                        "contextProviders": [],
+                                        "executableName": "sh",
+                                        "name": "espresso_link_outdir_save.sh",
+                                        "schemaVersion": "2022.8.16"
+                                    },
+                                    "rendered": "",
+                                    "isManuallyChanged": false
+                                }
+                            ],
+                            "context": [],
+                            "schemaVersion": "2022.8.16",
+                            "isDefault": false
+                        }
+                    ],
+                    "schemaVersion": "2022.8.16",
+                    "isDraft": false
+                },
+                {
+                    "_id": "e68db280-8636-53e3-81a0-88396ba6147d",
+                    "name": "ph-single-irr-qpt",
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "properties": [],
+                    "model": {
+                        "type": "dft",
+                        "subtype": "gga",
+                        "method": {
+                            "type": "pseudopotential",
+                            "subtype": "us",
+                            "data": {}
+                        },
+                        "functional": "pbe"
+                    },
+                    "units": [
+                        {
+                            "type": "execution",
+                            "name": "ph_single_irr_qpt",
+                            "head": true,
+                            "results": [],
+                            "monitors": [
+                                {
+                                    "name": "standard_output"
+                                }
+                            ],
+                            "flowchartId": "8db9af08-d935-57a0-a824-e7db6d936de8",
+                            "preProcessors": [],
+                            "postProcessors": [],
+                            "status": "idle",
+                            "statusTrack": [],
+                            "tags": [],
+                            "application": {
+                                "build": "GNU",
+                                "hasAdvancedComputeOptions": true,
+                                "isDefault": true,
+                                "isDefaultVersion": true,
+                                "isUsingMaterial": true,
+                                "name": "espresso",
+                                "shortName": "qe",
+                                "summary": "Quantum ESPRESSO",
+                                "version": "6.3",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "executable": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "hasAdvancedComputeOptions": false,
+                                "isDefault": false,
+                                "name": "ph.x",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "flavor": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "executableName": "ph.x",
+                                "input": [
+                                    {
+                                        "name": "ph_single_irr_qpt.in"
+                                    }
+                                ],
+                                "isDefault": false,
+                                "monitors": [
+                                    {
+                                        "name": "standard_output"
+                                    }
+                                ],
+                                "name": "ph_single_irr_qpt",
+                                "postProcessors": [],
+                                "preProcessors": [],
+                                "results": [],
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "input": [
+                                {
+                                    "template": {
+                                        "applicationName": "espresso",
+                                        "applicationVersion": "*",
+                                        "content": "&INPUTPH\n    tr2_ph = 1.0d-18\n    ldisp = .true.\n    {% raw %}\n    start_q = {{MAP_DATA.qpoint}}\n    last_q = {{MAP_DATA.qpoint}}\n    start_irr = {{MAP_DATA.irr}}\n    last_irr= {{MAP_DATA.irr}}\n    {% endraw %}\n    recover = .true.\n    fildyn = 'dyn'\n    prefix = '__prefix__'\n    outdir = {% raw %}'{{ JOB_SCRATCH_DIR }}/outdir'{% endraw %}\n    {% for d in qgrid.dimensions -%}\n    nq{{loop.index}} = {{d}}\n    {% endfor %}\n/\n",
+                                        "contextProviders": [
+                                            {
+                                                "name": "QGridFormDataManager"
+                                            }
+                                        ],
+                                        "executableName": "ph.x",
+                                        "name": "ph_single_irr_qpt.in",
+                                        "schemaVersion": "2022.8.16"
+                                    },
+                                    "rendered": "",
+                                    "isManuallyChanged": false
+                                }
+                            ],
+                            "context": [],
+                            "schemaVersion": "2022.8.16",
+                            "isDefault": false
+                        }
+                    ],
+                    "schemaVersion": "2022.8.16",
+                    "isDraft": false
+                },
+                {
+                    "_id": "7239fc3a-b343-513f-af35-e8687e1829da",
+                    "name": "post-processor",
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": false,
+                        "name": "shell",
+                        "shortName": "sh",
+                        "summary": "Shell Script",
+                        "version": "5.1.8",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "properties": [],
+                    "model": {
+                        "type": "unknown",
+                        "subtype": "unknown",
+                        "method": {
+                            "type": "unknown",
+                            "subtype": "unknown",
+                            "data": {}
+                        }
+                    },
+                    "units": [
+                        {
+                            "type": "execution",
+                            "name": "shell",
+                            "head": true,
+                            "results": [],
+                            "monitors": [
+                                {
+                                    "name": "standard_output"
+                                }
+                            ],
+                            "flowchartId": "cd5c3e29-511b-5ef8-949d-ad884f210301",
+                            "preProcessors": [],
+                            "postProcessors": [],
+                            "status": "idle",
+                            "statusTrack": [],
+                            "tags": [],
+                            "application": {
+                                "build": "GNU",
+                                "hasAdvancedComputeOptions": false,
+                                "isDefault": true,
+                                "isDefaultVersion": true,
+                                "isUsingMaterial": false,
+                                "name": "shell",
+                                "shortName": "sh",
+                                "summary": "Shell Script",
+                                "version": "5.1.8",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "executable": {
+                                "applicationName": "shell",
+                                "applicationVersion": "*",
+                                "hasAdvancedComputeOptions": false,
+                                "isDefault": true,
+                                "name": "sh",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "flavor": {
+                                "applicationName": "shell",
+                                "applicationVersion": "*",
+                                "executableName": "sh",
+                                "input": [
+                                    {
+                                        "name": "espresso_collect_dynmat.sh"
+                                    }
+                                ],
+                                "isDefault": false,
+                                "monitors": [
+                                    {
+                                        "name": "standard_output"
+                                    }
+                                ],
+                                "name": "espresso_collect_dynmat",
+                                "postProcessors": [],
+                                "preProcessors": [],
+                                "results": [],
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "input": [
+                                {
+                                    "template": {
+                                        "applicationName": "shell",
+                                        "applicationVersion": "*",
+                                        "content": "{% raw %}\n#!/bin/bash\n\ncp {{ JOB_SCRATCH_DIR }}/outdir/_ph0/__prefix__.phsave/dynmat* {{ JOB_WORK_DIR }}/../outdir/_ph0/__prefix__.phsave\n{% endraw %}\n",
+                                        "contextProviders": [],
+                                        "executableName": "sh",
+                                        "name": "espresso_collect_dynmat.sh",
+                                        "schemaVersion": "2022.8.16"
+                                    },
+                                    "rendered": "",
+                                    "isManuallyChanged": false
+                                }
+                            ],
+                            "context": [],
+                            "schemaVersion": "2022.8.16",
+                            "isDefault": false
+                        }
+                    ],
+                    "schemaVersion": "2022.8.16",
+                    "isDraft": false
+                }
+            ],
+            "units": [
+                {
+                    "type": "subworkflow",
+                    "name": "pre-processor",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "_id": "03f3a8a3-1fd0-5007-925f-fba78be63a51",
+                    "flowchartId": "e9a790f4-dec6-52c1-b951-014f0ff01cb4"
+                },
+                {
+                    "type": "subworkflow",
+                    "name": "ph-single-irr-qpt",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "_id": "e68db280-8636-53e3-81a0-88396ba6147d",
+                    "flowchartId": "c2195045-7a5c-54d3-ab88-211c82de09f1"
+                },
+                {
+                    "type": "subworkflow",
+                    "name": "post-processor",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "_id": "7239fc3a-b343-513f-af35-e8687e1829da",
+                    "flowchartId": "e483c7fb-2a29-5e91-819a-7465ead70134"
+                }
+            ],
+            "properties": [],
+            "workflows": [],
+            "compute": {
+                "ppn": 1,
+                "nodes": 1,
+                "queue": "D",
+                "timeLimit": "01:00:00",
+                "notify": "n",
+                "cluster": {
+                    "fqdn": ""
+                }
+            }
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "application": {
+        "name": "espresso"
+    }
+}

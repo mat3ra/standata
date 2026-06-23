@@ -1,0 +1,4 @@
+name: Total Energy - MatterSim python workflow
+units:
+- name: mattersim_total_energy
+  type: subworkflow

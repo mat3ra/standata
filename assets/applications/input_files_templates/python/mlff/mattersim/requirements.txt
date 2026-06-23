@@ -1,0 +1,13 @@
+# ------------------------------------------------------------------ #
+#                                                                    #
+#  Python package requirements for mattersim unit                    #
+#                                                                    #
+# ------------------------------------------------------------------ #
+--extra-index-url https://download.pytorch.org/whl/cu128
+torch==2.7.0+cu128
+torchvision==0.22.0+cu128
+torchaudio==2.7.0+cu128
+ase==3.23.0
+mattersim==1.1.2
+munch
+mat3ra-made[tools]==2026.4.2.post1

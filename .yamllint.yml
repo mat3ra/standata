@@ -9,7 +9,6 @@ rules:
     level: warning
     max-end: 1
   quoted-strings:
-    quote-type: single
     required: false
   indentation:
     spaces: 2
@@ -23,3 +22,12 @@ ignore: |
   node_modules/
   test/
   tests/
+  data/
+  build/
+  dist/
+  assets/**/categories.yml
+  assets/applications/applications/
+  assets/applications/templates/
+  assets/applications/assets/
+  # This file has templates that exceed line length
+  assets/methods/pw_methods.yml

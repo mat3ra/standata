@@ -1,0 +1,9 @@
+path: "/pb/qm"
+data:
+    key: tier2
+    value: !esse "models-category/pb/enum-options#/quantumMechanical/enum[0]"
+    name: "Quantum-mechanical"
+children:
+    - !include "model/pb/qm/dft.yml"
+# TODO: reactivate once available on the frontend
+#  - !include "model/pb/qm/abin.yml"

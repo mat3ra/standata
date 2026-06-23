@@ -1,0 +1,65 @@
+isDefault: true
+monitors:
+  - name: standard_output
+results:
+  - name: atomic_forces
+  - name: band_gaps
+  - name: band_structure
+  - name: density_of_states
+  - name: fermi_energy
+  - name: phonon_dispersions
+  - name: phonon_dos
+  - name: pressure
+  - name: stress_tensor
+  - name: total_energy
+  - name: total_energy_contributions
+  - name: total_force
+  - name: zero_point_energy
+  - name: final_structure
+  - name: magnetic_moments
+  - name: reaction_energy_barrier
+  - name: reaction_energy_profile
+  - name: potential_profile
+  - name: charge_density_profile
+flavors:
+  hello_world:
+    isDefault: true
+    input:
+      - name: hello_world.sh
+    monitors:
+      - name: standard_output
+    applicationName: shell
+    executableName: sh
+
+  job_espresso_pw_scf:
+    input:
+      - name: job_espresso_pw_scf.sh
+    monitors:
+      - name: standard_output
+    applicationName: shell
+    executableName: sh
+
+  espresso_link_outdir_save:
+    input:
+      - name: espresso_link_outdir_save.sh
+    monitors:
+      - name: standard_output
+    applicationName: shell
+    executableName: sh
+
+  espresso_collect_dynmat:
+    input:
+      - name: espresso_collect_dynmat.sh
+    monitors:
+      - name: standard_output
+    applicationName: shell
+    executableName: sh
+
+  bash_vasp_prepare_neb_images:
+    isMultiMaterial: true
+    input:
+      - name: bash_vasp_prepare_neb_images.sh
+    monitors:
+      - name: standard_output
+    applicationName: shell
+    executableName: sh

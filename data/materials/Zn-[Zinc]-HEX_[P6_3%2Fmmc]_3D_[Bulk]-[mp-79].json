@@ -1,0 +1,63 @@
+{
+  "name": "Zn, Zinc, HEX (P6_3/mmc) 3D (Bulk), mp-79",
+  "lattice": {
+    "a": 2.61436,
+    "b": 2.614359,
+    "c": 4.873161,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0,
+    "units": {
+      "length": "angstrom",
+      "angle": "degree"
+    },
+    "type": "HEX"
+  },
+  "basis": {
+    "elements": [
+      {
+        "id": 0,
+        "value": "Zn"
+      },
+      {
+        "id": 1,
+        "value": "Zn"
+      }
+    ],
+    "coordinates": [
+      {
+        "id": 0,
+        "value": [
+          0.333333,
+          0.666667,
+          0.25
+        ]
+      },
+      {
+        "id": 1,
+        "value": [
+          0.666667,
+          0.333333,
+          0.75
+        ]
+      }
+    ],
+    "units": "crystal",
+    "constraints": [],
+    "labels": []
+  },
+  "external": {
+    "id": "mp-79",
+    "source": "MaterialsProject",
+    "doi": "10.17188/1307804",
+    "url": "https://next-gen.materialsproject.org/materials/mp-79",
+    "origin": true
+  },
+  "isNonPeriodic": false,
+  "metadata": {
+    "element": "Zn"
+  },
+  "tags": [
+    "elemental"
+  ]
+}

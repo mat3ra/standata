@@ -1,0 +1,184 @@
+{
+    "_id": "b3aea14c-99ae-58f7-8aba-846c4025c80d",
+    "name": "Frequency",
+    "subworkflows": [
+        {
+            "_id": "97436597-653f-5c7e-8e97-bf13641243bf",
+            "name": "Frequency",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "nwchem",
+                "shortName": "nwchem",
+                "summary": "NWChem",
+                "version": "7.0.2",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [
+                "thermal_correction_to_energy",
+                "thermal_correction_to_enthalpy",
+                "total_energy",
+                "total_energy_contributions",
+                "zero_point_energy"
+            ],
+            "model": {
+                "type": "dft",
+                "subtype": "gga",
+                "method": {
+                    "type": "localorbital",
+                    "subtype": "pople",
+                    "data": {}
+                },
+                "functional": "pbe"
+            },
+            "units": [
+                {
+                    "type": "execution",
+                    "name": "nwchem_frequency",
+                    "head": true,
+                    "results": [
+                        {
+                            "name": "total_energy"
+                        },
+                        {
+                            "name": "total_energy_contributions"
+                        },
+                        {
+                            "name": "zero_point_energy"
+                        },
+                        {
+                            "name": "thermal_correction_to_energy"
+                        },
+                        {
+                            "name": "thermal_correction_to_enthalpy"
+                        }
+                    ],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "86a36dbc-b743-5a28-9559-698ad02054a3",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "nwchem",
+                        "shortName": "nwchem",
+                        "summary": "NWChem",
+                        "version": "7.0.2",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "nwchem",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "name": "nwchem",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "nwchem",
+                        "applicationVersion": "*",
+                        "executableName": "nwchem",
+                        "input": [
+                            {
+                                "name": "nwchem_frequency.inp"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "nwchem_frequency",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [
+                            {
+                                "name": "total_energy"
+                            },
+                            {
+                                "name": "total_energy_contributions"
+                            },
+                            {
+                                "name": "zero_point_energy"
+                            },
+                            {
+                                "name": "thermal_correction_to_energy"
+                            },
+                            {
+                                "name": "thermal_correction_to_enthalpy"
+                            }
+                        ],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "nwchem",
+                                "applicationVersion": "*",
+                                "content": " start nwchem\n title \"Test\"\n charge {{ input.CHARGE }}\n geometry units au noautosym\n {{ input.ATOMIC_POSITIONS }}\n end\n basis\n   * library {{ input.BASIS }}\n end\n dft\n xc {{ input.FUNCTIONAL }}\n mult {{ input.MULT }}\n end\n driver\n maxiter 256\n inhess 1\n print default\n end\n # Uncomment the following line to perform a geometry optimization before the frequency calculation\n # task dft optimize\n task dft freq\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "NWChemInputDataManager"
+                                    }
+                                ],
+                                "executableName": "nwchem",
+                                "name": "nwchem_frequency.inp",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        }
+    ],
+    "units": [
+        {
+            "type": "subworkflow",
+            "name": "Frequency",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "97436597-653f-5c7e-8e97-bf13641243bf",
+            "flowchartId": "5e27655f-8256-5677-9797-c230faf93106",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "properties": [
+        "thermal_correction_to_energy",
+        "thermal_correction_to_enthalpy",
+        "total_energy",
+        "total_energy_contributions",
+        "zero_point_energy"
+    ],
+    "workflows": [],
+    "schemaVersion": "2022.8.16",
+    "application": {
+        "name": "nwchem"
+    }
+}

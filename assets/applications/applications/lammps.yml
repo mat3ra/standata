@@ -1,0 +1,53 @@
+name: lammps
+shortName: lmp
+summary: LAMMPS
+defaultVersion: '2025.07.22.2'
+isUsingMaterial: true
+runConfig:
+  commandTemplate: |
+    {BASE_CMD} &&
+    {MODULE_CMD}
+    $EXEC_CMD mpirun -machinefile {MACHINEFILE} -np {NP} {EXECUTABLE} -i {INPUTFILE} -l {OUTPUTFILE}
+  outFileName: 'log.out'
+versions:
+  - version: '2025.07.22.2'
+    isDefault: true
+    build: GNU
+    buildConfig:
+      moduleName: '2025.07.22.2-gnu'
+      imageName: 'lammps'
+      imageTag: '2025.07.22.2-gnu-0'
+      bio: 'LAMMPS 22Jul2025Update2 (GNU Build)'
+      dependencies: []
+      environmentVariables: {}
+  - version: '2025.07.22.2'
+    isDefault: false
+    build: Intel
+    buildConfig:
+      moduleName: '2025.07.22.2-intel-2023.1'
+      imageName: 'lammps'
+      imageTag: '2025.07.22.2-host-intel-2023.1-0'
+      bio: 'LAMMPS 22Jul2025Update2 (Intel OneAPI 2023.1)'
+      dependencies: []
+      environmentVariables:
+        SOFTWARE_COMPILERS_PATH: '/export/compute/software/compilers'
+        SOFTWARE_LIBRARIES_PATH: '/export/compute/software/libraries'
+        APPTAINERENV_PREPEND_PATH: '$env(SOFTWARE_COMPILERS_PATH)/gcc/11.2.0/bin:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mpi/2021.9.0/libfabric/bin:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mpi/2021.9.0/bin:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mkl/2023.1.0/bin/intel64:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/dev-utilities/2021.9.0/bin:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/debugger/2023.1.0/gdb/intel64/bin:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/lib/oclfpga/bin:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/bin/intel64:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/bin'
+        APPTAINERENV_LD_LIBRARY_PATH: '$env(SOFTWARE_COMPILERS_PATH)/gcc/11.2.0/lib64:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/tbb/2021.9.0/lib/intel64/gcc4.8:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mpi/2021.9.0/libfabric/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mpi/2021.9.0/lib/release:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mpi/2021.9.0/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mkl/2023.1.0/lib/intel64:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/debugger/2023.1.0/gdb/intel64/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/debugger/2023.1.0/libipt/intel64/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/debugger/2023.1.0/dep/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/lib/x64:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/lib/oclfpga/host/linux64/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/compiler/lib/intel64_lin:\${LD_LIBRARY_PATH}'
+        APPTAINERENV_I_MPI_ROOT: '$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mpi/2021.9.0'
+        APPTAINERENV_MKLROOT: '$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mkl/2023.1.0'
+  - version: '2025.07.22.2'
+    build: CUDA
+    isDefault: false
+    buildConfig:
+      moduleName: '2025.07.22.2-intel-2023.1-cuda-12.8'
+      imageName: 'lammps'
+      imageTag: '2025.07.22.2-host-intel-2023.1-cuda-12.8-0'
+      bio: 'LAMMPS 22Jul2025Update2 (Intel OneAPI 2023.1 + CUDA 12.8)'
+      dependencies: []
+      environmentVariables:
+        SOFTWARE_LIBRARIES_PATH: '/export/compute/software/libraries'
+        APPTAINERENV_PREPEND_PATH: '$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mpi/2021.9.0/libfabric/bin:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mpi/2021.9.0/bin:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mkl/2023.1.0/bin/intel64:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/dev-utilities/2021.9.0/bin:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/debugger/2023.1.0/gdb/intel64/bin:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/lib/oclfpga/bin:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/bin/intel64:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/bin:$env(SOFTWARE_LIBRARIES_PATH)/nvhpc-25.3-cuda-12.8/Linux_x86_64/25.3/cuda/bin'
+        APPTAINERENV_LD_LIBRARY_PATH: '$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/tbb/2021.9.0/lib/intel64/gcc4.8:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mpi/2021.9.0/libfabric/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mpi/2021.9.0/lib/release:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mpi/2021.9.0/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mkl/2023.1.0/lib/intel64:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/debugger/2023.1.0/gdb/intel64/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/debugger/2023.1.0/libipt/intel64/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/debugger/2023.1.0/dep/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/lib/x64:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/lib/oclfpga/host/linux64/lib:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/compiler/lib/intel64_lin:$env(SOFTWARE_LIBRARIES_PATH)/nvhpc-25.3-cuda-12.8/Linux_x86_64/25.3/cuda/12.8/lib64:\${LD_LIBRARY_PATH}'
+        APPTAINERENV_I_MPI_ROOT: '$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mpi/2021.9.0'
+        APPTAINERENV_MKLROOT: '$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mkl/2023.1.0'

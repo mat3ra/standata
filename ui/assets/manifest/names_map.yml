@@ -1,0 +1,13 @@
+# This file maps property values to human-readable names. The values are intended for the
+# `namesMap` property of the nodes specified in ./assets. The values will be substituted for their
+# human-readable counterpart when building the RJSF schema (with dependencies).
+lda:
+    pz: PZ
+gga:
+    pbe: PBE
+    pbesol: PBESOL
+mgga:
+    scan: SCAN
+hybrid:
+    hse06: HSE06
+    b3lyp: B3LYP

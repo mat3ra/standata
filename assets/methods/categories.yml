@@ -1,0 +1,450 @@
+categories:
+  tier1:
+    - linalg
+    - opt
+    - qm
+  tier2:
+    - diag
+    - diff
+    - wf
+  tier3:
+    - ordern
+  type:
+    - ao
+    - cg
+    - davidson
+    - psp
+    - pw
+    - smearing
+    - tetrahedron
+  subtype:
+    - gaussian
+    - linear
+    - methfessel-paxton
+    - nc
+    - nc-fr
+    - paw
+    - pople
+    - us
+  tags:
+    - atomic orbital
+    - diagonalization
+    - occupation number
+    - plane wave
+    - pseudopotential
+entities:
+  - filename: qm/wf/none/ao/pople/wave_function_lcao_pople_basis_set_6_31g.json
+    categories:
+      - ao
+      - atomic orbital
+      - pople
+      - qm
+      - wf
+  - filename: qm/wf/none/psp/us/any_plane_wave_pseudopotential_method.json
+    categories:
+      - nc
+      - nc-fr
+      - paw
+      - plane wave
+      - pseudopotential
+      - psp
+      - pw
+      - qm
+      - us
+      - wf
+  - filename: qm/wf/none/smearing/gaussian/plane_wave_norm_conserving_fully_relativistic_pseudopotential_conjugate_gradient_diagonalization_gaussian_smearing.json
+    categories:
+      - cg
+      - diagonalization
+      - diff
+      - gaussian
+      - nc-fr
+      - occupation number
+      - opt
+      - ordern
+      - plane wave
+      - pseudopotential
+      - psp
+      - pw
+      - qm
+      - smearing
+      - wf
+  - filename: qm/wf/none/smearing/gaussian/plane_wave_norm_conserving_fully_relativistic_pseudopotential_davidson_diagonalization_gaussian_smearing.json
+    categories:
+      - davidson
+      - diag
+      - diagonalization
+      - gaussian
+      - linalg
+      - nc-fr
+      - occupation number
+      - plane wave
+      - pseudopotential
+      - psp
+      - pw
+      - qm
+      - smearing
+      - wf
+  - filename: qm/wf/none/smearing/gaussian/plane_wave_norm_conserving_pseudopotential_conjugate_gradient_diagonalization_gaussian_smearing.json
+    categories:
+      - cg
+      - diagonalization
+      - diff
+      - gaussian
+      - nc
+      - occupation number
+      - opt
+      - ordern
+      - plane wave
+      - pseudopotential
+      - psp
+      - pw
+      - qm
+      - smearing
+      - wf
+  - filename: qm/wf/none/smearing/gaussian/plane_wave_norm_conserving_pseudopotential_davidson_diagonalization_gaussian_smearing.json
+    categories:
+      - davidson
+      - diag
+      - diagonalization
+      - gaussian
+      - linalg
+      - nc
+      - occupation number
+      - plane wave
+      - pseudopotential
+      - psp
+      - pw
+      - qm
+      - smearing
+      - wf
+  - filename: qm/wf/none/smearing/gaussian/plane_wave_projector_augmented_wave_pseudopotential_conjugate_gradient_diagonalization_gaussian_smearing.json
+    categories:
+      - cg
+      - diagonalization
+      - diff
+      - gaussian
+      - occupation number
+      - opt
+      - ordern
+      - paw
+      - plane wave
+      - pseudopotential
+      - psp
+      - pw
+      - qm
+      - smearing
+      - wf
+  - filename: qm/wf/none/smearing/gaussian/plane_wave_projector_augmented_wave_pseudopotential_davidson_diagonalization_gaussian_smearing.json
+    categories:
+      - davidson
+      - diag
+      - diagonalization
+      - gaussian
+      - linalg
+      - occupation number
+      - paw
+      - plane wave
+      - pseudopotential
+      - psp
+      - pw
+      - qm
+      - smearing
+      - wf
+  - filename: qm/wf/none/smearing/gaussian/plane_wave_ultra_soft_pseudopotential_conjugate_gradient_diagonalization_gaussian_smearing.json
+    categories:
+      - cg
+      - diagonalization
+      - diff
+      - gaussian
+      - occupation number
+      - opt
+      - ordern
+      - plane wave
+      - pseudopotential
+      - psp
+      - pw
+      - qm
+      - smearing
+      - us
+      - wf
+  - filename: qm/wf/none/smearing/gaussian/plane_wave_ultra_soft_pseudopotential_davidson_diagonalization_gaussian_smearing.json
+    categories:
+      - davidson
+      - diag
+      - diagonalization
+      - gaussian
+      - linalg
+      - occupation number
+      - plane wave
+      - pseudopotential
+      - psp
+      - pw
+      - qm
+      - smearing
+      - us
+      - wf
+  - filename: qm/wf/none/smearing/methfessel-paxton/plane_wave_norm_conserving_fully_relativistic_pseudopotential_conjugate_gradient_diagonalization_methfessel_paxton_smearing.json
+    categories:
+      - cg
+      - diagonalization
+      - diff
+      - methfessel-paxton
+      - nc-fr
+      - occupation number
+      - opt
+      - ordern
+      - plane wave
+      - pseudopotential
+      - psp
+      - pw
+      - qm
+      - smearing
+      - wf
+  - filename: qm/wf/none/smearing/methfessel-paxton/plane_wave_norm_conserving_fully_relativistic_pseudopotential_davidson_diagonalization_methfessel_paxton_smearing.json
+    categories:
+      - davidson
+      - diag
+      - diagonalization
+      - linalg
+      - methfessel-paxton
+      - nc-fr
+      - occupation number
+      - plane wave
+      - pseudopotential
+      - psp
+      - pw
+      - qm
+      - smearing
+      - wf
+  - filename: qm/wf/none/smearing/methfessel-paxton/plane_wave_norm_conserving_pseudopotential_conjugate_gradient_diagonalization_methfessel_paxton_smearing.json
+    categories:
+      - cg
+      - diagonalization
+      - diff
+      - methfessel-paxton
+      - nc
+      - occupation number
+      - opt
+      - ordern
+      - plane wave
+      - pseudopotential
+      - psp
+      - pw
+      - qm
+      - smearing
+      - wf
+  - filename: qm/wf/none/smearing/methfessel-paxton/plane_wave_norm_conserving_pseudopotential_davidson_diagonalization_methfessel_paxton_smearing.json
+    categories:
+      - davidson
+      - diag
+      - diagonalization
+      - linalg
+      - methfessel-paxton
+      - nc
+      - occupation number
+      - plane wave
+      - pseudopotential
+      - psp
+      - pw
+      - qm
+      - smearing
+      - wf
+  - filename: qm/wf/none/smearing/methfessel-paxton/plane_wave_projector_augmented_wave_pseudopotential_conjugate_gradient_diagonalization_methfessel_paxton_smearing.json
+    categories:
+      - cg
+      - diagonalization
+      - diff
+      - methfessel-paxton
+      - occupation number
+      - opt
+      - ordern
+      - paw
+      - plane wave
+      - pseudopotential
+      - psp
+      - pw
+      - qm
+      - smearing
+      - wf
+  - filename: qm/wf/none/smearing/methfessel-paxton/plane_wave_projector_augmented_wave_pseudopotential_davidson_diagonalization_methfessel_paxton_smearing.json
+    categories:
+      - davidson
+      - diag
+      - diagonalization
+      - linalg
+      - methfessel-paxton
+      - occupation number
+      - paw
+      - plane wave
+      - pseudopotential
+      - psp
+      - pw
+      - qm
+      - smearing
+      - wf
+  - filename: qm/wf/none/smearing/methfessel-paxton/plane_wave_ultra_soft_pseudopotential_conjugate_gradient_diagonalization_methfessel_paxton_smearing.json
+    categories:
+      - cg
+      - diagonalization
+      - diff
+      - methfessel-paxton
+      - occupation number
+      - opt
+      - ordern
+      - plane wave
+      - pseudopotential
+      - psp
+      - pw
+      - qm
+      - smearing
+      - us
+      - wf
+  - filename: qm/wf/none/smearing/methfessel-paxton/plane_wave_ultra_soft_pseudopotential_davidson_diagonalization_methfessel_paxton_smearing.json
+    categories:
+      - davidson
+      - diag
+      - diagonalization
+      - linalg
+      - methfessel-paxton
+      - occupation number
+      - plane wave
+      - pseudopotential
+      - psp
+      - pw
+      - qm
+      - smearing
+      - us
+      - wf
+  - filename: qm/wf/none/tetrahedron/linear/plane_wave_norm_conserving_fully_relativistic_pseudopotential_conjugate_gradient_diagonalization_linear_tetrahedron_method.json
+    categories:
+      - cg
+      - diagonalization
+      - diff
+      - linear
+      - nc-fr
+      - occupation number
+      - opt
+      - ordern
+      - plane wave
+      - pseudopotential
+      - psp
+      - pw
+      - qm
+      - tetrahedron
+      - wf
+  - filename: qm/wf/none/tetrahedron/linear/plane_wave_norm_conserving_fully_relativistic_pseudopotential_davidson_diagonalization_linear_tetrahedron_method.json
+    categories:
+      - davidson
+      - diag
+      - diagonalization
+      - linalg
+      - linear
+      - nc-fr
+      - occupation number
+      - plane wave
+      - pseudopotential
+      - psp
+      - pw
+      - qm
+      - tetrahedron
+      - wf
+  - filename: qm/wf/none/tetrahedron/linear/plane_wave_norm_conserving_pseudopotential_conjugate_gradient_diagonalization_linear_tetrahedron_method.json
+    categories:
+      - cg
+      - diagonalization
+      - diff
+      - linear
+      - nc
+      - occupation number
+      - opt
+      - ordern
+      - plane wave
+      - pseudopotential
+      - psp
+      - pw
+      - qm
+      - tetrahedron
+      - wf
+  - filename: qm/wf/none/tetrahedron/linear/plane_wave_norm_conserving_pseudopotential_davidson_diagonalization_linear_tetrahedron_method.json
+    categories:
+      - davidson
+      - diag
+      - diagonalization
+      - linalg
+      - linear
+      - nc
+      - occupation number
+      - plane wave
+      - pseudopotential
+      - psp
+      - pw
+      - qm
+      - tetrahedron
+      - wf
+  - filename: qm/wf/none/tetrahedron/linear/plane_wave_projector_augmented_wave_pseudopotential_conjugate_gradient_diagonalization_linear_tetrahedron_method.json
+    categories:
+      - cg
+      - diagonalization
+      - diff
+      - linear
+      - occupation number
+      - opt
+      - ordern
+      - paw
+      - plane wave
+      - pseudopotential
+      - psp
+      - pw
+      - qm
+      - tetrahedron
+      - wf
+  - filename: qm/wf/none/tetrahedron/linear/plane_wave_projector_augmented_wave_pseudopotential_davidson_diagonalization_linear_tetrahedron_method.json
+    categories:
+      - davidson
+      - diag
+      - diagonalization
+      - linalg
+      - linear
+      - occupation number
+      - paw
+      - plane wave
+      - pseudopotential
+      - psp
+      - pw
+      - qm
+      - tetrahedron
+      - wf
+  - filename: qm/wf/none/tetrahedron/linear/plane_wave_ultra_soft_pseudopotential_conjugate_gradient_diagonalization_linear_tetrahedron_method.json
+    categories:
+      - cg
+      - diagonalization
+      - diff
+      - linear
+      - occupation number
+      - opt
+      - ordern
+      - plane wave
+      - pseudopotential
+      - psp
+      - pw
+      - qm
+      - tetrahedron
+      - us
+      - wf
+  - filename: qm/wf/none/tetrahedron/linear/plane_wave_ultra_soft_pseudopotential_davidson_diagonalization_linear_tetrahedron_method.json
+    categories:
+      - davidson
+      - diag
+      - diagonalization
+      - linalg
+      - linear
+      - occupation number
+      - plane wave
+      - pseudopotential
+      - psp
+      - pw
+      - qm
+      - tetrahedron
+      - us
+      - wf

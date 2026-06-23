@@ -1,0 +1,87 @@
+# Loads the compound structure and resolves elemental reference materials.
+#
+# In:  MATERIAL_ID (job/workflow input)
+# Out: MATERIAL              compound structure
+#      ELEMENTS              sorted unique symbols, e.g. ["Ga", "As"]
+#      ELEMENT_MATERIALS     map symbol -> material; Standata bank, tags: elemental
+#      MISSING_ELEMENTAL_MATERIAL_SYMBOLS symbols without Standata elemental materials
+application:
+  name: shell
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: Get Elemental Materials
+units:
+  - type: io
+    config:
+      name: io-material
+      flowchartId: io-material
+      subtype: input
+      source: api
+      input:
+        - type: api
+          endpoint: materials
+          endpoint_options:
+            params:
+              query: "{'_id': MATERIAL_ID}"
+              projection: "{}"
+          name: DATA
+  - type: assignment
+    config:
+      name: assign-material
+      flowchartId: assign-material
+      operand: MATERIAL
+      value: "DATA[0] if len(DATA) == 1 else None"
+      input:
+        - name: DATA
+          scope: io-material
+  - type: assignment
+    config:
+      name: assign-elements
+      flowchartId: assign-elements
+      operand: ELEMENTS
+      value: "sorted(list(set([e['value'] for e in MATERIAL.basis.elements])))"
+  - type: io
+    config:
+      name: io-elemental-materials
+      flowchartId: io-elemental-materials
+      subtype: input
+      source: api
+      input:
+        - type: api
+          endpoint: materials
+          endpoint_options:
+            params:
+              query: "{'tags': 'elemental', 'metadata.element': {'$in': ELEMENTS}}"
+              projection: "{}"
+          name: DATA
+  - type: assignment
+    config:
+      name: assign-element-materials
+      flowchartId: assign-element-materials
+      operand: ELEMENT_MATERIALS
+      value: >-
+        {m['metadata']['element']: m for m in DATA
+        if m.get('metadata') and m['metadata'].get('element') in ELEMENTS}
+      input:
+        - name: DATA
+          scope: io-elemental-materials
+  - type: assignment
+    config:
+      name: assign-missing-elemental-material-symbols
+      flowchartId: assign-missing-elemental-material-symbols
+      operand: MISSING_ELEMENTAL_MATERIAL_SYMBOLS
+      value: >-
+        [el for el in ELEMENTS if el not in ELEMENT_MATERIALS]
+  - type: assertion
+    config:
+      enableRender: true
+      name: assert-elemental-materials-found
+      flowchartId: assert-elemental-materials-found
+      statement: "len(MISSING_ELEMENTAL_MATERIAL_SYMBOLS) == 0"
+      errorMessage: >-
+        Missing Standata elemental reference material(s) for
+        {{ MISSING_ELEMENTAL_MATERIAL_SYMBOLS | join(', ') }}.
+        Add elemental material(s) with tags elemental and metadata.element
+        before running Formation Energy.

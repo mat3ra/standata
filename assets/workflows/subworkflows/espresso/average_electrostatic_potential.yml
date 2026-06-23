@@ -1,0 +1,28 @@
+application:
+  name: espresso
+  version: "6.3"
+method:
+  name: PseudopotentialMethod
+model:
+  name: DFTModel
+name: Average Electrostatic Potential
+units:
+  - config:
+      execName: pw.x
+      flavorName: pw_scf
+      name: pw_scf
+    type: executionBuilder
+  - config:
+      execName: pp.x
+      flavorName: pp_electrostatic_potential
+      name: Electrostatic Potential (ESP)
+    type: executionBuilder
+  - config:
+      execName: average.x
+      flavorName: average_potential
+      name: average ESP
+      flowchartId: average-electrostatic-potential
+    type: executionBuilder
+    attributes:
+      results:
+        - name: average_potential_profile

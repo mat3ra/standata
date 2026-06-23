@@ -1,0 +1,280 @@
+{
+    "_id": "259ad03a-cf01-58b9-8941-ff13c8553059",
+    "name": "Hubbard U",
+    "application": {
+        "name": "espresso"
+    },
+    "properties": [
+        "atomic_forces",
+        "band_gaps",
+        "fermi_energy",
+        "hubbard_u",
+        "hubbard_v",
+        "hubbard_v_nn",
+        "pressure",
+        "stress_tensor",
+        "total_energy",
+        "total_energy_contributions",
+        "total_force"
+    ],
+    "model": {
+        "type": "dft",
+        "subtype": "gga",
+        "method": {
+            "type": "localorbital",
+            "subtype": "pople",
+            "data": {}
+        },
+        "functional": "pbe"
+    },
+    "units": [
+        {
+            "type": "execution",
+            "name": "pw_scf_dft_u",
+            "head": true,
+            "results": [
+                {
+                    "name": "atomic_forces"
+                },
+                {
+                    "name": "band_gaps"
+                },
+                {
+                    "name": "fermi_energy"
+                },
+                {
+                    "name": "pressure"
+                },
+                {
+                    "name": "stress_tensor"
+                },
+                {
+                    "name": "total_energy"
+                },
+                {
+                    "name": "total_energy_contributions"
+                },
+                {
+                    "name": "total_force"
+                }
+            ],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                },
+                {
+                    "name": "convergence_electronic"
+                }
+            ],
+            "flowchartId": "ed192185-1f0a-569a-be6c-bb92f332a03c",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "isDefaultVersion": false,
+                "isUsingMaterial": true,
+                "name": "espresso",
+                "shortName": "qe",
+                "summary": "Quantum ESPRESSO",
+                "version": "7.5",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "applicationName": "espresso",
+                "applicationVersion": "*",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "name": "pw.x",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "applicationName": "espresso",
+                "applicationVersion": ">=7.2",
+                "executableName": "pw.x",
+                "input": [
+                    {
+                        "name": "pw_scf_dft_u.in"
+                    }
+                ],
+                "isDefault": false,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    },
+                    {
+                        "name": "convergence_electronic"
+                    }
+                ],
+                "name": "pw_scf_dft_u",
+                "postProcessors": [],
+                "preProcessors": [],
+                "results": [
+                    {
+                        "name": "atomic_forces"
+                    },
+                    {
+                        "name": "band_gaps"
+                    },
+                    {
+                        "name": "fermi_energy"
+                    },
+                    {
+                        "name": "pressure"
+                    },
+                    {
+                        "name": "stress_tensor"
+                    },
+                    {
+                        "name": "total_energy"
+                    },
+                    {
+                        "name": "total_energy_contributions"
+                    },
+                    {
+                        "name": "total_force"
+                    }
+                ],
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [
+                {
+                    "template": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "content": "{% if subworkflowContext.MATERIAL_INDEX %}\n{%- set input = input.perMaterial[subworkflowContext.MATERIAL_INDEX] -%}\n{% endif -%}\n&CONTROL\n    calculation = 'scf'\n    title = ''\n    verbosity = 'low'\n    restart_mode = '{{ input.RESTART_MODE }}'\n    wf_collect = .true.\n    tstress = .true.\n    tprnfor = .true.\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    wfcdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    prefix = '__prefix__'\n    pseudo_dir = {% raw %}'{{ JOB_WORK_DIR }}/pseudo'{% endraw %}\n/\n&SYSTEM\n    ibrav = {{ input.IBRAV }}\n    nat = {{ input.NAT }}\n    ntyp = {{ input.NTYP }}\n    ecutwfc = {{ cutoffs.wavefunction }}\n    ecutrho = {{ cutoffs.density }}\n    occupations = 'fixed'\n/\n&ELECTRONS\n    diagonalization = 'david'\n    diago_david_ndim = 4\n    diago_full_acc = .true.\n    mixing_beta = 0.3\n    startingwfc = 'atomic+random'\n/\n&IONS\n/\n&CELL\n/\nATOMIC_SPECIES\n{% for specie in input.ATOMIC_SPECIES -%}\n{{ specie.X }} {{ specie.Mass_X|sprintf(\"%f\") }} {{ specie.PseudoPot_X }}\n{% endfor %}\nATOMIC_POSITIONS crystal\n{%- set print_constraints = false %}\n{%- for position in input.ATOMIC_POSITIONS %}\n    {%- if position[\"if_pos(1)\"] != 1 or position[\"if_pos(2)\"] != 1 or position[\"if_pos(3)\"] != 1 %}\n        {%- set print_constraints = true %}\n    {%- endif %}\n{%- endfor %}\n{% for position in input.ATOMIC_POSITIONS -%}\n{{ position.X|sprintf(\"%-3s\") }} {{ position.x|sprintf(\"%14.9f\") }} {{ position.y|sprintf(\"%14.9f\") }} {{ position.z|sprintf(\"%14.9f\") }}{% if print_constraints %} {{ position[\"if_pos(1)\"] }} {{ position[\"if_pos(2)\"] }} {{ position[\"if_pos(3)\"] }}{% endif %}\n{% endfor %}\nCELL_PARAMETERS angstrom\n{{ input.CELL_PARAMETERS.v1[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v2[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v3[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[2]|sprintf(\"%14.9f\") }}\nK_POINTS automatic\n{% for d in kgrid.dimensions %}{{d}} {% endfor %}{% for s in kgrid.shifts %}{{s}} {% endfor %}\nHUBBARD {ortho-atomic}\n{% for row in hubbard_u -%}\nU {{ row.atomicSpecies }}-{{ row.atomicOrbital }} {{ row.hubbardUValue }}\n{% endfor -%}\n",
+                        "contextProviders": [
+                            {
+                                "name": "KGridFormDataManager"
+                            },
+                            {
+                                "name": "QEPWXInputDataManager"
+                            },
+                            {
+                                "name": "PlanewaveCutoffDataManager"
+                            },
+                            {
+                                "name": "HubbardUContextManager"
+                            }
+                        ],
+                        "executableName": "pw.x",
+                        "name": "pw_scf_dft_u.in",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                }
+            ],
+            "context": [],
+            "next": "76cb09a7-c69d-55d4-a2d1-84b3f4f61962",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "execution",
+            "name": "hp",
+            "head": false,
+            "results": [
+                {
+                    "name": "hubbard_u"
+                },
+                {
+                    "name": "hubbard_v_nn"
+                },
+                {
+                    "name": "hubbard_v"
+                }
+            ],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                }
+            ],
+            "flowchartId": "76cb09a7-c69d-55d4-a2d1-84b3f4f61962",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "isDefaultVersion": false,
+                "isUsingMaterial": true,
+                "name": "espresso",
+                "shortName": "qe",
+                "summary": "Quantum ESPRESSO",
+                "version": "7.5",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "applicationName": "espresso",
+                "applicationVersion": ">=7.0",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": false,
+                "name": "hp.x",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "applicationName": "espresso",
+                "applicationVersion": "*",
+                "executableName": "hp.x",
+                "input": [
+                    {
+                        "name": "hp.in"
+                    }
+                ],
+                "isDefault": false,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    }
+                ],
+                "name": "hp",
+                "postProcessors": [],
+                "preProcessors": [],
+                "results": [
+                    {
+                        "name": "hubbard_u"
+                    },
+                    {
+                        "name": "hubbard_v_nn"
+                    },
+                    {
+                        "name": "hubbard_v"
+                    }
+                ],
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [
+                {
+                    "template": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "content": "&inputhp\n    prefix = '__prefix__'\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    {%- for d in qgrid.dimensions %}\n    nq{{ loop.index }} = {{ d }}\n    {%- endfor %}\n/\n",
+                        "contextProviders": [
+                            {
+                                "name": "QGridFormDataManager"
+                            }
+                        ],
+                        "executableName": "hp.x",
+                        "name": "hp.in",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                }
+            ],
+            "context": [],
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "isDraft": false
+}

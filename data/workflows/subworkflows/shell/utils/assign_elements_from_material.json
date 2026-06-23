@@ -1,0 +1,57 @@
+{
+    "_id": "72a11707-79d3-5868-bc19-5138ce5b13ba",
+    "name": "Assign Elements From Material",
+    "application": {
+        "name": "shell"
+    },
+    "properties": [],
+    "model": {
+        "type": "unknown",
+        "subtype": "unknown",
+        "method": {
+            "type": "unknown",
+            "subtype": "unknown",
+            "data": {}
+        }
+    },
+    "units": [
+        {
+            "name": "assign-elements",
+            "type": "assignment",
+            "operand": "ELEMENTS",
+            "value": "sorted(list(set([e['value'] for e in MATERIAL.basis.elements])))",
+            "input": [],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-elements",
+            "head": true,
+            "next": "assert-elements",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "assert-elements",
+            "type": "assertion",
+            "statement": "len(ELEMENTS) > 0",
+            "errorMessage": "Material has no elements in its basis.",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assert-elements",
+            "head": false,
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "isDraft": false
+}

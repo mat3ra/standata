@@ -1,0 +1,337 @@
+{
+    "_id": "d38fea11-9781-5151-8dae-d705381498be",
+    "name": "Band Structure + Density of States",
+    "application": {
+        "name": "vasp"
+    },
+    "properties": [
+        "atomic_forces",
+        "band_structure",
+        "density_of_states",
+        "fermi_energy",
+        "pressure",
+        "stress_tensor",
+        "total_energy",
+        "total_energy_contributions",
+        "total_force"
+    ],
+    "model": {
+        "type": "dft",
+        "subtype": "gga",
+        "method": {
+            "type": "pseudopotential",
+            "subtype": "paw",
+            "data": {}
+        },
+        "functional": "pbe"
+    },
+    "units": [
+        {
+            "type": "execution",
+            "name": "vasp",
+            "head": true,
+            "results": [
+                {
+                    "name": "density_of_states"
+                },
+                {
+                    "name": "total_energy"
+                },
+                {
+                    "name": "total_energy_contributions"
+                },
+                {
+                    "name": "pressure"
+                },
+                {
+                    "name": "fermi_energy"
+                },
+                {
+                    "name": "atomic_forces"
+                },
+                {
+                    "name": "total_force"
+                },
+                {
+                    "name": "stress_tensor"
+                }
+            ],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                },
+                {
+                    "name": "convergence_electronic"
+                }
+            ],
+            "flowchartId": "9cb87769-bf20-56bf-a8b3-5a164e3bf541",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isLicensed": true,
+                "isUsingMaterial": true,
+                "name": "vasp",
+                "shortName": "vasp",
+                "summary": "Vienna Ab-initio Simulation Package",
+                "version": "5.4.4",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "applicationName": "vasp",
+                "applicationVersion": "*",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "name": "vasp",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "applicationName": "vasp",
+                "applicationVersion": "*",
+                "executableName": "vasp",
+                "input": [
+                    {
+                        "name": "INCAR"
+                    },
+                    {
+                        "name": "KPOINTS"
+                    },
+                    {
+                        "name": "POSCAR"
+                    }
+                ],
+                "isDefault": true,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    },
+                    {
+                        "name": "convergence_electronic"
+                    }
+                ],
+                "name": "vasp",
+                "postProcessors": [],
+                "preProcessors": [],
+                "results": [
+                    {
+                        "name": "total_energy"
+                    },
+                    {
+                        "name": "total_energy_contributions"
+                    },
+                    {
+                        "name": "pressure"
+                    },
+                    {
+                        "name": "fermi_energy"
+                    },
+                    {
+                        "name": "atomic_forces"
+                    },
+                    {
+                        "name": "total_force"
+                    },
+                    {
+                        "name": "stress_tensor"
+                    }
+                ],
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [
+                {
+                    "template": {
+                        "applicationName": "vasp",
+                        "applicationVersion": "*",
+                        "content": "ISMEAR = 0\nSIGMA  = 0.05\nLORBIT = 11\n",
+                        "contextProviders": [],
+                        "executableName": "vasp",
+                        "name": "INCAR",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                },
+                {
+                    "template": {
+                        "applicationName": "vasp",
+                        "applicationVersion": "*",
+                        "content": "Automatic mesh\n0\nGamma\n  {% for d in kgrid.dimensions %}{{d}} {% endfor %}\n  {% for s in kgrid.shifts %}{{s}} {% endfor %}\n",
+                        "contextProviders": [
+                            {
+                                "name": "KGridFormDataManager"
+                            }
+                        ],
+                        "executableName": "vasp",
+                        "name": "KPOINTS",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                },
+                {
+                    "template": {
+                        "applicationName": "vasp",
+                        "applicationVersion": "*",
+                        "content": "{{ input.POSCAR }}\n",
+                        "contextProviders": [
+                            {
+                                "name": "VASPInputDataManager"
+                            }
+                        ],
+                        "executableName": "vasp",
+                        "name": "POSCAR",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                }
+            ],
+            "context": [],
+            "next": "1e1de3be-f6e4-513e-afe2-c84e567a8108",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "execution",
+            "name": "vasp_bands",
+            "head": false,
+            "results": [
+                {
+                    "name": "band_structure"
+                }
+            ],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                },
+                {
+                    "name": "convergence_electronic"
+                }
+            ],
+            "flowchartId": "1e1de3be-f6e4-513e-afe2-c84e567a8108",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isLicensed": true,
+                "isUsingMaterial": true,
+                "name": "vasp",
+                "shortName": "vasp",
+                "summary": "Vienna Ab-initio Simulation Package",
+                "version": "5.4.4",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "applicationName": "vasp",
+                "applicationVersion": "*",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "name": "vasp",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "applicationName": "vasp",
+                "applicationVersion": "*",
+                "executableName": "vasp",
+                "input": [
+                    {
+                        "name": "INCAR",
+                        "templateName": "INCAR_BANDS"
+                    },
+                    {
+                        "name": "KPOINTS",
+                        "templateName": "KPOINTS_BANDS"
+                    },
+                    {
+                        "name": "POSCAR",
+                        "templateName": ""
+                    }
+                ],
+                "isDefault": false,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    },
+                    {
+                        "name": "convergence_electronic"
+                    }
+                ],
+                "name": "vasp_bands",
+                "postProcessors": [],
+                "preProcessors": [],
+                "results": [
+                    {
+                        "name": "band_structure"
+                    }
+                ],
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [
+                {
+                    "template": {
+                        "applicationName": "vasp",
+                        "applicationVersion": "*",
+                        "content": "ISMEAR = 0\nSIGMA = 0.05\nISTART = 1\nICHARG = 11\n",
+                        "contextProviders": [],
+                        "executableName": "vasp",
+                        "name": "INCAR",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                },
+                {
+                    "template": {
+                        "applicationName": "vasp",
+                        "applicationVersion": "*",
+                        "content": "kpoints path\n{{kpath.length}}\nreciprocal\n{% for point in kpath -%}\n{% for d in point.coordinates %}{{d|sprintf(\"%14.9f\")}} {% endfor -%}{{point.steps}}\n{% endfor %}\n",
+                        "contextProviders": [
+                            {
+                                "name": "KPathFormDataManager"
+                            }
+                        ],
+                        "executableName": "vasp",
+                        "name": "KPOINTS",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                },
+                {
+                    "template": {
+                        "applicationName": "vasp",
+                        "applicationVersion": "*",
+                        "content": "{{ input.POSCAR }}\n",
+                        "contextProviders": [
+                            {
+                                "name": "VASPInputDataManager"
+                            }
+                        ],
+                        "executableName": "vasp",
+                        "name": "POSCAR",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                }
+            ],
+            "context": [],
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "isDraft": false
+}

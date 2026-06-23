@@ -1,0 +1,102 @@
+{
+    "_id": "2f017bcb-f4ba-55b8-b939-1f780679a88e",
+    "name": "ph-init-qpoints",
+    "application": {
+        "name": "espresso"
+    },
+    "properties": [],
+    "model": {
+        "type": "dft",
+        "subtype": "gga",
+        "method": {
+            "type": "pseudopotential",
+            "subtype": "us",
+            "data": {}
+        },
+        "functional": "pbe"
+    },
+    "units": [
+        {
+            "type": "execution",
+            "name": "ph_init_qpoints",
+            "head": true,
+            "results": [],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                }
+            ],
+            "flowchartId": "b8ea6a33-38f3-5434-b17e-b5eae8fff9fc",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "espresso",
+                "shortName": "qe",
+                "summary": "Quantum ESPRESSO",
+                "version": "6.3",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "applicationName": "espresso",
+                "applicationVersion": "*",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": false,
+                "name": "ph.x",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "applicationName": "espresso",
+                "applicationVersion": "*",
+                "executableName": "ph.x",
+                "input": [
+                    {
+                        "name": "ph_init_qpoints.in"
+                    }
+                ],
+                "isDefault": false,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    }
+                ],
+                "name": "ph_init_qpoints",
+                "postProcessors": [],
+                "preProcessors": [],
+                "results": [],
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [
+                {
+                    "template": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "content": "&INPUTPH\n    tr2_ph = 1.0d-18,\n    recover = .false.\n    start_irr = 0\n    last_irr = 0\n    ldisp = .true.\n    fildyn = 'dyn0'\n    prefix = '__prefix__'\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    {% for d in qgrid.dimensions -%}\n    nq{{loop.index}} = {{d}}\n    {% endfor %}\n/\n",
+                        "contextProviders": [
+                            {
+                                "name": "QGridFormDataManager"
+                            }
+                        ],
+                        "executableName": "ph.x",
+                        "name": "ph_init_qpoints.in",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                }
+            ],
+            "context": [],
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "isDraft": false
+}

@@ -1,0 +1,17 @@
+path: "/pb/qm/abin/gw"
+data:
+    key: type
+    value: !esse "models-category/pb/qm/abin/enum-options#/gwApproximation/enum[0]"
+    name: "GW Approximation"
+children:
+    - !include "model/pb/qm/abin/gw/g0w0.yml"
+    - !include "model/pb/qm/abin/gw/evgw0.yml"
+    - !include "model/pb/qm/abin/gw/evgw.yml"
+staticOptions:
+    - !parameter
+      key: functional
+      values: !esse "model/mixins/dft/enum-options#/gga/enum"
+      namesMap: !include "manifest/names_map.yml#/gga"
+    - !parameter
+      key: parameters.spinOrbitCoupling
+      values: [true]

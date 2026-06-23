@@ -1,0 +1,7 @@
+path: "/opt/diff"
+data:
+    key: tier2
+    value: !esse "methods-category/mathematical/opt/enum-options#/differentiable/enum[0]"
+    name: "Differentiable"
+children:
+    - !include "method/opt/diff/ordern.yml"

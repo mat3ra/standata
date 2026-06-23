@@ -1,0 +1,733 @@
+{
+    "_id": "2973908e-21ae-5424-afc9-ccb3fde477d8",
+    "name": "Nudged Elastic Band (NEB)",
+    "subworkflows": [
+        {
+            "_id": "792e8c42-86ce-5f01-812a-66378ec4f379",
+            "name": "Initial/Final Total Energies",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isLicensed": true,
+                "isUsingMaterial": true,
+                "name": "vasp",
+                "shortName": "vasp",
+                "summary": "Vienna Ab-initio Simulation Package",
+                "version": "5.4.4",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [
+                "atomic_forces",
+                "fermi_energy",
+                "pressure",
+                "stress_tensor",
+                "total_energy",
+                "total_energy_contributions",
+                "total_force"
+            ],
+            "model": {
+                "type": "dft",
+                "subtype": "gga",
+                "method": {
+                    "type": "pseudopotential",
+                    "subtype": "paw",
+                    "data": {}
+                },
+                "functional": "pbe"
+            },
+            "units": [
+                {
+                    "type": "execution",
+                    "name": "vasp_neb_initial",
+                    "head": true,
+                    "results": [
+                        {
+                            "name": "total_energy"
+                        },
+                        {
+                            "name": "total_energy_contributions"
+                        },
+                        {
+                            "name": "pressure"
+                        },
+                        {
+                            "name": "fermi_energy"
+                        },
+                        {
+                            "name": "atomic_forces"
+                        },
+                        {
+                            "name": "total_force"
+                        },
+                        {
+                            "name": "stress_tensor"
+                        }
+                    ],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        },
+                        {
+                            "name": "convergence_electronic"
+                        }
+                    ],
+                    "flowchartId": "f969f010-9dae-5085-9ac5-86150ef78897",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isLicensed": true,
+                        "isUsingMaterial": true,
+                        "name": "vasp",
+                        "shortName": "vasp",
+                        "summary": "Vienna Ab-initio Simulation Package",
+                        "version": "5.4.4",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "vasp",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "name": "vasp",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "vasp",
+                        "applicationVersion": "*",
+                        "executableName": "vasp",
+                        "input": [
+                            {
+                                "name": "INCAR",
+                                "templateName": "INCAR_NEB_INITIAL_FINAL"
+                            },
+                            {
+                                "name": "KPOINTS"
+                            },
+                            {
+                                "name": "POSCAR",
+                                "templateName": "POSCAR_NEB_INITIAL"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            },
+                            {
+                                "name": "convergence_electronic"
+                            }
+                        ],
+                        "name": "vasp_neb_initial",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [
+                            {
+                                "name": "total_energy"
+                            },
+                            {
+                                "name": "total_energy_contributions"
+                            },
+                            {
+                                "name": "pressure"
+                            },
+                            {
+                                "name": "fermi_energy"
+                            },
+                            {
+                                "name": "atomic_forces"
+                            },
+                            {
+                                "name": "total_force"
+                            },
+                            {
+                                "name": "stress_tensor"
+                            }
+                        ],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "vasp",
+                                "applicationVersion": "*",
+                                "content": "ISTART = 0\nENCUT = 500\nISPIN = 2\n",
+                                "contextProviders": [],
+                                "executableName": "vasp",
+                                "name": "INCAR",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        },
+                        {
+                            "template": {
+                                "applicationName": "vasp",
+                                "applicationVersion": "*",
+                                "content": "Automatic mesh\n0\nGamma\n  {% for d in kgrid.dimensions %}{{d}} {% endfor %}\n  {% for s in kgrid.shifts %}{{s}} {% endfor %}\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "KGridFormDataManager"
+                                    }
+                                ],
+                                "executableName": "vasp",
+                                "name": "KPOINTS",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        },
+                        {
+                            "template": {
+                                "applicationName": "vasp",
+                                "applicationVersion": "*",
+                                "content": "{{ input.FIRST_IMAGE }}\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "VASPNEBInputDataManager"
+                                    }
+                                ],
+                                "executableName": "vasp",
+                                "name": "POSCAR",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "e65a17ce-10c8-5710-ad4d-fb3d42434091",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "vasp_neb_final",
+                    "head": false,
+                    "results": [
+                        {
+                            "name": "total_energy"
+                        },
+                        {
+                            "name": "total_energy_contributions"
+                        },
+                        {
+                            "name": "pressure"
+                        },
+                        {
+                            "name": "fermi_energy"
+                        },
+                        {
+                            "name": "atomic_forces"
+                        },
+                        {
+                            "name": "total_force"
+                        },
+                        {
+                            "name": "stress_tensor"
+                        }
+                    ],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        },
+                        {
+                            "name": "convergence_electronic"
+                        }
+                    ],
+                    "flowchartId": "e65a17ce-10c8-5710-ad4d-fb3d42434091",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isLicensed": true,
+                        "isUsingMaterial": true,
+                        "name": "vasp",
+                        "shortName": "vasp",
+                        "summary": "Vienna Ab-initio Simulation Package",
+                        "version": "5.4.4",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "vasp",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "name": "vasp",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "vasp",
+                        "applicationVersion": "*",
+                        "executableName": "vasp",
+                        "input": [
+                            {
+                                "name": "INCAR",
+                                "templateName": "INCAR_NEB_INITIAL_FINAL"
+                            },
+                            {
+                                "name": "KPOINTS"
+                            },
+                            {
+                                "name": "POSCAR",
+                                "templateName": "POSCAR_NEB_FINAL"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            },
+                            {
+                                "name": "convergence_electronic"
+                            }
+                        ],
+                        "name": "vasp_neb_final",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [
+                            {
+                                "name": "total_energy"
+                            },
+                            {
+                                "name": "total_energy_contributions"
+                            },
+                            {
+                                "name": "pressure"
+                            },
+                            {
+                                "name": "fermi_energy"
+                            },
+                            {
+                                "name": "atomic_forces"
+                            },
+                            {
+                                "name": "total_force"
+                            },
+                            {
+                                "name": "stress_tensor"
+                            }
+                        ],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "vasp",
+                                "applicationVersion": "*",
+                                "content": "ISTART = 0\nENCUT = 500\nISPIN = 2\n",
+                                "contextProviders": [],
+                                "executableName": "vasp",
+                                "name": "INCAR",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        },
+                        {
+                            "template": {
+                                "applicationName": "vasp",
+                                "applicationVersion": "*",
+                                "content": "Automatic mesh\n0\nGamma\n  {% for d in kgrid.dimensions %}{{d}} {% endfor %}\n  {% for s in kgrid.shifts %}{{s}} {% endfor %}\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "KGridFormDataManager"
+                                    }
+                                ],
+                                "executableName": "vasp",
+                                "name": "KPOINTS",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        },
+                        {
+                            "template": {
+                                "applicationName": "vasp",
+                                "applicationVersion": "*",
+                                "content": "{{ input.LAST_IMAGE }}\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "VASPNEBInputDataManager"
+                                    }
+                                ],
+                                "executableName": "vasp",
+                                "name": "POSCAR",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "compute": {
+                "ppn": 1,
+                "nodes": 1,
+                "queue": "D",
+                "timeLimit": "01:00:00",
+                "notify": "n",
+                "cluster": {
+                    "fqdn": ""
+                },
+                "timeLimitType": "per single attempt",
+                "isRestartable": true,
+                "arguments": {
+                    "nimage": 1,
+                    "npools": 1,
+                    "nband": 1,
+                    "ntg": 1,
+                    "ndiag": 1
+                }
+            },
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
+            "_id": "c9b7ad2a-5207-5e41-9b66-28474a8921f8",
+            "name": "Prepare Directories",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": false,
+                "name": "shell",
+                "shortName": "sh",
+                "summary": "Shell Script",
+                "version": "5.1.8",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [],
+            "model": {
+                "type": "unknown",
+                "subtype": "unknown",
+                "method": {
+                    "type": "unknown",
+                    "subtype": "unknown",
+                    "data": {}
+                }
+            },
+            "units": [
+                {
+                    "type": "execution",
+                    "name": "prepare-neb-images",
+                    "head": true,
+                    "results": [],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "dc397ead-54ad-513b-992e-aedd54576409",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": false,
+                        "name": "shell",
+                        "shortName": "sh",
+                        "summary": "Shell Script",
+                        "version": "5.1.8",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "shell",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "name": "sh",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "shell",
+                        "applicationVersion": "*",
+                        "executableName": "sh",
+                        "input": [
+                            {
+                                "name": "bash_vasp_prepare_neb_images.sh"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "bash_vasp_prepare_neb_images",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "shell",
+                                "applicationVersion": "*",
+                                "content": "#!/bin/bash\n\n# ------------------------------------------------------------------ #\n#  This script prepares necessary directories to run VASP NEB\n#  calculation. It puts initial POSCAR into directory 00, final into 0N\n#  and intermediate images in 01 to 0(N-1). It is assumed that SCF\n#  calculations for initial and final structures are already done in\n#  previous subworkflows and their standard outputs are written into\n#  \"vasp_neb_initial.out\" and \"vasp_neb_final.out\" files respectively.\n#  These outputs are here copied into initial (00) and final (0N)\n#  directories to calculate the reaction energy profile.\n# ------------------------------------------------------------------ #\n\n{% raw %}\ncd {{ JOB_WORK_DIR }}\n{% endraw %}\n\n# Prepare First Directory\nmkdir -p 00\ncat > 00/POSCAR <<EOF\n{{ input.FIRST_IMAGE }}\nEOF\ncp vasp_neb_initial.out 00/stdout\ncp CONTCAR 00/CONTCAR\n\n# Prepare Last Directory\nmkdir -p 0{{ input.INTERMEDIATE_IMAGES.length + 1 }}\ncat > 0{{ input.INTERMEDIATE_IMAGES.length + 1 }}/POSCAR <<EOF\n{{ input.LAST_IMAGE }}\nEOF\ncp CONTCAR 0{{ input.INTERMEDIATE_IMAGES.length + 1 }}/CONTCAR\ncp vasp_neb_final.out 0{{ input.INTERMEDIATE_IMAGES.length + 1 }}/stdout\n\n{% for IMAGE in input.INTERMEDIATE_IMAGES %}\n# Prepare Intermediate Directory {{ loop.index }}\nmkdir -p 0{{ loop.index }}\ncat > 0{{ loop.index }}/POSCAR <<EOF\n{{ IMAGE }}\nEOF\n{% endfor -%}\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "VASPNEBInputDataManager"
+                                    }
+                                ],
+                                "executableName": "sh",
+                                "name": "bash_vasp_prepare_neb_images.sh",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
+            "_id": "e6215fb9-e60c-541b-b73e-b077d64b3a95",
+            "name": "Nudged Elastic Band (NEB)",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isLicensed": true,
+                "isUsingMaterial": true,
+                "name": "vasp",
+                "shortName": "vasp",
+                "summary": "Vienna Ab-initio Simulation Package",
+                "version": "5.4.4",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [
+                "reaction_energy_barrier",
+                "reaction_energy_profile"
+            ],
+            "model": {
+                "type": "dft",
+                "subtype": "gga",
+                "method": {
+                    "type": "pseudopotential",
+                    "subtype": "paw",
+                    "data": {}
+                },
+                "functional": "pbe"
+            },
+            "units": [
+                {
+                    "type": "execution",
+                    "name": "vasp_neb",
+                    "head": true,
+                    "results": [
+                        {
+                            "name": "reaction_energy_barrier"
+                        },
+                        {
+                            "name": "reaction_energy_profile"
+                        }
+                    ],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "9a1660ab-8067-5fad-9fb8-7c039f634636",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isLicensed": true,
+                        "isUsingMaterial": true,
+                        "name": "vasp",
+                        "shortName": "vasp",
+                        "summary": "Vienna Ab-initio Simulation Package",
+                        "version": "5.4.4",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "vasp",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "name": "vasp",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "vasp",
+                        "applicationVersion": "*",
+                        "executableName": "vasp",
+                        "input": [
+                            {
+                                "name": "INCAR",
+                                "templateName": "INCAR_NEB"
+                            },
+                            {
+                                "name": "KPOINTS",
+                                "templateName": "KPOINTS"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "vasp_neb",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [
+                            {
+                                "name": "reaction_energy_barrier"
+                            },
+                            {
+                                "name": "reaction_energy_profile"
+                            }
+                        ],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "vasp",
+                                "applicationVersion": "*",
+                                "content": "ISTART = 0\nIBRION = 1\nEDIFFG = -0.001\nENCUT = 500\nNELM = 100\nNSW = 100\nIMAGES = {{ input.INTERMEDIATE_IMAGES.length or neb.nImages }}\nSPRING = -5\nISPIN = 2\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "NEBFormDataManager"
+                                    },
+                                    {
+                                        "name": "VASPNEBInputDataManager"
+                                    }
+                                ],
+                                "executableName": "vasp",
+                                "name": "INCAR",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        },
+                        {
+                            "template": {
+                                "applicationName": "vasp",
+                                "applicationVersion": "*",
+                                "content": "Automatic mesh\n0\nGamma\n  {% for d in kgrid.dimensions %}{{d}} {% endfor %}\n  {% for s in kgrid.shifts %}{{s}} {% endfor %}\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "KGridFormDataManager"
+                                    }
+                                ],
+                                "executableName": "vasp",
+                                "name": "KPOINTS",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        }
+    ],
+    "units": [
+        {
+            "type": "subworkflow",
+            "name": "Initial/Final Total Energies",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "792e8c42-86ce-5f01-812a-66378ec4f379",
+            "flowchartId": "427b4671-7c37-50f7-82c8-4d781b846fd8",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "subworkflow",
+            "name": "Prepare Directories",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "c9b7ad2a-5207-5e41-9b66-28474a8921f8",
+            "flowchartId": "8dd252f2-99c2-50c6-8a81-fa5881141985",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "subworkflow",
+            "name": "Nudged Elastic Band (NEB)",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "e6215fb9-e60c-541b-b73e-b077d64b3a95",
+            "flowchartId": "134c70e2-aeaf-543d-aded-1585cd71b800",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "properties": [
+        "atomic_forces",
+        "fermi_energy",
+        "pressure",
+        "stress_tensor",
+        "total_energy",
+        "total_energy_contributions",
+        "total_force",
+        "reaction_energy_barrier",
+        "reaction_energy_profile"
+    ],
+    "workflows": [],
+    "isMultiMaterial": true,
+    "schemaVersion": "2022.8.16",
+    "application": {
+        "name": "vasp"
+    }
+}

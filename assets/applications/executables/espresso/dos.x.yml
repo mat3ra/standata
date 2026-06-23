@@ -1,0 +1,14 @@
+monitors:
+  - name: standard_output
+results:
+  - name: density_of_states
+flavors:
+  dos:
+    input:
+      - name: dos.in
+    results:
+      - name: density_of_states
+    monitors:
+      - name: standard_output
+    applicationName: espresso
+    executableName: dos.x

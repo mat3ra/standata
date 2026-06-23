@@ -1,0 +1,20 @@
+application:
+  name: vasp
+  version: 5.4.4
+config:
+  systemName: vasp-variable-cell-relaxation
+method:
+  name: PseudopotentialMethod
+model:
+  name: DFTModel
+name: Variable-cell Relaxation
+units:
+  - config:
+      execName: vasp
+      flavorName: vasp_vc_relax
+      name: vasp_vc_relax
+    functions:
+      head: true
+    type: executionBuilder
+tags:
+  - variable-cell_relaxation

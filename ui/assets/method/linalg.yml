@@ -1,0 +1,7 @@
+path: "/linalg"
+data:
+    key: tier1
+    value: !esse "methods-category/mathematical/enum-options#/linearAlgebra/enum[0]"
+    name: "Linear Algebra"
+children:
+    - !include "method/linalg/diag.yml"

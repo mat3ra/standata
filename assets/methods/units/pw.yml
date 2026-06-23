@@ -1,0 +1,13 @@
+#
+# Planewave method unit
+#
+!combine
+name: 'Wave function: Plane wave'
+config:
+  categories:
+    tier1: qm
+    tier2: wf
+    type: pw
+  tags:
+    - plane wave
+  schema: !esse 'methods-directory/physical/pw'

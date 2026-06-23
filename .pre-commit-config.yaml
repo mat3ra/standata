@@ -1,21 +1,21 @@
 repos:
   - repo: local
     hooks:
-      - id: recreate-materials
-        name: recreate-materials
+#      - id: recreate-materials
+#        name: recreate-materials
+#        language: system
+#        entry: npm run build:materials && exit 0
+#        pass_filenames: false
+#        verbose: true
+#        files: ^assets/materials/|scripts/materials/
+      - id: recreate-dist
+        name: recreate-dist
         language: system
-        # TODO: figure out how to make it work in PyCharm, only works in terminal
-        entry: python create_materials.py && exit 0
+        entry: npm run build && exit 0
         pass_filenames: false
         verbose: true
-        files: ^materials/sources/|create_materials.py
-      - id: recreate-runtime-date
-        name: recreate-runtime-date
-        language: system
-        entry: npm run build:runtime-data && exit 0
-        pass_filenames: false
-        verbose: true
-        files: ^materials|applications|workflows|properties/
+        files: ^(assets/(materials|methods|models|applications|workflows|properties)/|scripts/(materials|methods|models|applications|workflows)/)
+        exclude: ^(src/js/runtime_data/|dist/|data/|build/)
   - repo: https://github.com/Exabyte-io/pre-commit-hooks
     rev: 2023.8.18
     hooks:
@@ -25,12 +25,24 @@ repos:
       #       - id: black
       - id: isort
       - id: mypy
+        exclude: ^assets/.*\.pyi$
       - id: check-yaml
+        exclude: ^assets/.*\.ya?ml$
       - id: end-of-file-fixer
+        exclude: ^data/.*\.json$|^build/.*\.json$|^dist/|src/py/mat3ra/standata/data/
       - id: trailing-whitespace
+        exclude: ^dist/
   - repo: local
     hooks:
+      - id: check-json-minified
+        name: check-json-minified
+        language: system
+        entry: npm run check:json-minified
+        pass_filenames: false
+        verbose: true
+        files: ^dist/js/runtime_data/.*\.json$
       - id: lint-staged
+        exclude: "^dist/"
         name: lint-staged
         language: node
         entry: npx lint-staged
