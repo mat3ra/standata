@@ -1,0 +1,81 @@
+{
+  "name": "FeSe, Iron Selenide, TET (P4/nmm) 3D (Bulk), mp-20311",
+  "lattice": {
+    "a": 3.93329,
+    "b": 3.93329,
+    "c": 5.856591,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0,
+    "units": {
+      "length": "angstrom",
+      "angle": "degree"
+    },
+    "type": "TET"
+  },
+  "basis": {
+    "elements": [
+      {
+        "id": 0,
+        "value": "Fe"
+      },
+      {
+        "id": 1,
+        "value": "Fe"
+      },
+      {
+        "id": 2,
+        "value": "Se"
+      },
+      {
+        "id": 3,
+        "value": "Se"
+      }
+    ],
+    "coordinates": [
+      {
+        "id": 0,
+        "value": [
+          0.5,
+          0.5,
+          0.0
+        ]
+      },
+      {
+        "id": 1,
+        "value": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": 2,
+        "value": [
+          0.5,
+          0.0,
+          0.25764554
+        ]
+      },
+      {
+        "id": 3,
+        "value": [
+          0.0,
+          0.5,
+          0.74235446
+        ]
+      }
+    ],
+    "units": "crystal",
+    "constraints": [],
+    "labels": []
+  },
+  "external": {
+    "id": "mp-20311",
+    "source": "MaterialsProject",
+    "doi": "10.17188/1195438",
+    "url": "https://next-gen.materialsproject.org/materials/mp-20311",
+    "origin": true
+  },
+  "isNonPeriodic": false
+}

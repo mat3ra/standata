@@ -841,3 +841,66 @@ sources:
       element: N
     tags:
       - elemental
+
+  - filename: mp-13.poscar
+    common_name: Iron
+    lattice_type: BCC
+    space_group: Im-3m
+    dimensionality: 3D
+    form_factor: Bulk
+    source_id: mp-13
+    source: MaterialsProject
+    doi: 10.17188/1189317
+    url: https://next-gen.materialsproject.org/materials/mp-13
+    metadata:
+      element: Fe
+    tags:
+      - elemental
+
+  - filename: mp-20311.poscar
+    common_name: Iron Selenide
+    lattice_type: TET
+    space_group: P4/nmm
+    dimensionality: 3D
+    form_factor: Bulk
+    source_id: mp-20311
+    source: MaterialsProject
+    doi: 10.17188/1195438
+    url: https://next-gen.materialsproject.org/materials/mp-20311
+
+  - filename: mp-541837.poscar
+    common_name: Bismuth Selenide
+    lattice_type: RHL
+    space_group: R-3m
+    dimensionality: 3D
+    form_factor: Bulk
+    source_id: mp-541837
+    source: MaterialsProject
+    doi: 10.17188/1266263
+    url: https://next-gen.materialsproject.org/materials/mp-541837
+
+  - filename: mp-23152.poscar
+    common_name: Bismuth
+    lattice_type: RHL
+    space_group: R-3m
+    dimensionality: 3D
+    form_factor: Bulk
+    source_id: mp-23152
+    source: MaterialsProject
+    doi: 10.17188/1199272
+    url: https://next-gen.materialsproject.org/materials/mp-23152
+    metadata:
+      element: Bi
+    tags:
+      - elemental
+
+  - filename: mp-1274279.poscar
+    common_name: Iron Oxide
+    lattice_type: MCLC
+    space_group: C2/m
+    dimensionality: 3D
+    form_factor: Bulk
+    source_id: mp-1274279
+    source: MaterialsProject
+    doi:
+    url: https://next-gen.materialsproject.org/materials/mp-1274279

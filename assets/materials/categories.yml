@@ -489,3 +489,36 @@ entities:
       - metal
       - non-magnetic
       - metals & alloys
+  - filename: Fe-[Iron]-BCC_[Im-3m]_3D_[Bulk]-[mp-13].json
+    categories:
+      - 3D
+      - bulk
+      - metal
+      - ferromagnetic
+      - metals & alloys
+  - filename: FeSe-[Iron_Selenide]-TET_[P4%2Fnmm]_3D_[Bulk]-[mp-20311].json
+    categories:
+      - 3D
+      - bulk
+      - semiconductor
+      - non-magnetic
+  - filename: Bi2Se3-[Bismuth_Selenide]-RHL_[R-3m]_3D_[Bulk]-[mp-541837].json
+    categories:
+      - 3D
+      - bulk
+      - semiconductor
+      - non-magnetic
+  - filename: Bi-[Bismuth]-RHL_[R-3m]_3D_[Bulk]-[mp-23152].json
+    categories:
+      - 3D
+      - bulk
+      - semi-metal
+      - non-magnetic
+      - metals & alloys
+  - filename: FeO-[Iron_Oxide]-MCLC_[C2%2Fm]_3D_[Bulk]-[mp-1274279].json
+    categories:
+      - 3D
+      - bulk
+      - insulator
+      - non-magnetic
+      - oxide
