@@ -108,13 +108,55 @@
                     "endpoint": "bank-materials",
                     "endpoint_options": {
                         "params": {
-                            "query": "{'tags': 'elemental', 'metadata.element': {'$in': ELEMENTS}}",
-                            "projection": "{'limit': len(ELEMENTS)}"
+                            "query": "{'tags': 'elemental', 'metadata.element': {'$in': ELEMENTS}}"
                         }
                     },
                     "name": "DATA"
                 }
             ],
+            "head": false,
+            "next": "assign-element-materials-by-symbol",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "assign-element-materials-by-symbol",
+            "type": "assignment",
+            "operand": "ELEMENT_MATERIALS_BY_SYMBOL",
+            "value": "{\n    el: [\n        m for m in DATA\n        if m.get('metadata') and m['metadata'].get('element') == el\n    ]\n    for el in ELEMENTS\n}",
+            "input": [
+                {
+                    "name": "DATA",
+                    "scope": "io-elemental-materials"
+                }
+            ],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-element-materials-by-symbol",
+            "head": false,
+            "next": "assign-element-material-ids-by-symbol",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "assign-element-material-ids-by-symbol",
+            "type": "assignment",
+            "operand": "ELEMENT_MATERIAL_IDS_BY_SYMBOL",
+            "value": "{el: [m['_id'] for m in ELEMENT_MATERIALS_BY_SYMBOL[el]] for el in ELEMENTS}",
+            "input": [],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-element-material-ids-by-symbol",
             "head": false,
             "next": "assign-element-materials",
             "schemaVersion": "2022.8.16",
@@ -124,13 +166,8 @@
             "name": "assign-element-materials",
             "type": "assignment",
             "operand": "ELEMENT_MATERIALS",
-            "value": "{m['metadata']['element']: m for m in DATA if m.get('metadata') and m['metadata'].get('element') in ELEMENTS}",
-            "input": [
-                {
-                    "name": "DATA",
-                    "scope": "io-elemental-materials"
-                }
-            ],
+            "value": "{el: ELEMENT_MATERIALS_BY_SYMBOL[el][0] for el in ELEMENTS if ELEMENT_MATERIALS_BY_SYMBOL[el]}",
+            "input": [],
             "results": [],
             "monitors": [],
             "preProcessors": [],
@@ -148,7 +185,7 @@
             "name": "assign-missing-elemental-material-symbols",
             "type": "assignment",
             "operand": "MISSING_ELEMENTAL_MATERIAL_SYMBOLS",
-            "value": "[el for el in ELEMENTS if el not in ELEMENT_MATERIALS]",
+            "value": "[el for el in ELEMENTS if not ELEMENT_MATERIAL_IDS_BY_SYMBOL[el]]",
             "input": [],
             "results": [],
             "monitors": [],
