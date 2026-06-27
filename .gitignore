@@ -173,6 +173,7 @@ node_modules/
 
 ########### STANDATA #############
 by_category
+*.tgz
 
 .python-version
 
