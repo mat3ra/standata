@@ -28,7 +28,7 @@ units:
     config:
       name: assign-e-material
       description: >-
-        Assign total energy of the material from pw.x SCF to E_MATERIAL 
+        Assign total energy of the material from pw.x SCF to E_MATERIAL
         in global scope for use in formation energy calculation.
       flowchartId: assign-e-material
       operand: E_MATERIAL

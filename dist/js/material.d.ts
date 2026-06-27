@@ -2649,6 +2649,199 @@ export declare class MaterialStandata extends Standata {
                 };
                 tags: string[];
             };
+            "Fe-[Iron]-BCC_[Im-3m]_3D_[Bulk]-[mp-13].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+                metadata: {
+                    element: string;
+                };
+                tags: string[];
+            };
+            "FeSe-[Iron_Selenide]-TET_[P4%2Fnmm]_3D_[Bulk]-[mp-20311].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+            };
+            "Bi2Se3-[Bismuth_Selenide]-RHL_[R-3m]_3D_[Bulk]-[mp-541837].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+            };
+            "Bi-[Bismuth]-RHL_[R-3m]_3D_[Bulk]-[mp-23152].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+                metadata: {
+                    element: string;
+                };
+                tags: string[];
+            };
+            "FeO-[Iron_Oxide]-MCLC_[C2%2Fm]_3D_[Bulk]-[mp-1274279].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: null;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+            };
         };
     };
 }
