@@ -1,6 +1,6 @@
 # Runs QE SCF on compound material and computes formation energy (eV/atom).
 #
-# In:  MATERIAL, ELEMENTS, ELEMENT_MATERIALS
+# In:  MATERIAL, ELEMENTS, ELEMENT_MATERIALS, ELEMENT_MATERIAL_IDS_BY_SYMBOL
 # Out: total_energy (property)     compound total energy (eV) from pw.x
 #      E_MATERIAL                  compound total energy (eV) in global scope
 #      ELEMENTAL_TE_HOLDER_BY_SYMBOL map symbol -> selected total_energy holder, highest precision
@@ -27,28 +27,77 @@ units:
   - type: assignment
     config:
       name: assign-e-material
+      description: >-
+        Assign total energy of the material from pw.x SCF to E_MATERIAL 
+        in global scope for use in formation energy calculation.
       flowchartId: assign-e-material
       operand: E_MATERIAL
       value: total_energy
       input:
         - name: total_energy
           scope: pw-scf
+  - type: assignment
+    config:
+      name: assign-elemental-te-source
+      description: >-
+        Source of elemental total energy data:
+        - 'my_account' if the user is the owner of the elemental reference material(s)
+        - 'curators' if the user is a curator of the elemental reference material(s)
+        - 'public' if the user is not the owner or curator of the elemental reference material(s)
+      flowchartId: assign-elemental-te-source
+      operand: ELEMENTAL_TE_SOURCE
+      value: "'public'"
+  - type: assignment
+    config:
+      name: init-element-index
+      flowchartId: init-element-index
+      operand: ELEMENT_INDEX
+      value: "0"
+  - type: assignment
+    config:
+      name: init-elemental-te-holder-by-symbol
+      flowchartId: init-elemental-te-holder-by-symbol
+      operand: ELEMENTAL_TE_HOLDER_BY_SYMBOL
+      value: "{}"
+  - type: condition
+    config:
+      name: check-elemental-te-loop
+      flowchartId: check-elemental-te-loop
+      statement: "ELEMENT_INDEX >= len(ELEMENTS)"
+      then: assign-missing-elemental-total-energy-symbols
+      else: assign-current-element
+  - type: assignment
+    config:
+      name: assign-current-element
+      flowchartId: assign-current-element
+      operand: CURRENT_ELEMENT
+      value: "ELEMENTS[ELEMENT_INDEX]"
   - type: io
     config:
-      name: io-elemental-energies
-      flowchartId: io-elemental-energies
+      name: io-elemental-energy
+      flowchartId: io-elemental-energy
       subtype: input
       source: api
       input:
         - type: api
-          endpoint: refined-properties
+          endpoint: properties
           endpoint_options:
             params:
               query: >-
-                {'exabyteId': {'$in': [ELEMENT_MATERIALS[el]['_id'] for el in ELEMENTS]},
+                {'exabyteId': {'$in': ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]},
                 'slug': 'total_energy',
-                'systemTags': 'isBest'}
-              projection: "{}"
+                'owner.slug': {'$in': [JOB_OWNER_SLUG, 'curators']}}
+                if ELEMENTAL_TE_SOURCE == 'my_account' else
+                ({'exabyteId': {'$in': ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]},
+                'slug': 'total_energy', 'owner.slug': 'curators'}
+                if ELEMENTAL_TE_SOURCE == 'curators' else
+                {'exabyteId': {'$in': ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]},
+                'slug': 'total_energy'})
+              projection: >-
+                {
+                    "sort": {"precision.value": -1},
+                    "limit": 1,
+                }
           name: DATA
   - type: assignment
     config:
@@ -56,13 +105,17 @@ units:
       flowchartId: assign-elemental-te-holder-by-symbol
       operand: ELEMENTAL_TE_HOLDER_BY_SYMBOL
       value: >-
-        {el: ([d for d in DATA if ( 
-        d.exabyteId == ELEMENT_MATERIALS[el]['_id'] or ELEMENT_MATERIALS[el]['_id'] in d.exabyteId 
-        )] or [None])[0] for el in ELEMENTS
-        }
+        {**ELEMENTAL_TE_HOLDER_BY_SYMBOL, CURRENT_ELEMENT: DATA[0] if DATA else None}
       input:
         - name: DATA
-          scope: io-elemental-energies
+          scope: io-elemental-energy
+  - type: assignment
+    config:
+      name: increment-element-index
+      flowchartId: increment-element-index
+      operand: ELEMENT_INDEX
+      value: "ELEMENT_INDEX + 1"
+      next: check-elemental-te-loop
   - type: assignment
     config:
       name: assign-missing-elemental-total-energy-symbols
@@ -70,6 +123,7 @@ units:
       operand: MISSING_ELEMENTAL_TOTAL_ENERGY_SYMBOLS
       value: >-
         [el for el in ELEMENTS if ELEMENTAL_TE_HOLDER_BY_SYMBOL[el] is None]
+      next: assert-elemental-total-energies-found
   - type: assertion
     config:
       enableRender: true
