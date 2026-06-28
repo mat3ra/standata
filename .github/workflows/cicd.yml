@@ -34,8 +34,6 @@ jobs:
 
       - name: Run ruff linter
         uses: ./actions/py/lint
-        with:
-          python-version: ${{ matrix.python-version }}
 
   run-py-tests:
     needs: run-py-linter
