@@ -18,7 +18,7 @@ SUBWORKFLOW = SimpleNamespace(
 
 def test_get_by_name():
     subworkflow = SubworkflowStandata.get_by_name_first_match(SUBWORKFLOW.SEARCH_NAME)
-    assert type(subworkflow) == dict
+    assert type(subworkflow) is dict
     assert "name" in subworkflow
     assert SUBWORKFLOW.EXACT_NAME in subworkflow["name"]
 
@@ -32,14 +32,14 @@ def test_get_by_categories():
 
 def test_get_subworkflow_data():
     subworkflow = subworkflows_data["filesMapByName"][SUBWORKFLOW.FILENAME]
-    assert type(subworkflow) == dict
+    assert type(subworkflow) is dict
     assert "name" in subworkflow
     assert subworkflow["name"] == SUBWORKFLOW.EXACT_NAME
 
 
 def test_get_by_name_and_categories():
     subworkflow = SubworkflowStandata.get_by_name_and_categories(SUBWORKFLOW.SEARCH_NAME, APP.ESPRESSO)
-    assert type(subworkflow) == dict
+    assert type(subworkflow) is dict
     assert "name" in subworkflow
     assert APP.ESPRESSO in str(subworkflow.get("application", {})).lower() or APP.ESPRESSO in str(subworkflow)
 
@@ -55,7 +55,7 @@ def test_get_as_list():
 def test_filter_by_application_and_get_by_name():
     subworkflow = SubworkflowStandata.filter_by_application(APP.ESPRESSO).get_by_name_first_match(
         SUBWORKFLOW.SEARCH_NAME)
-    assert type(subworkflow) == dict
+    assert type(subworkflow) is dict
     assert "name" in subworkflow
     assert subworkflow["name"] == SUBWORKFLOW.EXACT_NAME
     assert APP.ESPRESSO in str(subworkflow.get("application", {})).lower()
