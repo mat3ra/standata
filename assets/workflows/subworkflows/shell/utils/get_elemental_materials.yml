@@ -1,10 +1,11 @@
-# Loads the compound structure and resolves elemental reference materials.
+# Loads the compound structure and resolves elemental reference materials
+# from the curators' account.
 #
 # In:  MATERIAL_ID (job/workflow input)
 # Out: MATERIAL              compound structure
 #      ELEMENTS              sorted unique symbols, e.g. ["Ga", "As"]
-#      ELEMENT_MATERIALS     map symbol -> first matching bank material
-#      ELEMENT_MATERIAL_IDS_BY_SYMBOL map symbol -> all matching bank material ids
+#      ELEMENT_MATERIALS     map symbol -> first matching curators' material
+#      ELEMENT_MATERIAL_IDS_BY_SYMBOL map symbol -> all matching exabyteIds
 #      MISSING_ELEMENTAL_MATERIAL_SYMBOLS symbols without Standata elemental materials
 application:
   name: shell
@@ -51,7 +52,7 @@ units:
       source: api
       input:
         - type: api
-          endpoint: bank-materials
+          endpoint: materials
           endpoint_options:
             params:
               query: "{'tags': 'elemental', 'metadata.element': {'$in': ELEMENTS}}"
@@ -78,7 +79,7 @@ units:
       flowchartId: assign-element-material-ids-by-symbol
       operand: ELEMENT_MATERIAL_IDS_BY_SYMBOL
       value: >-
-        {el: [m['_id'] for m in ELEMENT_MATERIALS_BY_SYMBOL[el]]
+        {el: [m['exabyteId'] for m in ELEMENT_MATERIALS_BY_SYMBOL[el]]
         for el in ELEMENTS}
   - type: assignment
     config:

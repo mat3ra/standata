@@ -105,7 +105,7 @@
             "input": [
                 {
                     "type": "api",
-                    "endpoint": "bank-materials",
+                    "endpoint": "materials",
                     "endpoint_options": {
                         "params": {
                             "query": "{'tags': 'elemental', 'metadata.element': {'$in': ELEMENTS}}"
@@ -147,7 +147,7 @@
             "name": "assign-element-material-ids-by-symbol",
             "type": "assignment",
             "operand": "ELEMENT_MATERIAL_IDS_BY_SYMBOL",
-            "value": "{el: [m['_id'] for m in ELEMENT_MATERIALS_BY_SYMBOL[el]] for el in ELEMENTS}",
+            "value": "{el: [m['exabyteId'] for m in ELEMENT_MATERIALS_BY_SYMBOL[el]] for el in ELEMENTS}",
             "input": [],
             "results": [],
             "monitors": [],
