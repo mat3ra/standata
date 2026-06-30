@@ -5,7 +5,7 @@ from mat3ra.standata.data.executable_flavor_map_by_application import executable
 
 def test_get_by_name():
     application = ApplicationStandata.get_by_name_first_match("espresso")
-    assert type(application) == dict
+    assert type(application) is dict
     assert application["name"] == "espresso"
     assert application["version"] == "6.3"
 
@@ -18,14 +18,14 @@ def test_get_by_categories():
 
 def test_get_application_data():
     application = applications_data["filesMapByName"]["espresso/espresso_gnu_6.3.json"]
-    assert type(application) == dict
+    assert type(application) is dict
     assert application["name"] == "espresso"
     assert application["version"] == "6.3"
 
 
 def test_get_by_name_and_categories():
     application = ApplicationStandata.get_by_name_and_categories("vasp", "quantum-mechanical")
-    assert type(application) == dict
+    assert type(application) is dict
     assert application["name"] == "vasp"
     assert application["version"] == "5.4.4"
 
