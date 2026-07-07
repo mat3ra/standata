@@ -52,12 +52,11 @@ units:
       name: assign-compound-group
       description: >-
         Property group slug for the compound's computational method.
-        Must match the group assigned by PropertyDAO.getGroup() when saving
-        properties: {application.shortName}:{model.type}:{model.subtype}.
+        DFT model groupSlug: {app.shortName}:{model.type}:{model.subtype}:{model.functional}.
         Used to filter elemental total energies by the same method.
       flowchartId: assign-compound-group
       operand: COMPOUND_GROUP
-      value: "'qe:dft:gga'"
+      value: "'qe:dft:gga:pbe'"
   - type: assignment
     config:
       name: init-element-index
@@ -192,8 +191,8 @@ units:
       operand: COMPOUND_PRECISION
       value: >-
         {
-            "precision_value": context.get("kgrid", {}).get("gridMetricValue", -1),
-            "precision_metric": context.get("kgrid", {}).get("gridMetricType", "unknown"),
+            "precision_value": context["kgrid"].get("gridMetricValue"),
+            "precision_metric": context["kgrid"].get("gridMetricType"),
         }
       input:
         - name: context
@@ -205,7 +204,7 @@ units:
       operand: FORMATION_ENERGY_COMPOUND_CONTRIBUTION
       value: >-
         {
-            "formula": MATERIAL.formula,
+            "formula": MATERIAL.formula or MATERIAL.name,
             "n_atoms": len(MATERIAL.basis.elements),
             "is_elemental": False,
             "total_energy": E_MATERIAL,

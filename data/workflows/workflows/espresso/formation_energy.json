@@ -456,7 +456,7 @@
                     "name": "assign-compound-group",
                     "type": "assignment",
                     "operand": "COMPOUND_GROUP",
-                    "value": "'qe:dft:gga'",
+                    "value": "'qe:dft:gga:pbe'",
                     "input": [],
                     "results": [],
                     "monitors": [],
@@ -726,7 +726,7 @@
                     "name": "assign-compound-precision",
                     "type": "assignment",
                     "operand": "COMPOUND_PRECISION",
-                    "value": "{\n    \"precision_value\": context.get(\"kgrid\", {}).get(\"gridMetricValue\", -1),\n    \"precision_metric\": context.get(\"kgrid\", {}).get(\"gridMetricType\", \"unknown\"),\n}",
+                    "value": "{\n    \"precision_value\": context[\"kgrid\"].get(\"gridMetricValue\"),\n    \"precision_metric\": context[\"kgrid\"].get(\"gridMetricType\"),\n}",
                     "input": [
                         {
                             "name": "context",
@@ -750,7 +750,7 @@
                     "name": "assign-formation-energy-compound-contribution",
                     "type": "assignment",
                     "operand": "FORMATION_ENERGY_COMPOUND_CONTRIBUTION",
-                    "value": "{\n    \"formula\": MATERIAL.formula,\n    \"n_atoms\": len(MATERIAL.basis.elements),\n    \"is_elemental\": False,\n    \"total_energy\": E_MATERIAL,\n    \"total_energy_per_atom\": E_MATERIAL / len(MATERIAL.basis.elements),\n    \"precision_value\": COMPOUND_PRECISION[\"precision_value\"],\n    \"precision_metric\": COMPOUND_PRECISION[\"precision_metric\"],\n}",
+                    "value": "{\n    \"formula\": MATERIAL.formula or MATERIAL.name,\n    \"n_atoms\": len(MATERIAL.basis.elements),\n    \"is_elemental\": False,\n    \"total_energy\": E_MATERIAL,\n    \"total_energy_per_atom\": E_MATERIAL / len(MATERIAL.basis.elements),\n    \"precision_value\": COMPOUND_PRECISION[\"precision_value\"],\n    \"precision_metric\": COMPOUND_PRECISION[\"precision_metric\"],\n}",
                     "input": [],
                     "results": [],
                     "monitors": [],
