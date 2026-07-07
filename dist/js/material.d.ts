@@ -1747,6 +1747,1101 @@ export declare class MaterialStandata extends Standata {
                 };
                 tags: string[];
             };
+            "Al-[Aluminum]-FCC_[Fm-3m]_3D_[Bulk]-[mp-134].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+                metadata: {
+                    element: string;
+                };
+                tags: string[];
+            };
+            "As-[Arsenic]-ORC_[Cmce]_3D_[Bulk]-[mp-158].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+                metadata: {
+                    element: string;
+                };
+                tags: string[];
+            };
+            "B-[Boron]-RHL_[R-3m]_3D_[Bulk]-[mp-160].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+                metadata: {
+                    element: string;
+                };
+                tags: string[];
+            };
+            "Cl2-[Chlorine]-ORC_[Cmce]_3D_[Bulk]-[mp-22848].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+                metadata: {
+                    element: string;
+                };
+                tags: string[];
+            };
+            "Ga-[Gallium]-ORC_[Cmce]_3D_[Bulk]-[mp-142].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+                metadata: {
+                    element: string;
+                };
+                tags: string[];
+            };
+            "Hf-[Hafnium]-HEX_[P6_3%2Fmmc]_3D_[Bulk]-[mp-103].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+                metadata: {
+                    element: string;
+                };
+                tags: string[];
+            };
+            "Mo-[Molybdenum]-BCC_[Im-3m]_3D_[Bulk]-[mp-129].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+                metadata: {
+                    element: string;
+                };
+                tags: string[];
+            };
+            "N2-[Nitrogen]-FCC_[P2_13]_3D_[Bulk]-[mp-154].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+                metadata: {
+                    element: string;
+                };
+                tags: string[];
+            };
+            "Na-[Sodium]-HEX_[P6_3%2Fmmc]_3D_[Bulk]-[mp-10172].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+                metadata: {
+                    element: string;
+                };
+                tags: string[];
+            };
+            "Nb-[Niobium]-BCC_[Im-3m]_3D_[Bulk]-[mp-75].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+                metadata: {
+                    element: string;
+                };
+                tags: string[];
+            };
+            "O2-[Oxygen]-MCLC_[C2%2Fm]_3D_[Bulk]-[mp-12957].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+                metadata: {
+                    element: string;
+                };
+                tags: string[];
+            };
+            "S-[Sulfur]-ORC_[Fddd]_3D_[Bulk]-[mp-77].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+                metadata: {
+                    element: string;
+                };
+                tags: string[];
+            };
+            "Se-[Selenium]-MCL_[P2_1%2Fc]_3D_[Bulk]-[mp-570481].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+                metadata: {
+                    element: string;
+                };
+                tags: string[];
+            };
+            "Sn-[Tin]-FCC_[Fd-3m]_3D_[Bulk]-[mp-117].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+                metadata: {
+                    element: string;
+                };
+                tags: string[];
+            };
+            "Sr-[Strontium]-HEX_[P6_3%2Fmmc]_3D_[Bulk]-[mp-139].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+                metadata: {
+                    element: string;
+                };
+                tags: string[];
+            };
+            "Te-[Tellurium]-RHL_[P3_121]_3D_[Bulk]-[mp-19].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+                metadata: {
+                    element: string;
+                };
+                tags: string[];
+            };
+            "Ti-[Titanium]-HEX_[P6%2Fmmm]_3D_[Bulk]-[mp-72].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+                metadata: {
+                    element: string;
+                };
+                tags: string[];
+            };
+            "V-[Vanadium]-BCC_[Im-3m]_3D_[Bulk]-[mp-146].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+                metadata: {
+                    element: string;
+                };
+                tags: string[];
+            };
+            "W-[Tungsten]-BCC_[Im-3m]_3D_[Bulk]-[mp-91].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+                metadata: {
+                    element: string;
+                };
+                tags: string[];
+            };
+            "Y-[Yttrium]-HEX_[P6_3%2Fmmc]_3D_[Bulk]-[mp-112].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+                metadata: {
+                    element: string;
+                };
+                tags: string[];
+            };
+            "Zn-[Zinc]-HEX_[P6_3%2Fmmc]_3D_[Bulk]-[mp-79].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+                metadata: {
+                    element: string;
+                };
+                tags: string[];
+            };
+            "Zr-[Zirconium]-HEX_[P6_3%2Fmmc]_3D_[Bulk]-[mp-131].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+                metadata: {
+                    element: string;
+                };
+                tags: string[];
+            };
+            "Fe-[Iron]-BCC_[Im-3m]_3D_[Bulk]-[mp-13].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+                metadata: {
+                    element: string;
+                };
+                tags: string[];
+            };
+            "FeSe-[Iron_Selenide]-TET_[P4%2Fnmm]_3D_[Bulk]-[mp-20311].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+            };
+            "Bi2Se3-[Bismuth_Selenide]-RHL_[R-3m]_3D_[Bulk]-[mp-541837].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+            };
+            "Bi-[Bismuth]-RHL_[R-3m]_3D_[Bulk]-[mp-23152].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: string;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+                metadata: {
+                    element: string;
+                };
+                tags: string[];
+            };
+            "FeO-[Iron_Oxide]-MCLC_[C2%2Fm]_3D_[Bulk]-[mp-1274279].json": {
+                name: string;
+                lattice: {
+                    a: number;
+                    b: number;
+                    c: number;
+                    alpha: number;
+                    beta: number;
+                    gamma: number;
+                    units: {
+                        length: string;
+                        angle: string;
+                    };
+                    type: string;
+                };
+                basis: {
+                    elements: {
+                        id: number;
+                        value: string;
+                    }[];
+                    coordinates: {
+                        id: number;
+                        value: number[];
+                    }[];
+                    units: string;
+                    constraints: never[];
+                    labels: never[];
+                };
+                external: {
+                    id: string;
+                    source: string;
+                    doi: null;
+                    url: string;
+                    origin: boolean;
+                };
+                isNonPeriodic: boolean;
+            };
         };
     };
 }
