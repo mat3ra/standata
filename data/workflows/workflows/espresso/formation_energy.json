@@ -448,6 +448,25 @@
                     "tags": [],
                     "flowchartId": "assign-elemental-te-source",
                     "head": false,
+                    "next": "assign-compound-group",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-compound-group",
+                    "type": "assignment",
+                    "operand": "COMPOUND_GROUP",
+                    "value": "'qe:dft:gga'",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-compound-group",
+                    "head": false,
                     "next": "init-element-index",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -549,7 +568,7 @@
                             "endpoint": "properties",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'exabyteId': {'$in': ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]}, 'slug': 'total_energy', 'owner.slug': {'$in': [JOB_OWNER_SLUG, 'curators']}} if ELEMENTAL_TE_SOURCE == 'my_account' else ({'exabyteId': {'$in': ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]}, 'slug': 'total_energy', 'owner.slug': 'curators'} if ELEMENTAL_TE_SOURCE == 'curators' else {'exabyteId': {'$in': ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]}, 'slug': 'total_energy'})",
+                                    "query": "{'exabyteId': {'$in': ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]}, 'slug': 'total_energy', 'group': COMPOUND_GROUP, 'owner.slug': {'$in': [JOB_OWNER_SLUG, 'curators']}} if ELEMENTAL_TE_SOURCE == 'my_account' else ({'exabyteId': {'$in': ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]}, 'slug': 'total_energy', 'group': COMPOUND_GROUP, 'owner.slug': 'curators'} if ELEMENTAL_TE_SOURCE == 'curators' else {'exabyteId': {'$in': ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]}, 'slug': 'total_energy', 'group': COMPOUND_GROUP})",
                                     "projection": "{\n    \"sort\": {\"precision.value\": -1},\n    \"limit\": 1,\n}"
                                 }
                             },
@@ -707,7 +726,7 @@
                     "name": "assign-compound-precision",
                     "type": "assignment",
                     "operand": "COMPOUND_PRECISION",
-                    "value": "{\n    \"precision_value\": context[\"kgrid\"].get(\"gridMetricValue\"),\n    \"precision_metric\": context[\"kgrid\"].get(\"gridMetricType\"),\n}",
+                    "value": "{\n    \"precision_value\": context.get(\"kgrid\", {}).get(\"gridMetricValue\", -1),\n    \"precision_metric\": context.get(\"kgrid\", {}).get(\"gridMetricType\", \"unknown\"),\n}",
                     "input": [
                         {
                             "name": "context",

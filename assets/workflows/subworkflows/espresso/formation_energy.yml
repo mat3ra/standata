@@ -49,6 +49,17 @@ units:
       value: "'public'"
   - type: assignment
     config:
+      name: assign-compound-group
+      description: >-
+        Property group slug for the compound's computational method.
+        Must match the group assigned by PropertyDAO.getGroup() when saving
+        properties: {application.shortName}:{model.type}:{model.subtype}.
+        Used to filter elemental total energies by the same method.
+      flowchartId: assign-compound-group
+      operand: COMPOUND_GROUP
+      value: "'qe:dft:gga'"
+  - type: assignment
+    config:
       name: init-element-index
       flowchartId: init-element-index
       operand: ELEMENT_INDEX
@@ -85,14 +96,15 @@ units:
             params:
               query: >-
                 {'exabyteId': {'$in': ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]},
-                'slug': 'total_energy',
+                'slug': 'total_energy', 'group': COMPOUND_GROUP,
                 'owner.slug': {'$in': [JOB_OWNER_SLUG, 'curators']}}
                 if ELEMENTAL_TE_SOURCE == 'my_account' else
                 ({'exabyteId': {'$in': ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]},
-                'slug': 'total_energy', 'owner.slug': 'curators'}
+                'slug': 'total_energy', 'group': COMPOUND_GROUP,
+                'owner.slug': 'curators'}
                 if ELEMENTAL_TE_SOURCE == 'curators' else
                 {'exabyteId': {'$in': ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]},
-                'slug': 'total_energy'})
+                'slug': 'total_energy', 'group': COMPOUND_GROUP})
               projection: >-
                 {
                     "sort": {"precision.value": -1},
@@ -180,8 +192,8 @@ units:
       operand: COMPOUND_PRECISION
       value: >-
         {
-            "precision_value": context["kgrid"].get("gridMetricValue"),
-            "precision_metric": context["kgrid"].get("gridMetricType"),
+            "precision_value": context.get("kgrid", {}).get("gridMetricValue", -1),
+            "precision_metric": context.get("kgrid", {}).get("gridMetricType", "unknown"),
         }
       input:
         - name: context
