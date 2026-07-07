@@ -19,7 +19,7 @@ def test_categories_data():
 
 def test_get_by_name():
     material = Materials.get_by_name_first_match("Graphene")
-    assert type(material) == dict
+    assert type(material) is dict
     assert material["name"] == "C, Graphene, HEX (P6/mmm) 2D (Monolayer), 2dm-3993"
     assert material["isNonPeriodic"] is False
 
@@ -32,13 +32,13 @@ def test_get_by_categories():
 
 def test_get_material_data():
     material = materials_data["filesMapByName"]["C-[Graphene]-HEX_[P6%2Fmmm]_2D_[Monolayer]-[2dm-3993].json"]
-    assert type(material) == dict
+    assert type(material) is dict
     assert material["name"] == "C, Graphene, HEX (P6/mmm) 2D (Monolayer), 2dm-3993"
     assert material["isNonPeriodic"] is False
 
 
 def test_get_by_name_and_categories():
     material = Materials.get_by_name_and_categories("MoS2", "2D")
-    assert type(material) == dict
+    assert type(material) is dict
     assert material["name"] == "MoS2, Molybdenum Disulfide, HEX (P-6m2) 2D (Monolayer), 2dm-3150"
     assert material["isNonPeriodic"] is False
