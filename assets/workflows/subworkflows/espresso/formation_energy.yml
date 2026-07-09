@@ -40,7 +40,7 @@ units:
       source: api
       input:
         - type: api
-          endpoint: refined-properties
+          endpoint: properties
           endpoint_options:
             params:
               query: >-

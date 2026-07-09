@@ -1,5 +1,5 @@
 # This subworkflow is used to get the bulk total energy for a given bulk material and assign to E_BULK
-# It assumes that the bulk total energy has already been calculated and uploaded as a refined property
+# It assumes that the bulk total energy has already been calculated and uploaded as a property
 # BULK is the material structure from the platform and should be present in the workflow's context
 application:
   name: shell
@@ -11,18 +11,68 @@ name: Get Bulk Energy
 units:
   - type: io
     config:
+      name: io-bulk-materials-by-hash
+      flowchartId: io-bulk-materials-by-hash
+      subtype: input
+      source: api
+      input:
+        - type: api
+          endpoint: materials
+          endpoint_options:
+            params:
+              query: "{'hash': BULK.get('hash')}"
+              projection: "{}"
+          name: BULK_MATERIALS
+  - type: assignment
+    config:
+      name: assign-bulk-material-ids
+      flowchartId: assign-bulk-material-ids
+      operand: BULK_MATERIAL_IDS
+      value: "[m['_id'] for m in BULK_MATERIALS] if BULK_MATERIALS else []"
+      input:
+        - name: BULK_MATERIALS
+          scope: io-bulk-materials-by-hash
+  - type: io
+    config:
+      name: io-bulk-te-job
+      flowchartId: io-bulk-te-job
+      subtype: input
+      source: api
+      input:
+        - type: api
+          endpoint: jobs
+          endpoint_options:
+            params:
+              query: >-
+                {'_material._id': {'$in': BULK_MATERIAL_IDS}, 'status': 'finished',
+                'workflow.name': {'$regex': 'Total Energy'}}
+              projection: "{'sort': {'updatedAt': -1}, 'limit': 1}"
+          name: JOB_DATA
+  - type: assignment
+    config:
+      name: assign-bulk-te-job-id
+      flowchartId: assign-bulk-te-job-id
+      operand: BULK_TE_JOB_ID
+      value: "JOB_DATA[0]['_id'] if JOB_DATA else None"
+      input:
+        - name: JOB_DATA
+          scope: io-bulk-te-job
+  - type: io
+    config:
       name: io-e-bulk
       flowchartId: io-e-bulk
       subtype: input
       source: api
       input:
         - type: api
-          endpoint: refined-properties
+          endpoint: properties
           endpoint_options:
             params:
               # `APP` is used as a placeholder meant to be replaced by an app
               # shortname in the workflow yaml that uses it
-              query: "{'exabyteId': BULK.exabyteId, 'data.name': 'total_energy', 'group': {'$regex': 'APP:'}}"
+              query: >-
+                {'source.info.jobId': BULK_TE_JOB_ID, 'slug': 'total_energy',
+                'group': {'$regex': 'APP:'}}
               projection: "{'sort': {'precision.value': -1}, 'limit': 1}"
           name: DATA
   - type: assignment

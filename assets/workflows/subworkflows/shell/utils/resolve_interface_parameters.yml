@@ -6,21 +6,32 @@ model:
   name: UnknownModel
 name: Resolve Interface Parameters
 units:
-  # --- N_A and N_B: number of bulk unit cells of each type ---
+  # --- atom counts per bulk unit cell ---
+  - type: assignment
+    config:
+      name: assign-bulk-a-natoms
+      flowchartId: assign-bulk-a-natoms
+      operand: BULK_A_NATOMS
+      value: "len(BULK_A.basis.elements)"
+  - type: assignment
+    config:
+      name: assign-bulk-b-natoms
+      flowchartId: assign-bulk-b-natoms
+      operand: BULK_B_NATOMS
+      value: "len(BULK_B.basis.elements)"
+  # --- N_A and N_B: number of bulk unit cells of each type, matched by element ---
   - type: assignment
     config:
       name: assign-n-a
       flowchartId: assign-n-a
       operand: N_A
-      value: >-
-        int(np.round(np.abs(np.linalg.det(INTERFACE.metadata['build'][-1]['configuration']['stack_components'][0]['xy_supercell_matrix'])) * INTERFACE.metadata['build'][-1]['configuration']['stack_components'][0]['stack_components'][0]['number_of_repetitions'])) if INTERFACE.metadata else 0
+      value: "len([e for e in INTERFACE.basis.elements if e.value in [x.value for x in BULK_A.basis.elements]]) / BULK_A_NATOMS"
   - type: assignment
     config:
       name: assign-n-b
       flowchartId: assign-n-b
       operand: N_B
-      value: >-
-        int(np.round(np.abs(np.linalg.det(INTERFACE.metadata['build'][-1]['configuration']['stack_components'][1]['xy_supercell_matrix'])) * INTERFACE.metadata['build'][-1]['configuration']['stack_components'][1]['stack_components'][0]['number_of_repetitions'])) if INTERFACE.metadata else 0
+      value: "len([e for e in INTERFACE.basis.elements if e.value in [x.value for x in BULK_B.basis.elements] and e.value not in [x.value for x in BULK_A.basis.elements]]) / BULK_B_NATOMS"
   # --- N_INTERFACES: 1 if vacuum present (size != 0), 2 if no vacuum ---
   - type: assignment
     config:
