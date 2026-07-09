@@ -1,0 +1,68 @@
+# Loads a material by its index in a multi-material job.
+# Assigns the material document to a configurable operand.
+#
+# Uses JOB_ID (available in the default eval context) to fetch the
+# job document, then reads _materials[MATERIAL_INDEX]._id from it.
+#
+# In:  MATERIAL_INDEX (set by the calling workflow via unitConfigs)
+# Out: MATERIAL (material document, operand configurable)
+application:
+  name: shell
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: Get Material By Index
+units:
+  - type: assignment
+    config:
+      name: set-material-index
+      flowchartId: set-material-index
+      operand: MATERIAL_INDEX
+      value: "0"
+  - type: io
+    config:
+      name: io-job
+      flowchartId: io-job
+      subtype: input
+      source: api
+      input:
+        - type: api
+          endpoint: jobs
+          endpoint_options:
+            params:
+              query: "{'_id': JOB_ID}"
+              projection: "{'_materials': 1}"
+          name: DATA
+  - type: assignment
+    config:
+      name: assign-material-id
+      flowchartId: assign-material-id
+      operand: MATERIAL_ID_FOR_INDEX
+      value: "DATA[0]['_materials'][MATERIAL_INDEX]['_id']"
+      input:
+        - name: DATA
+          scope: io-job
+  - type: io
+    config:
+      name: io-material
+      flowchartId: io-material
+      subtype: input
+      source: api
+      input:
+        - type: api
+          endpoint: materials
+          endpoint_options:
+            params:
+              query: "{'_id': MATERIAL_ID_FOR_INDEX}"
+              projection: "{}"
+          name: DATA
+  - type: assignment
+    config:
+      name: assign-material
+      flowchartId: assign-material
+      operand: MATERIAL
+      value: "DATA[0] if len(DATA) == 1 else None"
+      input:
+        - name: DATA
+          scope: io-material

@@ -1,0 +1,128 @@
+# Interfacial energy γ (eV/Å²):
+#   E_excess = E_interface - N_A × E_bulk_A - N_B × E_bulk_B
+#   γ = E_excess / (N_interfaces × A)
+#
+# Single-material workflow:
+#   The job requires one material: the interface (heterostructure).
+#   Bulk materials A (substrate) and B (film) are resolved automatically
+#   from the interface's metadata.build crystal hashes.
+#
+# Bulk total energies are fetched from pre-computed refined properties.
+name: Interfacial Energy
+properties:
+  - total_energy
+  - total_energy_contributions
+  - atomic_forces
+  - fermi_energy
+  - pressure
+  - stress_tensor
+  - total_force
+  - interfacial_energy
+units:
+  # Load the interface material
+  - name: shell/utils/get_material_by_id
+    type: subworkflow
+    unitConfigs:
+      - index: 1
+        type: assignment
+        config:
+          attributes:
+            operand: INTERFACE
+
+  # Resolve bulk A and B from interface build metadata
+  - name: shell/utils/resolve_bulks_from_interface
+    type: subworkflow
+
+  # Derive N_A, N_B, N_INTERFACES from labels and vacuum
+  - name: shell/utils/resolve_interface_parameters
+    type: subworkflow
+
+  # Fetch pre-computed bulk A energy: BULK = BULK_A → E_BULK → E_BULK_A
+  - name: shell/utils/get_e_bulk
+    type: subworkflow
+    config:
+      attributes:
+        name: Get Bulk Energy A
+    unitConfigs:
+      - index: 0
+        type: io
+        config:
+          attributes:
+            flowchartId: io-e-bulk-a
+            input:
+              - type: api
+                endpoint: refined-properties
+                endpoint_options:
+                  params:
+                    query: >-
+                      {'exabyteId': BULK_A.exabyteId, 'data.name': 'total_energy',
+                      'group': {'$regex': 'qe:'}}
+                    projection: "{'sort': {'precision.value': -1}, 'limit': 1}"
+                name: DATA
+      - index: 1
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-e-bulk-a
+            operand: E_BULK_A
+            input:
+              - name: DATA
+                scope: io-e-bulk-a
+      - index: 2
+        type: assertion
+        config:
+          attributes:
+            flowchartId: assert-e-bulk-a
+            statement: "E_BULK_A is not None"
+            errorMessage: >-
+              Bulk total energy not found for substrate (A).
+              Run a Total Energy workflow on bulk A first.
+
+  # Fetch pre-computed bulk B energy: BULK = BULK_B → E_BULK → E_BULK_B
+  - name: shell/utils/get_e_bulk
+    type: subworkflow
+    config:
+      attributes:
+        name: Get Bulk Energy B
+    unitConfigs:
+      - index: 0
+        type: io
+        config:
+          attributes:
+            flowchartId: io-e-bulk-b
+            input:
+              - type: api
+                endpoint: refined-properties
+                endpoint_options:
+                  params:
+                    query: >-
+                      {'exabyteId': BULK_B.exabyteId, 'data.name': 'total_energy',
+                      'group': {'$regex': 'qe:'}}
+                    projection: "{'sort': {'precision.value': -1}, 'limit': 1}"
+                name: DATA
+      - index: 1
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-e-bulk-b
+            operand: E_BULK_B
+            input:
+              - name: DATA
+                scope: io-e-bulk-b
+      - index: 2
+        type: assertion
+        config:
+          attributes:
+            flowchartId: assert-e-bulk-b
+            statement: "E_BULK_B is not None"
+            errorMessage: >-
+              Bulk total energy not found for film (B).
+              Run a Total Energy workflow on bulk B first.
+
+  # Run pw_scf on interface
+  - name: interfacial_energy_scf
+    type: subworkflow
+
+  # Compute γ = E_excess / (N_interfaces × A)
+  - name: shell/interfacial_energy
+    type: subworkflow

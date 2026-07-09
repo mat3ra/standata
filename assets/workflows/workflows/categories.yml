@@ -13,6 +13,7 @@ categories:
     - formation_energy
     - formation_energy_contributions
     - homo_energy
+    - interfacial_energy
     - lumo_energy
     - phonon_dispersions
     - phonon_dos
@@ -237,6 +238,17 @@ entities:
       - band_structure
       - espresso
       - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+  - filename: espresso/interfacial_energy.json
+    categories:
+      - atomic_forces
+      - espresso
+      - fermi_energy
+      - interfacial_energy
       - pressure
       - stress_tensor
       - total_energy

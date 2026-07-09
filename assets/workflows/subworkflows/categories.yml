@@ -16,6 +16,7 @@ categories:
     - hubbard_u
     - hubbard_v
     - hubbard_v_nn
+    - interfacial_energy
     - lumo_energy
     - phonon_dispersions
     - phonon_dos
@@ -291,6 +292,16 @@ entities:
       - total_energy
       - total_energy_contributions
       - total_force
+  - filename: espresso/interfacial_energy_scf.json
+    categories:
+      - atomic_forces
+      - espresso
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
   - filename: espresso/kpoint_convergence.json
     categories:
       - atomic_forces
@@ -505,6 +516,10 @@ entities:
   - filename: shell/hello_world.json
     categories:
       - shell
+  - filename: shell/interfacial_energy.json
+    categories:
+      - interfacial_energy
+      - shell
   - filename: shell/utils/assign_elements_from_material.json
     categories:
       - shell
@@ -517,10 +532,22 @@ entities:
   - filename: shell/utils/get_material_by_id.json
     categories:
       - shell
+  - filename: shell/utils/get_material_by_index.json
+    categories:
+      - shell
   - filename: shell/utils/resolve_bulk_from_slab_by_build.json
     categories:
       - shell
   - filename: shell/utils/resolve_bulk_from_slab_by_bulk_id.json
+    categories:
+      - shell
+  - filename: shell/utils/resolve_bulks_from_interface.json
+    categories:
+      - shell
+  - filename: shell/utils/resolve_interface_parameters.json
+    categories:
+      - shell
+  - filename: shell/utils/resolve_references_from_interface.json
     categories:
       - shell
   - filename: vasp/band_gap.json

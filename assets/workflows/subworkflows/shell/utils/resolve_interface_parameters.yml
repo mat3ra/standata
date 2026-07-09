@@ -1,0 +1,39 @@
+application:
+  name: shell
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: Resolve Interface Parameters
+units:
+  # --- N_A and N_B: number of bulk unit cells of each type ---
+  - type: assignment
+    config:
+      name: assign-n-a
+      flowchartId: assign-n-a
+      operand: N_A
+      value: >-
+        int(np.round(np.abs(np.linalg.det(INTERFACE.metadata['build'][-1]['configuration']['stack_components'][0]['xy_supercell_matrix'])) * INTERFACE.metadata['build'][-1]['configuration']['stack_components'][0]['stack_components'][0]['number_of_repetitions'])) if INTERFACE.metadata else 0
+  - type: assignment
+    config:
+      name: assign-n-b
+      flowchartId: assign-n-b
+      operand: N_B
+      value: >-
+        int(np.round(np.abs(np.linalg.det(INTERFACE.metadata['build'][-1]['configuration']['stack_components'][1]['xy_supercell_matrix'])) * INTERFACE.metadata['build'][-1]['configuration']['stack_components'][1]['stack_components'][0]['number_of_repetitions'])) if INTERFACE.metadata else 0
+  # --- N_INTERFACES: 1 if vacuum present (size != 0), 2 if no vacuum ---
+  - type: assignment
+    config:
+      name: assign-vacuum-size
+      flowchartId: assign-vacuum-size
+      operand: VACUUM_SIZE
+      value: >-
+        (((INTERFACE.metadata.get('build') or [{}])[-1].get('configuration')
+        or {}).get('stack_components') or [{}, {}, {}])[2].get('size', 0)
+        if INTERFACE.metadata else 0
+  - type: assignment
+    config:
+      name: assign-n-interfaces
+      flowchartId: assign-n-interfaces
+      operand: N_INTERFACES
+      value: "1 if VACUUM_SIZE != 0 else 2"

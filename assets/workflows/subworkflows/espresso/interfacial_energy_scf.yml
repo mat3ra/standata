@@ -1,0 +1,34 @@
+# Runs QE pw_scf on the interface material (material index 0).
+#
+# In:  (multi-material job, interface is material 0)
+# Out: E_INTERFACE (total energy of interface in eV)
+application:
+  name: espresso
+  version: "6.3"
+method:
+  name: PseudopotentialMethod
+model:
+  name: DFTModel
+name: Interface SCF
+units:
+  - type: assignment
+    config:
+      name: set-material-index
+      flowchartId: set-material-index
+      operand: MATERIAL_INDEX
+      value: "0"
+  - config:
+      execName: pw.x
+      flavorName: pw_scf
+      flowchartId: pw-scf-interface
+      name: pw_scf
+    type: executionBuilder
+  - type: assignment
+    config:
+      name: assign-e-interface
+      flowchartId: assign-e-interface
+      operand: E_INTERFACE
+      value: total_energy
+      input:
+        - name: total_energy
+          scope: pw-scf-interface

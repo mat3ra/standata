@@ -1,0 +1,106 @@
+application:
+  name: shell
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: Resolve Bulks From Interface
+units:
+  # --- Extract Crystal A (substrate) from interface build metadata ---
+  - type: assignment
+    config:
+      name: assign-crystal-a
+      flowchartId: assign-crystal-a
+      operand: CRYSTAL_A
+      value: >-
+        (((INTERFACE.metadata.get('build') or [{}])[-1].get('configuration')
+        or {}).get('stack_components') or [{}])[0].get('stack_components',
+        [{}])[0].get('crystal') if INTERFACE.metadata else None
+  - type: assertion
+    config:
+      name: assert-crystal-a
+      flowchartId: assert-crystal-a
+      statement: "CRYSTAL_A != None"
+      errorMessage: >-
+        Could not extract the substrate crystal from the interface
+        build metadata.
+  - type: io
+    config:
+      name: io-bulk-a
+      flowchartId: io-bulk-a
+      subtype: input
+      source: api
+      input:
+        - type: api
+          endpoint: materials
+          endpoint_options:
+            params:
+              query: "{'hash': CRYSTAL_A.get('hash')}"
+              projection: "{}"
+          name: DATA
+  - type: assignment
+    config:
+      name: assign-bulk-a
+      flowchartId: assign-bulk-a
+      operand: BULK_A
+      value: "DATA[0] if DATA else None"
+      input:
+        - name: DATA
+          scope: io-bulk-a
+  - type: assertion
+    config:
+      name: assert-bulk-a
+      flowchartId: assert-bulk-a
+      statement: "BULK_A != None"
+      errorMessage: >-
+        No material matched the substrate crystal hash.
+        Upload the bulk material first.
+  # --- Extract Crystal B (film) from interface build metadata ---
+  - type: assignment
+    config:
+      name: assign-crystal-b
+      flowchartId: assign-crystal-b
+      operand: CRYSTAL_B
+      value: >-
+        (((INTERFACE.metadata.get('build') or [{}])[-1].get('configuration')
+        or {}).get('stack_components') or [{}, {}])[1].get('stack_components',
+        [{}])[0].get('crystal') if INTERFACE.metadata else None
+  - type: assertion
+    config:
+      name: assert-crystal-b
+      flowchartId: assert-crystal-b
+      statement: "CRYSTAL_B != None"
+      errorMessage: >-
+        Could not extract the film crystal from the interface
+        build metadata.
+  - type: io
+    config:
+      name: io-bulk-b
+      flowchartId: io-bulk-b
+      subtype: input
+      source: api
+      input:
+        - type: api
+          endpoint: materials
+          endpoint_options:
+            params:
+              query: "{'hash': CRYSTAL_B.get('hash')}"
+              projection: "{}"
+          name: DATA
+  - type: assignment
+    config:
+      name: assign-bulk-b
+      flowchartId: assign-bulk-b
+      operand: BULK_B
+      value: "DATA[0] if DATA else None"
+      input:
+        - name: DATA
+          scope: io-bulk-b
+  - type: assertion
+    config:
+      name: assert-bulk-b
+      flowchartId: assert-bulk-b
+      statement: "BULK_B != None"
+      errorMessage: >-
+        No material matched the film crystal hash.
+        Upload the bulk material first.
