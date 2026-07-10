@@ -79,14 +79,14 @@
                     "tags": [],
                     "flowchartId": "assign-interface",
                     "head": false,
-                    "next": "assign-crystal-a",
+                    "next": "assign-crystal-substrate",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-crystal-a",
+                    "name": "assign-crystal-substrate",
                     "type": "assignment",
-                    "operand": "CRYSTAL_A",
+                    "operand": "CRYSTAL_SUBSTRATE",
                     "value": "(((INTERFACE.metadata.get('build') or [{}])[-1].get('configuration') or {}).get('stack_components') or [{}])[0].get('stack_components', [{}])[0].get('crystal') if INTERFACE.metadata else None",
                     "input": [],
                     "results": [],
@@ -96,16 +96,16 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-crystal-a",
+                    "flowchartId": "assign-crystal-substrate",
                     "head": false,
-                    "next": "assert-crystal-a",
+                    "next": "assert-crystal-substrate",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assert-crystal-a",
+                    "name": "assert-crystal-substrate",
                     "type": "assertion",
-                    "statement": "CRYSTAL_A != None",
+                    "statement": "CRYSTAL_SUBSTRATE != None",
                     "errorMessage": "Could not extract the substrate crystal from the interface build metadata.",
                     "results": [],
                     "monitors": [],
@@ -114,14 +114,14 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assert-crystal-a",
+                    "flowchartId": "assert-crystal-substrate",
                     "head": false,
-                    "next": "io-bulk-a",
+                    "next": "io-bulk-substrate",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "io-bulk-a",
+                    "name": "io-bulk-substrate",
                     "type": "io",
                     "subtype": "input",
                     "results": [],
@@ -131,7 +131,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "io-bulk-a",
+                    "flowchartId": "io-bulk-substrate",
                     "source": "api",
                     "input": [
                         {
@@ -139,7 +139,7 @@
                             "endpoint": "materials",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'hash': CRYSTAL_A.get('hash')}",
+                                    "query": "{'hash': CRYSTAL_SUBSTRATE.get('hash')}",
                                     "projection": "{}"
                                 }
                             },
@@ -147,19 +147,19 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-bulk-a",
+                    "next": "assign-bulk-substrate",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-bulk-a",
+                    "name": "assign-bulk-substrate",
                     "type": "assignment",
-                    "operand": "BULK_A",
+                    "operand": "BULK_SUBSTRATE",
                     "value": "DATA[0] if DATA else None",
                     "input": [
                         {
                             "name": "DATA",
-                            "scope": "io-bulk-a"
+                            "scope": "io-bulk-substrate"
                         }
                     ],
                     "results": [],
@@ -169,21 +169,21 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk-a",
+                    "flowchartId": "assign-bulk-substrate",
                     "head": false,
-                    "next": "assign-bulk-a-material-ids",
+                    "next": "assign-bulk-substrate-material-ids",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-bulk-a-material-ids",
+                    "name": "assign-bulk-substrate-material-ids",
                     "type": "assignment",
-                    "operand": "BULK_A_MATERIAL_IDS",
+                    "operand": "BULK_SUBSTRATE_MATERIAL_IDS",
                     "value": "[m['_id'] for m in DATA] if DATA else []",
                     "input": [
                         {
                             "name": "DATA",
-                            "scope": "io-bulk-a"
+                            "scope": "io-bulk-substrate"
                         }
                     ],
                     "results": [],
@@ -193,16 +193,16 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk-a-material-ids",
+                    "flowchartId": "assign-bulk-substrate-material-ids",
                     "head": false,
-                    "next": "assert-bulk-a",
+                    "next": "assert-bulk-substrate",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assert-bulk-a",
+                    "name": "assert-bulk-substrate",
                     "type": "assertion",
-                    "statement": "BULK_A != None",
+                    "statement": "BULK_SUBSTRATE != None",
                     "errorMessage": "No material matched the substrate crystal hash. Upload the bulk material first.",
                     "results": [],
                     "monitors": [],
@@ -211,16 +211,16 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assert-bulk-a",
+                    "flowchartId": "assert-bulk-substrate",
                     "head": false,
-                    "next": "assign-crystal-b",
+                    "next": "assign-crystal-film",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-crystal-b",
+                    "name": "assign-crystal-film",
                     "type": "assignment",
-                    "operand": "CRYSTAL_B",
+                    "operand": "CRYSTAL_FILM",
                     "value": "(((INTERFACE.metadata.get('build') or [{}])[-1].get('configuration') or {}).get('stack_components') or [{}, {}])[1].get('stack_components', [{}])[0].get('crystal') if INTERFACE.metadata else None",
                     "input": [],
                     "results": [],
@@ -230,16 +230,16 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-crystal-b",
+                    "flowchartId": "assign-crystal-film",
                     "head": false,
-                    "next": "assert-crystal-b",
+                    "next": "assert-crystal-film",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assert-crystal-b",
+                    "name": "assert-crystal-film",
                     "type": "assertion",
-                    "statement": "CRYSTAL_B != None",
+                    "statement": "CRYSTAL_FILM != None",
                     "errorMessage": "Could not extract the film crystal from the interface build metadata.",
                     "results": [],
                     "monitors": [],
@@ -248,14 +248,14 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assert-crystal-b",
+                    "flowchartId": "assert-crystal-film",
                     "head": false,
-                    "next": "io-bulk-b",
+                    "next": "io-bulk-film",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "io-bulk-b",
+                    "name": "io-bulk-film",
                     "type": "io",
                     "subtype": "input",
                     "results": [],
@@ -265,7 +265,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "io-bulk-b",
+                    "flowchartId": "io-bulk-film",
                     "source": "api",
                     "input": [
                         {
@@ -273,7 +273,7 @@
                             "endpoint": "materials",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'hash': CRYSTAL_B.get('hash')}",
+                                    "query": "{'hash': CRYSTAL_FILM.get('hash')}",
                                     "projection": "{}"
                                 }
                             },
@@ -281,19 +281,19 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-bulk-b",
+                    "next": "assign-bulk-film",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-bulk-b",
+                    "name": "assign-bulk-film",
                     "type": "assignment",
-                    "operand": "BULK_B",
+                    "operand": "BULK_FILM",
                     "value": "DATA[0] if DATA else None",
                     "input": [
                         {
                             "name": "DATA",
-                            "scope": "io-bulk-b"
+                            "scope": "io-bulk-film"
                         }
                     ],
                     "results": [],
@@ -303,21 +303,21 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk-b",
+                    "flowchartId": "assign-bulk-film",
                     "head": false,
-                    "next": "assign-bulk-b-material-ids",
+                    "next": "assign-bulk-film-material-ids",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-bulk-b-material-ids",
+                    "name": "assign-bulk-film-material-ids",
                     "type": "assignment",
-                    "operand": "BULK_B_MATERIAL_IDS",
+                    "operand": "BULK_FILM_MATERIAL_IDS",
                     "value": "[m['_id'] for m in DATA] if DATA else []",
                     "input": [
                         {
                             "name": "DATA",
-                            "scope": "io-bulk-b"
+                            "scope": "io-bulk-film"
                         }
                     ],
                     "results": [],
@@ -327,16 +327,16 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk-b-material-ids",
+                    "flowchartId": "assign-bulk-film-material-ids",
                     "head": false,
-                    "next": "assert-bulk-b",
+                    "next": "assert-bulk-film",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assert-bulk-b",
+                    "name": "assert-bulk-film",
                     "type": "assertion",
-                    "statement": "BULK_B != None",
+                    "statement": "BULK_FILM != None",
                     "errorMessage": "No material matched the film crystal hash. Upload the bulk material first.",
                     "results": [],
                     "monitors": [],
@@ -345,17 +345,17 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assert-bulk-b",
+                    "flowchartId": "assert-bulk-film",
                     "head": false,
-                    "next": "assign-bulk-a-natoms",
+                    "next": "assign-bulk-substrate-natoms",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-bulk-a-natoms",
+                    "name": "assign-bulk-substrate-natoms",
                     "type": "assignment",
-                    "operand": "BULK_A_NATOMS",
-                    "value": "len(BULK_A.basis.elements)",
+                    "operand": "BULK_SUBSTRATE_NATOMS",
+                    "value": "len(BULK_SUBSTRATE.basis.elements)",
                     "input": [],
                     "results": [],
                     "monitors": [],
@@ -364,17 +364,17 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk-a-natoms",
+                    "flowchartId": "assign-bulk-substrate-natoms",
                     "head": false,
-                    "next": "assign-bulk-b-natoms",
+                    "next": "assign-bulk-film-natoms",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-bulk-b-natoms",
+                    "name": "assign-bulk-film-natoms",
                     "type": "assignment",
-                    "operand": "BULK_B_NATOMS",
-                    "value": "len(BULK_B.basis.elements)",
+                    "operand": "BULK_FILM_NATOMS",
+                    "value": "len(BULK_FILM.basis.elements)",
                     "input": [],
                     "results": [],
                     "monitors": [],
@@ -383,17 +383,17 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk-b-natoms",
+                    "flowchartId": "assign-bulk-film-natoms",
                     "head": false,
-                    "next": "assign-n-a",
+                    "next": "assign-n-substrate",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-n-a",
+                    "name": "assign-n-substrate",
                     "type": "assignment",
-                    "operand": "N_A",
-                    "value": "len([e for e in INTERFACE.basis.elements if e.value in [x.value for x in BULK_A.basis.elements]]) / BULK_A_NATOMS",
+                    "operand": "N_SUBSTRATE",
+                    "value": "len([e for e in INTERFACE.basis.elements if e.value in [x.value for x in BULK_SUBSTRATE.basis.elements]]) / BULK_SUBSTRATE_NATOMS",
                     "input": [],
                     "results": [],
                     "monitors": [],
@@ -402,17 +402,17 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-n-a",
+                    "flowchartId": "assign-n-substrate",
                     "head": false,
-                    "next": "assign-n-b",
+                    "next": "assign-n-film",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-n-b",
+                    "name": "assign-n-film",
                     "type": "assignment",
-                    "operand": "N_B",
-                    "value": "len([e for e in INTERFACE.basis.elements if e.value in [x.value for x in BULK_B.basis.elements] and e.value not in [x.value for x in BULK_A.basis.elements]]) / BULK_B_NATOMS",
+                    "operand": "N_FILM",
+                    "value": "len([e for e in INTERFACE.basis.elements if e.value in [x.value for x in BULK_FILM.basis.elements] and e.value not in [x.value for x in BULK_SUBSTRATE.basis.elements]]) / BULK_FILM_NATOMS",
                     "input": [],
                     "results": [],
                     "monitors": [],
@@ -421,7 +421,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-n-b",
+                    "flowchartId": "assign-n-film",
                     "head": false,
                     "next": "assign-vacuum-size",
                     "schemaVersion": "2022.8.16",
@@ -498,7 +498,7 @@
                     "name": "assign-bulk-material-ids",
                     "type": "assignment",
                     "operand": "BULK_MATERIAL_IDS",
-                    "value": "BULK_A_MATERIAL_IDS",
+                    "value": "BULK_SUBSTRATE_MATERIAL_IDS",
                     "input": [],
                     "results": [],
                     "monitors": [],
@@ -509,12 +509,12 @@
                     "tags": [],
                     "flowchartId": "assign-bulk-material-ids-substrate",
                     "head": true,
-                    "next": "io-bulk-te-job-a",
+                    "next": "io-bulk-te-job-substrate",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "io-bulk-te-job-a",
+                    "name": "io-bulk-te-job-substrate",
                     "type": "io",
                     "subtype": "input",
                     "results": [],
@@ -524,7 +524,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "io-bulk-te-job-a",
+                    "flowchartId": "io-bulk-te-job-substrate",
                     "source": "api",
                     "input": [
                         {
@@ -540,19 +540,19 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-bulk-te-job-id-a",
+                    "next": "assign-bulk-te-job-id-substrate",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-bulk-te-job-id-a",
+                    "name": "assign-bulk-te-job-id-substrate",
                     "type": "assignment",
                     "operand": "BULK_TE_JOB_ID",
                     "value": "JOB_DATA[0]['_id'] if JOB_DATA else None",
                     "input": [
                         {
                             "name": "JOB_DATA",
-                            "scope": "io-bulk-te-job-a"
+                            "scope": "io-bulk-te-job-substrate"
                         }
                     ],
                     "results": [],
@@ -562,14 +562,14 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk-te-job-id-a",
+                    "flowchartId": "assign-bulk-te-job-id-substrate",
                     "head": false,
-                    "next": "io-e-bulk-a",
+                    "next": "io-te-bulk-substrate",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "io-e-bulk-a",
+                    "name": "io-te-bulk-substrate",
                     "type": "io",
                     "subtype": "input",
                     "results": [],
@@ -579,7 +579,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "io-e-bulk-a",
+                    "flowchartId": "io-te-bulk-substrate",
                     "source": "api",
                     "input": [
                         {
@@ -595,19 +595,19 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-e-bulk-a",
+                    "next": "assign-te-bulk-substrate",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-e-bulk-a",
+                    "name": "assign-te-bulk-substrate",
                     "type": "assignment",
-                    "operand": "E_BULK_A",
+                    "operand": "TE_BULK_SUBSTRATE",
                     "value": "DATA[0].data.value if DATA else None",
                     "input": [
                         {
                             "name": "DATA",
-                            "scope": "io-e-bulk-a"
+                            "scope": "io-te-bulk-substrate"
                         }
                     ],
                     "results": [],
@@ -617,17 +617,17 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-e-bulk-a",
+                    "flowchartId": "assign-te-bulk-substrate",
                     "head": false,
-                    "next": "assert-e-bulk-a",
+                    "next": "assert-te-bulk-substrate",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assert-e-bulk-a",
+                    "name": "assert-te-bulk-substrate",
                     "type": "assertion",
-                    "statement": "E_BULK_A != None",
-                    "errorMessage": "Bulk total energy not found for substrate (A). Run a Total Energy workflow on bulk A first.",
+                    "statement": "TE_BULK_SUBSTRATE != None",
+                    "errorMessage": "Bulk total energy not found for substrate. Run a Total Energy workflow on the substrate bulk first.",
                     "results": [],
                     "monitors": [],
                     "preProcessors": [],
@@ -635,7 +635,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assert-e-bulk-a",
+                    "flowchartId": "assert-te-bulk-substrate",
                     "head": false,
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -674,7 +674,7 @@
                     "name": "assign-bulk-material-ids",
                     "type": "assignment",
                     "operand": "BULK_MATERIAL_IDS",
-                    "value": "BULK_B_MATERIAL_IDS",
+                    "value": "BULK_FILM_MATERIAL_IDS",
                     "input": [],
                     "results": [],
                     "monitors": [],
@@ -685,12 +685,12 @@
                     "tags": [],
                     "flowchartId": "assign-bulk-material-ids-film",
                     "head": true,
-                    "next": "io-bulk-te-job-b",
+                    "next": "io-bulk-te-job-film",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "io-bulk-te-job-b",
+                    "name": "io-bulk-te-job-film",
                     "type": "io",
                     "subtype": "input",
                     "results": [],
@@ -700,7 +700,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "io-bulk-te-job-b",
+                    "flowchartId": "io-bulk-te-job-film",
                     "source": "api",
                     "input": [
                         {
@@ -716,19 +716,19 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-bulk-te-job-id-b",
+                    "next": "assign-bulk-te-job-id-film",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-bulk-te-job-id-b",
+                    "name": "assign-bulk-te-job-id-film",
                     "type": "assignment",
                     "operand": "BULK_TE_JOB_ID",
                     "value": "JOB_DATA[0]['_id'] if JOB_DATA else None",
                     "input": [
                         {
                             "name": "JOB_DATA",
-                            "scope": "io-bulk-te-job-b"
+                            "scope": "io-bulk-te-job-film"
                         }
                     ],
                     "results": [],
@@ -738,14 +738,14 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk-te-job-id-b",
+                    "flowchartId": "assign-bulk-te-job-id-film",
                     "head": false,
-                    "next": "io-e-bulk-b",
+                    "next": "io-te-bulk-film",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "io-e-bulk-b",
+                    "name": "io-te-bulk-film",
                     "type": "io",
                     "subtype": "input",
                     "results": [],
@@ -755,7 +755,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "io-e-bulk-b",
+                    "flowchartId": "io-te-bulk-film",
                     "source": "api",
                     "input": [
                         {
@@ -771,19 +771,19 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-e-bulk-b",
+                    "next": "assign-te-bulk-film",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-e-bulk-b",
+                    "name": "assign-te-bulk-film",
                     "type": "assignment",
-                    "operand": "E_BULK_B",
+                    "operand": "TE_BULK_FILM",
                     "value": "DATA[0].data.value if DATA else None",
                     "input": [
                         {
                             "name": "DATA",
-                            "scope": "io-e-bulk-b"
+                            "scope": "io-te-bulk-film"
                         }
                     ],
                     "results": [],
@@ -793,17 +793,17 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-e-bulk-b",
+                    "flowchartId": "assign-te-bulk-film",
                     "head": false,
-                    "next": "assert-e-bulk-b",
+                    "next": "assert-te-bulk-film",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assert-e-bulk-b",
+                    "name": "assert-te-bulk-film",
                     "type": "assertion",
-                    "statement": "E_BULK_B != None",
-                    "errorMessage": "Bulk total energy not found for film (B). Run a Total Energy workflow on bulk B first.",
+                    "statement": "TE_BULK_FILM != None",
+                    "errorMessage": "Bulk total energy not found for film. Run a Total Energy workflow on the film bulk first.",
                     "results": [],
                     "monitors": [],
                     "preProcessors": [],
@@ -811,7 +811,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assert-e-bulk-b",
+                    "flowchartId": "assert-te-bulk-film",
                     "head": false,
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -1007,14 +1007,14 @@
                         }
                     ],
                     "context": [],
-                    "next": "assign-e-interface",
+                    "next": "assign-te-interface",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-e-interface",
+                    "name": "assign-te-interface",
                     "type": "assignment",
-                    "operand": "E_INTERFACE",
+                    "operand": "TE_INTERFACE",
                     "value": "total_energy",
                     "input": [
                         {
@@ -1029,7 +1029,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-e-interface",
+                    "flowchartId": "assign-te-interface",
                     "head": false,
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -1069,7 +1069,7 @@
                 {
                     "name": "assign-interface-area",
                     "type": "assignment",
-                    "operand": "A",
+                    "operand": "INTERFACE_AREA",
                     "value": "np.linalg.norm(np.cross(INTERFACE.lattice.vectors.a, INTERFACE.lattice.vectors.b))",
                     "input": [],
                     "results": [],
@@ -1081,15 +1081,15 @@
                     "tags": [],
                     "flowchartId": "assign-interface-area",
                     "head": true,
-                    "next": "assign-e-excess",
+                    "next": "assign-te-excess",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-e-excess",
+                    "name": "assign-te-excess",
                     "type": "assignment",
-                    "operand": "E_EXCESS",
-                    "value": "E_INTERFACE - N_A * E_BULK_A - N_B * E_BULK_B",
+                    "operand": "TE_EXCESS",
+                    "value": "TE_INTERFACE - N_SUBSTRATE * TE_BULK_SUBSTRATE - N_FILM * TE_BULK_FILM",
                     "input": [],
                     "results": [],
                     "monitors": [],
@@ -1098,7 +1098,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-e-excess",
+                    "flowchartId": "assign-te-excess",
                     "head": false,
                     "next": "assign-interfacial-energy",
                     "schemaVersion": "2022.8.16",
@@ -1108,7 +1108,7 @@
                     "name": "assign-interfacial-energy",
                     "type": "assignment",
                     "operand": "INTERFACIAL_ENERGY",
-                    "value": "E_EXCESS / (N_INTERFACES * A)",
+                    "value": "TE_EXCESS / (N_INTERFACES * INTERFACE_AREA)",
                     "input": [],
                     "results": [
                         {

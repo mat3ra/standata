@@ -1,7 +1,7 @@
 # Runs QE pw_scf on the interface material (material index 0).
 #
-# In:  (multi-material job, interface is material 0)
-# Out: E_INTERFACE (total energy of interface in eV)
+# In:  (single-material job; interface is material 0)
+# Out: TE_INTERFACE (total energy of interface in eV)
 application:
   name: espresso
   version: "6.3"
@@ -25,9 +25,9 @@ units:
     type: executionBuilder
   - type: assignment
     config:
-      name: assign-e-interface
-      flowchartId: assign-e-interface
-      operand: E_INTERFACE
+      name: assign-te-interface
+      flowchartId: assign-te-interface
+      operand: TE_INTERFACE
       value: total_energy
       input:
         - name: total_energy

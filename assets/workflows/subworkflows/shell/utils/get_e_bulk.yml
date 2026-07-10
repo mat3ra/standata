@@ -1,7 +1,6 @@
 # Fetch precomputed bulk total energy (E_BULK) for a material already in context.
 #
 # In:  BULK_MATERIAL_IDS — all platform material _ids sharing the bulk hash
-#      (override the jobs query on unit index 0 when using BULK_A_MATERIAL_IDS, etc.)
 # Out: BULK_TE_JOB_ID, E_BULK
 application:
   name: shell

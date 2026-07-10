@@ -1,8 +1,9 @@
 # Load the interface material, resolve substrate/film bulk references from build
-# metadata, and compute supercell stoichiometry (N_A, N_B, N_INTERFACES).
+# metadata, and compute supercell stoichiometry (N_SUBSTRATE, N_FILM, N_INTERFACES).
 #
 # In:  MATERIAL_ID
-# Out: INTERFACE, BULK_A, BULK_B, BULK_*_MATERIAL_IDS, N_A, N_B, N_INTERFACES
+# Out: INTERFACE, BULK_SUBSTRATE, BULK_FILM, BULK_*_MATERIAL_IDS,
+#      N_SUBSTRATE, N_FILM, N_INTERFACES
 application:
   name: shell
 method:
@@ -36,25 +37,25 @@ units:
           scope: io-interface
   - type: assignment
     config:
-      name: assign-crystal-a
-      flowchartId: assign-crystal-a
-      operand: CRYSTAL_A
+      name: assign-crystal-substrate
+      flowchartId: assign-crystal-substrate
+      operand: CRYSTAL_SUBSTRATE
       value: >-
         (((INTERFACE.metadata.get('build') or [{}])[-1].get('configuration')
         or {}).get('stack_components') or [{}])[0].get('stack_components',
         [{}])[0].get('crystal') if INTERFACE.metadata else None
   - type: assertion
     config:
-      name: assert-crystal-a
-      flowchartId: assert-crystal-a
-      statement: "CRYSTAL_A != None"
+      name: assert-crystal-substrate
+      flowchartId: assert-crystal-substrate
+      statement: "CRYSTAL_SUBSTRATE != None"
       errorMessage: >-
         Could not extract the substrate crystal from the interface
         build metadata.
   - type: io
     config:
-      name: io-bulk-a
-      flowchartId: io-bulk-a
+      name: io-bulk-substrate
+      flowchartId: io-bulk-substrate
       subtype: input
       source: api
       input:
@@ -62,56 +63,56 @@ units:
           endpoint: materials
           endpoint_options:
             params:
-              query: "{'hash': CRYSTAL_A.get('hash')}"
+              query: "{'hash': CRYSTAL_SUBSTRATE.get('hash')}"
               projection: "{}"
           name: DATA
   - type: assignment
     config:
-      name: assign-bulk-a
-      flowchartId: assign-bulk-a
-      operand: BULK_A
+      name: assign-bulk-substrate
+      flowchartId: assign-bulk-substrate
+      operand: BULK_SUBSTRATE
       value: "DATA[0] if DATA else None"
       input:
         - name: DATA
-          scope: io-bulk-a
+          scope: io-bulk-substrate
   - type: assignment
     config:
-      name: assign-bulk-a-material-ids
-      flowchartId: assign-bulk-a-material-ids
-      operand: BULK_A_MATERIAL_IDS
+      name: assign-bulk-substrate-material-ids
+      flowchartId: assign-bulk-substrate-material-ids
+      operand: BULK_SUBSTRATE_MATERIAL_IDS
       value: "[m['_id'] for m in DATA] if DATA else []"
       input:
         - name: DATA
-          scope: io-bulk-a
+          scope: io-bulk-substrate
   - type: assertion
     config:
-      name: assert-bulk-a
-      flowchartId: assert-bulk-a
-      statement: "BULK_A != None"
+      name: assert-bulk-substrate
+      flowchartId: assert-bulk-substrate
+      statement: "BULK_SUBSTRATE != None"
       errorMessage: >-
         No material matched the substrate crystal hash.
         Upload the bulk material first.
   - type: assignment
     config:
-      name: assign-crystal-b
-      flowchartId: assign-crystal-b
-      operand: CRYSTAL_B
+      name: assign-crystal-film
+      flowchartId: assign-crystal-film
+      operand: CRYSTAL_FILM
       value: >-
         (((INTERFACE.metadata.get('build') or [{}])[-1].get('configuration')
         or {}).get('stack_components') or [{}, {}])[1].get('stack_components',
         [{}])[0].get('crystal') if INTERFACE.metadata else None
   - type: assertion
     config:
-      name: assert-crystal-b
-      flowchartId: assert-crystal-b
-      statement: "CRYSTAL_B != None"
+      name: assert-crystal-film
+      flowchartId: assert-crystal-film
+      statement: "CRYSTAL_FILM != None"
       errorMessage: >-
         Could not extract the film crystal from the interface
         build metadata.
   - type: io
     config:
-      name: io-bulk-b
-      flowchartId: io-bulk-b
+      name: io-bulk-film
+      flowchartId: io-bulk-film
       subtype: input
       source: api
       input:
@@ -119,59 +120,64 @@ units:
           endpoint: materials
           endpoint_options:
             params:
-              query: "{'hash': CRYSTAL_B.get('hash')}"
+              query: "{'hash': CRYSTAL_FILM.get('hash')}"
               projection: "{}"
           name: DATA
   - type: assignment
     config:
-      name: assign-bulk-b
-      flowchartId: assign-bulk-b
-      operand: BULK_B
+      name: assign-bulk-film
+      flowchartId: assign-bulk-film
+      operand: BULK_FILM
       value: "DATA[0] if DATA else None"
       input:
         - name: DATA
-          scope: io-bulk-b
+          scope: io-bulk-film
   - type: assignment
     config:
-      name: assign-bulk-b-material-ids
-      flowchartId: assign-bulk-b-material-ids
-      operand: BULK_B_MATERIAL_IDS
+      name: assign-bulk-film-material-ids
+      flowchartId: assign-bulk-film-material-ids
+      operand: BULK_FILM_MATERIAL_IDS
       value: "[m['_id'] for m in DATA] if DATA else []"
       input:
         - name: DATA
-          scope: io-bulk-b
+          scope: io-bulk-film
   - type: assertion
     config:
-      name: assert-bulk-b
-      flowchartId: assert-bulk-b
-      statement: "BULK_B != None"
+      name: assert-bulk-film
+      flowchartId: assert-bulk-film
+      statement: "BULK_FILM != None"
       errorMessage: >-
         No material matched the film crystal hash.
         Upload the bulk material first.
   - type: assignment
     config:
-      name: assign-bulk-a-natoms
-      flowchartId: assign-bulk-a-natoms
-      operand: BULK_A_NATOMS
-      value: "len(BULK_A.basis.elements)"
+      name: assign-bulk-substrate-natoms
+      flowchartId: assign-bulk-substrate-natoms
+      operand: BULK_SUBSTRATE_NATOMS
+      value: "len(BULK_SUBSTRATE.basis.elements)"
   - type: assignment
     config:
-      name: assign-bulk-b-natoms
-      flowchartId: assign-bulk-b-natoms
-      operand: BULK_B_NATOMS
-      value: "len(BULK_B.basis.elements)"
+      name: assign-bulk-film-natoms
+      flowchartId: assign-bulk-film-natoms
+      operand: BULK_FILM_NATOMS
+      value: "len(BULK_FILM.basis.elements)"
   - type: assignment
     config:
-      name: assign-n-a
-      flowchartId: assign-n-a
-      operand: N_A
-      value: "len([e for e in INTERFACE.basis.elements if e.value in [x.value for x in BULK_A.basis.elements]]) / BULK_A_NATOMS"
+      name: assign-n-substrate
+      flowchartId: assign-n-substrate
+      operand: N_SUBSTRATE
+      value: >-
+        len([e for e in INTERFACE.basis.elements if e.value in [x.value for x in
+        BULK_SUBSTRATE.basis.elements]]) / BULK_SUBSTRATE_NATOMS
   - type: assignment
     config:
-      name: assign-n-b
-      flowchartId: assign-n-b
-      operand: N_B
-      value: "len([e for e in INTERFACE.basis.elements if e.value in [x.value for x in BULK_B.basis.elements] and e.value not in [x.value for x in BULK_A.basis.elements]]) / BULK_B_NATOMS"
+      name: assign-n-film
+      flowchartId: assign-n-film
+      operand: N_FILM
+      value: >-
+        len([e for e in INTERFACE.basis.elements if e.value in [x.value for x in
+        BULK_FILM.basis.elements] and e.value not in [x.value for x in
+        BULK_SUBSTRATE.basis.elements]]) / BULK_FILM_NATOMS
   - type: assignment
     config:
       name: assign-vacuum-size

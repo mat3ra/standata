@@ -1,7 +1,7 @@
 # Computes interfacial energy γ from pre-computed values.
 #
-# In:  E_INTERFACE, E_BULK_A, E_BULK_B (total energies in eV)
-#      N_A, N_B (formula unit counts)
+# In:  TE_INTERFACE, TE_BULK_SUBSTRATE, TE_BULK_FILM (total energies in eV)
+#      N_SUBSTRATE, N_FILM (formula unit counts)
 #      N_INTERFACES (1 or 2)
 #      INTERFACE (material document, for lattice vectors)
 # Out: interfacial_energy (property, eV/Å²)
@@ -17,19 +17,19 @@ units:
     config:
       name: assign-interface-area
       flowchartId: assign-interface-area
-      operand: A
+      operand: INTERFACE_AREA
       value: "np.linalg.norm(np.cross(INTERFACE.lattice.vectors.a, INTERFACE.lattice.vectors.b))"
   - type: assignment
     config:
-      name: assign-e-excess
-      flowchartId: assign-e-excess
-      operand: E_EXCESS
-      value: "E_INTERFACE - N_A * E_BULK_A - N_B * E_BULK_B"
+      name: assign-te-excess
+      flowchartId: assign-te-excess
+      operand: TE_EXCESS
+      value: "TE_INTERFACE - N_SUBSTRATE * TE_BULK_SUBSTRATE - N_FILM * TE_BULK_FILM"
   - type: assignment
     config:
       name: assign-interfacial-energy
       flowchartId: assign-interfacial-energy
       operand: INTERFACIAL_ENERGY
-      value: "E_EXCESS / (N_INTERFACES * A)"
+      value: "TE_EXCESS / (N_INTERFACES * INTERFACE_AREA)"
       results:
         - name: interfacial_energy

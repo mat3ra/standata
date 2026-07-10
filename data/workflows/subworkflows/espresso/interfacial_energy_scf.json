@@ -176,14 +176,14 @@
                 }
             ],
             "context": [],
-            "next": "assign-e-interface",
+            "next": "assign-te-interface",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "assign-e-interface",
+            "name": "assign-te-interface",
             "type": "assignment",
-            "operand": "E_INTERFACE",
+            "operand": "TE_INTERFACE",
             "value": "total_energy",
             "input": [
                 {
@@ -198,7 +198,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assign-e-interface",
+            "flowchartId": "assign-te-interface",
             "head": false,
             "schemaVersion": "2022.8.16",
             "isDefault": false

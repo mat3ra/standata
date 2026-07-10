@@ -1,7 +1,7 @@
-# Fetch precomputed film (bulk B) total energy from a finished Total Energy job.
+# Fetch precomputed film bulk total energy from a finished Total Energy job.
 #
-# In:  BULK_B_MATERIAL_IDS
-# Out: E_BULK_B
+# In:  BULK_FILM_MATERIAL_IDS
+# Out: TE_BULK_FILM
 application:
   name: shell
 method:
@@ -15,11 +15,11 @@ units:
       name: assign-bulk-material-ids
       flowchartId: assign-bulk-material-ids-film
       operand: BULK_MATERIAL_IDS
-      value: "BULK_B_MATERIAL_IDS"
+      value: "BULK_FILM_MATERIAL_IDS"
   - type: io
     config:
-      name: io-bulk-te-job-b
-      flowchartId: io-bulk-te-job-b
+      name: io-bulk-te-job-film
+      flowchartId: io-bulk-te-job-film
       subtype: input
       source: api
       input:
@@ -34,17 +34,17 @@ units:
           name: JOB_DATA
   - type: assignment
     config:
-      name: assign-bulk-te-job-id-b
-      flowchartId: assign-bulk-te-job-id-b
+      name: assign-bulk-te-job-id-film
+      flowchartId: assign-bulk-te-job-id-film
       operand: BULK_TE_JOB_ID
       value: "JOB_DATA[0]['_id'] if JOB_DATA else None"
       input:
         - name: JOB_DATA
-          scope: io-bulk-te-job-b
+          scope: io-bulk-te-job-film
   - type: io
     config:
-      name: io-e-bulk-b
-      flowchartId: io-e-bulk-b
+      name: io-te-bulk-film
+      flowchartId: io-te-bulk-film
       subtype: input
       source: api
       input:
@@ -59,18 +59,18 @@ units:
           name: DATA
   - type: assignment
     config:
-      name: assign-e-bulk-b
-      flowchartId: assign-e-bulk-b
-      operand: E_BULK_B
+      name: assign-te-bulk-film
+      flowchartId: assign-te-bulk-film
+      operand: TE_BULK_FILM
       value: "DATA[0].data.value if DATA else None"
       input:
         - name: DATA
-          scope: io-e-bulk-b
+          scope: io-te-bulk-film
   - type: assertion
     config:
-      name: assert-e-bulk-b
-      flowchartId: assert-e-bulk-b
-      statement: "E_BULK_B != None"
+      name: assert-te-bulk-film
+      flowchartId: assert-te-bulk-film
+      statement: "TE_BULK_FILM != None"
       errorMessage: >-
-        Bulk total energy not found for film (B).
-        Run a Total Energy workflow on bulk B first.
+        Bulk total energy not found for film.
+        Run a Total Energy workflow on the film bulk first.

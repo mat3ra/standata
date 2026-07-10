@@ -19,7 +19,7 @@
             "name": "assign-bulk-material-ids",
             "type": "assignment",
             "operand": "BULK_MATERIAL_IDS",
-            "value": "BULK_B_MATERIAL_IDS",
+            "value": "BULK_FILM_MATERIAL_IDS",
             "input": [],
             "results": [],
             "monitors": [],
@@ -30,12 +30,12 @@
             "tags": [],
             "flowchartId": "assign-bulk-material-ids-film",
             "head": true,
-            "next": "io-bulk-te-job-b",
+            "next": "io-bulk-te-job-film",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "io-bulk-te-job-b",
+            "name": "io-bulk-te-job-film",
             "type": "io",
             "subtype": "input",
             "results": [],
@@ -45,7 +45,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "io-bulk-te-job-b",
+            "flowchartId": "io-bulk-te-job-film",
             "source": "api",
             "input": [
                 {
@@ -61,19 +61,19 @@
                 }
             ],
             "head": false,
-            "next": "assign-bulk-te-job-id-b",
+            "next": "assign-bulk-te-job-id-film",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "assign-bulk-te-job-id-b",
+            "name": "assign-bulk-te-job-id-film",
             "type": "assignment",
             "operand": "BULK_TE_JOB_ID",
             "value": "JOB_DATA[0]['_id'] if JOB_DATA else None",
             "input": [
                 {
                     "name": "JOB_DATA",
-                    "scope": "io-bulk-te-job-b"
+                    "scope": "io-bulk-te-job-film"
                 }
             ],
             "results": [],
@@ -83,14 +83,14 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assign-bulk-te-job-id-b",
+            "flowchartId": "assign-bulk-te-job-id-film",
             "head": false,
-            "next": "io-e-bulk-b",
+            "next": "io-te-bulk-film",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "io-e-bulk-b",
+            "name": "io-te-bulk-film",
             "type": "io",
             "subtype": "input",
             "results": [],
@@ -100,7 +100,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "io-e-bulk-b",
+            "flowchartId": "io-te-bulk-film",
             "source": "api",
             "input": [
                 {
@@ -116,19 +116,19 @@
                 }
             ],
             "head": false,
-            "next": "assign-e-bulk-b",
+            "next": "assign-te-bulk-film",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "assign-e-bulk-b",
+            "name": "assign-te-bulk-film",
             "type": "assignment",
-            "operand": "E_BULK_B",
+            "operand": "TE_BULK_FILM",
             "value": "DATA[0].data.value if DATA else None",
             "input": [
                 {
                     "name": "DATA",
-                    "scope": "io-e-bulk-b"
+                    "scope": "io-te-bulk-film"
                 }
             ],
             "results": [],
@@ -138,17 +138,17 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assign-e-bulk-b",
+            "flowchartId": "assign-te-bulk-film",
             "head": false,
-            "next": "assert-e-bulk-b",
+            "next": "assert-te-bulk-film",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "assert-e-bulk-b",
+            "name": "assert-te-bulk-film",
             "type": "assertion",
-            "statement": "E_BULK_B != None",
-            "errorMessage": "Bulk total energy not found for film (B). Run a Total Energy workflow on bulk B first.",
+            "statement": "TE_BULK_FILM != None",
+            "errorMessage": "Bulk total energy not found for film. Run a Total Energy workflow on the film bulk first.",
             "results": [],
             "monitors": [],
             "preProcessors": [],
@@ -156,7 +156,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assert-e-bulk-b",
+            "flowchartId": "assert-te-bulk-film",
             "head": false,
             "schemaVersion": "2022.8.16",
             "isDefault": false

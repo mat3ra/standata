@@ -19,7 +19,7 @@
             "name": "assign-bulk-material-ids",
             "type": "assignment",
             "operand": "BULK_MATERIAL_IDS",
-            "value": "BULK_A_MATERIAL_IDS",
+            "value": "BULK_SUBSTRATE_MATERIAL_IDS",
             "input": [],
             "results": [],
             "monitors": [],
@@ -30,12 +30,12 @@
             "tags": [],
             "flowchartId": "assign-bulk-material-ids-substrate",
             "head": true,
-            "next": "io-bulk-te-job-a",
+            "next": "io-bulk-te-job-substrate",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "io-bulk-te-job-a",
+            "name": "io-bulk-te-job-substrate",
             "type": "io",
             "subtype": "input",
             "results": [],
@@ -45,7 +45,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "io-bulk-te-job-a",
+            "flowchartId": "io-bulk-te-job-substrate",
             "source": "api",
             "input": [
                 {
@@ -61,19 +61,19 @@
                 }
             ],
             "head": false,
-            "next": "assign-bulk-te-job-id-a",
+            "next": "assign-bulk-te-job-id-substrate",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "assign-bulk-te-job-id-a",
+            "name": "assign-bulk-te-job-id-substrate",
             "type": "assignment",
             "operand": "BULK_TE_JOB_ID",
             "value": "JOB_DATA[0]['_id'] if JOB_DATA else None",
             "input": [
                 {
                     "name": "JOB_DATA",
-                    "scope": "io-bulk-te-job-a"
+                    "scope": "io-bulk-te-job-substrate"
                 }
             ],
             "results": [],
@@ -83,14 +83,14 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assign-bulk-te-job-id-a",
+            "flowchartId": "assign-bulk-te-job-id-substrate",
             "head": false,
-            "next": "io-e-bulk-a",
+            "next": "io-te-bulk-substrate",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "io-e-bulk-a",
+            "name": "io-te-bulk-substrate",
             "type": "io",
             "subtype": "input",
             "results": [],
@@ -100,7 +100,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "io-e-bulk-a",
+            "flowchartId": "io-te-bulk-substrate",
             "source": "api",
             "input": [
                 {
@@ -116,19 +116,19 @@
                 }
             ],
             "head": false,
-            "next": "assign-e-bulk-a",
+            "next": "assign-te-bulk-substrate",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "assign-e-bulk-a",
+            "name": "assign-te-bulk-substrate",
             "type": "assignment",
-            "operand": "E_BULK_A",
+            "operand": "TE_BULK_SUBSTRATE",
             "value": "DATA[0].data.value if DATA else None",
             "input": [
                 {
                     "name": "DATA",
-                    "scope": "io-e-bulk-a"
+                    "scope": "io-te-bulk-substrate"
                 }
             ],
             "results": [],
@@ -138,17 +138,17 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assign-e-bulk-a",
+            "flowchartId": "assign-te-bulk-substrate",
             "head": false,
-            "next": "assert-e-bulk-a",
+            "next": "assert-te-bulk-substrate",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "assert-e-bulk-a",
+            "name": "assert-te-bulk-substrate",
             "type": "assertion",
-            "statement": "E_BULK_A != None",
-            "errorMessage": "Bulk total energy not found for substrate (A). Run a Total Energy workflow on bulk A first.",
+            "statement": "TE_BULK_SUBSTRATE != None",
+            "errorMessage": "Bulk total energy not found for substrate. Run a Total Energy workflow on the substrate bulk first.",
             "results": [],
             "monitors": [],
             "preProcessors": [],
@@ -156,7 +156,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assert-e-bulk-a",
+            "flowchartId": "assert-te-bulk-substrate",
             "head": false,
             "schemaVersion": "2022.8.16",
             "isDefault": false

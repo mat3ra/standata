@@ -20,7 +20,7 @@
         {
             "name": "assign-interface-area",
             "type": "assignment",
-            "operand": "A",
+            "operand": "INTERFACE_AREA",
             "value": "np.linalg.norm(np.cross(INTERFACE.lattice.vectors.a, INTERFACE.lattice.vectors.b))",
             "input": [],
             "results": [],
@@ -32,15 +32,15 @@
             "tags": [],
             "flowchartId": "assign-interface-area",
             "head": true,
-            "next": "assign-e-excess",
+            "next": "assign-te-excess",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "assign-e-excess",
+            "name": "assign-te-excess",
             "type": "assignment",
-            "operand": "E_EXCESS",
-            "value": "E_INTERFACE - N_A * E_BULK_A - N_B * E_BULK_B",
+            "operand": "TE_EXCESS",
+            "value": "TE_INTERFACE - N_SUBSTRATE * TE_BULK_SUBSTRATE - N_FILM * TE_BULK_FILM",
             "input": [],
             "results": [],
             "monitors": [],
@@ -49,7 +49,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assign-e-excess",
+            "flowchartId": "assign-te-excess",
             "head": false,
             "next": "assign-interfacial-energy",
             "schemaVersion": "2022.8.16",
@@ -59,7 +59,7 @@
             "name": "assign-interfacial-energy",
             "type": "assignment",
             "operand": "INTERFACIAL_ENERGY",
-            "value": "E_EXCESS / (N_INTERFACES * A)",
+            "value": "TE_EXCESS / (N_INTERFACES * INTERFACE_AREA)",
             "input": [],
             "results": [
                 {

@@ -1,7 +1,7 @@
-# Fetch precomputed substrate (bulk A) total energy from a finished Total Energy job.
+# Fetch precomputed substrate bulk total energy from a finished Total Energy job.
 #
-# In:  BULK_A_MATERIAL_IDS
-# Out: E_BULK_A
+# In:  BULK_SUBSTRATE_MATERIAL_IDS
+# Out: TE_BULK_SUBSTRATE
 application:
   name: shell
 method:
@@ -15,11 +15,11 @@ units:
       name: assign-bulk-material-ids
       flowchartId: assign-bulk-material-ids-substrate
       operand: BULK_MATERIAL_IDS
-      value: "BULK_A_MATERIAL_IDS"
+      value: "BULK_SUBSTRATE_MATERIAL_IDS"
   - type: io
     config:
-      name: io-bulk-te-job-a
-      flowchartId: io-bulk-te-job-a
+      name: io-bulk-te-job-substrate
+      flowchartId: io-bulk-te-job-substrate
       subtype: input
       source: api
       input:
@@ -34,17 +34,17 @@ units:
           name: JOB_DATA
   - type: assignment
     config:
-      name: assign-bulk-te-job-id-a
-      flowchartId: assign-bulk-te-job-id-a
+      name: assign-bulk-te-job-id-substrate
+      flowchartId: assign-bulk-te-job-id-substrate
       operand: BULK_TE_JOB_ID
       value: "JOB_DATA[0]['_id'] if JOB_DATA else None"
       input:
         - name: JOB_DATA
-          scope: io-bulk-te-job-a
+          scope: io-bulk-te-job-substrate
   - type: io
     config:
-      name: io-e-bulk-a
-      flowchartId: io-e-bulk-a
+      name: io-te-bulk-substrate
+      flowchartId: io-te-bulk-substrate
       subtype: input
       source: api
       input:
@@ -59,18 +59,18 @@ units:
           name: DATA
   - type: assignment
     config:
-      name: assign-e-bulk-a
-      flowchartId: assign-e-bulk-a
-      operand: E_BULK_A
+      name: assign-te-bulk-substrate
+      flowchartId: assign-te-bulk-substrate
+      operand: TE_BULK_SUBSTRATE
       value: "DATA[0].data.value if DATA else None"
       input:
         - name: DATA
-          scope: io-e-bulk-a
+          scope: io-te-bulk-substrate
   - type: assertion
     config:
-      name: assert-e-bulk-a
-      flowchartId: assert-e-bulk-a
-      statement: "E_BULK_A != None"
+      name: assert-te-bulk-substrate
+      flowchartId: assert-te-bulk-substrate
+      statement: "TE_BULK_SUBSTRATE != None"
       errorMessage: >-
-        Bulk total energy not found for substrate (A).
-        Run a Total Energy workflow on bulk A first.
+        Bulk total energy not found for substrate.
+        Run a Total Energy workflow on the substrate bulk first.

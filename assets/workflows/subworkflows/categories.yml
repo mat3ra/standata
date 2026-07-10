@@ -526,7 +526,7 @@ entities:
     categories:
       - interfacial_energy
       - shell
-  - filename: shell/prepare_interfacial_energy.json
+  - filename: shell/load_interface_and_resolve_references.json
     categories:
       - shell
   - filename: shell/utils/assign_elements_from_material.json
@@ -541,16 +541,10 @@ entities:
   - filename: shell/utils/get_material_by_id.json
     categories:
       - shell
-  - filename: shell/utils/get_material_by_index.json
-    categories:
-      - shell
   - filename: shell/utils/resolve_bulk_from_slab_by_build.json
     categories:
       - shell
   - filename: shell/utils/resolve_bulk_from_slab_by_bulk_id.json
-    categories:
-      - shell
-  - filename: shell/utils/resolve_references_from_interface.json
     categories:
       - shell
   - filename: vasp/band_gap.json

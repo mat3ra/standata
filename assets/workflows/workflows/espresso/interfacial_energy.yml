@@ -1,11 +1,11 @@
 # Interfacial energy γ (eV/Å²):
-#   E_excess = E_interface - N_A × E_bulk_A - N_B × E_bulk_B
-#   γ = E_excess / (N_interfaces × A)
+#   TE_excess = TE_interface - N_substrate × TE_bulk_substrate - N_film × TE_bulk_film
+#   γ = TE_excess / (N_interfaces × area)
 #
 # Single-material workflow:
 #   The job requires one material: the interface (heterostructure).
-#   Bulk materials A (substrate) and B (film) are resolved automatically
-#   from the interface's metadata.build crystal hashes.
+#   Substrate and film bulk materials are resolved automatically from the
+#   interface's metadata.build crystal hashes.
 #
 # Bulk total energies are fetched from pre-computed properties.
 name: Interfacial Energy
@@ -19,7 +19,7 @@ properties:
   - total_force
   - interfacial_energy
 units:
-  - name: shell/prepare_interfacial_energy
+  - name: shell/load_interface_and_resolve_references
     type: subworkflow
 
   - name: shell/fetch_substrate_bulk_total_energy
