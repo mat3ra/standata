@@ -1,6 +1,6 @@
 {
-    "_id": "8bcfd726-4fcd-5b2f-b91e-493c61ee9014",
-    "name": "Get Bulk Energy",
+    "_id": "695611f7-fda7-5436-aee9-5cdf72ddc756",
+    "name": "Fetch Film Total Energy",
     "application": {
         "name": "shell"
     },
@@ -16,7 +16,26 @@
     },
     "units": [
         {
-            "name": "io-bulk-te-job",
+            "name": "assign-bulk-material-ids",
+            "type": "assignment",
+            "operand": "BULK_MATERIAL_IDS",
+            "value": "BULK_B_MATERIAL_IDS",
+            "input": [],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-bulk-material-ids-film",
+            "head": true,
+            "next": "io-bulk-te-job-b",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "io-bulk-te-job-b",
             "type": "io",
             "subtype": "input",
             "results": [],
@@ -26,7 +45,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "io-bulk-te-job",
+            "flowchartId": "io-bulk-te-job-b",
             "source": "api",
             "input": [
                 {
@@ -41,20 +60,20 @@
                     "name": "JOB_DATA"
                 }
             ],
-            "head": true,
-            "next": "assign-bulk-te-job-id",
+            "head": false,
+            "next": "assign-bulk-te-job-id-b",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "assign-bulk-te-job-id",
+            "name": "assign-bulk-te-job-id-b",
             "type": "assignment",
             "operand": "BULK_TE_JOB_ID",
             "value": "JOB_DATA[0]['_id'] if JOB_DATA else None",
             "input": [
                 {
                     "name": "JOB_DATA",
-                    "scope": "io-bulk-te-job"
+                    "scope": "io-bulk-te-job-b"
                 }
             ],
             "results": [],
@@ -64,14 +83,14 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assign-bulk-te-job-id",
+            "flowchartId": "assign-bulk-te-job-id-b",
             "head": false,
-            "next": "io-e-bulk",
+            "next": "io-e-bulk-b",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "io-e-bulk",
+            "name": "io-e-bulk-b",
             "type": "io",
             "subtype": "input",
             "results": [],
@@ -81,7 +100,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "io-e-bulk",
+            "flowchartId": "io-e-bulk-b",
             "source": "api",
             "input": [
                 {
@@ -89,7 +108,7 @@
                     "endpoint": "properties",
                     "endpoint_options": {
                         "params": {
-                            "query": "{'source.info.jobId': BULK_TE_JOB_ID, 'slug': 'total_energy', 'group': {'$regex': 'APP:'}}",
+                            "query": "{'source.info.jobId': BULK_TE_JOB_ID, 'slug': 'total_energy', 'group': {'$regex': 'qe:'}}",
                             "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
                         }
                     },
@@ -97,19 +116,19 @@
                 }
             ],
             "head": false,
-            "next": "assign-e-bulk",
+            "next": "assign-e-bulk-b",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "assign-e-bulk",
+            "name": "assign-e-bulk-b",
             "type": "assignment",
-            "operand": "E_BULK",
+            "operand": "E_BULK_B",
             "value": "DATA[0].data.value if DATA else None",
             "input": [
                 {
                     "name": "DATA",
-                    "scope": "io-e-bulk"
+                    "scope": "io-e-bulk-b"
                 }
             ],
             "results": [],
@@ -119,17 +138,17 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assign-e-bulk",
+            "flowchartId": "assign-e-bulk-b",
             "head": false,
-            "next": "assert-e-bulk",
+            "next": "assert-e-bulk-b",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "assert-e-bulk",
+            "name": "assert-e-bulk-b",
             "type": "assertion",
-            "statement": "E_BULK != None",
-            "errorMessage": "Bulk total energy does not exist for the resolved bulk material. Run a bulk total energy workflow first.",
+            "statement": "E_BULK_B != None",
+            "errorMessage": "Bulk total energy not found for film (B). Run a Total Energy workflow on bulk B first.",
             "results": [],
             "monitors": [],
             "preProcessors": [],
@@ -137,7 +156,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assert-e-bulk",
+            "flowchartId": "assert-e-bulk-b",
             "head": false,
             "schemaVersion": "2022.8.16",
             "isDefault": false

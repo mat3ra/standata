@@ -412,7 +412,7 @@
                     "input": [
                         {
                             "type": "api",
-                            "endpoint": "refined-properties",
+                            "endpoint": "properties",
                             "endpoint_options": {
                                 "params": {
                                     "query": "{\n    \"exabyteId\": {\"$in\": [ELEMENT_MATERIALS[el].exabyteId for el in ELEMENTS]},\n    \"slug\": \"total_energy\",\n}",

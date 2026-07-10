@@ -64,6 +64,15 @@ units:
       input:
         - name: DATA
           scope: io-bulk
+  - type: assignment
+    config:
+      name: assign-bulk-material-ids
+      flowchartId: assign-bulk-material-ids
+      operand: BULK_MATERIAL_IDS
+      value: "[m['_id'] for m in DATA] if DATA else []"
+      input:
+        - name: DATA
+          scope: io-bulk
   - type: assertion
     config:
       name: assert-bulk

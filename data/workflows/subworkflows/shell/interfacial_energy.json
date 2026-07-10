@@ -1,0 +1,83 @@
+{
+    "_id": "8a46b0d0-5831-58eb-80be-76631bc89711",
+    "name": "Compute Interfacial Energy",
+    "application": {
+        "name": "shell"
+    },
+    "properties": [
+        "interfacial_energy"
+    ],
+    "model": {
+        "type": "unknown",
+        "subtype": "unknown",
+        "method": {
+            "type": "unknown",
+            "subtype": "unknown",
+            "data": {}
+        }
+    },
+    "units": [
+        {
+            "name": "assign-interface-area",
+            "type": "assignment",
+            "operand": "A",
+            "value": "np.linalg.norm(np.cross(INTERFACE.lattice.vectors.a, INTERFACE.lattice.vectors.b))",
+            "input": [],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-interface-area",
+            "head": true,
+            "next": "assign-e-excess",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "assign-e-excess",
+            "type": "assignment",
+            "operand": "E_EXCESS",
+            "value": "E_INTERFACE - N_A * E_BULK_A - N_B * E_BULK_B",
+            "input": [],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-e-excess",
+            "head": false,
+            "next": "assign-interfacial-energy",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "assign-interfacial-energy",
+            "type": "assignment",
+            "operand": "INTERFACIAL_ENERGY",
+            "value": "E_EXCESS / (N_INTERFACES * A)",
+            "input": [],
+            "results": [
+                {
+                    "name": "interfacial_energy"
+                }
+            ],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-interfacial-energy",
+            "head": false,
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "isDraft": false
+}

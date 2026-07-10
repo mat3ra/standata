@@ -513,12 +513,21 @@ entities:
   - filename: shell/batch_espresso_pwscf.json
     categories:
       - shell
+  - filename: shell/fetch_film_bulk_total_energy.json
+    categories:
+      - shell
+  - filename: shell/fetch_substrate_bulk_total_energy.json
+    categories:
+      - shell
   - filename: shell/hello_world.json
     categories:
       - shell
   - filename: shell/interfacial_energy.json
     categories:
       - interfacial_energy
+      - shell
+  - filename: shell/prepare_interfacial_energy.json
+    categories:
       - shell
   - filename: shell/utils/assign_elements_from_material.json
     categories:
@@ -539,12 +548,6 @@ entities:
     categories:
       - shell
   - filename: shell/utils/resolve_bulk_from_slab_by_bulk_id.json
-    categories:
-      - shell
-  - filename: shell/utils/resolve_bulks_from_interface.json
-    categories:
-      - shell
-  - filename: shell/utils/resolve_interface_parameters.json
     categories:
       - shell
   - filename: shell/utils/resolve_references_from_interface.json

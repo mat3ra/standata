@@ -1,12 +1,39 @@
+# Load the interface material, resolve substrate/film bulk references from build
+# metadata, and compute supercell stoichiometry (N_A, N_B, N_INTERFACES).
+#
+# In:  MATERIAL_ID
+# Out: INTERFACE, BULK_A, BULK_B, BULK_*_MATERIAL_IDS, N_A, N_B, N_INTERFACES
 application:
   name: shell
 method:
   name: UnknownMethod
 model:
   name: UnknownModel
-name: Resolve Bulks From Interface
+name: Load Interface and Resolve References
 units:
-  # --- Extract Crystal A (substrate) from interface build metadata ---
+  - type: io
+    config:
+      name: io-interface
+      flowchartId: io-interface
+      subtype: input
+      source: api
+      input:
+        - type: api
+          endpoint: materials
+          endpoint_options:
+            params:
+              query: "{'_id': MATERIAL_ID}"
+              projection: "{}"
+          name: DATA
+  - type: assignment
+    config:
+      name: assign-interface
+      flowchartId: assign-interface
+      operand: INTERFACE
+      value: "DATA[0] if len(DATA) == 1 else None"
+      input:
+        - name: DATA
+          scope: io-interface
   - type: assignment
     config:
       name: assign-crystal-a
@@ -47,6 +74,15 @@ units:
       input:
         - name: DATA
           scope: io-bulk-a
+  - type: assignment
+    config:
+      name: assign-bulk-a-material-ids
+      flowchartId: assign-bulk-a-material-ids
+      operand: BULK_A_MATERIAL_IDS
+      value: "[m['_id'] for m in DATA] if DATA else []"
+      input:
+        - name: DATA
+          scope: io-bulk-a
   - type: assertion
     config:
       name: assert-bulk-a
@@ -55,7 +91,6 @@ units:
       errorMessage: >-
         No material matched the substrate crystal hash.
         Upload the bulk material first.
-  # --- Extract Crystal B (film) from interface build metadata ---
   - type: assignment
     config:
       name: assign-crystal-b
@@ -96,6 +131,15 @@ units:
       input:
         - name: DATA
           scope: io-bulk-b
+  - type: assignment
+    config:
+      name: assign-bulk-b-material-ids
+      flowchartId: assign-bulk-b-material-ids
+      operand: BULK_B_MATERIAL_IDS
+      value: "[m['_id'] for m in DATA] if DATA else []"
+      input:
+        - name: DATA
+          scope: io-bulk-b
   - type: assertion
     config:
       name: assert-bulk-b
@@ -104,3 +148,42 @@ units:
       errorMessage: >-
         No material matched the film crystal hash.
         Upload the bulk material first.
+  - type: assignment
+    config:
+      name: assign-bulk-a-natoms
+      flowchartId: assign-bulk-a-natoms
+      operand: BULK_A_NATOMS
+      value: "len(BULK_A.basis.elements)"
+  - type: assignment
+    config:
+      name: assign-bulk-b-natoms
+      flowchartId: assign-bulk-b-natoms
+      operand: BULK_B_NATOMS
+      value: "len(BULK_B.basis.elements)"
+  - type: assignment
+    config:
+      name: assign-n-a
+      flowchartId: assign-n-a
+      operand: N_A
+      value: "len([e for e in INTERFACE.basis.elements if e.value in [x.value for x in BULK_A.basis.elements]]) / BULK_A_NATOMS"
+  - type: assignment
+    config:
+      name: assign-n-b
+      flowchartId: assign-n-b
+      operand: N_B
+      value: "len([e for e in INTERFACE.basis.elements if e.value in [x.value for x in BULK_B.basis.elements] and e.value not in [x.value for x in BULK_A.basis.elements]]) / BULK_B_NATOMS"
+  - type: assignment
+    config:
+      name: assign-vacuum-size
+      flowchartId: assign-vacuum-size
+      operand: VACUUM_SIZE
+      value: >-
+        (((INTERFACE.metadata.get('build') or [{}])[-1].get('configuration')
+        or {}).get('stack_components') or [{}, {}, {}])[2].get('size', 0)
+        if INTERFACE.metadata else 0
+  - type: assignment
+    config:
+      name: assign-n-interfaces
+      flowchartId: assign-n-interfaces
+      operand: N_INTERFACES
+      value: "1 if VACUUM_SIZE != 0 else 2"

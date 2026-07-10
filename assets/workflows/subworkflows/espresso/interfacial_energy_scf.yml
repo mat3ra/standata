@@ -9,7 +9,7 @@ method:
   name: PseudopotentialMethod
 model:
   name: DFTModel
-name: Interface SCF
+name: Run Interface SCF
 units:
   - type: assignment
     config:

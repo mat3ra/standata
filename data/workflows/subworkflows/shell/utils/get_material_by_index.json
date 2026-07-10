@@ -1,6 +1,6 @@
 {
-    "_id": "8bcfd726-4fcd-5b2f-b91e-493c61ee9014",
-    "name": "Get Bulk Energy",
+    "_id": "013d61a6-3ff5-5541-88c0-f1f294f9ecdc",
+    "name": "Get Material By Index",
     "application": {
         "name": "shell"
     },
@@ -16,7 +16,26 @@
     },
     "units": [
         {
-            "name": "io-bulk-te-job",
+            "name": "set-material-index",
+            "type": "assignment",
+            "operand": "MATERIAL_INDEX",
+            "value": "0",
+            "input": [],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "set-material-index",
+            "head": true,
+            "next": "io-job",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "io-job",
             "type": "io",
             "subtype": "input",
             "results": [],
@@ -26,7 +45,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "io-bulk-te-job",
+            "flowchartId": "io-job",
             "source": "api",
             "input": [
                 {
@@ -34,27 +53,27 @@
                     "endpoint": "jobs",
                     "endpoint_options": {
                         "params": {
-                            "query": "{'_material._id': {'$in': BULK_MATERIAL_IDS}, 'status': 'finished', 'workflow.name': {'$regex': 'Total Energy'}}",
-                            "projection": "{'sort': {'updatedAt': -1}, 'limit': 1}"
+                            "query": "{'_id': JOB_ID}",
+                            "projection": "{'_materials': 1}"
                         }
                     },
-                    "name": "JOB_DATA"
+                    "name": "DATA"
                 }
             ],
-            "head": true,
-            "next": "assign-bulk-te-job-id",
+            "head": false,
+            "next": "assign-material-id",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "assign-bulk-te-job-id",
+            "name": "assign-material-id",
             "type": "assignment",
-            "operand": "BULK_TE_JOB_ID",
-            "value": "JOB_DATA[0]['_id'] if JOB_DATA else None",
+            "operand": "MATERIAL_ID_FOR_INDEX",
+            "value": "DATA[0]['_materials'][MATERIAL_INDEX]['_id']",
             "input": [
                 {
-                    "name": "JOB_DATA",
-                    "scope": "io-bulk-te-job"
+                    "name": "DATA",
+                    "scope": "io-job"
                 }
             ],
             "results": [],
@@ -64,14 +83,14 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assign-bulk-te-job-id",
+            "flowchartId": "assign-material-id",
             "head": false,
-            "next": "io-e-bulk",
+            "next": "io-material",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "io-e-bulk",
+            "name": "io-material",
             "type": "io",
             "subtype": "input",
             "results": [],
@@ -81,35 +100,35 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "io-e-bulk",
+            "flowchartId": "io-material",
             "source": "api",
             "input": [
                 {
                     "type": "api",
-                    "endpoint": "properties",
+                    "endpoint": "materials",
                     "endpoint_options": {
                         "params": {
-                            "query": "{'source.info.jobId': BULK_TE_JOB_ID, 'slug': 'total_energy', 'group': {'$regex': 'APP:'}}",
-                            "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
+                            "query": "{'_id': MATERIAL_ID_FOR_INDEX}",
+                            "projection": "{}"
                         }
                     },
                     "name": "DATA"
                 }
             ],
             "head": false,
-            "next": "assign-e-bulk",
+            "next": "assign-material",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "assign-e-bulk",
+            "name": "assign-material",
             "type": "assignment",
-            "operand": "E_BULK",
-            "value": "DATA[0].data.value if DATA else None",
+            "operand": "MATERIAL",
+            "value": "DATA[0] if len(DATA) == 1 else None",
             "input": [
                 {
                     "name": "DATA",
-                    "scope": "io-e-bulk"
+                    "scope": "io-material"
                 }
             ],
             "results": [],
@@ -119,25 +138,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assign-e-bulk",
-            "head": false,
-            "next": "assert-e-bulk",
-            "schemaVersion": "2022.8.16",
-            "isDefault": false
-        },
-        {
-            "name": "assert-e-bulk",
-            "type": "assertion",
-            "statement": "E_BULK != None",
-            "errorMessage": "Bulk total energy does not exist for the resolved bulk material. Run a bulk total energy workflow first.",
-            "results": [],
-            "monitors": [],
-            "preProcessors": [],
-            "postProcessors": [],
-            "status": "idle",
-            "statusTrack": [],
-            "tags": [],
-            "flowchartId": "assert-e-bulk",
+            "flowchartId": "assign-material",
             "head": false,
             "schemaVersion": "2022.8.16",
             "isDefault": false

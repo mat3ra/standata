@@ -1,6 +1,6 @@
 {
-    "_id": "8bcfd726-4fcd-5b2f-b91e-493c61ee9014",
-    "name": "Get Bulk Energy",
+    "_id": "af33cb11-e150-524f-b595-e09c1a68cda3",
+    "name": "Fetch Substrate Total Energy",
     "application": {
         "name": "shell"
     },
@@ -16,7 +16,26 @@
     },
     "units": [
         {
-            "name": "io-bulk-te-job",
+            "name": "assign-bulk-material-ids",
+            "type": "assignment",
+            "operand": "BULK_MATERIAL_IDS",
+            "value": "BULK_A_MATERIAL_IDS",
+            "input": [],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-bulk-material-ids-substrate",
+            "head": true,
+            "next": "io-bulk-te-job-a",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "io-bulk-te-job-a",
             "type": "io",
             "subtype": "input",
             "results": [],
@@ -26,7 +45,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "io-bulk-te-job",
+            "flowchartId": "io-bulk-te-job-a",
             "source": "api",
             "input": [
                 {
@@ -41,20 +60,20 @@
                     "name": "JOB_DATA"
                 }
             ],
-            "head": true,
-            "next": "assign-bulk-te-job-id",
+            "head": false,
+            "next": "assign-bulk-te-job-id-a",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "assign-bulk-te-job-id",
+            "name": "assign-bulk-te-job-id-a",
             "type": "assignment",
             "operand": "BULK_TE_JOB_ID",
             "value": "JOB_DATA[0]['_id'] if JOB_DATA else None",
             "input": [
                 {
                     "name": "JOB_DATA",
-                    "scope": "io-bulk-te-job"
+                    "scope": "io-bulk-te-job-a"
                 }
             ],
             "results": [],
@@ -64,14 +83,14 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assign-bulk-te-job-id",
+            "flowchartId": "assign-bulk-te-job-id-a",
             "head": false,
-            "next": "io-e-bulk",
+            "next": "io-e-bulk-a",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "io-e-bulk",
+            "name": "io-e-bulk-a",
             "type": "io",
             "subtype": "input",
             "results": [],
@@ -81,7 +100,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "io-e-bulk",
+            "flowchartId": "io-e-bulk-a",
             "source": "api",
             "input": [
                 {
@@ -89,7 +108,7 @@
                     "endpoint": "properties",
                     "endpoint_options": {
                         "params": {
-                            "query": "{'source.info.jobId': BULK_TE_JOB_ID, 'slug': 'total_energy', 'group': {'$regex': 'APP:'}}",
+                            "query": "{'source.info.jobId': BULK_TE_JOB_ID, 'slug': 'total_energy', 'group': {'$regex': 'qe:'}}",
                             "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
                         }
                     },
@@ -97,19 +116,19 @@
                 }
             ],
             "head": false,
-            "next": "assign-e-bulk",
+            "next": "assign-e-bulk-a",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "assign-e-bulk",
+            "name": "assign-e-bulk-a",
             "type": "assignment",
-            "operand": "E_BULK",
+            "operand": "E_BULK_A",
             "value": "DATA[0].data.value if DATA else None",
             "input": [
                 {
                     "name": "DATA",
-                    "scope": "io-e-bulk"
+                    "scope": "io-e-bulk-a"
                 }
             ],
             "results": [],
@@ -119,17 +138,17 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assign-e-bulk",
+            "flowchartId": "assign-e-bulk-a",
             "head": false,
-            "next": "assert-e-bulk",
+            "next": "assert-e-bulk-a",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "assert-e-bulk",
+            "name": "assert-e-bulk-a",
             "type": "assertion",
-            "statement": "E_BULK != None",
-            "errorMessage": "Bulk total energy does not exist for the resolved bulk material. Run a bulk total energy workflow first.",
+            "statement": "E_BULK_A != None",
+            "errorMessage": "Bulk total energy not found for substrate (A). Run a Total Energy workflow on bulk A first.",
             "results": [],
             "monitors": [],
             "preProcessors": [],
@@ -137,7 +156,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assert-e-bulk",
+            "flowchartId": "assert-e-bulk-a",
             "head": false,
             "schemaVersion": "2022.8.16",
             "isDefault": false

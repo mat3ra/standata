@@ -1,20 +1,25 @@
-# Fetch precomputed bulk total energy (E_BULK) for a material already in context.
+# Fetch precomputed substrate (bulk A) total energy from a finished Total Energy job.
 #
-# In:  BULK_MATERIAL_IDS — all platform material _ids sharing the bulk hash
-#      (override the jobs query on unit index 0 when using BULK_A_MATERIAL_IDS, etc.)
-# Out: BULK_TE_JOB_ID, E_BULK
+# In:  BULK_A_MATERIAL_IDS
+# Out: E_BULK_A
 application:
   name: shell
 method:
   name: UnknownMethod
 model:
   name: UnknownModel
-name: Get Bulk Energy
+name: Fetch Substrate Total Energy
 units:
+  - type: assignment
+    config:
+      name: assign-bulk-material-ids
+      flowchartId: assign-bulk-material-ids-substrate
+      operand: BULK_MATERIAL_IDS
+      value: "BULK_A_MATERIAL_IDS"
   - type: io
     config:
-      name: io-bulk-te-job
-      flowchartId: io-bulk-te-job
+      name: io-bulk-te-job-a
+      flowchartId: io-bulk-te-job-a
       subtype: input
       source: api
       input:
@@ -29,17 +34,17 @@ units:
           name: JOB_DATA
   - type: assignment
     config:
-      name: assign-bulk-te-job-id
-      flowchartId: assign-bulk-te-job-id
+      name: assign-bulk-te-job-id-a
+      flowchartId: assign-bulk-te-job-id-a
       operand: BULK_TE_JOB_ID
       value: "JOB_DATA[0]['_id'] if JOB_DATA else None"
       input:
         - name: JOB_DATA
-          scope: io-bulk-te-job
+          scope: io-bulk-te-job-a
   - type: io
     config:
-      name: io-e-bulk
-      flowchartId: io-e-bulk
+      name: io-e-bulk-a
+      flowchartId: io-e-bulk-a
       subtype: input
       source: api
       input:
@@ -47,26 +52,25 @@ units:
           endpoint: properties
           endpoint_options:
             params:
-              # `APP` is replaced by the app shortname in the parent workflow yaml
               query: >-
                 {'source.info.jobId': BULK_TE_JOB_ID, 'slug': 'total_energy',
-                'group': {'$regex': 'APP:'}}
+                'group': {'$regex': 'qe:'}}
               projection: "{'sort': {'precision.value': -1}, 'limit': 1}"
           name: DATA
   - type: assignment
     config:
-      name: assign-e-bulk
-      flowchartId: assign-e-bulk
-      operand: E_BULK
+      name: assign-e-bulk-a
+      flowchartId: assign-e-bulk-a
+      operand: E_BULK_A
       value: "DATA[0].data.value if DATA else None"
       input:
         - name: DATA
-          scope: io-e-bulk
+          scope: io-e-bulk-a
   - type: assertion
     config:
-      name: assert-e-bulk
-      flowchartId: assert-e-bulk
-      statement: "E_BULK != None"
+      name: assert-e-bulk-a
+      flowchartId: assert-e-bulk-a
+      statement: "E_BULK_A != None"
       errorMessage: >-
-        Bulk total energy does not exist for the resolved bulk material. Run a
-        bulk total energy workflow first.
+        Bulk total energy not found for substrate (A).
+        Run a Total Energy workflow on bulk A first.

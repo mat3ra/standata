@@ -125,6 +125,30 @@
             "tags": [],
             "flowchartId": "assign-bulk",
             "head": false,
+            "next": "assign-bulk-material-ids",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "assign-bulk-material-ids",
+            "type": "assignment",
+            "operand": "BULK_MATERIAL_IDS",
+            "value": "[m['_id'] for m in DATA] if DATA else []",
+            "input": [
+                {
+                    "name": "DATA",
+                    "scope": "io-bulk"
+                }
+            ],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-bulk-material-ids",
+            "head": false,
             "next": "done",
             "schemaVersion": "2022.8.16",
             "isDefault": false
