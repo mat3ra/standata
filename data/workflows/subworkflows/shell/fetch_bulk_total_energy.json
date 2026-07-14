@@ -1,6 +1,6 @@
 {
-    "_id": "695611f7-fda7-5436-aee9-5cdf72ddc756",
-    "name": "Fetch Film Total Energy",
+    "_id": "7813ac74-cf9e-5a87-829d-94072950347c",
+    "name": "Fetch Bulk Total Energy",
     "application": {
         "name": "shell"
     },
@@ -16,10 +16,10 @@
     },
     "units": [
         {
-            "name": "set-material-index-film",
+            "name": "set-material-index",
             "type": "assignment",
             "operand": "MATERIAL_INDEX",
-            "value": "2",
+            "value": "1",
             "input": [],
             "results": [],
             "monitors": [],
@@ -28,14 +28,14 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "set-material-index-film",
+            "flowchartId": "set-material-index",
             "head": true,
-            "next": "io-job-materials-film",
+            "next": "io-job-materials",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "io-job-materials-film",
+            "name": "io-job-materials",
             "type": "io",
             "subtype": "input",
             "results": [],
@@ -45,7 +45,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "io-job-materials-film",
+            "flowchartId": "io-job-materials",
             "source": "api",
             "input": [
                 {
@@ -61,19 +61,19 @@
                 }
             ],
             "head": false,
-            "next": "assign-bulk-material-id-film",
+            "next": "assign-bulk-material-id",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "assign-bulk-material-id-film",
+            "name": "assign-bulk-material-id",
             "type": "assignment",
             "operand": "BULK_MATERIAL_ID",
             "value": "JOB_MATERIALS_DATA[0]['_materials'][MATERIAL_INDEX]['_id'] if JOB_MATERIALS_DATA else None",
             "input": [
                 {
                     "name": "JOB_MATERIALS_DATA",
-                    "scope": "io-job-materials-film"
+                    "scope": "io-job-materials"
                 }
             ],
             "results": [],
@@ -83,14 +83,14 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assign-bulk-material-id-film",
+            "flowchartId": "assign-bulk-material-id",
             "head": false,
-            "next": "io-bulk-material-film",
+            "next": "io-bulk-material",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "io-bulk-material-film",
+            "name": "io-bulk-material",
             "type": "io",
             "subtype": "input",
             "results": [],
@@ -100,7 +100,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "io-bulk-material-film",
+            "flowchartId": "io-bulk-material",
             "source": "api",
             "input": [
                 {
@@ -116,19 +116,19 @@
                 }
             ],
             "head": false,
-            "next": "assign-bulk-film",
+            "next": "assign-bulk",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "assign-bulk-film",
+            "name": "assign-bulk",
             "type": "assignment",
-            "operand": "BULK_FILM",
+            "operand": "BULK",
             "value": "BULK_MATERIAL_DATA[0] if BULK_MATERIAL_DATA else None",
             "input": [
                 {
                     "name": "BULK_MATERIAL_DATA",
-                    "scope": "io-bulk-material-film"
+                    "scope": "io-bulk-material"
                 }
             ],
             "results": [],
@@ -138,14 +138,14 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assign-bulk-film",
+            "flowchartId": "assign-bulk",
             "head": false,
-            "next": "io-bulk-te-job-film",
+            "next": "io-bulk-te-job",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "io-bulk-te-job-film",
+            "name": "io-bulk-te-job",
             "type": "io",
             "subtype": "input",
             "results": [],
@@ -155,7 +155,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "io-bulk-te-job-film",
+            "flowchartId": "io-bulk-te-job",
             "source": "api",
             "input": [
                 {
@@ -171,19 +171,19 @@
                 }
             ],
             "head": false,
-            "next": "assign-bulk-te-job-id-film",
+            "next": "assign-bulk-te-job-id",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "assign-bulk-te-job-id-film",
+            "name": "assign-bulk-te-job-id",
             "type": "assignment",
             "operand": "BULK_TE_JOB_ID",
             "value": "JOB_DATA[0]['_id'] if JOB_DATA else None",
             "input": [
                 {
                     "name": "JOB_DATA",
-                    "scope": "io-bulk-te-job-film"
+                    "scope": "io-bulk-te-job"
                 }
             ],
             "results": [],
@@ -193,14 +193,14 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assign-bulk-te-job-id-film",
+            "flowchartId": "assign-bulk-te-job-id",
             "head": false,
-            "next": "io-te-bulk-film",
+            "next": "io-te-bulk",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "io-te-bulk-film",
+            "name": "io-te-bulk",
             "type": "io",
             "subtype": "input",
             "results": [],
@@ -210,7 +210,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "io-te-bulk-film",
+            "flowchartId": "io-te-bulk",
             "source": "api",
             "input": [
                 {
@@ -226,19 +226,19 @@
                 }
             ],
             "head": false,
-            "next": "assign-te-bulk-film",
+            "next": "assign-te-bulk",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "assign-te-bulk-film",
+            "name": "assign-te-bulk",
             "type": "assignment",
-            "operand": "TE_BULK_FILM",
+            "operand": "TE_BULK",
             "value": "DATA[0].data.value if DATA else None",
             "input": [
                 {
                     "name": "DATA",
-                    "scope": "io-te-bulk-film"
+                    "scope": "io-te-bulk"
                 }
             ],
             "results": [],
@@ -248,17 +248,17 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assign-te-bulk-film",
+            "flowchartId": "assign-te-bulk",
             "head": false,
-            "next": "assert-te-bulk-film",
+            "next": "assert-te-bulk",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "assert-te-bulk-film",
+            "name": "assert-te-bulk",
             "type": "assertion",
-            "statement": "TE_BULK_FILM != None",
-            "errorMessage": "Bulk total energy not found for the film bulk (material 3 in the submission). Run a Total Energy workflow on the film bulk first.",
+            "statement": "TE_BULK != None",
+            "errorMessage": "Bulk total energy not found for a reference material. Run a Total Energy workflow on each bulk reference before running this workflow.",
             "results": [],
             "monitors": [],
             "preProcessors": [],
@@ -266,7 +266,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assert-te-bulk-film",
+            "flowchartId": "assert-te-bulk",
             "head": false,
             "schemaVersion": "2022.8.16",
             "isDefault": false

@@ -7,16 +7,16 @@
 #   [1] Substrate   the substrate bulk crystal
 #   [2] Film        the film bulk crystal
 #
-# Only the interface (material 0) is computed here: pw_scf runs on it to get
-# TE_interface. The two bulk crystals are NOT recomputed — their total energies
-# are fetched from previously-finished Total Energy jobs, so each bulk must be
-# converged/relaxed and already have a finished Total Energy job on the platform.
-# This lets the user control bulk convergence (k-grid, relaxation, vdW, ...)
-# separately and reuse a bulk energy across many interfaces.
+# Only the interface (material 0) is computed here: pw_scf runs on it inside the
+# "Compute Interfacial Energy" subworkflow. The two bulk crystals are NOT
+# recomputed — their total energies are fetched from previously-finished Total
+# Energy jobs, so each bulk must already be converged/relaxed and have such a job
+# on the platform. This lets the user control bulk convergence separately and
+# reuse a bulk energy across many interfaces.
 #
-# N_substrate and N_film (formula-unit multiplicities) are derived from the
-# structures. N_interfaces is the one manual knob (1 if the slab has vacuum,
-# else 2); it defaults to 1 in the "interfacial_energy" subworkflow below.
+# The bulk references are resolved with the reusable "Fetch Bulk Total Energy"
+# subworkflow (one instance per reference). N_substrate and N_film are derived
+# from the structures; N_interfaces is the one manual knob (default 1).
 name: Interfacial Energy
 config:
   attributes:
@@ -31,12 +31,8 @@ properties:
   - total_force
   - interfacial_energy
 units:
-  # Interface (material 0): run pw_scf → TE_INTERFACE
-  - name: interfacial_energy_scf
-    type: subworkflow
-
   # Load the interface material document (material 0) → INTERFACE, for its
-  # lattice vectors (used to compute the in-plane area).
+  # basis (stoichiometry) and lattice (area).
   - name: shell/utils/get_material_by_index
     type: subworkflow
     config:
@@ -49,16 +45,96 @@ units:
           attributes:
             operand: INTERFACE
 
-  # Substrate bulk (material 1): fetch pre-computed TE → TE_BULK_SUBSTRATE
-  - name: shell/fetch_substrate_bulk_total_energy
+  # Substrate bulk (material 1) → BULK_SUBSTRATE, TE_BULK_SUBSTRATE
+  - name: shell/fetch_bulk_total_energy
     type: subworkflow
+    config:
+      attributes:
+        name: Fetch Substrate Total Energy
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            value: "1"
+      - index: 4
+        type: assignment
+        config:
+          attributes:
+            operand: BULK_SUBSTRATE
+      - index: 8
+        type: assignment
+        config:
+          attributes:
+            operand: TE_BULK_SUBSTRATE
 
-  # Film bulk (material 2): fetch pre-computed TE → TE_BULK_FILM
-  - name: shell/fetch_film_bulk_total_energy
+  # Film bulk (material 2) → BULK_FILM, TE_BULK_FILM.
+  # This is a second instance of the same subworkflow, so its io units get a
+  # "-film" flowchartId suffix (scopes are resolved globally by flowchartId).
+  - name: shell/fetch_bulk_total_energy
     type: subworkflow
+    config:
+      attributes:
+        name: Fetch Film Total Energy
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            value: "2"
+      - index: 1
+        type: io
+        config:
+          attributes:
+            flowchartId: io-job-materials-film
+      - index: 2
+        type: assignment
+        config:
+          attributes:
+            input:
+              - name: JOB_MATERIALS_DATA
+                scope: io-job-materials-film
+      - index: 3
+        type: io
+        config:
+          attributes:
+            flowchartId: io-bulk-material-film
+      - index: 4
+        type: assignment
+        config:
+          attributes:
+            operand: BULK_FILM
+            input:
+              - name: BULK_MATERIAL_DATA
+                scope: io-bulk-material-film
+      - index: 5
+        type: io
+        config:
+          attributes:
+            flowchartId: io-bulk-te-job-film
+      - index: 6
+        type: assignment
+        config:
+          attributes:
+            input:
+              - name: JOB_DATA
+                scope: io-bulk-te-job-film
+      - index: 7
+        type: io
+        config:
+          attributes:
+            flowchartId: io-te-bulk-film
+      - index: 8
+        type: assignment
+        config:
+          attributes:
+            operand: TE_BULK_FILM
+            input:
+              - name: DATA
+                scope: io-te-bulk-film
 
-  # Compute γ. N_SUBSTRATE and N_FILM are derived from the structures; the only
-  # manual knob is N_INTERFACES (default 1). Override it here if the interface
-  # has no vacuum (periodic stack → 2).
-  - name: shell/interfacial_energy
+  # pw_scf on the interface → TE_INTERFACE, then N (from structures) and γ.
+  # N_INTERFACES defaults to 1; override index 3 here if the interface has no
+  # vacuum (periodic stack → 2).
+  - name: interfacial_energy
     type: subworkflow

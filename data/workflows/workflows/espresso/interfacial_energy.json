@@ -1,225 +1,7 @@
 {
-    "_id": "d9923c62-bb97-59c6-95de-45ce2c7998e0",
+    "_id": "f72e952a-b535-5728-8b77-9e87de816698",
     "name": "Interfacial Energy",
     "subworkflows": [
-        {
-            "_id": "143fb8c2-e512-5692-bf2a-44c1e7c3faca",
-            "name": "Run Interface SCF",
-            "application": {
-                "build": "GNU",
-                "hasAdvancedComputeOptions": true,
-                "isDefault": true,
-                "isDefaultVersion": true,
-                "isUsingMaterial": true,
-                "name": "espresso",
-                "shortName": "qe",
-                "summary": "Quantum ESPRESSO",
-                "version": "6.3",
-                "schemaVersion": "2022.8.16"
-            },
-            "properties": [
-                "atomic_forces",
-                "fermi_energy",
-                "pressure",
-                "stress_tensor",
-                "total_energy",
-                "total_energy_contributions",
-                "total_force"
-            ],
-            "model": {
-                "type": "dft",
-                "subtype": "gga",
-                "method": {
-                    "type": "pseudopotential",
-                    "subtype": "us",
-                    "data": {}
-                },
-                "functional": "pbe"
-            },
-            "units": [
-                {
-                    "name": "set-material-index",
-                    "type": "assignment",
-                    "operand": "MATERIAL_INDEX",
-                    "value": "0",
-                    "input": [],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "set-material-index",
-                    "head": true,
-                    "next": "pw-scf-interface",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "type": "execution",
-                    "name": "pw_scf",
-                    "head": false,
-                    "results": [
-                        {
-                            "name": "atomic_forces"
-                        },
-                        {
-                            "name": "fermi_energy"
-                        },
-                        {
-                            "name": "pressure"
-                        },
-                        {
-                            "name": "stress_tensor"
-                        },
-                        {
-                            "name": "total_energy"
-                        },
-                        {
-                            "name": "total_energy_contributions"
-                        },
-                        {
-                            "name": "total_force"
-                        }
-                    ],
-                    "monitors": [
-                        {
-                            "name": "standard_output"
-                        },
-                        {
-                            "name": "convergence_electronic"
-                        }
-                    ],
-                    "flowchartId": "pw-scf-interface",
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "application": {
-                        "build": "GNU",
-                        "hasAdvancedComputeOptions": true,
-                        "isDefault": true,
-                        "isDefaultVersion": true,
-                        "isUsingMaterial": true,
-                        "name": "espresso",
-                        "shortName": "qe",
-                        "summary": "Quantum ESPRESSO",
-                        "version": "6.3",
-                        "schemaVersion": "2022.8.16"
-                    },
-                    "executable": {
-                        "applicationName": "espresso",
-                        "applicationVersion": "*",
-                        "hasAdvancedComputeOptions": true,
-                        "isDefault": true,
-                        "name": "pw.x",
-                        "schemaVersion": "2022.8.16"
-                    },
-                    "flavor": {
-                        "applicationName": "espresso",
-                        "applicationVersion": "*",
-                        "executableName": "pw.x",
-                        "input": [
-                            {
-                                "name": "pw_scf.in"
-                            }
-                        ],
-                        "isDefault": true,
-                        "monitors": [
-                            {
-                                "name": "standard_output"
-                            },
-                            {
-                                "name": "convergence_electronic"
-                            }
-                        ],
-                        "name": "pw_scf",
-                        "postProcessors": [],
-                        "preProcessors": [],
-                        "results": [
-                            {
-                                "name": "atomic_forces"
-                            },
-                            {
-                                "name": "fermi_energy"
-                            },
-                            {
-                                "name": "pressure"
-                            },
-                            {
-                                "name": "stress_tensor"
-                            },
-                            {
-                                "name": "total_energy"
-                            },
-                            {
-                                "name": "total_energy_contributions"
-                            },
-                            {
-                                "name": "total_force"
-                            }
-                        ],
-                        "schemaVersion": "2022.8.16"
-                    },
-                    "input": [
-                        {
-                            "template": {
-                                "applicationName": "espresso",
-                                "applicationVersion": "*",
-                                "content": "{% if subworkflowContext.MATERIAL_INDEX %}\n{%- set input = input.perMaterial[subworkflowContext.MATERIAL_INDEX] -%}\n{% endif -%}\n&CONTROL\n    calculation = 'scf'\n    title = ''\n    verbosity = 'low'\n    restart_mode = '{{ input.RESTART_MODE }}'\n    wf_collect = .true.\n    tstress = .true.\n    tprnfor = .true.\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    wfcdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    prefix = '__prefix__'\n    pseudo_dir = {% raw %}'{{ JOB_WORK_DIR }}/pseudo'{% endraw %}\n/\n&SYSTEM\n    ibrav = {{ input.IBRAV }}\n    nat = {{ input.NAT }}\n    ntyp = {{ input.NTYP }}\n    ecutwfc = {{ cutoffs.wavefunction }}\n    ecutrho = {{ cutoffs.density }}\n    occupations = 'smearing'\n    degauss = 0.005\n/\n&ELECTRONS\n    diagonalization = 'david'\n    diago_david_ndim = 4\n    diago_full_acc = .true.\n    mixing_beta = 0.3\n    startingwfc = 'atomic+random'\n/\n&IONS\n/\n&CELL\n/\nATOMIC_SPECIES\n{% for specie in input.ATOMIC_SPECIES -%}\n{{ specie.X }} {{ specie.Mass_X|sprintf(\"%f\") }} {{ specie.PseudoPot_X }}\n{% endfor %}\nATOMIC_POSITIONS crystal\n{%- set print_constraints = false %}\n{%- for position in input.ATOMIC_POSITIONS %}\n    {%- if position[\"if_pos(1)\"] != 1 or position[\"if_pos(2)\"] != 1 or position[\"if_pos(3)\"] != 1 %}\n        {%- set print_constraints = true %}\n    {%- endif %}\n{%- endfor %}\n{% for position in input.ATOMIC_POSITIONS -%}\n{{ position.X|sprintf(\"%-3s\") }} {{ position.x|sprintf(\"%14.9f\") }} {{ position.y|sprintf(\"%14.9f\") }} {{ position.z|sprintf(\"%14.9f\") }}{% if print_constraints %} {{ position[\"if_pos(1)\"] }} {{ position[\"if_pos(2)\"] }} {{ position[\"if_pos(3)\"] }}{% endif %}\n{% endfor %}\nCELL_PARAMETERS angstrom\n{{ input.CELL_PARAMETERS.v1[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v2[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v3[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[2]|sprintf(\"%14.9f\") }}\nK_POINTS automatic\n{% for d in kgrid.dimensions %}{{d}} {% endfor %}{% for s in kgrid.shifts %}{{s}} {% endfor %}\n",
-                                "contextProviders": [
-                                    {
-                                        "name": "KGridFormDataManager"
-                                    },
-                                    {
-                                        "name": "QEPWXInputDataManager"
-                                    },
-                                    {
-                                        "name": "PlanewaveCutoffDataManager"
-                                    }
-                                ],
-                                "executableName": "pw.x",
-                                "name": "pw_scf.in",
-                                "schemaVersion": "2022.8.16"
-                            },
-                            "rendered": "",
-                            "isManuallyChanged": false
-                        }
-                    ],
-                    "context": [],
-                    "next": "assign-te-interface",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assign-te-interface",
-                    "type": "assignment",
-                    "operand": "TE_INTERFACE",
-                    "value": "total_energy",
-                    "input": [
-                        {
-                            "name": "total_energy",
-                            "scope": "pw-scf-interface"
-                        }
-                    ],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-te-interface",
-                    "head": false,
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                }
-            ],
-            "schemaVersion": "2022.8.16",
-            "isDraft": false
-        },
         {
             "_id": "f8d9e99a-c760-5b21-89b5-6d24056a11ca",
             "name": "Load Interface Material",
@@ -405,7 +187,7 @@
             },
             "units": [
                 {
-                    "name": "set-material-index-substrate",
+                    "name": "set-material-index",
                     "type": "assignment",
                     "operand": "MATERIAL_INDEX",
                     "value": "1",
@@ -417,14 +199,14 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "set-material-index-substrate",
+                    "flowchartId": "set-material-index",
                     "head": true,
-                    "next": "io-job-materials-substrate",
+                    "next": "io-job-materials",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "io-job-materials-substrate",
+                    "name": "io-job-materials",
                     "type": "io",
                     "subtype": "input",
                     "results": [],
@@ -434,7 +216,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "io-job-materials-substrate",
+                    "flowchartId": "io-job-materials",
                     "source": "api",
                     "input": [
                         {
@@ -450,19 +232,19 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-bulk-material-id-substrate",
+                    "next": "assign-bulk-material-id",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-bulk-material-id-substrate",
+                    "name": "assign-bulk-material-id",
                     "type": "assignment",
                     "operand": "BULK_MATERIAL_ID",
                     "value": "JOB_MATERIALS_DATA[0]['_materials'][MATERIAL_INDEX]['_id'] if JOB_MATERIALS_DATA else None",
                     "input": [
                         {
                             "name": "JOB_MATERIALS_DATA",
-                            "scope": "io-job-materials-substrate"
+                            "scope": "io-job-materials"
                         }
                     ],
                     "results": [],
@@ -472,14 +254,14 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk-material-id-substrate",
+                    "flowchartId": "assign-bulk-material-id",
                     "head": false,
-                    "next": "io-bulk-material-substrate",
+                    "next": "io-bulk-material",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "io-bulk-material-substrate",
+                    "name": "io-bulk-material",
                     "type": "io",
                     "subtype": "input",
                     "results": [],
@@ -489,7 +271,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "io-bulk-material-substrate",
+                    "flowchartId": "io-bulk-material",
                     "source": "api",
                     "input": [
                         {
@@ -505,19 +287,19 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-bulk-substrate",
+                    "next": "assign-bulk",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-bulk-substrate",
+                    "name": "assign-bulk",
                     "type": "assignment",
                     "operand": "BULK_SUBSTRATE",
                     "value": "BULK_MATERIAL_DATA[0] if BULK_MATERIAL_DATA else None",
                     "input": [
                         {
                             "name": "BULK_MATERIAL_DATA",
-                            "scope": "io-bulk-material-substrate"
+                            "scope": "io-bulk-material"
                         }
                     ],
                     "results": [],
@@ -527,14 +309,14 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk-substrate",
+                    "flowchartId": "assign-bulk",
                     "head": false,
-                    "next": "io-bulk-te-job-substrate",
+                    "next": "io-bulk-te-job",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "io-bulk-te-job-substrate",
+                    "name": "io-bulk-te-job",
                     "type": "io",
                     "subtype": "input",
                     "results": [],
@@ -544,7 +326,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "io-bulk-te-job-substrate",
+                    "flowchartId": "io-bulk-te-job",
                     "source": "api",
                     "input": [
                         {
@@ -560,19 +342,19 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-bulk-te-job-id-substrate",
+                    "next": "assign-bulk-te-job-id",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-bulk-te-job-id-substrate",
+                    "name": "assign-bulk-te-job-id",
                     "type": "assignment",
                     "operand": "BULK_TE_JOB_ID",
                     "value": "JOB_DATA[0]['_id'] if JOB_DATA else None",
                     "input": [
                         {
                             "name": "JOB_DATA",
-                            "scope": "io-bulk-te-job-substrate"
+                            "scope": "io-bulk-te-job"
                         }
                     ],
                     "results": [],
@@ -582,14 +364,14 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk-te-job-id-substrate",
+                    "flowchartId": "assign-bulk-te-job-id",
                     "head": false,
-                    "next": "io-te-bulk-substrate",
+                    "next": "io-te-bulk",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "io-te-bulk-substrate",
+                    "name": "io-te-bulk",
                     "type": "io",
                     "subtype": "input",
                     "results": [],
@@ -599,7 +381,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "io-te-bulk-substrate",
+                    "flowchartId": "io-te-bulk",
                     "source": "api",
                     "input": [
                         {
@@ -615,19 +397,19 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-te-bulk-substrate",
+                    "next": "assign-te-bulk",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-te-bulk-substrate",
+                    "name": "assign-te-bulk",
                     "type": "assignment",
                     "operand": "TE_BULK_SUBSTRATE",
                     "value": "DATA[0].data.value if DATA else None",
                     "input": [
                         {
                             "name": "DATA",
-                            "scope": "io-te-bulk-substrate"
+                            "scope": "io-te-bulk"
                         }
                     ],
                     "results": [],
@@ -637,17 +419,17 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-te-bulk-substrate",
+                    "flowchartId": "assign-te-bulk",
                     "head": false,
-                    "next": "assert-te-bulk-substrate",
+                    "next": "assert-te-bulk",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assert-te-bulk-substrate",
+                    "name": "assert-te-bulk",
                     "type": "assertion",
-                    "statement": "TE_BULK_SUBSTRATE != None",
-                    "errorMessage": "Bulk total energy not found for the substrate bulk (material 2 in the submission). Run a Total Energy workflow on the substrate bulk first.",
+                    "statement": "TE_BULK != None",
+                    "errorMessage": "Bulk total energy not found for a reference material. Run a Total Energy workflow on each bulk reference before running this workflow.",
                     "results": [],
                     "monitors": [],
                     "preProcessors": [],
@@ -655,7 +437,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assert-te-bulk-substrate",
+                    "flowchartId": "assert-te-bulk",
                     "head": false,
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -691,7 +473,7 @@
             },
             "units": [
                 {
-                    "name": "set-material-index-film",
+                    "name": "set-material-index",
                     "type": "assignment",
                     "operand": "MATERIAL_INDEX",
                     "value": "2",
@@ -703,14 +485,14 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "set-material-index-film",
+                    "flowchartId": "set-material-index",
                     "head": true,
                     "next": "io-job-materials-film",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "io-job-materials-film",
+                    "name": "io-job-materials",
                     "type": "io",
                     "subtype": "input",
                     "results": [],
@@ -736,12 +518,12 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-bulk-material-id-film",
+                    "next": "assign-bulk-material-id",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-bulk-material-id-film",
+                    "name": "assign-bulk-material-id",
                     "type": "assignment",
                     "operand": "BULK_MATERIAL_ID",
                     "value": "JOB_MATERIALS_DATA[0]['_materials'][MATERIAL_INDEX]['_id'] if JOB_MATERIALS_DATA else None",
@@ -758,14 +540,14 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk-material-id-film",
+                    "flowchartId": "assign-bulk-material-id",
                     "head": false,
                     "next": "io-bulk-material-film",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "io-bulk-material-film",
+                    "name": "io-bulk-material",
                     "type": "io",
                     "subtype": "input",
                     "results": [],
@@ -791,12 +573,12 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-bulk-film",
+                    "next": "assign-bulk",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-bulk-film",
+                    "name": "assign-bulk",
                     "type": "assignment",
                     "operand": "BULK_FILM",
                     "value": "BULK_MATERIAL_DATA[0] if BULK_MATERIAL_DATA else None",
@@ -813,14 +595,14 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk-film",
+                    "flowchartId": "assign-bulk",
                     "head": false,
                     "next": "io-bulk-te-job-film",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "io-bulk-te-job-film",
+                    "name": "io-bulk-te-job",
                     "type": "io",
                     "subtype": "input",
                     "results": [],
@@ -846,12 +628,12 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-bulk-te-job-id-film",
+                    "next": "assign-bulk-te-job-id",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-bulk-te-job-id-film",
+                    "name": "assign-bulk-te-job-id",
                     "type": "assignment",
                     "operand": "BULK_TE_JOB_ID",
                     "value": "JOB_DATA[0]['_id'] if JOB_DATA else None",
@@ -868,14 +650,14 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk-te-job-id-film",
+                    "flowchartId": "assign-bulk-te-job-id",
                     "head": false,
                     "next": "io-te-bulk-film",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "io-te-bulk-film",
+                    "name": "io-te-bulk",
                     "type": "io",
                     "subtype": "input",
                     "results": [],
@@ -901,12 +683,12 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-te-bulk-film",
+                    "next": "assign-te-bulk",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-te-bulk-film",
+                    "name": "assign-te-bulk",
                     "type": "assignment",
                     "operand": "TE_BULK_FILM",
                     "value": "DATA[0].data.value if DATA else None",
@@ -923,17 +705,17 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-te-bulk-film",
+                    "flowchartId": "assign-te-bulk",
                     "head": false,
-                    "next": "assert-te-bulk-film",
+                    "next": "assert-te-bulk",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assert-te-bulk-film",
+                    "name": "assert-te-bulk",
                     "type": "assertion",
-                    "statement": "TE_BULK_FILM != None",
-                    "errorMessage": "Bulk total energy not found for the film bulk (material 3 in the submission). Run a Total Energy workflow on the film bulk first.",
+                    "statement": "TE_BULK != None",
+                    "errorMessage": "Bulk total energy not found for a reference material. Run a Total Energy workflow on each bulk reference before running this workflow.",
                     "results": [],
                     "monitors": [],
                     "preProcessors": [],
@@ -941,7 +723,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assert-te-bulk-film",
+                    "flowchartId": "assert-te-bulk",
                     "head": false,
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -951,33 +733,221 @@
             "isDraft": false
         },
         {
-            "_id": "8a46b0d0-5831-58eb-80be-76631bc89711",
+            "_id": "a85bf2a4-76c0-5d27-a389-40cce62be473",
             "name": "Compute Interfacial Energy",
             "application": {
                 "build": "GNU",
-                "hasAdvancedComputeOptions": false,
+                "hasAdvancedComputeOptions": true,
                 "isDefault": true,
                 "isDefaultVersion": true,
-                "isUsingMaterial": false,
-                "name": "shell",
-                "shortName": "sh",
-                "summary": "Shell Script",
-                "version": "5.1.8",
+                "isUsingMaterial": true,
+                "name": "espresso",
+                "shortName": "qe",
+                "summary": "Quantum ESPRESSO",
+                "version": "6.3",
                 "schemaVersion": "2022.8.16"
             },
             "properties": [
-                "interfacial_energy"
+                "atomic_forces",
+                "fermi_energy",
+                "interfacial_energy",
+                "pressure",
+                "stress_tensor",
+                "total_energy",
+                "total_energy_contributions",
+                "total_force"
             ],
             "model": {
-                "type": "unknown",
-                "subtype": "unknown",
+                "type": "dft",
+                "subtype": "gga",
                 "method": {
-                    "type": "unknown",
-                    "subtype": "unknown",
+                    "type": "pseudopotential",
+                    "subtype": "us",
                     "data": {}
-                }
+                },
+                "functional": "pbe"
             },
             "units": [
+                {
+                    "name": "set-material-index",
+                    "type": "assignment",
+                    "operand": "MATERIAL_INDEX",
+                    "value": "0",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "set-material-index",
+                    "head": true,
+                    "next": "pw-scf-interfacial-energy",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "pw_scf",
+                    "head": false,
+                    "results": [
+                        {
+                            "name": "atomic_forces"
+                        },
+                        {
+                            "name": "fermi_energy"
+                        },
+                        {
+                            "name": "pressure"
+                        },
+                        {
+                            "name": "stress_tensor"
+                        },
+                        {
+                            "name": "total_energy"
+                        },
+                        {
+                            "name": "total_energy_contributions"
+                        },
+                        {
+                            "name": "total_force"
+                        }
+                    ],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        },
+                        {
+                            "name": "convergence_electronic"
+                        }
+                    ],
+                    "flowchartId": "pw-scf-interfacial-energy",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "name": "pw.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "pw.x",
+                        "input": [
+                            {
+                                "name": "pw_scf.in"
+                            }
+                        ],
+                        "isDefault": true,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            },
+                            {
+                                "name": "convergence_electronic"
+                            }
+                        ],
+                        "name": "pw_scf",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [
+                            {
+                                "name": "atomic_forces"
+                            },
+                            {
+                                "name": "fermi_energy"
+                            },
+                            {
+                                "name": "pressure"
+                            },
+                            {
+                                "name": "stress_tensor"
+                            },
+                            {
+                                "name": "total_energy"
+                            },
+                            {
+                                "name": "total_energy_contributions"
+                            },
+                            {
+                                "name": "total_force"
+                            }
+                        ],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "{% if subworkflowContext.MATERIAL_INDEX %}\n{%- set input = input.perMaterial[subworkflowContext.MATERIAL_INDEX] -%}\n{% endif -%}\n&CONTROL\n    calculation = 'scf'\n    title = ''\n    verbosity = 'low'\n    restart_mode = '{{ input.RESTART_MODE }}'\n    wf_collect = .true.\n    tstress = .true.\n    tprnfor = .true.\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    wfcdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    prefix = '__prefix__'\n    pseudo_dir = {% raw %}'{{ JOB_WORK_DIR }}/pseudo'{% endraw %}\n/\n&SYSTEM\n    ibrav = {{ input.IBRAV }}\n    nat = {{ input.NAT }}\n    ntyp = {{ input.NTYP }}\n    ecutwfc = {{ cutoffs.wavefunction }}\n    ecutrho = {{ cutoffs.density }}\n    occupations = 'smearing'\n    degauss = 0.005\n/\n&ELECTRONS\n    diagonalization = 'david'\n    diago_david_ndim = 4\n    diago_full_acc = .true.\n    mixing_beta = 0.3\n    startingwfc = 'atomic+random'\n/\n&IONS\n/\n&CELL\n/\nATOMIC_SPECIES\n{% for specie in input.ATOMIC_SPECIES -%}\n{{ specie.X }} {{ specie.Mass_X|sprintf(\"%f\") }} {{ specie.PseudoPot_X }}\n{% endfor %}\nATOMIC_POSITIONS crystal\n{%- set print_constraints = false %}\n{%- for position in input.ATOMIC_POSITIONS %}\n    {%- if position[\"if_pos(1)\"] != 1 or position[\"if_pos(2)\"] != 1 or position[\"if_pos(3)\"] != 1 %}\n        {%- set print_constraints = true %}\n    {%- endif %}\n{%- endfor %}\n{% for position in input.ATOMIC_POSITIONS -%}\n{{ position.X|sprintf(\"%-3s\") }} {{ position.x|sprintf(\"%14.9f\") }} {{ position.y|sprintf(\"%14.9f\") }} {{ position.z|sprintf(\"%14.9f\") }}{% if print_constraints %} {{ position[\"if_pos(1)\"] }} {{ position[\"if_pos(2)\"] }} {{ position[\"if_pos(3)\"] }}{% endif %}\n{% endfor %}\nCELL_PARAMETERS angstrom\n{{ input.CELL_PARAMETERS.v1[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v2[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v3[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[2]|sprintf(\"%14.9f\") }}\nK_POINTS automatic\n{% for d in kgrid.dimensions %}{{d}} {% endfor %}{% for s in kgrid.shifts %}{{s}} {% endfor %}\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "KGridFormDataManager"
+                                    },
+                                    {
+                                        "name": "QEPWXInputDataManager"
+                                    },
+                                    {
+                                        "name": "PlanewaveCutoffDataManager"
+                                    }
+                                ],
+                                "executableName": "pw.x",
+                                "name": "pw_scf.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "assign-te-interface",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-te-interface",
+                    "type": "assignment",
+                    "operand": "TE_INTERFACE",
+                    "value": "total_energy",
+                    "input": [
+                        {
+                            "name": "total_energy",
+                            "scope": "pw-scf-interfacial-energy"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-te-interface",
+                    "head": false,
+                    "next": "set-n-interfaces",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
                 {
                     "name": "set-n-interfaces",
                     "type": "assignment",
@@ -992,7 +962,7 @@
                     "statusTrack": [],
                     "tags": [],
                     "flowchartId": "set-n-interfaces",
-                    "head": true,
+                    "head": false,
                     "next": "assign-bulk-substrate-natoms",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -1141,21 +1111,6 @@
     "units": [
         {
             "type": "subworkflow",
-            "name": "Run Interface SCF",
-            "results": [],
-            "monitors": [],
-            "preProcessors": [],
-            "postProcessors": [],
-            "status": "idle",
-            "statusTrack": [],
-            "tags": [],
-            "_id": "143fb8c2-e512-5692-bf2a-44c1e7c3faca",
-            "flowchartId": "335d3672-e605-59da-a620-7992737952f6",
-            "schemaVersion": "2022.8.16",
-            "isDefault": false
-        },
-        {
-            "type": "subworkflow",
             "name": "Load Interface Material",
             "results": [],
             "monitors": [],
@@ -1209,7 +1164,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "_id": "8a46b0d0-5831-58eb-80be-76631bc89711",
+            "_id": "a85bf2a4-76c0-5d27-a389-40cce62be473",
             "flowchartId": "4f113c3f-92e5-5ccd-ae7e-8a0c8ca44b5d",
             "schemaVersion": "2022.8.16",
             "isDefault": false
@@ -1218,12 +1173,12 @@
     "properties": [
         "atomic_forces",
         "fermi_energy",
+        "interfacial_energy",
         "pressure",
         "stress_tensor",
         "total_energy",
         "total_energy_contributions",
-        "total_force",
-        "interfacial_energy"
+        "total_force"
     ],
     "workflows": [],
     "isMultiMaterial": true,

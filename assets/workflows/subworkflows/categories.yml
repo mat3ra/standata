@@ -292,11 +292,12 @@ entities:
       - total_energy
       - total_energy_contributions
       - total_force
-  - filename: espresso/interfacial_energy_scf.json
+  - filename: espresso/interfacial_energy.json
     categories:
       - atomic_forces
       - espresso
       - fermi_energy
+      - interfacial_energy
       - pressure
       - stress_tensor
       - total_energy
@@ -513,18 +514,11 @@ entities:
   - filename: shell/batch_espresso_pwscf.json
     categories:
       - shell
-  - filename: shell/fetch_film_bulk_total_energy.json
-    categories:
-      - shell
-  - filename: shell/fetch_substrate_bulk_total_energy.json
+  - filename: shell/fetch_bulk_total_energy.json
     categories:
       - shell
   - filename: shell/hello_world.json
     categories:
-      - shell
-  - filename: shell/interfacial_energy.json
-    categories:
-      - interfacial_energy
       - shell
   - filename: shell/utils/assign_elements_from_material.json
     categories:

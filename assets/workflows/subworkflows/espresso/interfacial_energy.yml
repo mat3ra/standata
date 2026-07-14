@@ -1,4 +1,5 @@
-# Computes interfacial energy γ from pre-computed total energies.
+# Computes the interface total energy (pw_scf on the interface, material 0) and
+# the interfacial energy γ from it and the pre-computed bulk reference energies.
 #
 #   TE_excess = TE_interface - N_substrate × TE_bulk_substrate - N_film × TE_bulk_film
 #   γ         = TE_excess / (N_interfaces × area)
@@ -8,20 +9,47 @@
 # interface elements against each provided bulk basis — no metadata, no notebook.
 #
 # N_INTERFACES is the one manual knob: 1 if the interface slab has vacuum (one
-# physical interface), 2 for a periodic stack with no vacuum. It defaults to 1
-# and can be overridden per job.
+# physical interface), 2 for a periodic stack with no vacuum. Defaults to 1.
 #
-# In:  TE_INTERFACE, TE_BULK_SUBSTRATE, TE_BULK_FILM   total energies (eV)
-#      INTERFACE, BULK_SUBSTRATE, BULK_FILM            material documents
-# Out: interfacial_energy (property, eV/Å²)
+# In:  INTERFACE, BULK_SUBSTRATE, BULK_FILM   material documents
+#      TE_BULK_SUBSTRATE, TE_BULK_FILM        bulk reference total energies (eV)
+# Out: total_energy (property)                interface total energy from pw.x
+#      interfacial_energy (property, eV/Å²)
 application:
-  name: shell
+  name: espresso
+  version: "6.3"
 method:
-  name: UnknownMethod
+  name: PseudopotentialMethod
 model:
-  name: UnknownModel
+  name: DFTModel
 name: Compute Interfacial Energy
 units:
+  - type: assignment
+    config:
+      name: set-material-index
+      description: |
+        Compute the total energy of the interface, which is material 0 in this
+        multi-material job ([0] interface, [1] substrate, [2] film).
+      flowchartId: set-material-index
+      operand: MATERIAL_INDEX
+      value: "0"
+  - config:
+      execName: pw.x
+      flavorName: pw_scf
+      flowchartId: pw-scf-interfacial-energy
+      name: pw_scf
+    type: executionBuilder
+  - type: assignment
+    config:
+      name: assign-te-interface
+      description: |
+        Total energy of the interface (eV), captured from the pw.x SCF run.
+      flowchartId: assign-te-interface
+      operand: TE_INTERFACE
+      value: total_energy
+      input:
+        - name: total_energy
+          scope: pw-scf-interfacial-energy
   - type: assignment
     config:
       name: set-n-interfaces
