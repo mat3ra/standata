@@ -33,12 +33,24 @@ properties:
 units:
   # Load the interface material document (material 0) → INTERFACE, for its
   # basis (stoichiometry) and lattice (area).
+  #
+  # NOTE ON flowchartIds: the platform's execution engine tracks unit progress
+  # by flowchartId across the WHOLE job, not scoped per-subworkflow instance.
+  # get_material_by_index.yml and fetch_bulk_total_energy.yml both name their
+  # first unit "set-material-index" by convention; every instance below gives
+  # it a unique flowchartId so each MATERIAL_INDEX assignment actually runs
+  # instead of being silently skipped as an already-completed step.
   - name: shell/utils/get_material_by_index
     type: subworkflow
     config:
       attributes:
         name: Load Interface Material
     unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            flowchartId: set-material-index-interface
       - index: 4
         type: assignment
         config:
@@ -56,6 +68,7 @@ units:
         type: assignment
         config:
           attributes:
+            flowchartId: set-material-index-substrate
             value: "1"
       - index: 4
         type: assignment
@@ -67,10 +80,17 @@ units:
         config:
           attributes:
             operand: TE_BULK_SUBSTRATE
+      - index: 9
+        type: assertion
+        config:
+          attributes:
+            statement: "TE_BULK_SUBSTRATE != None"
 
   # Film bulk (material 2) → BULK_FILM, TE_BULK_FILM.
-  # This is a second instance of the same subworkflow, so its io units get a
-  # "-film" flowchartId suffix (scopes are resolved globally by flowchartId).
+  # This is a second instance of the same subworkflow, so EVERY unit (not just
+  # the io units) gets a "-film" flowchartId suffix — the execution engine
+  # tracks progress by flowchartId across the whole job, so any unit sharing an
+  # id with the substrate instance would be silently skipped as already-done.
   - name: shell/fetch_bulk_total_energy
     type: subworkflow
     config:
@@ -81,6 +101,7 @@ units:
         type: assignment
         config:
           attributes:
+            flowchartId: set-material-index-film
             value: "2"
       - index: 1
         type: io
@@ -91,6 +112,7 @@ units:
         type: assignment
         config:
           attributes:
+            flowchartId: assign-bulk-material-id-film
             input:
               - name: JOB_MATERIALS_DATA
                 scope: io-job-materials-film
@@ -103,6 +125,7 @@ units:
         type: assignment
         config:
           attributes:
+            flowchartId: assign-bulk-film
             operand: BULK_FILM
             input:
               - name: BULK_MATERIAL_DATA
@@ -116,6 +139,7 @@ units:
         type: assignment
         config:
           attributes:
+            flowchartId: assign-bulk-te-job-id-film
             input:
               - name: JOB_DATA
                 scope: io-bulk-te-job-film
@@ -128,10 +152,17 @@ units:
         type: assignment
         config:
           attributes:
+            flowchartId: assign-te-bulk-film
             operand: TE_BULK_FILM
             input:
               - name: DATA
                 scope: io-te-bulk-film
+      - index: 9
+        type: assertion
+        config:
+          attributes:
+            flowchartId: assert-te-bulk-film
+            statement: "TE_BULK_FILM != None"
 
   # pw_scf on the interface → TE_INTERFACE, then N (from structures) and γ.
   # N_INTERFACES defaults to 1; override index 3 here if the interface has no

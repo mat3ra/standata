@@ -376,12 +376,12 @@
                     "tags": [],
                     "flowchartId": "assert-bulk-query",
                     "head": false,
-                    "next": "io-bulk",
+                    "next": "io-bulk-by-build",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "io-bulk",
+                    "name": "io-bulk-by-build",
                     "type": "io",
                     "subtype": "input",
                     "results": [],
@@ -391,7 +391,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "io-bulk",
+                    "flowchartId": "io-bulk-by-build",
                     "source": "api",
                     "input": [
                         {
@@ -407,19 +407,19 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-bulk",
+                    "next": "assign-bulk-by-build",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-bulk",
+                    "name": "assign-bulk-by-build",
                     "type": "assignment",
                     "operand": "BULK",
                     "value": "DATA[0] if DATA else None",
                     "input": [
                         {
                             "name": "DATA",
-                            "scope": "io-bulk"
+                            "scope": "io-bulk-by-build"
                         }
                     ],
                     "results": [],
@@ -429,21 +429,21 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk",
+                    "flowchartId": "assign-bulk-by-build",
                     "head": false,
-                    "next": "assign-bulk-material-ids",
+                    "next": "assign-bulk-material-ids-by-build",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-bulk-material-ids",
+                    "name": "assign-bulk-material-ids-by-build",
                     "type": "assignment",
                     "operand": "BULK_MATERIAL_IDS",
                     "value": "[m['_id'] for m in DATA] if DATA else []",
                     "input": [
                         {
                             "name": "DATA",
-                            "scope": "io-bulk"
+                            "scope": "io-bulk-by-build"
                         }
                     ],
                     "results": [],
@@ -453,7 +453,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk-material-ids",
+                    "flowchartId": "assign-bulk-material-ids-by-build",
                     "head": false,
                     "next": "assert-bulk",
                     "schemaVersion": "2022.8.16",
@@ -473,12 +473,12 @@
                     "tags": [],
                     "flowchartId": "assert-bulk",
                     "head": false,
-                    "next": "done",
+                    "next": "done-by-build",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "done",
+                    "name": "done-by-build",
                     "type": "assignment",
                     "operand": "BULK",
                     "value": "BULK",
@@ -495,7 +495,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "done",
+                    "flowchartId": "done-by-build",
                     "head": false,
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -604,7 +604,7 @@
                             "endpoint": "properties",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'source.info.jobId': BULK_TE_JOB_ID, 'slug': 'total_energy', 'group': {'$regex': 'APP:'}}",
+                                    "query": "{'source.info.jobId': BULK_TE_JOB_ID, 'slug': 'total_energy'}",
                                     "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
                                 }
                             },

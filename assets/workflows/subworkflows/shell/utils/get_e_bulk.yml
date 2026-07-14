@@ -46,10 +46,8 @@ units:
           endpoint: properties
           endpoint_options:
             params:
-              # `APP` is replaced by the app shortname in the parent workflow yaml
               query: >-
-                {'source.info.jobId': BULK_TE_JOB_ID, 'slug': 'total_energy',
-                'group': {'$regex': 'APP:'}}
+                {'source.info.jobId': BULK_TE_JOB_ID, 'slug': 'total_energy'}
               projection: "{'sort': {'precision.value': -1}, 'limit': 1}"
           name: DATA
   - type: assignment

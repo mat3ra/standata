@@ -41,7 +41,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "set-material-index",
+                    "flowchartId": "set-material-index-interface",
                     "head": true,
                     "next": "io-job",
                     "schemaVersion": "2022.8.16",
@@ -199,7 +199,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "set-material-index",
+                    "flowchartId": "set-material-index-substrate",
                     "head": true,
                     "next": "io-job-materials",
                     "schemaVersion": "2022.8.16",
@@ -428,7 +428,7 @@
                 {
                     "name": "assert-te-bulk",
                     "type": "assertion",
-                    "statement": "TE_BULK != None",
+                    "statement": "TE_BULK_SUBSTRATE != None",
                     "errorMessage": "Bulk total energy not found for a reference material. Run a Total Energy workflow on each bulk reference before running this workflow.",
                     "results": [],
                     "monitors": [],
@@ -485,7 +485,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "set-material-index",
+                    "flowchartId": "set-material-index-film",
                     "head": true,
                     "next": "io-job-materials-film",
                     "schemaVersion": "2022.8.16",
@@ -518,7 +518,7 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-bulk-material-id",
+                    "next": "assign-bulk-material-id-film",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
@@ -540,7 +540,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk-material-id",
+                    "flowchartId": "assign-bulk-material-id-film",
                     "head": false,
                     "next": "io-bulk-material-film",
                     "schemaVersion": "2022.8.16",
@@ -573,7 +573,7 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-bulk",
+                    "next": "assign-bulk-film",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
@@ -595,7 +595,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk",
+                    "flowchartId": "assign-bulk-film",
                     "head": false,
                     "next": "io-bulk-te-job-film",
                     "schemaVersion": "2022.8.16",
@@ -628,7 +628,7 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-bulk-te-job-id",
+                    "next": "assign-bulk-te-job-id-film",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
@@ -650,7 +650,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk-te-job-id",
+                    "flowchartId": "assign-bulk-te-job-id-film",
                     "head": false,
                     "next": "io-te-bulk-film",
                     "schemaVersion": "2022.8.16",
@@ -683,7 +683,7 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-te-bulk",
+                    "next": "assign-te-bulk-film",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
@@ -705,16 +705,16 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-te-bulk",
+                    "flowchartId": "assign-te-bulk-film",
                     "head": false,
-                    "next": "assert-te-bulk",
+                    "next": "assert-te-bulk-film",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
                     "name": "assert-te-bulk",
                     "type": "assertion",
-                    "statement": "TE_BULK != None",
+                    "statement": "TE_BULK_FILM != None",
                     "errorMessage": "Bulk total energy not found for a reference material. Run a Total Energy workflow on each bulk reference before running this workflow.",
                     "results": [],
                     "monitors": [],
@@ -723,7 +723,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assert-te-bulk",
+                    "flowchartId": "assert-te-bulk-film",
                     "head": false,
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
