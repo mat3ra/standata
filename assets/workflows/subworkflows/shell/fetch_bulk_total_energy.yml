@@ -1,13 +1,6 @@
-# Fetch a bulk reference material and its pre-computed total energy for a
-# multi-material job, by the material's position in the job.
-#
-# Reusable across the substrate/film references of Interfacial Energy (and any
-# future multi-material workflow that needs a bulk reference energy): instantiate
-# it once per reference and override MATERIAL_INDEX plus the output operands
-# (BULK, TE_BULK) via unitConfigs. The bulk is NOT recomputed here — its total
-# energy is looked up from a previously-finished Total Energy job, so each bulk
-# reference must already be converged and have such a job on the platform.
-#
+# Fetches a bulk reference material (by MATERIAL_INDEX) and its total energy
+# from a previously-finished Total Energy job -- does not recompute it.
+
 # In:  MATERIAL_INDEX  position of the bulk in the job's material list
 #      JOB_ID          current job id, from the default eval context
 # Out: BULK            bulk reference material document (for stoichiometry)

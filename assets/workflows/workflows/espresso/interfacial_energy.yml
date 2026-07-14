@@ -7,16 +7,8 @@
 #   [1] Substrate   the substrate bulk crystal
 #   [2] Film        the film bulk crystal
 #
-# Only the interface (material 0) is computed here: pw_scf runs on it inside the
-# "Compute Interfacial Energy" subworkflow. The two bulk crystals are NOT
-# recomputed — their total energies are fetched from previously-finished Total
-# Energy jobs, so each bulk must already be converged/relaxed and have such a job
-# on the platform. This lets the user control bulk convergence separately and
-# reuse a bulk energy across many interfaces.
-#
-# The bulk references are resolved with the reusable "Fetch Bulk Total Energy"
-# subworkflow (one instance per reference). N_substrate and N_film are derived
-# from the structures; N_interfaces is the one manual knob (default 1).
+# Only the interface is computed (pw_scf); bulk energies are fetched from
+# each bulk's own previously-finished Total Energy job.
 name: Interfacial Energy
 config:
   attributes:
@@ -31,15 +23,6 @@ properties:
   - total_force
   - interfacial_energy
 units:
-  # Load the interface material document (material 0) → INTERFACE, for its
-  # basis (stoichiometry) and lattice (area).
-  #
-  # NOTE ON flowchartIds: the platform's execution engine tracks unit progress
-  # by flowchartId across the WHOLE job, not scoped per-subworkflow instance.
-  # get_material_by_index.yml and fetch_bulk_total_energy.yml both name their
-  # first unit "set-material-index" by convention; every instance below gives
-  # it a unique flowchartId so each MATERIAL_INDEX assignment actually runs
-  # instead of being silently skipped as an already-completed step.
   - name: shell/utils/get_material_by_index
     type: subworkflow
     config:
@@ -56,8 +39,6 @@ units:
         config:
           attributes:
             operand: INTERFACE
-
-  # Substrate bulk (material 1) → BULK_SUBSTRATE, TE_BULK_SUBSTRATE
   - name: shell/fetch_bulk_total_energy
     type: subworkflow
     config:
@@ -86,11 +67,6 @@ units:
           attributes:
             statement: "TE_BULK_SUBSTRATE != None"
 
-  # Film bulk (material 2) → BULK_FILM, TE_BULK_FILM.
-  # This is a second instance of the same subworkflow, so EVERY unit (not just
-  # the io units) gets a "-film" flowchartId suffix — the execution engine
-  # tracks progress by flowchartId across the whole job, so any unit sharing an
-  # id with the substrate instance would be silently skipped as already-done.
   - name: shell/fetch_bulk_total_energy
     type: subworkflow
     config:
@@ -163,9 +139,5 @@ units:
           attributes:
             flowchartId: assert-te-bulk-film
             statement: "TE_BULK_FILM != None"
-
-  # pw_scf on the interface → TE_INTERFACE, then N (from structures) and γ.
-  # N_INTERFACES defaults to 1; override index 3 here if the interface has no
-  # vacuum (periodic stack → 2).
   - name: interfacial_energy
     type: subworkflow

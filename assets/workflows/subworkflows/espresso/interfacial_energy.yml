@@ -1,20 +1,4 @@
-# Computes the interface total energy (pw_scf on the interface, material 0) and
-# the interfacial energy γ from it and the pre-computed bulk reference energies.
-#
-#   TE_excess = TE_interface - N_substrate × TE_bulk_substrate - N_film × TE_bulk_film
-#   γ         = TE_excess / (N_interfaces × area)
-#
-# N_SUBSTRATE and N_FILM (how many substrate / film bulk formula units the
-# interface supercell contains) are derived from the structures by matching the
-# interface elements against each provided bulk basis — no metadata, no notebook.
-#
-# N_INTERFACES is the one manual knob: 1 if the interface slab has vacuum (one
-# physical interface), 2 for a periodic stack with no vacuum. Defaults to 1.
-#
-# In:  INTERFACE, BULK_SUBSTRATE, BULK_FILM   material documents
-#      TE_BULK_SUBSTRATE, TE_BULK_FILM        bulk reference total energies (eV)
-# Out: total_energy (property)                interface total energy from pw.x
-#      interfacial_energy (property, eV/Å²)
+# γ = (TE_interface - N_substrate·TE_bulk_substrate - N_film·TE_bulk_film) / (N_interfaces · area)
 application:
   name: espresso
   version: "6.3"
