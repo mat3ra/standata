@@ -1,0 +1,85 @@
+# Loads a material by its position in a multi-material job and assigns the
+# material document to a configurable operand (defaults to MATERIAL).
+#
+# Multi-material jobs carry an ordered `_materials` list on the job document.
+# This subworkflow reads that list via JOB_ID (available in the default eval
+# context), picks the entry at MATERIAL_INDEX, then fetches the full material
+# document by its _id. Reuse it by overriding MATERIAL_INDEX (via unitConfigs)
+# to point at the material you need, and the final operand to name the result.
+#
+# In:  MATERIAL_INDEX  position in the job's material list (default 0)
+#      JOB_ID          current job id, from the default eval context
+# Out: MATERIAL        the resolved material document (operand configurable)
+application:
+  name: shell
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: Get Material By Index
+units:
+  - type: assignment
+    config:
+      name: set-material-index
+      description: |
+        Which material to load, by position in the multi-material job's
+        `_materials` list. Default 0; override via unitConfigs when reusing.
+      flowchartId: set-material-index
+      operand: MATERIAL_INDEX
+      value: "0"
+  - type: io
+    config:
+      name: io-job
+      description: |
+        Read the current job document to get its ordered material list. Only
+        `_materials` is projected — that is all we need to resolve the _id.
+      flowchartId: io-job
+      subtype: input
+      source: api
+      input:
+        - type: api
+          endpoint: jobs
+          endpoint_options:
+            params:
+              query: "{'_id': JOB_ID}"
+              projection: "{'_materials': 1}"
+          name: DATA
+  - type: assignment
+    config:
+      name: assign-material-id
+      description: |
+        The _id of the material at MATERIAL_INDEX, used to fetch the full doc.
+      flowchartId: assign-material-id
+      operand: MATERIAL_ID_FOR_INDEX
+      value: "DATA[0]['_materials'][MATERIAL_INDEX]['_id']"
+      input:
+        - name: DATA
+          scope: io-job
+  - type: io
+    config:
+      name: io-material
+      description: |
+        Fetch the full material document for the resolved _id.
+      flowchartId: io-material
+      subtype: input
+      source: api
+      input:
+        - type: api
+          endpoint: materials
+          endpoint_options:
+            params:
+              query: "{'_id': MATERIAL_ID_FOR_INDEX}"
+              projection: "{}"
+          name: DATA
+  - type: assignment
+    config:
+      name: assign-material
+      description: |
+        Assign the material document to MATERIAL (override this operand via
+        unitConfigs to name the result, e.g. INTERFACE). None if not found.
+      flowchartId: assign-material
+      operand: MATERIAL
+      value: "DATA[0] if len(DATA) == 1 else None"
+      input:
+        - name: DATA
+          scope: io-material

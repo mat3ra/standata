@@ -16,10 +16,10 @@
     },
     "units": [
         {
-            "name": "assign-bulk-material-ids",
+            "name": "set-material-index-film",
             "type": "assignment",
-            "operand": "BULK_MATERIAL_IDS",
-            "value": "BULK_FILM_MATERIAL_IDS",
+            "operand": "MATERIAL_INDEX",
+            "value": "2",
             "input": [],
             "results": [],
             "monitors": [],
@@ -28,8 +28,118 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assign-bulk-material-ids-film",
+            "flowchartId": "set-material-index-film",
             "head": true,
+            "next": "io-job-materials-film",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "io-job-materials-film",
+            "type": "io",
+            "subtype": "input",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "io-job-materials-film",
+            "source": "api",
+            "input": [
+                {
+                    "type": "api",
+                    "endpoint": "jobs",
+                    "endpoint_options": {
+                        "params": {
+                            "query": "{'_id': JOB_ID}",
+                            "projection": "{'_materials': 1}"
+                        }
+                    },
+                    "name": "JOB_MATERIALS_DATA"
+                }
+            ],
+            "head": false,
+            "next": "assign-bulk-material-id-film",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "assign-bulk-material-id-film",
+            "type": "assignment",
+            "operand": "BULK_MATERIAL_ID",
+            "value": "JOB_MATERIALS_DATA[0]['_materials'][MATERIAL_INDEX]['_id'] if JOB_MATERIALS_DATA else None",
+            "input": [
+                {
+                    "name": "JOB_MATERIALS_DATA",
+                    "scope": "io-job-materials-film"
+                }
+            ],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-bulk-material-id-film",
+            "head": false,
+            "next": "io-bulk-material-film",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "io-bulk-material-film",
+            "type": "io",
+            "subtype": "input",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "io-bulk-material-film",
+            "source": "api",
+            "input": [
+                {
+                    "type": "api",
+                    "endpoint": "materials",
+                    "endpoint_options": {
+                        "params": {
+                            "query": "{'_id': BULK_MATERIAL_ID}",
+                            "projection": "{}"
+                        }
+                    },
+                    "name": "BULK_MATERIAL_DATA"
+                }
+            ],
+            "head": false,
+            "next": "assign-bulk-film",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "assign-bulk-film",
+            "type": "assignment",
+            "operand": "BULK_FILM",
+            "value": "BULK_MATERIAL_DATA[0] if BULK_MATERIAL_DATA else None",
+            "input": [
+                {
+                    "name": "BULK_MATERIAL_DATA",
+                    "scope": "io-bulk-material-film"
+                }
+            ],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-bulk-film",
+            "head": false,
             "next": "io-bulk-te-job-film",
             "schemaVersion": "2022.8.16",
             "isDefault": false
@@ -53,7 +163,7 @@
                     "endpoint": "jobs",
                     "endpoint_options": {
                         "params": {
-                            "query": "{'_material._id': {'$in': BULK_MATERIAL_IDS}, 'status': 'finished', 'workflow.name': {'$regex': 'Total Energy'}}",
+                            "query": "{'_material._id': BULK_MATERIAL_ID, 'status': 'finished', 'workflow.name': {'$regex': 'Total Energy'}}",
                             "projection": "{'sort': {'updatedAt': -1}, 'limit': 1}"
                         }
                     },
@@ -148,7 +258,7 @@
             "name": "assert-te-bulk-film",
             "type": "assertion",
             "statement": "TE_BULK_FILM != None",
-            "errorMessage": "Bulk total energy not found for film. Run a Total Energy workflow on the film bulk first.",
+            "errorMessage": "Bulk total energy not found for the film bulk (material 3 in the submission). Run a Total Energy workflow on the film bulk first.",
             "results": [],
             "monitors": [],
             "preProcessors": [],

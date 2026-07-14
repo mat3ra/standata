@@ -1,9 +1,18 @@
-# Computes interfacial energy γ from pre-computed values.
+# Computes interfacial energy γ from pre-computed total energies.
 #
-# In:  TE_INTERFACE, TE_BULK_SUBSTRATE, TE_BULK_FILM (total energies in eV)
-#      N_SUBSTRATE, N_FILM (formula unit counts)
-#      N_INTERFACES (1 or 2)
-#      INTERFACE (material document, for lattice vectors)
+#   TE_excess = TE_interface - N_substrate × TE_bulk_substrate - N_film × TE_bulk_film
+#   γ         = TE_excess / (N_interfaces × area)
+#
+# N_SUBSTRATE and N_FILM (how many substrate / film bulk formula units the
+# interface supercell contains) are derived from the structures by matching the
+# interface elements against each provided bulk basis — no metadata, no notebook.
+#
+# N_INTERFACES is the one manual knob: 1 if the interface slab has vacuum (one
+# physical interface), 2 for a periodic stack with no vacuum. It defaults to 1
+# and can be overridden per job.
+#
+# In:  TE_INTERFACE, TE_BULK_SUBSTRATE, TE_BULK_FILM   total energies (eV)
+#      INTERFACE, BULK_SUBSTRATE, BULK_FILM            material documents
 # Out: interfacial_energy (property, eV/Å²)
 application:
   name: shell
@@ -15,19 +24,77 @@ name: Compute Interfacial Energy
 units:
   - type: assignment
     config:
+      name: set-n-interfaces
+      description: |
+        Number of interfaces in the supercell: 1 if the slab has vacuum,
+        2 for a periodic stack with no vacuum. Manual knob; default 1.
+      flowchartId: set-n-interfaces
+      operand: N_INTERFACES
+      value: "1"
+  - type: assignment
+    config:
+      name: assign-bulk-substrate-natoms
+      description: |
+        Atoms per substrate bulk formula unit, the denominator for N_SUBSTRATE.
+      flowchartId: assign-bulk-substrate-natoms
+      operand: BULK_SUBSTRATE_NATOMS
+      value: "len(BULK_SUBSTRATE.basis.elements)"
+  - type: assignment
+    config:
+      name: assign-bulk-film-natoms
+      description: |
+        Atoms per film bulk formula unit, the denominator for N_FILM.
+      flowchartId: assign-bulk-film-natoms
+      operand: BULK_FILM_NATOMS
+      value: "len(BULK_FILM.basis.elements)"
+  - type: assignment
+    config:
+      name: assign-n-substrate
+      description: |
+        Substrate formula units in the interface: count interface atoms whose
+        element appears in the substrate bulk, divided by atoms per substrate
+        formula unit.
+      flowchartId: assign-n-substrate
+      operand: N_SUBSTRATE
+      value: >-
+        len([e for e in INTERFACE.basis.elements if e.value in [x.value for x in
+        BULK_SUBSTRATE.basis.elements]]) / BULK_SUBSTRATE_NATOMS
+  - type: assignment
+    config:
+      name: assign-n-film
+      description: |
+        Film formula units in the interface: count interface atoms whose element
+        appears in the film bulk but not the substrate bulk (so shared elements
+        are attributed to the substrate), divided by atoms per film formula unit.
+      flowchartId: assign-n-film
+      operand: N_FILM
+      value: >-
+        len([e for e in INTERFACE.basis.elements if e.value in [x.value for x in
+        BULK_FILM.basis.elements] and e.value not in [x.value for x in
+        BULK_SUBSTRATE.basis.elements]]) / BULK_FILM_NATOMS
+  - type: assignment
+    config:
       name: assign-interface-area
+      description: |
+        In-plane area of the interface, |a × b| from the interface lattice
+        vectors (Å²). Denominator of the γ normalization.
       flowchartId: assign-interface-area
       operand: INTERFACE_AREA
       value: "np.linalg.norm(np.cross(INTERFACE.lattice.vectors.a, INTERFACE.lattice.vectors.b))"
   - type: assignment
     config:
       name: assign-te-excess
+      description: |
+        Excess energy of the interface over the reference bulks:
+        TE_interface - N_substrate·TE_bulk_substrate - N_film·TE_bulk_film.
       flowchartId: assign-te-excess
       operand: TE_EXCESS
       value: "TE_INTERFACE - N_SUBSTRATE * TE_BULK_SUBSTRATE - N_FILM * TE_BULK_FILM"
   - type: assignment
     config:
       name: assign-interfacial-energy
+      description: |
+        Interfacial energy γ = TE_excess / (N_interfaces × area), in eV/Å².
       flowchartId: assign-interfacial-energy
       operand: INTERFACIAL_ENERGY
       value: "TE_EXCESS / (N_INTERFACES * INTERFACE_AREA)"

@@ -16,10 +16,10 @@
     },
     "units": [
         {
-            "name": "assign-bulk-material-ids",
+            "name": "set-material-index-substrate",
             "type": "assignment",
-            "operand": "BULK_MATERIAL_IDS",
-            "value": "BULK_SUBSTRATE_MATERIAL_IDS",
+            "operand": "MATERIAL_INDEX",
+            "value": "1",
             "input": [],
             "results": [],
             "monitors": [],
@@ -28,8 +28,118 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assign-bulk-material-ids-substrate",
+            "flowchartId": "set-material-index-substrate",
             "head": true,
+            "next": "io-job-materials-substrate",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "io-job-materials-substrate",
+            "type": "io",
+            "subtype": "input",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "io-job-materials-substrate",
+            "source": "api",
+            "input": [
+                {
+                    "type": "api",
+                    "endpoint": "jobs",
+                    "endpoint_options": {
+                        "params": {
+                            "query": "{'_id': JOB_ID}",
+                            "projection": "{'_materials': 1}"
+                        }
+                    },
+                    "name": "JOB_MATERIALS_DATA"
+                }
+            ],
+            "head": false,
+            "next": "assign-bulk-material-id-substrate",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "assign-bulk-material-id-substrate",
+            "type": "assignment",
+            "operand": "BULK_MATERIAL_ID",
+            "value": "JOB_MATERIALS_DATA[0]['_materials'][MATERIAL_INDEX]['_id'] if JOB_MATERIALS_DATA else None",
+            "input": [
+                {
+                    "name": "JOB_MATERIALS_DATA",
+                    "scope": "io-job-materials-substrate"
+                }
+            ],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-bulk-material-id-substrate",
+            "head": false,
+            "next": "io-bulk-material-substrate",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "io-bulk-material-substrate",
+            "type": "io",
+            "subtype": "input",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "io-bulk-material-substrate",
+            "source": "api",
+            "input": [
+                {
+                    "type": "api",
+                    "endpoint": "materials",
+                    "endpoint_options": {
+                        "params": {
+                            "query": "{'_id': BULK_MATERIAL_ID}",
+                            "projection": "{}"
+                        }
+                    },
+                    "name": "BULK_MATERIAL_DATA"
+                }
+            ],
+            "head": false,
+            "next": "assign-bulk-substrate",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "assign-bulk-substrate",
+            "type": "assignment",
+            "operand": "BULK_SUBSTRATE",
+            "value": "BULK_MATERIAL_DATA[0] if BULK_MATERIAL_DATA else None",
+            "input": [
+                {
+                    "name": "BULK_MATERIAL_DATA",
+                    "scope": "io-bulk-material-substrate"
+                }
+            ],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-bulk-substrate",
+            "head": false,
             "next": "io-bulk-te-job-substrate",
             "schemaVersion": "2022.8.16",
             "isDefault": false
@@ -53,7 +163,7 @@
                     "endpoint": "jobs",
                     "endpoint_options": {
                         "params": {
-                            "query": "{'_material._id': {'$in': BULK_MATERIAL_IDS}, 'status': 'finished', 'workflow.name': {'$regex': 'Total Energy'}}",
+                            "query": "{'_material._id': BULK_MATERIAL_ID, 'status': 'finished', 'workflow.name': {'$regex': 'Total Energy'}}",
                             "projection": "{'sort': {'updatedAt': -1}, 'limit': 1}"
                         }
                     },
@@ -148,7 +258,7 @@
             "name": "assert-te-bulk-substrate",
             "type": "assertion",
             "statement": "TE_BULK_SUBSTRATE != None",
-            "errorMessage": "Bulk total energy not found for substrate. Run a Total Energy workflow on the substrate bulk first.",
+            "errorMessage": "Bulk total energy not found for the substrate bulk (material 2 in the submission). Run a Total Energy workflow on the substrate bulk first.",
             "results": [],
             "monitors": [],
             "preProcessors": [],

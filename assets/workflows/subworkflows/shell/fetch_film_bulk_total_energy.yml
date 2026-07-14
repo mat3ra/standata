@@ -1,7 +1,15 @@
-# Fetch precomputed film bulk total energy from a finished Total Energy job.
+# Fetch the film bulk total energy for the interfacial-energy calculation.
 #
-# In:  BULK_FILM_MATERIAL_IDS
-# Out: TE_BULK_FILM
+# In the multi-material Interfacial Energy job the film bulk crystal is
+# submitted as material index 2 ([0] interface, [1] substrate, [2] film). This
+# subworkflow does NOT recompute the bulk: it reads the film's material _id from
+# the job's material list and looks up the total energy from a previously
+# finished Total Energy job. The film bulk must therefore already be
+# converged/relaxed and have a finished Total Energy job on the platform.
+#
+# In:  JOB_ID   current job id, from the default eval context
+# Out: BULK_FILM      film bulk material document (for stoichiometry)
+#      TE_BULK_FILM   film bulk total energy (eV)
 application:
   name: shell
 method:
@@ -12,13 +20,75 @@ name: Fetch Film Total Energy
 units:
   - type: assignment
     config:
-      name: assign-bulk-material-ids
-      flowchartId: assign-bulk-material-ids-film
-      operand: BULK_MATERIAL_IDS
-      value: "BULK_FILM_MATERIAL_IDS"
+      name: set-material-index-film
+      description: |
+        The film bulk is material index 2 in this multi-material job
+        ([0] interface, [1] substrate, [2] film).
+      flowchartId: set-material-index-film
+      operand: MATERIAL_INDEX
+      value: "2"
+  - type: io
+    config:
+      name: io-job-materials-film
+      description: |
+        Read the job's ordered material list so we can resolve the film bulk
+        _id by index (the bulk itself is not recomputed here).
+      flowchartId: io-job-materials-film
+      subtype: input
+      source: api
+      input:
+        - type: api
+          endpoint: jobs
+          endpoint_options:
+            params:
+              query: "{'_id': JOB_ID}"
+              projection: "{'_materials': 1}"
+          name: JOB_MATERIALS_DATA
+  - type: assignment
+    config:
+      name: assign-bulk-material-id-film
+      description: |
+        The film bulk material _id, used to find its Total Energy job.
+      flowchartId: assign-bulk-material-id-film
+      operand: BULK_MATERIAL_ID
+      value: "JOB_MATERIALS_DATA[0]['_materials'][MATERIAL_INDEX]['_id'] if JOB_MATERIALS_DATA else None"
+      input:
+        - name: JOB_MATERIALS_DATA
+          scope: io-job-materials-film
+  - type: io
+    config:
+      name: io-bulk-material-film
+      description: |
+        Load the full film bulk material document. Its basis is used later to
+        count how many film formula units the interface contains.
+      flowchartId: io-bulk-material-film
+      subtype: input
+      source: api
+      input:
+        - type: api
+          endpoint: materials
+          endpoint_options:
+            params:
+              query: "{'_id': BULK_MATERIAL_ID}"
+              projection: "{}"
+          name: BULK_MATERIAL_DATA
+  - type: assignment
+    config:
+      name: assign-bulk-film
+      description: |
+        The film bulk material document, exposed for the γ calculation's
+        stoichiometry (N_FILM) computation.
+      flowchartId: assign-bulk-film
+      operand: BULK_FILM
+      value: "BULK_MATERIAL_DATA[0] if BULK_MATERIAL_DATA else None"
+      input:
+        - name: BULK_MATERIAL_DATA
+          scope: io-bulk-material-film
   - type: io
     config:
       name: io-bulk-te-job-film
+      description: |
+        Most recent finished Total Energy job run on the film bulk.
       flowchartId: io-bulk-te-job-film
       subtype: input
       source: api
@@ -28,13 +98,15 @@ units:
           endpoint_options:
             params:
               query: >-
-                {'_material._id': {'$in': BULK_MATERIAL_IDS}, 'status': 'finished',
+                {'_material._id': BULK_MATERIAL_ID, 'status': 'finished',
                 'workflow.name': {'$regex': 'Total Energy'}}
               projection: "{'sort': {'updatedAt': -1}, 'limit': 1}"
           name: JOB_DATA
   - type: assignment
     config:
       name: assign-bulk-te-job-id-film
+      description: |
+        The _id of that Total Energy job, used to fetch its total_energy property.
       flowchartId: assign-bulk-te-job-id-film
       operand: BULK_TE_JOB_ID
       value: "JOB_DATA[0]['_id'] if JOB_DATA else None"
@@ -44,6 +116,9 @@ units:
   - type: io
     config:
       name: io-te-bulk-film
+      description: |
+        Highest-precision total_energy produced by that job. The 'qe:' group
+        restricts the match to Quantum ESPRESSO results.
       flowchartId: io-te-bulk-film
       subtype: input
       source: api
@@ -60,6 +135,8 @@ units:
   - type: assignment
     config:
       name: assign-te-bulk-film
+      description: |
+        The film bulk total energy (eV), consumed by the γ calculation.
       flowchartId: assign-te-bulk-film
       operand: TE_BULK_FILM
       value: "DATA[0].data.value if DATA else None"
@@ -72,5 +149,5 @@ units:
       flowchartId: assert-te-bulk-film
       statement: "TE_BULK_FILM != None"
       errorMessage: >-
-        Bulk total energy not found for film.
-        Run a Total Energy workflow on the film bulk first.
+        Bulk total energy not found for the film bulk (material 3 in the
+        submission). Run a Total Energy workflow on the film bulk first.

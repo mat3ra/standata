@@ -1,14 +1,26 @@
 # Interfacial energy γ (eV/Å²):
 #   TE_excess = TE_interface - N_substrate × TE_bulk_substrate - N_film × TE_bulk_film
-#   γ = TE_excess / (N_interfaces × area)
+#   γ         = TE_excess / (N_interfaces × area)
 #
-# Single-material workflow:
-#   The job requires one material: the interface (heterostructure).
-#   Substrate and film bulk materials are resolved automatically from the
-#   interface's metadata.build crystal hashes.
+# Multi-material workflow — submit three materials, in this order:
+#   [0] Interface   the heterostructure (e.g. WS2/MoS2)
+#   [1] Substrate   the substrate bulk crystal
+#   [2] Film        the film bulk crystal
 #
-# Bulk total energies are fetched from pre-computed properties.
+# Only the interface (material 0) is computed here: pw_scf runs on it to get
+# TE_interface. The two bulk crystals are NOT recomputed — their total energies
+# are fetched from previously-finished Total Energy jobs, so each bulk must be
+# converged/relaxed and already have a finished Total Energy job on the platform.
+# This lets the user control bulk convergence (k-grid, relaxation, vdW, ...)
+# separately and reuse a bulk energy across many interfaces.
+#
+# N_substrate and N_film (formula-unit multiplicities) are derived from the
+# structures. N_interfaces is the one manual knob (1 if the slab has vacuum,
+# else 2); it defaults to 1 in the "interfacial_energy" subworkflow below.
 name: Interfacial Energy
+config:
+  attributes:
+    isMultiMaterial: true
 properties:
   - total_energy
   - total_energy_contributions
@@ -19,17 +31,34 @@ properties:
   - total_force
   - interfacial_energy
 units:
-  - name: shell/load_interface_and_resolve_references
-    type: subworkflow
-
-  - name: shell/fetch_substrate_bulk_total_energy
-    type: subworkflow
-
-  - name: shell/fetch_film_bulk_total_energy
-    type: subworkflow
-
+  # Interface (material 0): run pw_scf → TE_INTERFACE
   - name: interfacial_energy_scf
     type: subworkflow
 
+  # Load the interface material document (material 0) → INTERFACE, for its
+  # lattice vectors (used to compute the in-plane area).
+  - name: shell/utils/get_material_by_index
+    type: subworkflow
+    config:
+      attributes:
+        name: Load Interface Material
+    unitConfigs:
+      - index: 4
+        type: assignment
+        config:
+          attributes:
+            operand: INTERFACE
+
+  # Substrate bulk (material 1): fetch pre-computed TE → TE_BULK_SUBSTRATE
+  - name: shell/fetch_substrate_bulk_total_energy
+    type: subworkflow
+
+  # Film bulk (material 2): fetch pre-computed TE → TE_BULK_FILM
+  - name: shell/fetch_film_bulk_total_energy
+    type: subworkflow
+
+  # Compute γ. N_SUBSTRATE and N_FILM are derived from the structures; the only
+  # manual knob is N_INTERFACES (default 1). Override it here if the interface
+  # has no vacuum (periodic stack → 2).
   - name: shell/interfacial_energy
     type: subworkflow
