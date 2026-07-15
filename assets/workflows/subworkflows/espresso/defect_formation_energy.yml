@@ -1,5 +1,5 @@
 # Runs QE SCF on the DEFECTIVE cell (material 0 of a multi-material job) and
-# computes the neutral defect formation energy (eV/defect):
+# computes the neutral defect formation energy (eV):
 #   E_defect = E_DEFECTIVE − E_PRISTINE − Σ_i ΔN_i · μ_i
 #
 # In:  MATERIAL (defective), PRISTINE, E_PRISTINE, ELEMENTS, ELEMENT_MATERIALS,
@@ -219,7 +219,7 @@ units:
     config:
       name: assign-defect-formation-energy
       description: |
-        Neutral defect formation energy (eV/defect):
+        Neutral defect formation energy (eV):
         E_DEFECTIVE − E_PRISTINE − Σ_i ΔN_i · μ_i.
       flowchartId: assign-defect-formation-energy
       operand: DEFECT_FORMATION_ENERGY

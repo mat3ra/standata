@@ -1,4 +1,4 @@
-# Defect formation energy (eV/defect), neutral defects only:
+# Defect formation energy (eV), neutral defects only:
 #   E_defect = E_defective − E_pristine − Σ_i ΔN_i · μ_i
 #
 # Multi-material workflow — submit two materials, in this order:
