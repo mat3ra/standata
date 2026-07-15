@@ -1,0 +1,1233 @@
+{
+    "_id": "55809f51-4a95-5172-9cf5-6e8bbc586efc",
+    "name": "Defect Formation Energy",
+    "subworkflows": [
+        {
+            "_id": "793b2e86-f783-56a2-8331-102102026428",
+            "name": "Load Defective Material",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": false,
+                "name": "shell",
+                "shortName": "sh",
+                "summary": "Shell Script",
+                "version": "5.1.8",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [],
+            "model": {
+                "type": "unknown",
+                "subtype": "unknown",
+                "method": {
+                    "type": "unknown",
+                    "subtype": "unknown",
+                    "data": {}
+                }
+            },
+            "units": [
+                {
+                    "name": "set-material-index",
+                    "type": "assignment",
+                    "operand": "MATERIAL_INDEX",
+                    "value": "0",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "set-material-index-defective",
+                    "head": true,
+                    "next": "io-job",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "io-job",
+                    "type": "io",
+                    "subtype": "input",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "io-job",
+                    "source": "api",
+                    "input": [
+                        {
+                            "type": "api",
+                            "endpoint": "jobs",
+                            "endpoint_options": {
+                                "params": {
+                                    "query": "{'_id': JOB_ID}",
+                                    "projection": "{'_materials': 1}"
+                                }
+                            },
+                            "name": "DATA"
+                        }
+                    ],
+                    "head": false,
+                    "next": "assign-material-id",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-material-id",
+                    "type": "assignment",
+                    "operand": "MATERIAL_ID_FOR_INDEX",
+                    "value": "DATA[0]['_materials'][MATERIAL_INDEX]['_id']",
+                    "input": [
+                        {
+                            "name": "DATA",
+                            "scope": "io-job"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-material-id",
+                    "head": false,
+                    "next": "io-material",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "io-material",
+                    "type": "io",
+                    "subtype": "input",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "io-material",
+                    "source": "api",
+                    "input": [
+                        {
+                            "type": "api",
+                            "endpoint": "materials",
+                            "endpoint_options": {
+                                "params": {
+                                    "query": "{'_id': MATERIAL_ID_FOR_INDEX}",
+                                    "projection": "{}"
+                                }
+                            },
+                            "name": "DATA"
+                        }
+                    ],
+                    "head": false,
+                    "next": "assign-material",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-material",
+                    "type": "assignment",
+                    "operand": "MATERIAL",
+                    "value": "DATA[0] if len(DATA) == 1 else None",
+                    "input": [
+                        {
+                            "name": "DATA",
+                            "scope": "io-material"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-material",
+                    "head": false,
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
+            "_id": "a2df0c8b-3c8e-550f-8e9f-fcb048cb0192",
+            "name": "Fetch Pristine Total Energy",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": false,
+                "name": "shell",
+                "shortName": "sh",
+                "summary": "Shell Script",
+                "version": "5.1.8",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [],
+            "model": {
+                "type": "unknown",
+                "subtype": "unknown",
+                "method": {
+                    "type": "unknown",
+                    "subtype": "unknown",
+                    "data": {}
+                }
+            },
+            "units": [
+                {
+                    "name": "set-material-index",
+                    "type": "assignment",
+                    "operand": "MATERIAL_INDEX",
+                    "value": "1",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "set-material-index-pristine",
+                    "head": true,
+                    "next": "io-job-materials",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "io-job-materials",
+                    "type": "io",
+                    "subtype": "input",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "io-job-materials",
+                    "source": "api",
+                    "input": [
+                        {
+                            "type": "api",
+                            "endpoint": "jobs",
+                            "endpoint_options": {
+                                "params": {
+                                    "query": "{'_id': JOB_ID}",
+                                    "projection": "{'_materials': 1}"
+                                }
+                            },
+                            "name": "JOB_MATERIALS_DATA"
+                        }
+                    ],
+                    "head": false,
+                    "next": "assign-bulk-material-id",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-bulk-material-id",
+                    "type": "assignment",
+                    "operand": "BULK_MATERIAL_ID",
+                    "value": "JOB_MATERIALS_DATA[0]['_materials'][MATERIAL_INDEX]['_id'] if JOB_MATERIALS_DATA else None",
+                    "input": [
+                        {
+                            "name": "JOB_MATERIALS_DATA",
+                            "scope": "io-job-materials"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-bulk-material-id",
+                    "head": false,
+                    "next": "io-bulk-material",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "io-bulk-material",
+                    "type": "io",
+                    "subtype": "input",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "io-bulk-material",
+                    "source": "api",
+                    "input": [
+                        {
+                            "type": "api",
+                            "endpoint": "materials",
+                            "endpoint_options": {
+                                "params": {
+                                    "query": "{'_id': BULK_MATERIAL_ID}",
+                                    "projection": "{}"
+                                }
+                            },
+                            "name": "BULK_MATERIAL_DATA"
+                        }
+                    ],
+                    "head": false,
+                    "next": "assign-bulk",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-bulk",
+                    "type": "assignment",
+                    "operand": "PRISTINE",
+                    "value": "BULK_MATERIAL_DATA[0] if BULK_MATERIAL_DATA else None",
+                    "input": [
+                        {
+                            "name": "BULK_MATERIAL_DATA",
+                            "scope": "io-bulk-material"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-bulk",
+                    "head": false,
+                    "next": "io-bulk-te-job",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "io-bulk-te-job",
+                    "type": "io",
+                    "subtype": "input",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "io-bulk-te-job",
+                    "source": "api",
+                    "input": [
+                        {
+                            "type": "api",
+                            "endpoint": "jobs",
+                            "endpoint_options": {
+                                "params": {
+                                    "query": "{'_material._id': BULK_MATERIAL_ID, 'status': 'finished', 'workflow.name': {'$regex': 'Total Energy'}}",
+                                    "projection": "{'sort': {'updatedAt': -1}, 'limit': 1}"
+                                }
+                            },
+                            "name": "JOB_DATA"
+                        }
+                    ],
+                    "head": false,
+                    "next": "assign-bulk-te-job-id",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-bulk-te-job-id",
+                    "type": "assignment",
+                    "operand": "BULK_TE_JOB_ID",
+                    "value": "JOB_DATA[0]['_id'] if JOB_DATA else None",
+                    "input": [
+                        {
+                            "name": "JOB_DATA",
+                            "scope": "io-bulk-te-job"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-bulk-te-job-id",
+                    "head": false,
+                    "next": "io-te-bulk",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "io-te-bulk",
+                    "type": "io",
+                    "subtype": "input",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "io-te-bulk",
+                    "source": "api",
+                    "input": [
+                        {
+                            "type": "api",
+                            "endpoint": "properties",
+                            "endpoint_options": {
+                                "params": {
+                                    "query": "{'source.info.jobId': BULK_TE_JOB_ID, 'slug': 'total_energy', 'group': {'$regex': 'qe:'}}",
+                                    "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
+                                }
+                            },
+                            "name": "DATA"
+                        }
+                    ],
+                    "head": false,
+                    "next": "assign-te-bulk",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-te-bulk",
+                    "type": "assignment",
+                    "operand": "E_PRISTINE",
+                    "value": "DATA[0].data.value if DATA else None",
+                    "input": [
+                        {
+                            "name": "DATA",
+                            "scope": "io-te-bulk"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-te-bulk",
+                    "head": false,
+                    "next": "assert-te-bulk",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assert-te-bulk",
+                    "type": "assertion",
+                    "statement": "E_PRISTINE != None",
+                    "errorMessage": "Pristine total energy not found. Run a Total Energy workflow on the pristine material before running Defect Formation Energy.",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assert-te-bulk",
+                    "head": false,
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
+            "_id": "b6b0d96e-379c-59e5-ae7f-6700fec8cb4e",
+            "name": "Resolve Elemental Materials",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": false,
+                "name": "shell",
+                "shortName": "sh",
+                "summary": "Shell Script",
+                "version": "5.1.8",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [],
+            "model": {
+                "type": "unknown",
+                "subtype": "unknown",
+                "method": {
+                    "type": "unknown",
+                    "subtype": "unknown",
+                    "data": {}
+                }
+            },
+            "units": [
+                {
+                    "name": "assign-elements",
+                    "type": "assignment",
+                    "operand": "ELEMENTS",
+                    "value": "sorted(list(set(\n    [e['value'] for e in MATERIAL.basis.elements]\n    + ([e['value'] for e in PRISTINE.basis.elements] if PRISTINE else [])\n)))",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-elements",
+                    "head": true,
+                    "next": "io-elemental-materials",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "io-elemental-materials",
+                    "type": "io",
+                    "subtype": "input",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "io-elemental-materials",
+                    "source": "api",
+                    "input": [
+                        {
+                            "type": "api",
+                            "endpoint": "materials",
+                            "endpoint_options": {
+                                "params": {
+                                    "query": "{'tags': 'elemental', 'metadata.element': {'$in': ELEMENTS}}"
+                                }
+                            },
+                            "name": "DATA"
+                        }
+                    ],
+                    "head": false,
+                    "next": "assign-element-materials-by-symbol",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-element-materials-by-symbol",
+                    "type": "assignment",
+                    "operand": "ELEMENT_MATERIALS_BY_SYMBOL",
+                    "value": "{\n    el: [\n        m for m in DATA\n        if m.get('metadata') and m['metadata'].get('element') == el\n    ]\n    for el in ELEMENTS\n}",
+                    "input": [
+                        {
+                            "name": "DATA",
+                            "scope": "io-elemental-materials"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-element-materials-by-symbol",
+                    "head": false,
+                    "next": "assign-element-material-ids-by-symbol",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-element-material-ids-by-symbol",
+                    "type": "assignment",
+                    "operand": "ELEMENT_MATERIAL_IDS_BY_SYMBOL",
+                    "value": "{el: [m['exabyteId'] for m in ELEMENT_MATERIALS_BY_SYMBOL[el]] for el in ELEMENTS}",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-element-material-ids-by-symbol",
+                    "head": false,
+                    "next": "assign-element-materials",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-element-materials",
+                    "type": "assignment",
+                    "operand": "ELEMENT_MATERIALS",
+                    "value": "{el: ELEMENT_MATERIALS_BY_SYMBOL[el][0] for el in ELEMENTS if ELEMENT_MATERIALS_BY_SYMBOL[el]}",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-element-materials",
+                    "head": false,
+                    "next": "assign-missing-elemental-material-symbols",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-missing-elemental-material-symbols",
+                    "type": "assignment",
+                    "operand": "MISSING_ELEMENTAL_MATERIAL_SYMBOLS",
+                    "value": "[el for el in ELEMENTS if not ELEMENT_MATERIAL_IDS_BY_SYMBOL[el]]",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-missing-elemental-material-symbols",
+                    "head": false,
+                    "next": "assert-elemental-materials-found",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assert-elemental-materials-found",
+                    "type": "assertion",
+                    "statement": "len(MISSING_ELEMENTAL_MATERIAL_SYMBOLS) == 0",
+                    "errorMessage": "Missing Standata elemental reference material(s) for {{ MISSING_ELEMENTAL_MATERIAL_SYMBOLS | join(', ') }}. Add elemental material(s) with tags elemental and metadata.element before running Defect Formation Energy.",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "enableRender": true,
+                    "flowchartId": "assert-elemental-materials-found",
+                    "head": false,
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
+            "_id": "b157404d-9f97-59f2-a172-468d3d1993f3",
+            "name": "Defect Formation Energy",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "espresso",
+                "shortName": "qe",
+                "summary": "Quantum ESPRESSO",
+                "version": "6.3",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [
+                "atomic_forces",
+                "defect_formation_energy",
+                "fermi_energy",
+                "pressure",
+                "stress_tensor",
+                "total_energy",
+                "total_energy_contributions",
+                "total_force"
+            ],
+            "model": {
+                "type": "dft",
+                "subtype": "gga",
+                "method": {
+                    "type": "pseudopotential",
+                    "subtype": "us",
+                    "data": {}
+                },
+                "functional": "pbe"
+            },
+            "units": [
+                {
+                    "name": "set-material-index",
+                    "type": "assignment",
+                    "operand": "MATERIAL_INDEX",
+                    "value": "0",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "set-material-index",
+                    "head": true,
+                    "next": "pw-scf-defect-formation-energy",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "pw_scf",
+                    "head": false,
+                    "results": [
+                        {
+                            "name": "atomic_forces"
+                        },
+                        {
+                            "name": "fermi_energy"
+                        },
+                        {
+                            "name": "pressure"
+                        },
+                        {
+                            "name": "stress_tensor"
+                        },
+                        {
+                            "name": "total_energy"
+                        },
+                        {
+                            "name": "total_energy_contributions"
+                        },
+                        {
+                            "name": "total_force"
+                        }
+                    ],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        },
+                        {
+                            "name": "convergence_electronic"
+                        }
+                    ],
+                    "flowchartId": "pw-scf-defect-formation-energy",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "name": "pw.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "pw.x",
+                        "input": [
+                            {
+                                "name": "pw_scf.in"
+                            }
+                        ],
+                        "isDefault": true,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            },
+                            {
+                                "name": "convergence_electronic"
+                            }
+                        ],
+                        "name": "pw_scf",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [
+                            {
+                                "name": "atomic_forces"
+                            },
+                            {
+                                "name": "fermi_energy"
+                            },
+                            {
+                                "name": "pressure"
+                            },
+                            {
+                                "name": "stress_tensor"
+                            },
+                            {
+                                "name": "total_energy"
+                            },
+                            {
+                                "name": "total_energy_contributions"
+                            },
+                            {
+                                "name": "total_force"
+                            }
+                        ],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "{% if subworkflowContext.MATERIAL_INDEX %}\n{%- set input = input.perMaterial[subworkflowContext.MATERIAL_INDEX] -%}\n{% endif -%}\n&CONTROL\n    calculation = 'scf'\n    title = ''\n    verbosity = 'low'\n    restart_mode = '{{ input.RESTART_MODE }}'\n    wf_collect = .true.\n    tstress = .true.\n    tprnfor = .true.\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    wfcdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    prefix = '__prefix__'\n    pseudo_dir = {% raw %}'{{ JOB_WORK_DIR }}/pseudo'{% endraw %}\n/\n&SYSTEM\n    ibrav = {{ input.IBRAV }}\n    nat = {{ input.NAT }}\n    ntyp = {{ input.NTYP }}\n    ecutwfc = {{ cutoffs.wavefunction }}\n    ecutrho = {{ cutoffs.density }}\n    occupations = 'smearing'\n    degauss = 0.005\n/\n&ELECTRONS\n    diagonalization = 'david'\n    diago_david_ndim = 4\n    diago_full_acc = .true.\n    mixing_beta = 0.3\n    startingwfc = 'atomic+random'\n/\n&IONS\n/\n&CELL\n/\nATOMIC_SPECIES\n{% for specie in input.ATOMIC_SPECIES -%}\n{{ specie.X }} {{ specie.Mass_X|sprintf(\"%f\") }} {{ specie.PseudoPot_X }}\n{% endfor %}\nATOMIC_POSITIONS crystal\n{%- set print_constraints = false %}\n{%- for position in input.ATOMIC_POSITIONS %}\n    {%- if position[\"if_pos(1)\"] != 1 or position[\"if_pos(2)\"] != 1 or position[\"if_pos(3)\"] != 1 %}\n        {%- set print_constraints = true %}\n    {%- endif %}\n{%- endfor %}\n{% for position in input.ATOMIC_POSITIONS -%}\n{{ position.X|sprintf(\"%-3s\") }} {{ position.x|sprintf(\"%14.9f\") }} {{ position.y|sprintf(\"%14.9f\") }} {{ position.z|sprintf(\"%14.9f\") }}{% if print_constraints %} {{ position[\"if_pos(1)\"] }} {{ position[\"if_pos(2)\"] }} {{ position[\"if_pos(3)\"] }}{% endif %}\n{% endfor %}\nCELL_PARAMETERS angstrom\n{{ input.CELL_PARAMETERS.v1[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v2[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v3[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[2]|sprintf(\"%14.9f\") }}\nK_POINTS automatic\n{% for d in kgrid.dimensions %}{{d}} {% endfor %}{% for s in kgrid.shifts %}{{s}} {% endfor %}\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "KGridFormDataManager"
+                                    },
+                                    {
+                                        "name": "QEPWXInputDataManager"
+                                    },
+                                    {
+                                        "name": "PlanewaveCutoffDataManager"
+                                    }
+                                ],
+                                "executableName": "pw.x",
+                                "name": "pw_scf.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "assign-e-defective",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-e-defective",
+                    "type": "assignment",
+                    "operand": "E_DEFECTIVE",
+                    "value": "total_energy",
+                    "input": [
+                        {
+                            "name": "total_energy",
+                            "scope": "pw-scf-defect-formation-energy"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-e-defective",
+                    "head": false,
+                    "next": "assign-source-of-te-for-an-element",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-source-of-te-for-an-element",
+                    "type": "assignment",
+                    "operand": "SOURCE_OF_TE_FOR_AN_ELEMENT",
+                    "value": "'public'",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-source-of-te-for-an-element",
+                    "head": false,
+                    "next": "assign-group-for-material",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-group-for-material",
+                    "type": "assignment",
+                    "operand": "GROUP_FOR_MATERIAL",
+                    "value": "'qe:dft:gga:pbe'",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-group-for-material",
+                    "head": false,
+                    "next": "init-element-index",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "init-element-index",
+                    "type": "assignment",
+                    "operand": "ELEMENT_INDEX",
+                    "value": "0",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "init-element-index",
+                    "head": false,
+                    "next": "init-te-for-elemental-materials-map-by-symbol",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "init-te-for-elemental-materials-map-by-symbol",
+                    "type": "assignment",
+                    "operand": "TE_FOR_ELEMENTAL_MATERIALS_MAP_BY_SYMBOL",
+                    "value": "{}",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "init-te-for-elemental-materials-map-by-symbol",
+                    "head": false,
+                    "next": "check-te-for-elemental-materials-loop",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "check-te-for-elemental-materials-loop",
+                    "type": "condition",
+                    "input": [],
+                    "statement": "ELEMENT_INDEX >= len(ELEMENTS)",
+                    "maxOccurrences": 100,
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "check-te-for-elemental-materials-loop",
+                    "then": "assign-missing-te-for-element-symbols",
+                    "else": "assign-current-element",
+                    "head": false,
+                    "next": "assign-current-element",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-current-element",
+                    "type": "assignment",
+                    "operand": "CURRENT_ELEMENT",
+                    "value": "ELEMENTS[ELEMENT_INDEX]",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-current-element",
+                    "head": false,
+                    "next": "io-te-for-an-element",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "io-te-for-an-element",
+                    "type": "io",
+                    "subtype": "input",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "io-te-for-an-element",
+                    "source": "api",
+                    "input": [
+                        {
+                            "type": "api",
+                            "endpoint": "properties",
+                            "endpoint_options": {
+                                "params": {
+                                    "query": "{'exabyteId': {'$in': ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]}, 'slug': 'total_energy', 'group': GROUP_FOR_MATERIAL, 'owner.slug': {'$in': [JOB_OWNER_SLUG, 'curators']}} if SOURCE_OF_TE_FOR_AN_ELEMENT == 'my_account' else ({'exabyteId': {'$in': ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]}, 'slug': 'total_energy', 'group': GROUP_FOR_MATERIAL, 'owner.slug': 'curators'} if SOURCE_OF_TE_FOR_AN_ELEMENT == 'curators' else {'exabyteId': {'$in': ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]}, 'slug': 'total_energy', 'group': GROUP_FOR_MATERIAL})",
+                                    "projection": "{\n    \"sort\": {\"precision.value\": -1},\n    \"limit\": 1,\n}"
+                                }
+                            },
+                            "name": "DATA"
+                        }
+                    ],
+                    "head": false,
+                    "next": "assign-te-for-elemental-materials-map-by-symbol",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-te-for-elemental-materials-map-by-symbol",
+                    "type": "assignment",
+                    "operand": "TE_FOR_ELEMENTAL_MATERIALS_MAP_BY_SYMBOL",
+                    "value": "{**TE_FOR_ELEMENTAL_MATERIALS_MAP_BY_SYMBOL, CURRENT_ELEMENT: DATA[0] if DATA else None}",
+                    "input": [
+                        {
+                            "name": "DATA",
+                            "scope": "io-te-for-an-element"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-te-for-elemental-materials-map-by-symbol",
+                    "head": false,
+                    "next": "increment-element-index",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "increment-element-index",
+                    "type": "assignment",
+                    "operand": "ELEMENT_INDEX",
+                    "value": "ELEMENT_INDEX + 1",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "increment-element-index",
+                    "next": "check-te-for-elemental-materials-loop",
+                    "head": false,
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-missing-te-for-element-symbols",
+                    "type": "assignment",
+                    "operand": "MISSING_TE_FOR_ELEMENT_SYMBOLS",
+                    "value": "[el for el in ELEMENTS if TE_FOR_ELEMENTAL_MATERIALS_MAP_BY_SYMBOL[el] is None]",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-missing-te-for-element-symbols",
+                    "next": "assert-te-for-elemental-materials-found",
+                    "head": false,
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assert-te-for-elemental-materials-found",
+                    "type": "assertion",
+                    "statement": "len(MISSING_TE_FOR_ELEMENT_SYMBOLS) == 0",
+                    "errorMessage": "Missing total_energy for elemental reference material(s) {{ MISSING_TE_FOR_ELEMENT_SYMBOLS | join(', ') }}. Run the QE Total Energy workflow for the corresponding Standata elemental material(s) before running Defect Formation Energy.",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "enableRender": true,
+                    "flowchartId": "assert-te-for-elemental-materials-found",
+                    "head": false,
+                    "next": "assign-te-contributions-by-symbol",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-te-contributions-by-symbol",
+                    "type": "assignment",
+                    "operand": "TE_CONTRIBUTIONS_BY_SYMBOL",
+                    "value": "{\n    el: {\n        \"formula\": el,\n        \"n_atoms\": len(ELEMENT_MATERIALS[el].basis.elements),\n        \"is_elemental\": True,\n        \"total_energy\": TE_FOR_ELEMENTAL_MATERIALS_MAP_BY_SYMBOL[el].data.value,\n        \"total_energy_per_atom\": TE_FOR_ELEMENTAL_MATERIALS_MAP_BY_SYMBOL[el].data.value\n        / len(ELEMENT_MATERIALS[el].basis.elements),\n        \"precision_value\": TE_FOR_ELEMENTAL_MATERIALS_MAP_BY_SYMBOL[el].precision.value,\n        \"precision_metric\": TE_FOR_ELEMENTAL_MATERIALS_MAP_BY_SYMBOL[el].precision.metric,\n    }\n    for el in ELEMENTS\n    if TE_FOR_ELEMENTAL_MATERIALS_MAP_BY_SYMBOL[el]\n}",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-te-contributions-by-symbol",
+                    "head": false,
+                    "next": "assign-delta-n-by-symbol",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-delta-n-by-symbol",
+                    "type": "assignment",
+                    "operand": "DELTA_N_BY_SYMBOL",
+                    "value": "{\n    el: len([e for e in MATERIAL.basis.elements if e[\"value\"] == el])\n      - len([e for e in PRISTINE.basis.elements if e[\"value\"] == el])\n    for el in ELEMENTS\n}",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-delta-n-by-symbol",
+                    "head": false,
+                    "next": "assign-sum-delta-n-times-mu",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-sum-delta-n-times-mu",
+                    "type": "assignment",
+                    "operand": "SUM_DELTA_N_TIMES_MU",
+                    "value": "sum(\n    DELTA_N_BY_SYMBOL[el] * TE_CONTRIBUTIONS_BY_SYMBOL[el][\"total_energy_per_atom\"]\n    for el in ELEMENTS\n    if el in TE_CONTRIBUTIONS_BY_SYMBOL\n)",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-sum-delta-n-times-mu",
+                    "head": false,
+                    "next": "assign-defect-formation-energy",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-defect-formation-energy",
+                    "type": "assignment",
+                    "operand": "DEFECT_FORMATION_ENERGY",
+                    "value": "E_DEFECTIVE - E_PRISTINE - SUM_DELTA_N_TIMES_MU",
+                    "input": [],
+                    "results": [
+                        {
+                            "name": "defect_formation_energy"
+                        }
+                    ],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-defect-formation-energy",
+                    "head": false,
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        }
+    ],
+    "units": [
+        {
+            "type": "subworkflow",
+            "name": "Load Defective Material",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "793b2e86-f783-56a2-8331-102102026428",
+            "flowchartId": "bcd4a059-c9db-5004-888d-281f42183472",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "subworkflow",
+            "name": "Fetch Pristine Total Energy",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "a2df0c8b-3c8e-550f-8e9f-fcb048cb0192",
+            "flowchartId": "b3865575-63f8-597e-9ea6-cad9ed99aa6a",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "subworkflow",
+            "name": "Resolve Elemental Materials",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "b6b0d96e-379c-59e5-ae7f-6700fec8cb4e",
+            "flowchartId": "9e60bb57-cef6-5d8c-a503-0af786e1b7d1",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "subworkflow",
+            "name": "Defect Formation Energy",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "b157404d-9f97-59f2-a172-468d3d1993f3",
+            "flowchartId": "2711592b-a19a-58f9-898d-b60c49f82b7e",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "properties": [
+        "atomic_forces",
+        "defect_formation_energy",
+        "fermi_energy",
+        "pressure",
+        "stress_tensor",
+        "total_energy",
+        "total_energy_contributions",
+        "total_force"
+    ],
+    "workflows": [],
+    "isMultiMaterial": true,
+    "schemaVersion": "2022.8.16",
+    "application": {
+        "name": "espresso"
+    }
+}

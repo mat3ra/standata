@@ -1,0 +1,73 @@
+# Defect formation energy (eV/defect), neutral defects only:
+#   E_defect = E_defective − E_pristine − Σ_i ΔN_i · μ_i
+#
+# Multi-material workflow — submit two materials, in this order:
+#   [0] Defective supercell   (computed with pw_scf)
+#   [1] Pristine supercell    (energy fetched from its finished Total Energy job)
+#
+# Prerequisite: QE Total Energy already run on the pristine material.
+name: Defect Formation Energy
+config:
+  attributes:
+    isMultiMaterial: true
+properties:
+  - atomic_forces
+  - defect_formation_energy
+  - fermi_energy
+  - pressure
+  - stress_tensor
+  - total_energy
+  - total_energy_contributions
+  - total_force
+units:
+  - name: shell/utils/get_material_by_index
+    type: subworkflow
+    config:
+      attributes:
+        name: Load Defective Material
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            flowchartId: set-material-index-defective
+
+  - name: shell/fetch_bulk_total_energy
+    type: subworkflow
+    config:
+      attributes:
+        name: Fetch Pristine Total Energy
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            flowchartId: set-material-index-pristine
+            value: "1"
+      - index: 4
+        type: assignment
+        config:
+          attributes:
+            operand: PRISTINE
+      - index: 8
+        type: assignment
+        config:
+          attributes:
+            operand: E_PRISTINE
+      - index: 9
+        type: assertion
+        config:
+          attributes:
+            statement: "E_PRISTINE != None"
+            errorMessage: >-
+              Pristine total energy not found. Run a Total Energy workflow on
+              the pristine material before running Defect Formation Energy.
+
+  - name: shell/utils/resolve_elemental_materials
+    type: subworkflow
+    config:
+      attributes:
+        name: Resolve Elemental Materials
+
+  - name: defect_formation_energy
+    type: subworkflow
