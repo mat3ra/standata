@@ -169,15 +169,8 @@ entities:
       - total_force
   - filename: espresso/defect_formation_energy.json
     categories:
-      - atomic_forces
       - defect_formation_energy
       - espresso
-      - fermi_energy
-      - pressure
-      - stress_tensor
-      - total_energy
-      - total_energy_contributions
-      - total_force
   - filename: espresso/dielectric_tensor.json
     categories:
       - atomic_forces
@@ -256,16 +249,9 @@ entities:
       - total_force
   - filename: espresso/formation_energy.json
     categories:
-      - atomic_forces
       - espresso
-      - fermi_energy
       - formation_energy
       - formation_energy_contributions
-      - pressure
-      - stress_tensor
-      - total_energy
-      - total_energy_contributions
-      - total_force
   - filename: espresso/gw_band_structure_band_gap_full_frequency.json
     categories:
       - atomic_forces
@@ -401,6 +387,9 @@ entities:
   - filename: espresso/recalculate_bands.json
     categories:
       - band_structure
+      - espresso
+  - filename: espresso/resolve_elemental_total_energies.json
+    categories:
       - espresso
   - filename: espresso/surface_energy.json
     categories:

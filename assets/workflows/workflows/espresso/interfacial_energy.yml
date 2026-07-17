@@ -43,7 +43,7 @@ units:
     type: subworkflow
     config:
       attributes:
-        name: Fetch Substrate Total Energy
+        name: Fetch Total Energy for Substrate Material
     unitConfigs:
       - index: 0
         type: assignment
@@ -71,7 +71,7 @@ units:
     type: subworkflow
     config:
       attributes:
-        name: Fetch Film Total Energy
+        name: Fetch Total Energy for Film Material
     unitConfigs:
       - index: 0
         type: assignment

@@ -161,8 +161,183 @@
             "isDraft": false
         },
         {
-            "_id": "a2df0c8b-3c8e-550f-8e9f-fcb048cb0192",
-            "name": "Fetch Pristine Total Energy",
+            "_id": "e1378be9-ae77-5e86-8252-2253a25a18d7",
+            "name": "Compute Total Energy for Defective Material",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "espresso",
+                "shortName": "qe",
+                "summary": "Quantum ESPRESSO",
+                "version": "6.3",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [
+                "atomic_forces",
+                "fermi_energy",
+                "pressure",
+                "stress_tensor",
+                "total_energy",
+                "total_energy_contributions",
+                "total_force"
+            ],
+            "model": {
+                "type": "dft",
+                "subtype": "gga",
+                "method": {
+                    "type": "pseudopotential",
+                    "subtype": "us",
+                    "data": {}
+                },
+                "functional": "pbe"
+            },
+            "units": [
+                {
+                    "type": "execution",
+                    "name": "pw_scf",
+                    "head": true,
+                    "results": [
+                        {
+                            "name": "atomic_forces"
+                        },
+                        {
+                            "name": "fermi_energy"
+                        },
+                        {
+                            "name": "pressure"
+                        },
+                        {
+                            "name": "stress_tensor"
+                        },
+                        {
+                            "name": "total_energy"
+                        },
+                        {
+                            "name": "total_energy_contributions"
+                        },
+                        {
+                            "name": "total_force"
+                        }
+                    ],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        },
+                        {
+                            "name": "convergence_electronic"
+                        }
+                    ],
+                    "flowchartId": "pw-scf",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "name": "pw.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "pw.x",
+                        "input": [
+                            {
+                                "name": "pw_scf.in"
+                            }
+                        ],
+                        "isDefault": true,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            },
+                            {
+                                "name": "convergence_electronic"
+                            }
+                        ],
+                        "name": "pw_scf",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [
+                            {
+                                "name": "atomic_forces"
+                            },
+                            {
+                                "name": "fermi_energy"
+                            },
+                            {
+                                "name": "pressure"
+                            },
+                            {
+                                "name": "stress_tensor"
+                            },
+                            {
+                                "name": "total_energy"
+                            },
+                            {
+                                "name": "total_energy_contributions"
+                            },
+                            {
+                                "name": "total_force"
+                            }
+                        ],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "{% if subworkflowContext.MATERIAL_INDEX %}\n{%- set input = input.perMaterial[subworkflowContext.MATERIAL_INDEX] -%}\n{% endif -%}\n&CONTROL\n    calculation = 'scf'\n    title = ''\n    verbosity = 'low'\n    restart_mode = '{{ input.RESTART_MODE }}'\n    wf_collect = .true.\n    tstress = .true.\n    tprnfor = .true.\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    wfcdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    prefix = '__prefix__'\n    pseudo_dir = {% raw %}'{{ JOB_WORK_DIR }}/pseudo'{% endraw %}\n/\n&SYSTEM\n    ibrav = {{ input.IBRAV }}\n    nat = {{ input.NAT }}\n    ntyp = {{ input.NTYP }}\n    ecutwfc = {{ cutoffs.wavefunction }}\n    ecutrho = {{ cutoffs.density }}\n    occupations = 'smearing'\n    degauss = 0.005\n/\n&ELECTRONS\n    diagonalization = 'david'\n    diago_david_ndim = 4\n    diago_full_acc = .true.\n    mixing_beta = 0.3\n    startingwfc = 'atomic+random'\n/\n&IONS\n/\n&CELL\n/\nATOMIC_SPECIES\n{% for specie in input.ATOMIC_SPECIES -%}\n{{ specie.X }} {{ specie.Mass_X|sprintf(\"%f\") }} {{ specie.PseudoPot_X }}\n{% endfor %}\nATOMIC_POSITIONS crystal\n{%- set print_constraints = false %}\n{%- for position in input.ATOMIC_POSITIONS %}\n    {%- if position[\"if_pos(1)\"] != 1 or position[\"if_pos(2)\"] != 1 or position[\"if_pos(3)\"] != 1 %}\n        {%- set print_constraints = true %}\n    {%- endif %}\n{%- endfor %}\n{% for position in input.ATOMIC_POSITIONS -%}\n{{ position.X|sprintf(\"%-3s\") }} {{ position.x|sprintf(\"%14.9f\") }} {{ position.y|sprintf(\"%14.9f\") }} {{ position.z|sprintf(\"%14.9f\") }}{% if print_constraints %} {{ position[\"if_pos(1)\"] }} {{ position[\"if_pos(2)\"] }} {{ position[\"if_pos(3)\"] }}{% endif %}\n{% endfor %}\nCELL_PARAMETERS angstrom\n{{ input.CELL_PARAMETERS.v1[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v2[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v3[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[2]|sprintf(\"%14.9f\") }}\nK_POINTS automatic\n{% for d in kgrid.dimensions %}{{d}} {% endfor %}{% for s in kgrid.shifts %}{{s}} {% endfor %}\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "KGridFormDataManager"
+                                    },
+                                    {
+                                        "name": "QEPWXInputDataManager"
+                                    },
+                                    {
+                                        "name": "PlanewaveCutoffDataManager"
+                                    }
+                                ],
+                                "executableName": "pw.x",
+                                "name": "pw_scf.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
+            "_id": "663534ea-592c-5ee6-b482-b78a1ddf8ad5",
+            "name": "Fetch Total Energy for Pristine Material",
             "application": {
                 "build": "GNU",
                 "hasAdvancedComputeOptions": false,
@@ -625,8 +800,8 @@
             "isDraft": false
         },
         {
-            "_id": "b157404d-9f97-59f2-a172-468d3d1993f3",
-            "name": "Defect Formation Energy",
+            "_id": "c041b34a-430b-5f82-8c2d-83daac763e63",
+            "name": "Resolve Total Energies for Elemental Materials",
             "application": {
                 "build": "GNU",
                 "hasAdvancedComputeOptions": true,
@@ -639,16 +814,7 @@
                 "version": "6.3",
                 "schemaVersion": "2022.8.16"
             },
-            "properties": [
-                "atomic_forces",
-                "defect_formation_energy",
-                "fermi_energy",
-                "pressure",
-                "stress_tensor",
-                "total_energy",
-                "total_energy_contributions",
-                "total_force"
-            ],
+            "properties": [],
             "model": {
                 "type": "dft",
                 "subtype": "gga",
@@ -660,186 +826,6 @@
                 "functional": "pbe"
             },
             "units": [
-                {
-                    "name": "set-material-index",
-                    "type": "assignment",
-                    "operand": "MATERIAL_INDEX",
-                    "value": "0",
-                    "input": [],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "set-material-index",
-                    "head": true,
-                    "next": "pw-scf-defect-formation-energy",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "type": "execution",
-                    "name": "pw_scf",
-                    "head": false,
-                    "results": [
-                        {
-                            "name": "atomic_forces"
-                        },
-                        {
-                            "name": "fermi_energy"
-                        },
-                        {
-                            "name": "pressure"
-                        },
-                        {
-                            "name": "stress_tensor"
-                        },
-                        {
-                            "name": "total_energy"
-                        },
-                        {
-                            "name": "total_energy_contributions"
-                        },
-                        {
-                            "name": "total_force"
-                        }
-                    ],
-                    "monitors": [
-                        {
-                            "name": "standard_output"
-                        },
-                        {
-                            "name": "convergence_electronic"
-                        }
-                    ],
-                    "flowchartId": "pw-scf-defect-formation-energy",
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "application": {
-                        "build": "GNU",
-                        "hasAdvancedComputeOptions": true,
-                        "isDefault": true,
-                        "isDefaultVersion": true,
-                        "isUsingMaterial": true,
-                        "name": "espresso",
-                        "shortName": "qe",
-                        "summary": "Quantum ESPRESSO",
-                        "version": "6.3",
-                        "schemaVersion": "2022.8.16"
-                    },
-                    "executable": {
-                        "applicationName": "espresso",
-                        "applicationVersion": "*",
-                        "hasAdvancedComputeOptions": true,
-                        "isDefault": true,
-                        "name": "pw.x",
-                        "schemaVersion": "2022.8.16"
-                    },
-                    "flavor": {
-                        "applicationName": "espresso",
-                        "applicationVersion": "*",
-                        "executableName": "pw.x",
-                        "input": [
-                            {
-                                "name": "pw_scf.in"
-                            }
-                        ],
-                        "isDefault": true,
-                        "monitors": [
-                            {
-                                "name": "standard_output"
-                            },
-                            {
-                                "name": "convergence_electronic"
-                            }
-                        ],
-                        "name": "pw_scf",
-                        "postProcessors": [],
-                        "preProcessors": [],
-                        "results": [
-                            {
-                                "name": "atomic_forces"
-                            },
-                            {
-                                "name": "fermi_energy"
-                            },
-                            {
-                                "name": "pressure"
-                            },
-                            {
-                                "name": "stress_tensor"
-                            },
-                            {
-                                "name": "total_energy"
-                            },
-                            {
-                                "name": "total_energy_contributions"
-                            },
-                            {
-                                "name": "total_force"
-                            }
-                        ],
-                        "schemaVersion": "2022.8.16"
-                    },
-                    "input": [
-                        {
-                            "template": {
-                                "applicationName": "espresso",
-                                "applicationVersion": "*",
-                                "content": "{% if subworkflowContext.MATERIAL_INDEX %}\n{%- set input = input.perMaterial[subworkflowContext.MATERIAL_INDEX] -%}\n{% endif -%}\n&CONTROL\n    calculation = 'scf'\n    title = ''\n    verbosity = 'low'\n    restart_mode = '{{ input.RESTART_MODE }}'\n    wf_collect = .true.\n    tstress = .true.\n    tprnfor = .true.\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    wfcdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    prefix = '__prefix__'\n    pseudo_dir = {% raw %}'{{ JOB_WORK_DIR }}/pseudo'{% endraw %}\n/\n&SYSTEM\n    ibrav = {{ input.IBRAV }}\n    nat = {{ input.NAT }}\n    ntyp = {{ input.NTYP }}\n    ecutwfc = {{ cutoffs.wavefunction }}\n    ecutrho = {{ cutoffs.density }}\n    occupations = 'smearing'\n    degauss = 0.005\n/\n&ELECTRONS\n    diagonalization = 'david'\n    diago_david_ndim = 4\n    diago_full_acc = .true.\n    mixing_beta = 0.3\n    startingwfc = 'atomic+random'\n/\n&IONS\n/\n&CELL\n/\nATOMIC_SPECIES\n{% for specie in input.ATOMIC_SPECIES -%}\n{{ specie.X }} {{ specie.Mass_X|sprintf(\"%f\") }} {{ specie.PseudoPot_X }}\n{% endfor %}\nATOMIC_POSITIONS crystal\n{%- set print_constraints = false %}\n{%- for position in input.ATOMIC_POSITIONS %}\n    {%- if position[\"if_pos(1)\"] != 1 or position[\"if_pos(2)\"] != 1 or position[\"if_pos(3)\"] != 1 %}\n        {%- set print_constraints = true %}\n    {%- endif %}\n{%- endfor %}\n{% for position in input.ATOMIC_POSITIONS -%}\n{{ position.X|sprintf(\"%-3s\") }} {{ position.x|sprintf(\"%14.9f\") }} {{ position.y|sprintf(\"%14.9f\") }} {{ position.z|sprintf(\"%14.9f\") }}{% if print_constraints %} {{ position[\"if_pos(1)\"] }} {{ position[\"if_pos(2)\"] }} {{ position[\"if_pos(3)\"] }}{% endif %}\n{% endfor %}\nCELL_PARAMETERS angstrom\n{{ input.CELL_PARAMETERS.v1[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v2[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v3[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[2]|sprintf(\"%14.9f\") }}\nK_POINTS automatic\n{% for d in kgrid.dimensions %}{{d}} {% endfor %}{% for s in kgrid.shifts %}{{s}} {% endfor %}\n",
-                                "contextProviders": [
-                                    {
-                                        "name": "KGridFormDataManager"
-                                    },
-                                    {
-                                        "name": "QEPWXInputDataManager"
-                                    },
-                                    {
-                                        "name": "PlanewaveCutoffDataManager"
-                                    }
-                                ],
-                                "executableName": "pw.x",
-                                "name": "pw_scf.in",
-                                "schemaVersion": "2022.8.16"
-                            },
-                            "rendered": "",
-                            "isManuallyChanged": false
-                        }
-                    ],
-                    "context": [],
-                    "next": "assign-e-defective",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assign-e-defective",
-                    "type": "assignment",
-                    "operand": "E_DEFECTIVE",
-                    "value": "total_energy",
-                    "input": [
-                        {
-                            "name": "total_energy",
-                            "scope": "pw-scf-defect-formation-energy"
-                        }
-                    ],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-e-defective",
-                    "head": false,
-                    "next": "assign-source-of-te-for-an-element",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
                 {
                     "name": "assign-source-of-te-for-an-element",
                     "type": "assignment",
@@ -854,7 +840,7 @@
                     "statusTrack": [],
                     "tags": [],
                     "flowchartId": "assign-source-of-te-for-an-element",
-                    "head": false,
+                    "head": true,
                     "next": "assign-group-for-material",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -1053,7 +1039,7 @@
                     "name": "assert-te-for-elemental-materials-found",
                     "type": "assertion",
                     "statement": "len(MISSING_TE_FOR_ELEMENT_SYMBOLS) == 0",
-                    "errorMessage": "Missing total_energy for elemental reference material(s) {{ MISSING_TE_FOR_ELEMENT_SYMBOLS | join(', ') }}. Run the QE Total Energy workflow for the corresponding Standata elemental material(s) before running Defect Formation Energy.",
+                    "errorMessage": "Missing total_energy for elemental reference material(s) {{ MISSING_TE_FOR_ELEMENT_SYMBOLS | join(', ') }}. Run the QE Total Energy workflow for the corresponding Standata elemental material(s) before running this workflow.",
                     "results": [],
                     "monitors": [],
                     "preProcessors": [],
@@ -1083,6 +1069,62 @@
                     "tags": [],
                     "flowchartId": "assign-te-contributions-by-symbol",
                     "head": false,
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
+            "_id": "7128328c-2203-5240-b64b-27c9d76b6300",
+            "name": "Calculate Defect Formation Energy",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "espresso",
+                "shortName": "qe",
+                "summary": "Quantum ESPRESSO",
+                "version": "6.3",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [
+                "defect_formation_energy"
+            ],
+            "model": {
+                "type": "dft",
+                "subtype": "gga",
+                "method": {
+                    "type": "pseudopotential",
+                    "subtype": "us",
+                    "data": {}
+                },
+                "functional": "pbe"
+            },
+            "units": [
+                {
+                    "name": "assign-te-for-material",
+                    "type": "assignment",
+                    "operand": "TE_FOR_MATERIAL",
+                    "value": "total_energy",
+                    "input": [
+                        {
+                            "name": "total_energy",
+                            "scope": "pw-scf"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-te-for-material",
+                    "head": true,
                     "next": "assign-delta-n-by-symbol",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -1129,7 +1171,7 @@
                     "name": "assign-defect-formation-energy",
                     "type": "assignment",
                     "operand": "DEFECT_FORMATION_ENERGY",
-                    "value": "E_DEFECTIVE - E_PRISTINE - SUM_DELTA_N_TIMES_MU",
+                    "value": "TE_FOR_MATERIAL - E_PRISTINE - SUM_DELTA_N_TIMES_MU",
                     "input": [],
                     "results": [
                         {
@@ -1170,7 +1212,7 @@
         },
         {
             "type": "subworkflow",
-            "name": "Fetch Pristine Total Energy",
+            "name": "Compute Total Energy for Defective Material",
             "results": [],
             "monitors": [],
             "preProcessors": [],
@@ -1178,8 +1220,23 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "_id": "a2df0c8b-3c8e-550f-8e9f-fcb048cb0192",
-            "flowchartId": "b3865575-63f8-597e-9ea6-cad9ed99aa6a",
+            "_id": "e1378be9-ae77-5e86-8252-2253a25a18d7",
+            "flowchartId": "ccdea6bc-7ec3-5ef3-b79a-38be24dc7dda",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "subworkflow",
+            "name": "Fetch Total Energy for Pristine Material",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "663534ea-592c-5ee6-b482-b78a1ddf8ad5",
+            "flowchartId": "9b8e6050-4eef-5c0b-84c6-dc1e5eb8ca7e",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
@@ -1200,7 +1257,7 @@
         },
         {
             "type": "subworkflow",
-            "name": "Defect Formation Energy",
+            "name": "Resolve Total Energies for Elemental Materials",
             "results": [],
             "monitors": [],
             "preProcessors": [],
@@ -1208,21 +1265,36 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "_id": "b157404d-9f97-59f2-a172-468d3d1993f3",
-            "flowchartId": "2711592b-a19a-58f9-898d-b60c49f82b7e",
+            "_id": "c041b34a-430b-5f82-8c2d-83daac763e63",
+            "flowchartId": "261abb31-5cf9-56f9-b4b2-69b1e3e07441",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "subworkflow",
+            "name": "Calculate Defect Formation Energy",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "7128328c-2203-5240-b64b-27c9d76b6300",
+            "flowchartId": "1187d34f-534c-5904-9cd5-5c344f45fb54",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         }
     ],
     "properties": [
         "atomic_forces",
-        "defect_formation_energy",
         "fermi_energy",
         "pressure",
         "stress_tensor",
         "total_energy",
         "total_energy_contributions",
-        "total_force"
+        "total_force",
+        "defect_formation_energy"
     ],
     "workflows": [],
     "isMultiMaterial": true,

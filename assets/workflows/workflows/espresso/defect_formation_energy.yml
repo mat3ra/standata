@@ -32,11 +32,27 @@ units:
           attributes:
             flowchartId: set-material-index-defective
 
+  # Compute the defective-cell total energy (reused Total Energy SCF) while
+  # MATERIAL_INDEX is still 0 -- before fetch_bulk_total_energy moves it to the
+  # pristine cell. The pw_scf scope is pinned to 'pw-scf' so the property
+  # subworkflow can read its total_energy.
+  - name: total_energy
+    type: subworkflow
+    config:
+      attributes:
+        name: Compute Total Energy for Defective Material
+    unitConfigs:
+      - index: 0
+        type: executionBuilder
+        config:
+          attributes:
+            flowchartId: pw-scf
+
   - name: shell/fetch_bulk_total_energy
     type: subworkflow
     config:
       attributes:
-        name: Fetch Pristine Total Energy
+        name: Fetch Total Energy for Pristine Material
     unitConfigs:
       - index: 0
         type: assignment
@@ -68,6 +84,9 @@ units:
     config:
       attributes:
         name: Resolve Elemental Materials
+
+  - name: resolve_elemental_total_energies
+    type: subworkflow
 
   - name: defect_formation_energy
     type: subworkflow

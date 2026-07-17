@@ -1,10 +1,17 @@
-# Runs QE SCF on the DEFECTIVE cell (material 0 of a multi-material job) and
-# computes the neutral defect formation energy (eV):
-#   E_defect = E_DEFECTIVE − E_PRISTINE − Σ_i ΔN_i · μ_i
+# Computes the neutral defect formation energy (eV) from the defective-cell
+# total energy already in context, the pristine total energy, and the resolved
+# elemental total-energy contributions:
+#   E_defect = TE_FOR_MATERIAL − E_PRISTINE − Σ_i ΔN_i · μ_i
 #
-# In:  MATERIAL (defective), PRISTINE, E_PRISTINE, ELEMENTS, ELEMENT_MATERIALS,
-#      ELEMENT_MATERIAL_IDS_BY_SYMBOL
-# Out: total_energy (property), defect_formation_energy (property)
+# Runs after espresso/total_energy (SCF on the defective cell, scope 'pw-scf'),
+# shell/fetch_bulk_total_energy (PRISTINE, E_PRISTINE) and
+# espresso/resolve_elemental_total_energies (TE_CONTRIBUTIONS_BY_SYMBOL).
+#
+# In:  total_energy (scope 'pw-scf')   defective-cell TE (eV) from pw.x
+#      MATERIAL (defective), PRISTINE, E_PRISTINE
+#      ELEMENTS, TE_CONTRIBUTIONS_BY_SYMBOL
+# Out: TE_FOR_MATERIAL                  defective-cell TE (eV) in global scope
+#      defect_formation_energy (property)
 application:
   name: espresso
   version: "6.3"
@@ -12,178 +19,20 @@ method:
   name: PseudopotentialMethod
 model:
   name: DFTModel
-name: Defect Formation Energy
+name: Calculate Defect Formation Energy
 units:
   - type: assignment
     config:
-      name: set-material-index
+      name: assign-te-for-material
       description: |
-        Compute the total energy of the defective supercell, which is material 0
-        in this multi-material job ([0] defective, [1] pristine).
-      flowchartId: set-material-index
-      operand: MATERIAL_INDEX
-      value: "0"
-
-  - type: executionBuilder
-    config:
-      execName: pw.x
-      flavorName: pw_scf
-      flowchartId: pw-scf-defect-formation-energy
-      name: pw_scf
-
-  - type: assignment
-    config:
-      name: assign-e-defective
-      description: |
-        Total energy of the defective supercell (eV) from the pw.x SCF run.
-      flowchartId: assign-e-defective
-      operand: E_DEFECTIVE
+        Total energy of the defective supercell (eV) from the pw.x SCF run by
+        the reused espresso/total_energy subworkflow (scope 'pw-scf').
+      flowchartId: assign-te-for-material
+      operand: TE_FOR_MATERIAL
       value: total_energy
       input:
         - name: total_energy
-          scope: pw-scf-defect-formation-energy
-
-  - type: assignment
-    config:
-      name: assign-source-of-te-for-an-element
-      description: |
-        Source of elemental total energy data:
-        - 'my_account' if the user is the owner of the elemental reference material(s)
-        - 'curators' if the user is a curator of the elemental reference material(s)
-        - 'public' if the user is not the owner or curator of the elemental reference material(s)
-      flowchartId: assign-source-of-te-for-an-element
-      operand: SOURCE_OF_TE_FOR_AN_ELEMENT
-      value: "'public'"
-
-  - type: assignment
-    config:
-      name: assign-group-for-material
-      description: |
-        Property group slug for the material's computational method.
-        DFT model groupSlug: {app.shortName}:{model.type}:{model.subtype}:{model.functional}.
-        Used to filter elemental total energies by the same method.
-      flowchartId: assign-group-for-material
-      operand: GROUP_FOR_MATERIAL
-      value: "'qe:dft:gga:pbe'"
-
-  - type: assignment
-    config:
-      name: init-element-index
-      flowchartId: init-element-index
-      operand: ELEMENT_INDEX
-      value: "0"
-
-  - type: assignment
-    config:
-      name: init-te-for-elemental-materials-map-by-symbol
-      flowchartId: init-te-for-elemental-materials-map-by-symbol
-      operand: TE_FOR_ELEMENTAL_MATERIALS_MAP_BY_SYMBOL
-      value: "{}"
-
-  - type: condition
-    config:
-      name: check-te-for-elemental-materials-loop
-      flowchartId: check-te-for-elemental-materials-loop
-      statement: "ELEMENT_INDEX >= len(ELEMENTS)"
-      then: assign-missing-te-for-element-symbols
-      else: assign-current-element
-
-  - type: assignment
-    config:
-      name: assign-current-element
-      flowchartId: assign-current-element
-      operand: CURRENT_ELEMENT
-      value: "ELEMENTS[ELEMENT_INDEX]"
-
-  - type: io
-    config:
-      name: io-te-for-an-element
-      flowchartId: io-te-for-an-element
-      subtype: input
-      source: api
-      input:
-        - type: api
-          endpoint: properties
-          endpoint_options:
-            params:
-              query: >-
-                {'exabyteId': {'$in': ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]},
-                'slug': 'total_energy', 'group': GROUP_FOR_MATERIAL,
-                'owner.slug': {'$in': [JOB_OWNER_SLUG, 'curators']}}
-                if SOURCE_OF_TE_FOR_AN_ELEMENT == 'my_account' else
-                ({'exabyteId': {'$in': ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]},
-                'slug': 'total_energy', 'group': GROUP_FOR_MATERIAL,
-                'owner.slug': 'curators'}
-                if SOURCE_OF_TE_FOR_AN_ELEMENT == 'curators' else
-                {'exabyteId': {'$in': ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]},
-                'slug': 'total_energy', 'group': GROUP_FOR_MATERIAL})
-              projection: >-
-                {
-                    "sort": {"precision.value": -1},
-                    "limit": 1,
-                }
-          name: DATA
-
-  - type: assignment
-    config:
-      name: assign-te-for-elemental-materials-map-by-symbol
-      flowchartId: assign-te-for-elemental-materials-map-by-symbol
-      operand: TE_FOR_ELEMENTAL_MATERIALS_MAP_BY_SYMBOL
-      value: >-
-        {**TE_FOR_ELEMENTAL_MATERIALS_MAP_BY_SYMBOL, CURRENT_ELEMENT: DATA[0] if DATA else None}
-      input:
-        - name: DATA
-          scope: io-te-for-an-element
-
-  - type: assignment
-    config:
-      name: increment-element-index
-      flowchartId: increment-element-index
-      operand: ELEMENT_INDEX
-      value: "ELEMENT_INDEX + 1"
-      next: check-te-for-elemental-materials-loop
-
-  - type: assignment
-    config:
-      name: assign-missing-te-for-element-symbols
-      flowchartId: assign-missing-te-for-element-symbols
-      operand: MISSING_TE_FOR_ELEMENT_SYMBOLS
-      value: >-
-        [el for el in ELEMENTS if TE_FOR_ELEMENTAL_MATERIALS_MAP_BY_SYMBOL[el] is None]
-      next: assert-te-for-elemental-materials-found
-
-  - type: assertion
-    config:
-      enableRender: true
-      name: assert-te-for-elemental-materials-found
-      flowchartId: assert-te-for-elemental-materials-found
-      statement: "len(MISSING_TE_FOR_ELEMENT_SYMBOLS) == 0"
-      errorMessage: >-
-        Missing total_energy for elemental reference material(s)
-        {{ MISSING_TE_FOR_ELEMENT_SYMBOLS | join(', ') }}.
-        Run the QE Total Energy workflow for the corresponding Standata
-        elemental material(s) before running Defect Formation Energy.
-
-  - type: assignment
-    config:
-      name: assign-te-contributions-by-symbol
-      flowchartId: assign-te-contributions-by-symbol
-      operand: TE_CONTRIBUTIONS_BY_SYMBOL
-      value: >-
-        {
-            el: {
-                "formula": el,
-                "n_atoms": len(ELEMENT_MATERIALS[el].basis.elements),
-                "is_elemental": True,
-                "total_energy": TE_FOR_ELEMENTAL_MATERIALS_MAP_BY_SYMBOL[el].data.value,
-                "total_energy_per_atom": TE_FOR_ELEMENTAL_MATERIALS_MAP_BY_SYMBOL[el].data.value
-                / len(ELEMENT_MATERIALS[el].basis.elements),
-                "precision_value": TE_FOR_ELEMENTAL_MATERIALS_MAP_BY_SYMBOL[el].precision.value,
-                "precision_metric": TE_FOR_ELEMENTAL_MATERIALS_MAP_BY_SYMBOL[el].precision.metric,
-            }
-            for el in ELEMENTS
-            if TE_FOR_ELEMENTAL_MATERIALS_MAP_BY_SYMBOL[el]
-        }
+          scope: pw-scf
 
   - type: assignment
     config:
@@ -220,9 +69,9 @@ units:
       name: assign-defect-formation-energy
       description: |
         Neutral defect formation energy (eV):
-        E_DEFECTIVE − E_PRISTINE − Σ_i ΔN_i · μ_i.
+        TE_FOR_MATERIAL − E_PRISTINE − Σ_i ΔN_i · μ_i.
       flowchartId: assign-defect-formation-energy
       operand: DEFECT_FORMATION_ENERGY
-      value: "E_DEFECTIVE - E_PRISTINE - SUM_DELTA_N_TIMES_MU"
+      value: "TE_FOR_MATERIAL - E_PRISTINE - SUM_DELTA_N_TIMES_MU"
       results:
         - name: defect_formation_energy

@@ -236,8 +236,8 @@
             "isDraft": false
         },
         {
-            "_id": "96ea3b36-6c3a-507b-8f4f-4d76c137bce0",
-            "name": "Formation Energy",
+            "_id": "5326f1a1-2ece-5215-9b2a-940428da047e",
+            "name": "Compute Total Energy",
             "application": {
                 "build": "GNU",
                 "hasAdvancedComputeOptions": true,
@@ -253,8 +253,6 @@
             "properties": [
                 "atomic_forces",
                 "fermi_energy",
-                "formation_energy",
-                "formation_energy_contributions",
                 "pressure",
                 "stress_tensor",
                 "total_energy",
@@ -405,34 +403,40 @@
                         }
                     ],
                     "context": [],
-                    "next": "assign-te-for-material",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
+            "_id": "c041b34a-430b-5f82-8c2d-83daac763e63",
+            "name": "Resolve Total Energies for Elemental Materials",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "espresso",
+                "shortName": "qe",
+                "summary": "Quantum ESPRESSO",
+                "version": "6.3",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [],
+            "model": {
+                "type": "dft",
+                "subtype": "gga",
+                "method": {
+                    "type": "pseudopotential",
+                    "subtype": "us",
+                    "data": {}
                 },
-                {
-                    "name": "assign-te-for-material",
-                    "type": "assignment",
-                    "operand": "TE_FOR_MATERIAL",
-                    "value": "total_energy",
-                    "input": [
-                        {
-                            "name": "total_energy",
-                            "scope": "pw-scf"
-                        }
-                    ],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-te-for-material",
-                    "head": false,
-                    "next": "assign-source-of-te-for-an-element",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
+                "functional": "pbe"
+            },
+            "units": [
                 {
                     "name": "assign-source-of-te-for-an-element",
                     "type": "assignment",
@@ -447,7 +451,7 @@
                     "statusTrack": [],
                     "tags": [],
                     "flowchartId": "assign-source-of-te-for-an-element",
-                    "head": false,
+                    "head": true,
                     "next": "assign-group-for-material",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -646,7 +650,7 @@
                     "name": "assert-te-for-elemental-materials-found",
                     "type": "assertion",
                     "statement": "len(MISSING_TE_FOR_ELEMENT_SYMBOLS) == 0",
-                    "errorMessage": "Missing total_energy for elemental reference material(s) {{ MISSING_TE_FOR_ELEMENT_SYMBOLS | join(', ') }}. Run the QE Total Energy workflow for the corresponding Standata elemental material(s) before running Formation Energy.",
+                    "errorMessage": "Missing total_energy for elemental reference material(s) {{ MISSING_TE_FOR_ELEMENT_SYMBOLS | join(', ') }}. Run the QE Total Energy workflow for the corresponding Standata elemental material(s) before running this workflow.",
                     "results": [],
                     "monitors": [],
                     "preProcessors": [],
@@ -675,6 +679,87 @@
                     "statusTrack": [],
                     "tags": [],
                     "flowchartId": "assign-te-contributions-by-symbol",
+                    "head": false,
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
+            "_id": "cadbe233-ec8a-59ee-bfd9-2205cb08c5f9",
+            "name": "Calculate Formation Energy",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "espresso",
+                "shortName": "qe",
+                "summary": "Quantum ESPRESSO",
+                "version": "6.3",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [
+                "formation_energy",
+                "formation_energy_contributions"
+            ],
+            "model": {
+                "type": "dft",
+                "subtype": "gga",
+                "method": {
+                    "type": "pseudopotential",
+                    "subtype": "us",
+                    "data": {}
+                },
+                "functional": "pbe"
+            },
+            "units": [
+                {
+                    "name": "assign-te-for-material",
+                    "type": "assignment",
+                    "operand": "TE_FOR_MATERIAL",
+                    "value": "total_energy",
+                    "input": [
+                        {
+                            "name": "total_energy",
+                            "scope": "pw-scf"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-te-for-material",
+                    "head": true,
+                    "next": "assign-precision-for-material",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-precision-for-material",
+                    "type": "assignment",
+                    "operand": "PRECISION_FOR_MATERIAL",
+                    "value": "{\n    \"precision_value\": context[\"kgrid\"].get(\"gridMetricValue\"),\n    \"precision_metric\": context[\"kgrid\"].get(\"gridMetricType\"),\n}",
+                    "input": [
+                        {
+                            "name": "context",
+                            "scope": "pw-scf"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-precision-for-material",
                     "head": false,
                     "next": "assign-sum-te-elemental-per-atom",
                     "schemaVersion": "2022.8.16",
@@ -717,30 +802,6 @@
                     "statusTrack": [],
                     "tags": [],
                     "flowchartId": "assign-formation-energy",
-                    "head": false,
-                    "next": "assign-precision-for-material",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assign-precision-for-material",
-                    "type": "assignment",
-                    "operand": "PRECISION_FOR_MATERIAL",
-                    "value": "{\n    \"precision_value\": context[\"kgrid\"].get(\"gridMetricValue\"),\n    \"precision_metric\": context[\"kgrid\"].get(\"gridMetricType\"),\n}",
-                    "input": [
-                        {
-                            "name": "context",
-                            "scope": "pw-scf"
-                        }
-                    ],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-precision-for-material",
                     "head": false,
                     "next": "assign-formation-energy-material-contribution",
                     "schemaVersion": "2022.8.16",
@@ -810,7 +871,7 @@
         },
         {
             "type": "subworkflow",
-            "name": "Formation Energy",
+            "name": "Compute Total Energy",
             "results": [],
             "monitors": [],
             "preProcessors": [],
@@ -818,8 +879,38 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "_id": "96ea3b36-6c3a-507b-8f4f-4d76c137bce0",
-            "flowchartId": "fce0690a-ad69-5555-8766-f77d519517b2",
+            "_id": "5326f1a1-2ece-5215-9b2a-940428da047e",
+            "flowchartId": "3e72e1bb-43ff-5cd4-874b-1e00d3e5af57",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "subworkflow",
+            "name": "Resolve Total Energies for Elemental Materials",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "c041b34a-430b-5f82-8c2d-83daac763e63",
+            "flowchartId": "261abb31-5cf9-56f9-b4b2-69b1e3e07441",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "subworkflow",
+            "name": "Calculate Formation Energy",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "cadbe233-ec8a-59ee-bfd9-2205cb08c5f9",
+            "flowchartId": "b77a0c68-0c9c-50fe-9fe9-bd12998ad651",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         }
@@ -827,13 +918,13 @@
     "properties": [
         "atomic_forces",
         "fermi_energy",
-        "formation_energy",
-        "formation_energy_contributions",
         "pressure",
         "stress_tensor",
         "total_energy",
         "total_energy_contributions",
-        "total_force"
+        "total_force",
+        "formation_energy",
+        "formation_energy_contributions"
     ],
     "workflows": [],
     "schemaVersion": "2022.8.16",

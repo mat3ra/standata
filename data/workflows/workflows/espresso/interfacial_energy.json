@@ -161,8 +161,8 @@
             "isDraft": false
         },
         {
-            "_id": "af33cb11-e150-524f-b595-e09c1a68cda3",
-            "name": "Fetch Substrate Total Energy",
+            "_id": "7938a22e-e61b-50fc-9d2b-f7ff16c72586",
+            "name": "Fetch Total Energy for Substrate Material",
             "application": {
                 "build": "GNU",
                 "hasAdvancedComputeOptions": false,
@@ -447,8 +447,8 @@
             "isDraft": false
         },
         {
-            "_id": "695611f7-fda7-5436-aee9-5cdf72ddc756",
-            "name": "Fetch Film Total Energy",
+            "_id": "47793038-7fbf-5875-bb16-f7b510aea431",
+            "name": "Fetch Total Energy for Film Material",
             "application": {
                 "build": "GNU",
                 "hasAdvancedComputeOptions": false,
@@ -1126,7 +1126,7 @@
         },
         {
             "type": "subworkflow",
-            "name": "Fetch Substrate Total Energy",
+            "name": "Fetch Total Energy for Substrate Material",
             "results": [],
             "monitors": [],
             "preProcessors": [],
@@ -1134,14 +1134,14 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "_id": "af33cb11-e150-524f-b595-e09c1a68cda3",
-            "flowchartId": "6081c943-25fe-5cc8-b70e-f52a74936e51",
+            "_id": "7938a22e-e61b-50fc-9d2b-f7ff16c72586",
+            "flowchartId": "3db8d1e5-7bb6-5d59-950c-826422b23095",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
             "type": "subworkflow",
-            "name": "Fetch Film Total Energy",
+            "name": "Fetch Total Energy for Film Material",
             "results": [],
             "monitors": [],
             "preProcessors": [],
@@ -1149,8 +1149,8 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "_id": "695611f7-fda7-5436-aee9-5cdf72ddc756",
-            "flowchartId": "a34d98af-e42d-57e3-9f6d-6d205fd8a1c6",
+            "_id": "47793038-7fbf-5875-bb16-f7b510aea431",
+            "flowchartId": "2e89b4ba-4931-5913-bd04-f9f919f8ad58",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
