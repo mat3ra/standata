@@ -336,8 +336,8 @@
             "isDraft": false
         },
         {
-            "_id": "663534ea-592c-5ee6-b482-b78a1ddf8ad5",
-            "name": "Fetch Total Energy for Pristine Material",
+            "_id": "3e037731-e243-5d62-a95b-b616e75b70d3",
+            "name": "Load Pristine Material",
             "application": {
                 "build": "GNU",
                 "hasAdvancedComputeOptions": false,
@@ -376,12 +376,12 @@
                     "tags": [],
                     "flowchartId": "set-material-index-pristine",
                     "head": true,
-                    "next": "io-job-materials",
+                    "next": "io-job-pristine",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "io-job-materials",
+                    "name": "io-job",
                     "type": "io",
                     "subtype": "input",
                     "results": [],
@@ -391,7 +391,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "io-job-materials",
+                    "flowchartId": "io-job-pristine",
                     "source": "api",
                     "input": [
                         {
@@ -403,23 +403,23 @@
                                     "projection": "{'_materials': 1}"
                                 }
                             },
-                            "name": "JOB_MATERIALS_DATA"
+                            "name": "DATA"
                         }
                     ],
                     "head": false,
-                    "next": "assign-bulk-material-id",
+                    "next": "assign-material-id-pristine",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-bulk-material-id",
+                    "name": "assign-material-id",
                     "type": "assignment",
-                    "operand": "BULK_MATERIAL_ID",
-                    "value": "JOB_MATERIALS_DATA[0]['_materials'][MATERIAL_INDEX]['_id'] if JOB_MATERIALS_DATA else None",
+                    "operand": "MATERIAL_ID_FOR_INDEX",
+                    "value": "DATA[0]['_materials'][MATERIAL_INDEX]['_id']",
                     "input": [
                         {
-                            "name": "JOB_MATERIALS_DATA",
-                            "scope": "io-job-materials"
+                            "name": "DATA",
+                            "scope": "io-job-pristine"
                         }
                     ],
                     "results": [],
@@ -429,14 +429,14 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk-material-id",
+                    "flowchartId": "assign-material-id-pristine",
                     "head": false,
-                    "next": "io-bulk-material",
+                    "next": "io-material-pristine",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "io-bulk-material",
+                    "name": "io-material",
                     "type": "io",
                     "subtype": "input",
                     "results": [],
@@ -446,7 +446,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "io-bulk-material",
+                    "flowchartId": "io-material-pristine",
                     "source": "api",
                     "input": [
                         {
@@ -454,27 +454,27 @@
                             "endpoint": "materials",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'_id': BULK_MATERIAL_ID}",
+                                    "query": "{'_id': MATERIAL_ID_FOR_INDEX}",
                                     "projection": "{}"
                                 }
                             },
-                            "name": "BULK_MATERIAL_DATA"
+                            "name": "DATA"
                         }
                     ],
                     "head": false,
-                    "next": "assign-bulk",
+                    "next": "assign-material-pristine",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-bulk",
+                    "name": "assign-material",
                     "type": "assignment",
                     "operand": "PRISTINE",
-                    "value": "BULK_MATERIAL_DATA[0] if BULK_MATERIAL_DATA else None",
+                    "value": "DATA[0] if len(DATA) == 1 else None",
                     "input": [
                         {
-                            "name": "BULK_MATERIAL_DATA",
-                            "scope": "io-bulk-material"
+                            "name": "DATA",
+                            "scope": "io-material-pristine"
                         }
                     ],
                     "results": [],
@@ -484,8 +484,56 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk",
+                    "flowchartId": "assign-material-pristine",
                     "head": false,
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
+            "_id": "663534ea-592c-5ee6-b482-b78a1ddf8ad5",
+            "name": "Fetch Total Energy for Pristine Material",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": false,
+                "name": "shell",
+                "shortName": "sh",
+                "summary": "Shell Script",
+                "version": "5.1.8",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [],
+            "model": {
+                "type": "unknown",
+                "subtype": "unknown",
+                "method": {
+                    "type": "unknown",
+                    "subtype": "unknown",
+                    "data": {}
+                }
+            },
+            "units": [
+                {
+                    "name": "assign-bulk-material-id",
+                    "type": "assignment",
+                    "operand": "BULK_MATERIAL_ID",
+                    "value": "PRISTINE['_id']",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-bulk-material-id",
+                    "head": true,
                     "next": "io-bulk-te-job",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -1222,6 +1270,21 @@
             "tags": [],
             "_id": "e1378be9-ae77-5e86-8252-2253a25a18d7",
             "flowchartId": "ccdea6bc-7ec3-5ef3-b79a-38be24dc7dda",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "subworkflow",
+            "name": "Load Pristine Material",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "3e037731-e243-5d62-a95b-b616e75b70d3",
+            "flowchartId": "87840eb0-53f2-5568-b718-69854a1b0ca7",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },

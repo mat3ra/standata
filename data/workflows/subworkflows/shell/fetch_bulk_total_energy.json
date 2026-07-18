@@ -1,6 +1,6 @@
 {
-    "_id": "7813ac74-cf9e-5a87-829d-94072950347c",
-    "name": "Fetch Bulk Total Energy",
+    "_id": "e2c425cc-9388-5ed7-8f2b-c77c7691aa52",
+    "name": "Fetch Total Energy for Bulk Material",
     "application": {
         "name": "shell"
     },
@@ -16,10 +16,10 @@
     },
     "units": [
         {
-            "name": "set-material-index",
+            "name": "assign-bulk-material-id",
             "type": "assignment",
-            "operand": "MATERIAL_INDEX",
-            "value": "1",
+            "operand": "BULK_MATERIAL_ID",
+            "value": "MATERIAL['_id']",
             "input": [],
             "results": [],
             "monitors": [],
@@ -28,118 +28,8 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "set-material-index",
-            "head": true,
-            "next": "io-job-materials",
-            "schemaVersion": "2022.8.16",
-            "isDefault": false
-        },
-        {
-            "name": "io-job-materials",
-            "type": "io",
-            "subtype": "input",
-            "results": [],
-            "monitors": [],
-            "preProcessors": [],
-            "postProcessors": [],
-            "status": "idle",
-            "statusTrack": [],
-            "tags": [],
-            "flowchartId": "io-job-materials",
-            "source": "api",
-            "input": [
-                {
-                    "type": "api",
-                    "endpoint": "jobs",
-                    "endpoint_options": {
-                        "params": {
-                            "query": "{'_id': JOB_ID}",
-                            "projection": "{'_materials': 1}"
-                        }
-                    },
-                    "name": "JOB_MATERIALS_DATA"
-                }
-            ],
-            "head": false,
-            "next": "assign-bulk-material-id",
-            "schemaVersion": "2022.8.16",
-            "isDefault": false
-        },
-        {
-            "name": "assign-bulk-material-id",
-            "type": "assignment",
-            "operand": "BULK_MATERIAL_ID",
-            "value": "JOB_MATERIALS_DATA[0]['_materials'][MATERIAL_INDEX]['_id'] if JOB_MATERIALS_DATA else None",
-            "input": [
-                {
-                    "name": "JOB_MATERIALS_DATA",
-                    "scope": "io-job-materials"
-                }
-            ],
-            "results": [],
-            "monitors": [],
-            "preProcessors": [],
-            "postProcessors": [],
-            "status": "idle",
-            "statusTrack": [],
-            "tags": [],
             "flowchartId": "assign-bulk-material-id",
-            "head": false,
-            "next": "io-bulk-material",
-            "schemaVersion": "2022.8.16",
-            "isDefault": false
-        },
-        {
-            "name": "io-bulk-material",
-            "type": "io",
-            "subtype": "input",
-            "results": [],
-            "monitors": [],
-            "preProcessors": [],
-            "postProcessors": [],
-            "status": "idle",
-            "statusTrack": [],
-            "tags": [],
-            "flowchartId": "io-bulk-material",
-            "source": "api",
-            "input": [
-                {
-                    "type": "api",
-                    "endpoint": "materials",
-                    "endpoint_options": {
-                        "params": {
-                            "query": "{'_id': BULK_MATERIAL_ID}",
-                            "projection": "{}"
-                        }
-                    },
-                    "name": "BULK_MATERIAL_DATA"
-                }
-            ],
-            "head": false,
-            "next": "assign-bulk",
-            "schemaVersion": "2022.8.16",
-            "isDefault": false
-        },
-        {
-            "name": "assign-bulk",
-            "type": "assignment",
-            "operand": "BULK",
-            "value": "BULK_MATERIAL_DATA[0] if BULK_MATERIAL_DATA else None",
-            "input": [
-                {
-                    "name": "BULK_MATERIAL_DATA",
-                    "scope": "io-bulk-material"
-                }
-            ],
-            "results": [],
-            "monitors": [],
-            "preProcessors": [],
-            "postProcessors": [],
-            "status": "idle",
-            "statusTrack": [],
-            "tags": [],
-            "flowchartId": "assign-bulk",
-            "head": false,
+            "head": true,
             "next": "io-bulk-te-job",
             "schemaVersion": "2022.8.16",
             "isDefault": false

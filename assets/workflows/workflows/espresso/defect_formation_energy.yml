@@ -48,6 +48,46 @@ units:
           attributes:
             flowchartId: pw-scf
 
+  - name: shell/utils/get_material_by_index
+    type: subworkflow
+    config:
+      attributes:
+        name: Load Pristine Material
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            flowchartId: set-material-index-pristine
+            value: "1"
+      - index: 1
+        type: io
+        config:
+          attributes:
+            flowchartId: io-job-pristine
+      - index: 2
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-material-id-pristine
+            input:
+              - name: DATA
+                scope: io-job-pristine
+      - index: 3
+        type: io
+        config:
+          attributes:
+            flowchartId: io-material-pristine
+      - index: 4
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-material-pristine
+            operand: PRISTINE
+            input:
+              - name: DATA
+                scope: io-material-pristine
+
   - name: shell/fetch_bulk_total_energy
     type: subworkflow
     config:
@@ -58,19 +98,13 @@ units:
         type: assignment
         config:
           attributes:
-            flowchartId: set-material-index-pristine
-            value: "1"
+            value: "PRISTINE['_id']"
       - index: 4
         type: assignment
         config:
           attributes:
-            operand: PRISTINE
-      - index: 8
-        type: assignment
-        config:
-          attributes:
             operand: E_PRISTINE
-      - index: 9
+      - index: 5
         type: assertion
         config:
           attributes:
