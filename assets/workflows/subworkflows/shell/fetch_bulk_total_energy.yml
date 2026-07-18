@@ -1,85 +1,33 @@
-# Fetches a bulk reference material (by MATERIAL_INDEX) and its total energy
-# from a previously-finished Total Energy job -- does not recompute it.
-
-# In:  MATERIAL_INDEX  position of the bulk in the job's material list
-#      JOB_ID          current job id, from the default eval context
-# Out: BULK            bulk reference material document (for stoichiometry)
-#      TE_BULK         bulk reference total energy (eV)
+# Fetches total energy (eV) for an already-resolved bulk reference material --
+# does not load/resolve the material itself. Reuse shell/utils/get_material_by_index
+# first to load it and name the result (e.g. PRISTINE, BULK_SUBSTRATE, BULK_FILM),
+# then override this subworkflow's first unit's value to reference that
+# operand's `_id`.
+#
+# In:  MATERIAL['_id']  resolved bulk reference material's _id (default operand
+#                        MATERIAL from get_material_by_index; override the
+#                        first unit's value per instance to reference whatever
+#                        operand the preceding Load stage used, e.g.
+#                        PRISTINE['_id'], BULK_SUBSTRATE['_id'], BULK_FILM['_id'])
+# Out: TE_BULK           bulk reference total energy (eV); override this operand
+#                        per instance (e.g. E_PRISTINE, TE_BULK_SUBSTRATE, TE_BULK_FILM)
 application:
   name: shell
 method:
   name: UnknownMethod
 model:
   name: UnknownModel
-name: Fetch Bulk Total Energy
+name: Fetch Total Energy for Bulk Material
 units:
-  - type: assignment
-    config:
-      name: set-material-index
-      description: |
-        Position of this bulk reference in the multi-material job's material
-        list. Default 1; override per instance via unitConfigs.
-      flowchartId: set-material-index
-      operand: MATERIAL_INDEX
-      value: "1"
-  - type: io
-    config:
-      name: io-job-materials
-      description: |
-        Read the job's ordered material list to resolve the bulk _id by index
-        (the bulk itself is not recomputed here).
-      flowchartId: io-job-materials
-      subtype: input
-      source: api
-      input:
-        - type: api
-          endpoint: jobs
-          endpoint_options:
-            params:
-              query: "{'_id': JOB_ID}"
-              projection: "{'_materials': 1}"
-          name: JOB_MATERIALS_DATA
   - type: assignment
     config:
       name: assign-bulk-material-id
       description: |
-        The bulk reference material _id, used to load its document and find its
-        Total Energy job.
+        _id of the resolved bulk reference material, used to look up its most
+        recent finished Total Energy job.
       flowchartId: assign-bulk-material-id
       operand: BULK_MATERIAL_ID
-      value: "JOB_MATERIALS_DATA[0]['_materials'][MATERIAL_INDEX]['_id'] if JOB_MATERIALS_DATA else None"
-      input:
-        - name: JOB_MATERIALS_DATA
-          scope: io-job-materials
-  - type: io
-    config:
-      name: io-bulk-material
-      description: |
-        Load the full bulk material document. Its basis is used downstream to
-        count how many bulk formula units the interface contains.
-      flowchartId: io-bulk-material
-      subtype: input
-      source: api
-      input:
-        - type: api
-          endpoint: materials
-          endpoint_options:
-            params:
-              query: "{'_id': BULK_MATERIAL_ID}"
-              projection: "{}"
-          name: BULK_MATERIAL_DATA
-  - type: assignment
-    config:
-      name: assign-bulk
-      description: |
-        The bulk reference material document. Override this operand per instance
-        (e.g. BULK_SUBSTRATE, BULK_FILM).
-      flowchartId: assign-bulk
-      operand: BULK
-      value: "BULK_MATERIAL_DATA[0] if BULK_MATERIAL_DATA else None"
-      input:
-        - name: BULK_MATERIAL_DATA
-          scope: io-bulk-material
+      value: "MATERIAL['_id']"
   - type: io
     config:
       name: io-bulk-te-job
@@ -133,7 +81,7 @@ units:
       name: assign-te-bulk
       description: |
         The bulk reference total energy (eV). Override this operand per instance
-        (e.g. TE_BULK_SUBSTRATE, TE_BULK_FILM).
+        (e.g. E_PRISTINE, TE_BULK_SUBSTRATE, TE_BULK_FILM).
       flowchartId: assign-te-bulk
       operand: TE_BULK
       value: "DATA[0].data.value if DATA else None"
