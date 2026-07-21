@@ -1,6 +1,6 @@
 {
-    "_id": "31958c8b-58fc-53c0-be83-c2675f37c7aa",
-    "name": "Resolve Bulk From Slab By Bulk ID",
+    "_id": "e2c425cc-9388-5ed7-8f2b-c77c7691aa52",
+    "name": "Fetch Total Energy for Bulk Material",
     "application": {
         "name": "shell"
     },
@@ -16,10 +16,10 @@
     },
     "units": [
         {
-            "name": "assign-bulk-id",
+            "name": "assign-bulk-material-id",
             "type": "assignment",
-            "operand": "BULK_ID",
-            "value": "SLAB.metadata.get('bulkId') if SLAB.metadata else None",
+            "operand": "BULK_MATERIAL_ID",
+            "value": "MATERIAL['_id']",
             "input": [],
             "results": [],
             "monitors": [],
@@ -28,54 +28,14 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assign-bulk-id",
+            "flowchartId": "assign-bulk-material-id",
             "head": true,
-            "next": "init-bulk",
+            "next": "io-bulk-te-job",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "init-bulk",
-            "type": "assignment",
-            "operand": "BULK",
-            "value": "None",
-            "input": [],
-            "results": [],
-            "monitors": [],
-            "preProcessors": [],
-            "postProcessors": [],
-            "status": "idle",
-            "statusTrack": [],
-            "tags": [],
-            "flowchartId": "init-bulk",
-            "head": false,
-            "next": "check-bulk-id",
-            "schemaVersion": "2022.8.16",
-            "isDefault": false
-        },
-        {
-            "name": "check-bulk-id",
-            "type": "condition",
-            "input": [],
-            "statement": "BULK_ID is None",
-            "maxOccurrences": 100,
-            "results": [],
-            "monitors": [],
-            "preProcessors": [],
-            "postProcessors": [],
-            "status": "idle",
-            "statusTrack": [],
-            "tags": [],
-            "flowchartId": "check-bulk-id",
-            "then": "done",
-            "else": "io-bulk",
-            "head": false,
-            "next": "io-bulk",
-            "schemaVersion": "2022.8.16",
-            "isDefault": false
-        },
-        {
-            "name": "io-bulk",
+            "name": "io-bulk-te-job",
             "type": "io",
             "subtype": "input",
             "results": [],
@@ -85,35 +45,90 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "io-bulk",
+            "flowchartId": "io-bulk-te-job",
             "source": "api",
             "input": [
                 {
                     "type": "api",
-                    "endpoint": "materials",
+                    "endpoint": "jobs",
                     "endpoint_options": {
                         "params": {
-                            "query": "{'_id': BULK_ID}",
-                            "projection": "{}"
+                            "query": "{'_material._id': BULK_MATERIAL_ID, 'status': 'finished', 'workflow.name': {'$regex': 'Total Energy'}}",
+                            "projection": "{'sort': {'updatedAt': -1}, 'limit': 1}"
+                        }
+                    },
+                    "name": "JOB_DATA"
+                }
+            ],
+            "head": false,
+            "next": "assign-bulk-te-job-id",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "assign-bulk-te-job-id",
+            "type": "assignment",
+            "operand": "BULK_TE_JOB_ID",
+            "value": "JOB_DATA[0]['_id'] if JOB_DATA else None",
+            "input": [
+                {
+                    "name": "JOB_DATA",
+                    "scope": "io-bulk-te-job"
+                }
+            ],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-bulk-te-job-id",
+            "head": false,
+            "next": "io-te-bulk",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "io-te-bulk",
+            "type": "io",
+            "subtype": "input",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "io-te-bulk",
+            "source": "api",
+            "input": [
+                {
+                    "type": "api",
+                    "endpoint": "properties",
+                    "endpoint_options": {
+                        "params": {
+                            "query": "{'source.info.jobId': BULK_TE_JOB_ID, 'slug': 'total_energy', 'group': {'$regex': 'qe:'}}",
+                            "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
                         }
                     },
                     "name": "DATA"
                 }
             ],
             "head": false,
-            "next": "assign-bulk",
+            "next": "assign-te-bulk",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "assign-bulk",
+            "name": "assign-te-bulk",
             "type": "assignment",
-            "operand": "BULK",
-            "value": "DATA[0] if DATA else None",
+            "operand": "TE_BULK",
+            "value": "DATA[0].data.value if DATA else None",
             "input": [
                 {
                     "name": "DATA",
-                    "scope": "io-bulk"
+                    "scope": "io-te-bulk"
                 }
             ],
             "results": [],
@@ -123,23 +138,17 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assign-bulk",
+            "flowchartId": "assign-te-bulk",
             "head": false,
-            "next": "assign-bulk-material-ids",
+            "next": "assert-te-bulk",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "assign-bulk-material-ids",
-            "type": "assignment",
-            "operand": "BULK_MATERIAL_IDS",
-            "value": "[m['_id'] for m in DATA] if DATA else []",
-            "input": [
-                {
-                    "name": "DATA",
-                    "scope": "io-bulk"
-                }
-            ],
+            "name": "assert-te-bulk",
+            "type": "assertion",
+            "statement": "TE_BULK != None",
+            "errorMessage": "Bulk total energy not found for a reference material. Run a Total Energy workflow on each bulk reference before running this workflow.",
             "results": [],
             "monitors": [],
             "preProcessors": [],
@@ -147,31 +156,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assign-bulk-material-ids",
-            "head": false,
-            "next": "done",
-            "schemaVersion": "2022.8.16",
-            "isDefault": false
-        },
-        {
-            "name": "done",
-            "type": "assignment",
-            "operand": "BULK",
-            "value": "BULK",
-            "input": [
-                {
-                    "name": "BULK",
-                    "scope": "global"
-                }
-            ],
-            "results": [],
-            "monitors": [],
-            "preProcessors": [],
-            "postProcessors": [],
-            "status": "idle",
-            "statusTrack": [],
-            "tags": [],
-            "flowchartId": "done",
+            "flowchartId": "assert-te-bulk",
             "head": false,
             "schemaVersion": "2022.8.16",
             "isDefault": false

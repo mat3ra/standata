@@ -1,0 +1,191 @@
+# Interfacial energy γ (eV/Å²):
+#   TE_excess = TE_interface - N_substrate × TE_bulk_substrate - N_film × TE_bulk_film
+#   γ         = TE_excess / (N_interfaces × area)
+#
+# Multi-material workflow — submit three materials, in this order:
+#   [0] Interface   the heterostructure (e.g. WS2/MoS2)
+#   [1] Substrate   the substrate bulk crystal
+#   [2] Film        the film bulk crystal
+#
+# Only the interface is computed (pw_scf); bulk energies are fetched from
+# each bulk's own previously-finished Total Energy job.
+name: Interfacial Energy
+config:
+  attributes:
+    isMultiMaterial: true
+properties:
+  - total_energy
+  - total_energy_contributions
+  - atomic_forces
+  - fermi_energy
+  - pressure
+  - stress_tensor
+  - total_force
+  - interfacial_energy
+units:
+  - name: shell/utils/get_material_by_index
+    type: subworkflow
+    config:
+      attributes:
+        name: Load Interface Material
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            flowchartId: set-material-index-interface
+      - index: 4
+        type: assignment
+        config:
+          attributes:
+            operand: INTERFACE
+  - name: shell/utils/get_material_by_index
+    type: subworkflow
+    config:
+      attributes:
+        name: Load Substrate Material
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            flowchartId: set-material-index-substrate
+            value: "1"
+      - index: 1
+        type: io
+        config:
+          attributes:
+            flowchartId: io-job-substrate
+      - index: 2
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-material-id-substrate
+            input:
+              - name: DATA
+                scope: io-job-substrate
+      - index: 3
+        type: io
+        config:
+          attributes:
+            flowchartId: io-material-substrate
+      - index: 4
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-material-substrate
+            operand: BULK_SUBSTRATE
+            input:
+              - name: DATA
+                scope: io-material-substrate
+
+  - name: shell/fetch_bulk_total_energy
+    type: subworkflow
+    config:
+      attributes:
+        name: Fetch Total Energy for Substrate Material
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            value: "BULK_SUBSTRATE['_id']"
+      - index: 4
+        type: assignment
+        config:
+          attributes:
+            operand: TE_BULK_SUBSTRATE
+      - index: 5
+        type: assertion
+        config:
+          attributes:
+            statement: "TE_BULK_SUBSTRATE != None"
+
+  - name: shell/utils/get_material_by_index
+    type: subworkflow
+    config:
+      attributes:
+        name: Load Film Material
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            flowchartId: set-material-index-film
+            value: "2"
+      - index: 1
+        type: io
+        config:
+          attributes:
+            flowchartId: io-job-film
+      - index: 2
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-material-id-film
+            input:
+              - name: DATA
+                scope: io-job-film
+      - index: 3
+        type: io
+        config:
+          attributes:
+            flowchartId: io-material-film
+      - index: 4
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-material-film
+            operand: BULK_FILM
+            input:
+              - name: DATA
+                scope: io-material-film
+
+  - name: shell/fetch_bulk_total_energy
+    type: subworkflow
+    config:
+      attributes:
+        name: Fetch Total Energy for Film Material
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-bulk-material-id-film
+            value: "BULK_FILM['_id']"
+      - index: 1
+        type: io
+        config:
+          attributes:
+            flowchartId: io-bulk-te-job-film
+      - index: 2
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-bulk-te-job-id-film
+            input:
+              - name: JOB_DATA
+                scope: io-bulk-te-job-film
+      - index: 3
+        type: io
+        config:
+          attributes:
+            flowchartId: io-te-bulk-film
+      - index: 4
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-te-bulk-film
+            operand: TE_BULK_FILM
+            input:
+              - name: DATA
+                scope: io-te-bulk-film
+      - index: 5
+        type: assertion
+        config:
+          attributes:
+            flowchartId: assert-te-bulk-film
+            statement: "TE_BULK_FILM != None"
+
+  - name: interfacial_energy
+    type: subworkflow

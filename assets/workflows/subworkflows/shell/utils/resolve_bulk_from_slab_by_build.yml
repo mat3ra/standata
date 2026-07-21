@@ -43,8 +43,8 @@ units:
         Upload the bulk material and run its total energy workflow first.
   - type: io
     config:
-      name: io-bulk
-      flowchartId: io-bulk
+      name: io-bulk-by-build
+      flowchartId: io-bulk-by-build
       subtype: input
       source: api
       input:
@@ -57,13 +57,22 @@ units:
           name: DATA
   - type: assignment
     config:
-      name: assign-bulk
-      flowchartId: assign-bulk
+      name: assign-bulk-by-build
+      flowchartId: assign-bulk-by-build
       operand: BULK
       value: "DATA[0] if DATA else None"
       input:
         - name: DATA
-          scope: io-bulk
+          scope: io-bulk-by-build
+  - type: assignment
+    config:
+      name: assign-bulk-material-ids-by-build
+      flowchartId: assign-bulk-material-ids-by-build
+      operand: BULK_MATERIAL_IDS
+      value: "[m['_id'] for m in DATA] if DATA else []"
+      input:
+        - name: DATA
+          scope: io-bulk-by-build
   - type: assertion
     config:
       name: assert-bulk
@@ -74,8 +83,8 @@ units:
         Upload the bulk material and run its total energy workflow first.
   - type: assignment
     config:
-      name: done
-      flowchartId: done
+      name: done-by-build
+      flowchartId: done-by-build
       operand: BULK
       value: "BULK"
       input:

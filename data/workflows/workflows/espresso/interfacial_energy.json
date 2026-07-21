@@ -1,10 +1,10 @@
 {
-    "_id": "847e467b-e76b-5bc4-b152-3faaba15e0fb",
-    "name": "Surface Energy",
+    "_id": "f72e952a-b535-5728-8b77-9e87de816698",
+    "name": "Interfacial Energy",
     "subworkflows": [
         {
-            "_id": "ad32fd60-cdf4-5c4a-8ad8-0cd8eafa4572",
-            "name": "Get Material By ID",
+            "_id": "f8d9e99a-c760-5b21-89b5-6d24056a11ca",
+            "name": "Load Interface Material",
             "application": {
                 "build": "GNU",
                 "hasAdvancedComputeOptions": false,
@@ -29,6 +29,80 @@
             },
             "units": [
                 {
+                    "name": "set-material-index",
+                    "type": "assignment",
+                    "operand": "MATERIAL_INDEX",
+                    "value": "0",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "set-material-index-interface",
+                    "head": true,
+                    "next": "io-job",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "io-job",
+                    "type": "io",
+                    "subtype": "input",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "io-job",
+                    "source": "api",
+                    "input": [
+                        {
+                            "type": "api",
+                            "endpoint": "jobs",
+                            "endpoint_options": {
+                                "params": {
+                                    "query": "{'_id': JOB_ID}",
+                                    "projection": "{'_materials': 1}"
+                                }
+                            },
+                            "name": "DATA"
+                        }
+                    ],
+                    "head": false,
+                    "next": "assign-material-id",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-material-id",
+                    "type": "assignment",
+                    "operand": "MATERIAL_ID_FOR_INDEX",
+                    "value": "DATA[0]['_materials'][MATERIAL_INDEX]['_id']",
+                    "input": [
+                        {
+                            "name": "DATA",
+                            "scope": "io-job"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-material-id",
+                    "head": false,
+                    "next": "io-material",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
                     "name": "io-material",
                     "type": "io",
                     "subtype": "input",
@@ -47,14 +121,14 @@
                             "endpoint": "materials",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'_id': MATERIAL_ID}",
+                                    "query": "{'_id': MATERIAL_ID_FOR_INDEX}",
                                     "projection": "{}"
                                 }
                             },
                             "name": "DATA"
                         }
                     ],
-                    "head": true,
+                    "head": false,
                     "next": "assign-material",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -62,7 +136,7 @@
                 {
                     "name": "assign-material",
                     "type": "assignment",
-                    "operand": "SLAB",
+                    "operand": "INTERFACE",
                     "value": "DATA[0] if len(DATA) == 1 else None",
                     "input": [
                         {
@@ -87,8 +161,8 @@
             "isDraft": false
         },
         {
-            "_id": "31958c8b-58fc-53c0-be83-c2675f37c7aa",
-            "name": "Resolve Bulk From Slab By Bulk ID",
+            "_id": "ab6ebc70-00c5-58bd-81e7-61dfe5f45da8",
+            "name": "Load Substrate Material",
             "application": {
                 "build": "GNU",
                 "hasAdvancedComputeOptions": false,
@@ -113,10 +187,10 @@
             },
             "units": [
                 {
-                    "name": "assign-bulk-id",
+                    "name": "set-material-index",
                     "type": "assignment",
-                    "operand": "BULK_ID",
-                    "value": "SLAB.metadata.get('bulkId') if SLAB.metadata else None",
+                    "operand": "MATERIAL_INDEX",
+                    "value": "1",
                     "input": [],
                     "results": [],
                     "monitors": [],
@@ -125,54 +199,14 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk-id",
+                    "flowchartId": "set-material-index-substrate",
                     "head": true,
-                    "next": "init-bulk",
+                    "next": "io-job-substrate",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "init-bulk",
-                    "type": "assignment",
-                    "operand": "BULK",
-                    "value": "None",
-                    "input": [],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "init-bulk",
-                    "head": false,
-                    "next": "check-bulk-id",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "check-bulk-id",
-                    "type": "condition",
-                    "input": [],
-                    "statement": "BULK_ID is None",
-                    "maxOccurrences": 100,
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "check-bulk-id",
-                    "then": "done",
-                    "else": "io-bulk",
-                    "head": false,
-                    "next": "io-bulk",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "io-bulk",
+                    "name": "io-job",
                     "type": "io",
                     "subtype": "input",
                     "results": [],
@@ -182,35 +216,35 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "io-bulk",
+                    "flowchartId": "io-job-substrate",
                     "source": "api",
                     "input": [
                         {
                             "type": "api",
-                            "endpoint": "materials",
+                            "endpoint": "jobs",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'_id': BULK_ID}",
-                                    "projection": "{}"
+                                    "query": "{'_id': JOB_ID}",
+                                    "projection": "{'_materials': 1}"
                                 }
                             },
                             "name": "DATA"
                         }
                     ],
                     "head": false,
-                    "next": "assign-bulk",
+                    "next": "assign-material-id-substrate",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-bulk",
+                    "name": "assign-material-id",
                     "type": "assignment",
-                    "operand": "BULK",
-                    "value": "DATA[0] if DATA else None",
+                    "operand": "MATERIAL_ID_FOR_INDEX",
+                    "value": "DATA[0]['_materials'][MATERIAL_INDEX]['_id']",
                     "input": [
                         {
                             "name": "DATA",
-                            "scope": "io-bulk"
+                            "scope": "io-job-substrate"
                         }
                     ],
                     "results": [],
@@ -220,168 +254,14 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk",
+                    "flowchartId": "assign-material-id-substrate",
                     "head": false,
-                    "next": "assign-bulk-material-ids",
+                    "next": "io-material-substrate",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-bulk-material-ids",
-                    "type": "assignment",
-                    "operand": "BULK_MATERIAL_IDS",
-                    "value": "[m['_id'] for m in DATA] if DATA else []",
-                    "input": [
-                        {
-                            "name": "DATA",
-                            "scope": "io-bulk"
-                        }
-                    ],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-bulk-material-ids",
-                    "head": false,
-                    "next": "done",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "done",
-                    "type": "assignment",
-                    "operand": "BULK",
-                    "value": "BULK",
-                    "input": [
-                        {
-                            "name": "BULK",
-                            "scope": "global"
-                        }
-                    ],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "done",
-                    "head": false,
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                }
-            ],
-            "schemaVersion": "2022.8.16",
-            "isDraft": false
-        },
-        {
-            "_id": "f7daa3d8-1174-57e4-8d23-7c1f7a476f31",
-            "name": "Resolve Bulk From Slab By Build",
-            "application": {
-                "build": "GNU",
-                "hasAdvancedComputeOptions": false,
-                "isDefault": true,
-                "isDefaultVersion": true,
-                "isUsingMaterial": false,
-                "name": "shell",
-                "shortName": "sh",
-                "summary": "Shell Script",
-                "version": "5.1.8",
-                "schemaVersion": "2022.8.16"
-            },
-            "properties": [],
-            "model": {
-                "type": "unknown",
-                "subtype": "unknown",
-                "method": {
-                    "type": "unknown",
-                    "subtype": "unknown",
-                    "data": {}
-                }
-            },
-            "units": [
-                {
-                    "name": "is-bulk-present",
-                    "type": "condition",
-                    "input": [],
-                    "statement": "BULK is not None",
-                    "maxOccurrences": 100,
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "is-bulk-present",
-                    "then": "done",
-                    "else": "assign-crystal",
-                    "head": true,
-                    "next": "assign-crystal",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assign-crystal",
-                    "type": "assignment",
-                    "operand": "LAST_BUILD_CRYSTAL",
-                    "value": "(((SLAB.metadata.get('build') or [{}])[-1].get('configuration') or {}).get( 'stack_components' ) or [{}])[0].get('crystal') if SLAB.metadata else None",
-                    "input": [],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-crystal",
-                    "head": false,
-                    "next": "assign-bulk-query",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assign-bulk-query",
-                    "type": "assignment",
-                    "operand": "BULK_QUERY",
-                    "value": "{'scaledHash': LAST_BUILD_CRYSTAL.get('scaledHash')} if LAST_BUILD_CRYSTAL and LAST_BUILD_CRYSTAL.get('scaledHash') else {'hash': LAST_BUILD_CRYSTAL.get('hash')} if LAST_BUILD_CRYSTAL and LAST_BUILD_CRYSTAL.get('hash') else None",
-                    "input": [],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-bulk-query",
-                    "head": false,
-                    "next": "assert-bulk-query",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assert-bulk-query",
-                    "type": "assertion",
-                    "statement": "BULK_QUERY != None",
-                    "errorMessage": "Surface slab build metadata does not carry a crystal scaledHash or hash. Upload the bulk material and run its total energy workflow first.",
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assert-bulk-query",
-                    "head": false,
-                    "next": "io-bulk-by-build",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "io-bulk-by-build",
+                    "name": "io-material",
                     "type": "io",
                     "subtype": "input",
                     "results": [],
@@ -391,7 +271,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "io-bulk-by-build",
+                    "flowchartId": "io-material-substrate",
                     "source": "api",
                     "input": [
                         {
@@ -399,7 +279,7 @@
                             "endpoint": "materials",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "BULK_QUERY",
+                                    "query": "{'_id': MATERIAL_ID_FOR_INDEX}",
                                     "projection": "{}"
                                 }
                             },
@@ -407,19 +287,19 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-bulk-by-build",
+                    "next": "assign-material-substrate",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-bulk-by-build",
+                    "name": "assign-material",
                     "type": "assignment",
-                    "operand": "BULK",
-                    "value": "DATA[0] if DATA else None",
+                    "operand": "BULK_SUBSTRATE",
+                    "value": "DATA[0] if len(DATA) == 1 else None",
                     "input": [
                         {
                             "name": "DATA",
-                            "scope": "io-bulk-by-build"
+                            "scope": "io-material-substrate"
                         }
                     ],
                     "results": [],
@@ -429,73 +309,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk-by-build",
-                    "head": false,
-                    "next": "assign-bulk-material-ids-by-build",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assign-bulk-material-ids-by-build",
-                    "type": "assignment",
-                    "operand": "BULK_MATERIAL_IDS",
-                    "value": "[m['_id'] for m in DATA] if DATA else []",
-                    "input": [
-                        {
-                            "name": "DATA",
-                            "scope": "io-bulk-by-build"
-                        }
-                    ],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-bulk-material-ids-by-build",
-                    "head": false,
-                    "next": "assert-bulk",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assert-bulk",
-                    "type": "assertion",
-                    "statement": "BULK != None",
-                    "errorMessage": "No bulk material matched the resolved slab build metadata query. Upload the bulk material and run its total energy workflow first.",
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assert-bulk",
-                    "head": false,
-                    "next": "done-by-build",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "done-by-build",
-                    "type": "assignment",
-                    "operand": "BULK",
-                    "value": "BULK",
-                    "input": [
-                        {
-                            "name": "BULK",
-                            "scope": "global"
-                        }
-                    ],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "done-by-build",
+                    "flowchartId": "assign-material-substrate",
                     "head": false,
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -505,8 +319,8 @@
             "isDraft": false
         },
         {
-            "_id": "8bcfd726-4fcd-5b2f-b91e-493c61ee9014",
-            "name": "Get Bulk Energy",
+            "_id": "7938a22e-e61b-50fc-9d2b-f7ff16c72586",
+            "name": "Fetch Total Energy for Substrate Material",
             "application": {
                 "build": "GNU",
                 "hasAdvancedComputeOptions": false,
@@ -530,6 +344,25 @@
                 }
             },
             "units": [
+                {
+                    "name": "assign-bulk-material-id",
+                    "type": "assignment",
+                    "operand": "BULK_MATERIAL_ID",
+                    "value": "BULK_SUBSTRATE['_id']",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-bulk-material-id",
+                    "head": true,
+                    "next": "io-bulk-te-job",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
                 {
                     "name": "io-bulk-te-job",
                     "type": "io",
@@ -549,14 +382,14 @@
                             "endpoint": "jobs",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'_material._id': {'$in': BULK_MATERIAL_IDS}, 'status': 'finished', 'workflow.name': {'$regex': 'Total Energy'}}",
+                                    "query": "{'_material._id': BULK_MATERIAL_ID, 'status': 'finished', 'workflow.name': {'$regex': 'Total Energy'}}",
                                     "projection": "{'sort': {'updatedAt': -1}, 'limit': 1}"
                                 }
                             },
                             "name": "JOB_DATA"
                         }
                     ],
-                    "head": true,
+                    "head": false,
                     "next": "assign-bulk-te-job-id",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -581,12 +414,12 @@
                     "tags": [],
                     "flowchartId": "assign-bulk-te-job-id",
                     "head": false,
-                    "next": "io-e-bulk",
+                    "next": "io-te-bulk",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "io-e-bulk",
+                    "name": "io-te-bulk",
                     "type": "io",
                     "subtype": "input",
                     "results": [],
@@ -596,7 +429,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "io-e-bulk",
+                    "flowchartId": "io-te-bulk",
                     "source": "api",
                     "input": [
                         {
@@ -604,7 +437,7 @@
                             "endpoint": "properties",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'source.info.jobId': BULK_TE_JOB_ID, 'slug': 'total_energy'}",
+                                    "query": "{'source.info.jobId': BULK_TE_JOB_ID, 'slug': 'total_energy', 'group': {'$regex': 'qe:'}}",
                                     "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
                                 }
                             },
@@ -612,19 +445,19 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-e-bulk",
+                    "next": "assign-te-bulk",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-e-bulk",
+                    "name": "assign-te-bulk",
                     "type": "assignment",
-                    "operand": "E_BULK",
+                    "operand": "TE_BULK_SUBSTRATE",
                     "value": "DATA[0].data.value if DATA else None",
                     "input": [
                         {
                             "name": "DATA",
-                            "scope": "io-e-bulk"
+                            "scope": "io-te-bulk"
                         }
                     ],
                     "results": [],
@@ -634,17 +467,17 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-e-bulk",
+                    "flowchartId": "assign-te-bulk",
                     "head": false,
-                    "next": "assert-e-bulk",
+                    "next": "assert-te-bulk",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assert-e-bulk",
+                    "name": "assert-te-bulk",
                     "type": "assertion",
-                    "statement": "E_BULK != None",
-                    "errorMessage": "Bulk total energy does not exist for the resolved bulk material. Run a bulk total energy workflow first.",
+                    "statement": "TE_BULK_SUBSTRATE != None",
+                    "errorMessage": "Bulk total energy not found for a reference material. Run a Total Energy workflow on each bulk reference before running this workflow.",
                     "results": [],
                     "monitors": [],
                     "preProcessors": [],
@@ -652,7 +485,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assert-e-bulk",
+                    "flowchartId": "assert-te-bulk",
                     "head": false,
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -662,8 +495,342 @@
             "isDraft": false
         },
         {
-            "_id": "f9de6348-fcc4-54b7-a09d-c6496e22d33a",
-            "name": "Surface Energy - QE",
+            "_id": "cc7b7d01-7001-5a14-8a04-97fe8e6534cb",
+            "name": "Load Film Material",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": false,
+                "name": "shell",
+                "shortName": "sh",
+                "summary": "Shell Script",
+                "version": "5.1.8",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [],
+            "model": {
+                "type": "unknown",
+                "subtype": "unknown",
+                "method": {
+                    "type": "unknown",
+                    "subtype": "unknown",
+                    "data": {}
+                }
+            },
+            "units": [
+                {
+                    "name": "set-material-index",
+                    "type": "assignment",
+                    "operand": "MATERIAL_INDEX",
+                    "value": "2",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "set-material-index-film",
+                    "head": true,
+                    "next": "io-job-film",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "io-job",
+                    "type": "io",
+                    "subtype": "input",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "io-job-film",
+                    "source": "api",
+                    "input": [
+                        {
+                            "type": "api",
+                            "endpoint": "jobs",
+                            "endpoint_options": {
+                                "params": {
+                                    "query": "{'_id': JOB_ID}",
+                                    "projection": "{'_materials': 1}"
+                                }
+                            },
+                            "name": "DATA"
+                        }
+                    ],
+                    "head": false,
+                    "next": "assign-material-id-film",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-material-id",
+                    "type": "assignment",
+                    "operand": "MATERIAL_ID_FOR_INDEX",
+                    "value": "DATA[0]['_materials'][MATERIAL_INDEX]['_id']",
+                    "input": [
+                        {
+                            "name": "DATA",
+                            "scope": "io-job-film"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-material-id-film",
+                    "head": false,
+                    "next": "io-material-film",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "io-material",
+                    "type": "io",
+                    "subtype": "input",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "io-material-film",
+                    "source": "api",
+                    "input": [
+                        {
+                            "type": "api",
+                            "endpoint": "materials",
+                            "endpoint_options": {
+                                "params": {
+                                    "query": "{'_id': MATERIAL_ID_FOR_INDEX}",
+                                    "projection": "{}"
+                                }
+                            },
+                            "name": "DATA"
+                        }
+                    ],
+                    "head": false,
+                    "next": "assign-material-film",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-material",
+                    "type": "assignment",
+                    "operand": "BULK_FILM",
+                    "value": "DATA[0] if len(DATA) == 1 else None",
+                    "input": [
+                        {
+                            "name": "DATA",
+                            "scope": "io-material-film"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-material-film",
+                    "head": false,
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
+            "_id": "47793038-7fbf-5875-bb16-f7b510aea431",
+            "name": "Fetch Total Energy for Film Material",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": false,
+                "name": "shell",
+                "shortName": "sh",
+                "summary": "Shell Script",
+                "version": "5.1.8",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [],
+            "model": {
+                "type": "unknown",
+                "subtype": "unknown",
+                "method": {
+                    "type": "unknown",
+                    "subtype": "unknown",
+                    "data": {}
+                }
+            },
+            "units": [
+                {
+                    "name": "assign-bulk-material-id",
+                    "type": "assignment",
+                    "operand": "BULK_MATERIAL_ID",
+                    "value": "BULK_FILM['_id']",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-bulk-material-id-film",
+                    "head": true,
+                    "next": "io-bulk-te-job-film",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "io-bulk-te-job",
+                    "type": "io",
+                    "subtype": "input",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "io-bulk-te-job-film",
+                    "source": "api",
+                    "input": [
+                        {
+                            "type": "api",
+                            "endpoint": "jobs",
+                            "endpoint_options": {
+                                "params": {
+                                    "query": "{'_material._id': BULK_MATERIAL_ID, 'status': 'finished', 'workflow.name': {'$regex': 'Total Energy'}}",
+                                    "projection": "{'sort': {'updatedAt': -1}, 'limit': 1}"
+                                }
+                            },
+                            "name": "JOB_DATA"
+                        }
+                    ],
+                    "head": false,
+                    "next": "assign-bulk-te-job-id-film",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-bulk-te-job-id",
+                    "type": "assignment",
+                    "operand": "BULK_TE_JOB_ID",
+                    "value": "JOB_DATA[0]['_id'] if JOB_DATA else None",
+                    "input": [
+                        {
+                            "name": "JOB_DATA",
+                            "scope": "io-bulk-te-job-film"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-bulk-te-job-id-film",
+                    "head": false,
+                    "next": "io-te-bulk-film",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "io-te-bulk",
+                    "type": "io",
+                    "subtype": "input",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "io-te-bulk-film",
+                    "source": "api",
+                    "input": [
+                        {
+                            "type": "api",
+                            "endpoint": "properties",
+                            "endpoint_options": {
+                                "params": {
+                                    "query": "{'source.info.jobId': BULK_TE_JOB_ID, 'slug': 'total_energy', 'group': {'$regex': 'qe:'}}",
+                                    "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
+                                }
+                            },
+                            "name": "DATA"
+                        }
+                    ],
+                    "head": false,
+                    "next": "assign-te-bulk-film",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-te-bulk",
+                    "type": "assignment",
+                    "operand": "TE_BULK_FILM",
+                    "value": "DATA[0].data.value if DATA else None",
+                    "input": [
+                        {
+                            "name": "DATA",
+                            "scope": "io-te-bulk-film"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-te-bulk-film",
+                    "head": false,
+                    "next": "assert-te-bulk-film",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assert-te-bulk",
+                    "type": "assertion",
+                    "statement": "TE_BULK_FILM != None",
+                    "errorMessage": "Bulk total energy not found for a reference material. Run a Total Energy workflow on each bulk reference before running this workflow.",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assert-te-bulk-film",
+                    "head": false,
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
+            "_id": "a85bf2a4-76c0-5d27-a389-40cce62be473",
+            "name": "Compute Interfacial Energy",
             "application": {
                 "build": "GNU",
                 "hasAdvancedComputeOptions": true,
@@ -679,9 +846,9 @@
             "properties": [
                 "atomic_forces",
                 "fermi_energy",
+                "interfacial_energy",
                 "pressure",
                 "stress_tensor",
-                "surface_energy",
                 "total_energy",
                 "total_energy_contributions",
                 "total_force"
@@ -698,10 +865,10 @@
             },
             "units": [
                 {
-                    "name": "assign-surface-area",
+                    "name": "set-material-index",
                     "type": "assignment",
-                    "operand": "A",
-                    "value": "np.linalg.norm(np.cross(SLAB.lattice.vectors.a, SLAB.lattice.vectors.b))",
+                    "operand": "MATERIAL_INDEX",
+                    "value": "0",
                     "input": [],
                     "results": [],
                     "monitors": [],
@@ -710,47 +877,9 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-surface-area",
+                    "flowchartId": "set-material-index",
                     "head": true,
-                    "next": "assign-n-bulk",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assign-n-bulk",
-                    "type": "assignment",
-                    "operand": "N_BULK",
-                    "value": "len(BULK.basis.elements)",
-                    "input": [],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-n-bulk",
-                    "head": false,
-                    "next": "assign-n-slab",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assign-n-slab",
-                    "type": "assignment",
-                    "operand": "N_SLAB",
-                    "value": "len(SLAB.basis.elements)",
-                    "input": [],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-n-slab",
-                    "head": false,
-                    "next": "pw-scf-surface-energy",
+                    "next": "pw-scf-interfacial-energy",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
@@ -789,7 +918,7 @@
                             "name": "convergence_electronic"
                         }
                     ],
-                    "flowchartId": "pw-scf-surface-energy",
+                    "flowchartId": "pw-scf-interfacial-energy",
                     "preProcessors": [],
                     "postProcessors": [],
                     "status": "idle",
@@ -887,19 +1016,19 @@
                         }
                     ],
                     "context": [],
-                    "next": "assign-e-slab",
+                    "next": "assign-te-interface",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-e-slab",
+                    "name": "assign-te-interface",
                     "type": "assignment",
-                    "operand": "E_SLAB",
+                    "operand": "TE_INTERFACE",
                     "value": "total_energy",
                     "input": [
                         {
                             "name": "total_energy",
-                            "scope": "pw-scf-surface-energy"
+                            "scope": "pw-scf-interfacial-energy"
                         }
                     ],
                     "results": [],
@@ -909,21 +1038,154 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-e-slab",
+                    "flowchartId": "assign-te-interface",
                     "head": false,
-                    "next": "assign-surface-energy",
+                    "next": "set-n-interfaces",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-surface-energy",
+                    "name": "set-n-interfaces",
                     "type": "assignment",
-                    "operand": "SURFACE_ENERGY",
-                    "value": "1 / (2 * A) * (E_SLAB - E_BULK * (N_SLAB / N_BULK))",
+                    "operand": "N_INTERFACES",
+                    "value": "1",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "set-n-interfaces",
+                    "head": false,
+                    "next": "assign-bulk-substrate-natoms",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-bulk-substrate-natoms",
+                    "type": "assignment",
+                    "operand": "BULK_SUBSTRATE_NATOMS",
+                    "value": "len(BULK_SUBSTRATE.basis.elements)",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-bulk-substrate-natoms",
+                    "head": false,
+                    "next": "assign-bulk-film-natoms",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-bulk-film-natoms",
+                    "type": "assignment",
+                    "operand": "BULK_FILM_NATOMS",
+                    "value": "len(BULK_FILM.basis.elements)",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-bulk-film-natoms",
+                    "head": false,
+                    "next": "assign-n-substrate",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-n-substrate",
+                    "type": "assignment",
+                    "operand": "N_SUBSTRATE",
+                    "value": "len([e for e in INTERFACE.basis.elements if e.value in [x.value for x in BULK_SUBSTRATE.basis.elements]]) / BULK_SUBSTRATE_NATOMS",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-n-substrate",
+                    "head": false,
+                    "next": "assign-n-film",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-n-film",
+                    "type": "assignment",
+                    "operand": "N_FILM",
+                    "value": "len([e for e in INTERFACE.basis.elements if e.value in [x.value for x in BULK_FILM.basis.elements] and e.value not in [x.value for x in BULK_SUBSTRATE.basis.elements]]) / BULK_FILM_NATOMS",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-n-film",
+                    "head": false,
+                    "next": "assign-interface-area",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-interface-area",
+                    "type": "assignment",
+                    "operand": "INTERFACE_AREA",
+                    "value": "np.linalg.norm(np.cross(INTERFACE.lattice.vectors.a, INTERFACE.lattice.vectors.b))",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-interface-area",
+                    "head": false,
+                    "next": "assign-te-excess",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-te-excess",
+                    "type": "assignment",
+                    "operand": "TE_EXCESS",
+                    "value": "TE_INTERFACE - N_SUBSTRATE * TE_BULK_SUBSTRATE - N_FILM * TE_BULK_FILM",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-te-excess",
+                    "head": false,
+                    "next": "assign-interfacial-energy",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-interfacial-energy",
+                    "type": "assignment",
+                    "operand": "INTERFACIAL_ENERGY",
+                    "value": "TE_EXCESS / (N_INTERFACES * INTERFACE_AREA)",
                     "input": [],
                     "results": [
                         {
-                            "name": "surface_energy"
+                            "name": "interfacial_energy"
                         }
                     ],
                     "monitors": [],
@@ -932,7 +1194,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-surface-energy",
+                    "flowchartId": "assign-interfacial-energy",
                     "head": false,
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -945,7 +1207,7 @@
     "units": [
         {
             "type": "subworkflow",
-            "name": "Get Material By ID",
+            "name": "Load Interface Material",
             "results": [],
             "monitors": [],
             "preProcessors": [],
@@ -953,14 +1215,14 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "_id": "ad32fd60-cdf4-5c4a-8ad8-0cd8eafa4572",
-            "flowchartId": "77568205-b615-5ad5-ae25-9038d20a94de",
+            "_id": "f8d9e99a-c760-5b21-89b5-6d24056a11ca",
+            "flowchartId": "cb2ae2e2-0f63-56a2-bd93-a391c503bf30",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
             "type": "subworkflow",
-            "name": "Resolve Bulk From Slab By Bulk ID",
+            "name": "Load Substrate Material",
             "results": [],
             "monitors": [],
             "preProcessors": [],
@@ -968,14 +1230,14 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "_id": "31958c8b-58fc-53c0-be83-c2675f37c7aa",
-            "flowchartId": "657a54c3-8a46-5e16-b56e-0c11cb40bdc0",
+            "_id": "ab6ebc70-00c5-58bd-81e7-61dfe5f45da8",
+            "flowchartId": "07f0473a-3388-53ef-9f63-58a370242ae8",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
             "type": "subworkflow",
-            "name": "Resolve Bulk From Slab By Build",
+            "name": "Fetch Total Energy for Substrate Material",
             "results": [],
             "monitors": [],
             "preProcessors": [],
@@ -983,14 +1245,14 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "_id": "f7daa3d8-1174-57e4-8d23-7c1f7a476f31",
-            "flowchartId": "31273a7c-b460-5dd4-8ff8-5d7e027914b7",
+            "_id": "7938a22e-e61b-50fc-9d2b-f7ff16c72586",
+            "flowchartId": "3db8d1e5-7bb6-5d59-950c-826422b23095",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
             "type": "subworkflow",
-            "name": "Get Bulk Energy",
+            "name": "Load Film Material",
             "results": [],
             "monitors": [],
             "preProcessors": [],
@@ -998,14 +1260,14 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "_id": "8bcfd726-4fcd-5b2f-b91e-493c61ee9014",
-            "flowchartId": "772d0df2-fe8f-5842-bd5d-0fd2c9605955",
+            "_id": "cc7b7d01-7001-5a14-8a04-97fe8e6534cb",
+            "flowchartId": "67242c6d-2f10-56b7-9ed6-683c9552905b",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
             "type": "subworkflow",
-            "name": "Surface Energy - QE",
+            "name": "Fetch Total Energy for Film Material",
             "results": [],
             "monitors": [],
             "preProcessors": [],
@@ -1013,8 +1275,23 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "_id": "f9de6348-fcc4-54b7-a09d-c6496e22d33a",
-            "flowchartId": "ff05c104-effc-5c80-bb6a-ac041b833b71",
+            "_id": "47793038-7fbf-5875-bb16-f7b510aea431",
+            "flowchartId": "2e89b4ba-4931-5913-bd04-f9f919f8ad58",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "subworkflow",
+            "name": "Compute Interfacial Energy",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "a85bf2a4-76c0-5d27-a389-40cce62be473",
+            "flowchartId": "4f113c3f-92e5-5ccd-ae7e-8a0c8ca44b5d",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         }
@@ -1022,14 +1299,15 @@
     "properties": [
         "atomic_forces",
         "fermi_energy",
+        "interfacial_energy",
         "pressure",
         "stress_tensor",
-        "surface_energy",
         "total_energy",
         "total_energy_contributions",
         "total_force"
     ],
     "workflows": [],
+    "isMultiMaterial": true,
     "schemaVersion": "2022.8.16",
     "application": {
         "name": "espresso"
