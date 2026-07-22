@@ -5,6 +5,8 @@ from typing import Dict, List
 import pandas as pd
 from pydantic import BaseModel, Field
 
+from mat3ra.standata.filename_search import rank_filenames
+
 CATEGORY_SEPARATOR = "/"
 
 
@@ -88,16 +90,25 @@ class StandataConfig(BaseModel):
 
     def get_filenames_by_regex(self, regex: str) -> List[str]:
         """
-        Returns filenames that match the regular expression.
+        Returns filenames that match the regular expression in catalog order.
 
-        Args:
-            regex: Regular expression for the entity query.
+        Use anchors such as ``band_gap\\.json$`` when an exact path/stem is required.
+        For user-friendly ranked search, use ``get_filenames_by_name``.
         """
         filenames = []
         for entity in self.entities:
             if re.search(regex, entity.filename):
                 filenames.append(entity.filename)
         return filenames
+
+    def get_filenames_by_name(self, name: str) -> List[str]:
+        """
+        Returns filenames ranked for a human name/substring query.
+
+        Separators and case are normalized.
+        """
+        filenames = [entity.filename for entity in self.entities]
+        return rank_filenames(name, filenames)
 
     # TODO: This is not used, but left in preparation for the future when the number of entities is large
     @property
@@ -128,16 +139,9 @@ class StandataFilesMapByName(BaseModel):
 
     def get_objects_by_filenames(self, filenames: List[str]) -> List[dict]:
         """
-        Returns entities by filenames.
-
-        Args:
-            filenames: Filenames of the entities.
+        Returns entities for filenames, preserving the input filename order.
         """
-        matching_objects = []
-        for key, entity in self.dictionary.items():
-            if key in filenames:
-                matching_objects.append(entity)
-        return matching_objects
+        return [self.dictionary[filename] for filename in filenames if filename in self.dictionary]
 
 
 class StandataData(BaseModel):
@@ -200,7 +204,7 @@ class Standata:
         Args:
             name: Name of the entity.
         """
-        matching_filenames = cls.data.standataConfig.get_filenames_by_regex(name)
+        matching_filenames = cls.data.standataConfig.get_filenames_by_name(name)
         return cls.data.filesMapByName.get_objects_by_filenames(matching_filenames)
 
     @classmethod
@@ -211,12 +215,11 @@ class Standata:
         Args:
             name: Name of the entity.
         """
-        matching_filenames = cls.data.standataConfig.get_filenames_by_regex(name)
-        objects = cls.data.filesMapByName.get_objects_by_filenames(matching_filenames)
+        objects = cls.get_by_name(name)
         if not objects:
             raise ValueError(f"No matches found for name '{name}'")
         return objects[0]
-    
+
     @classmethod
     def get_by_categories(cls, *tags: str) -> List[dict]:
         """
@@ -232,19 +235,12 @@ class Standata:
     @classmethod
     def get_by_name_and_categories(cls, name: str, *tags: str) -> dict:
         """
-        Returns the first entity that matches both the name regex and all categories.
-
-        Args:
-            name: Name to match with regex
-            *tags: Category tags to match
-
-        Returns:
-            First matching entity
+        Returns the best-ranked entity matching name search and all categories.
         """
         categories = cls.data.standataConfig.convert_tags_to_categories_list(*tags)
-        category_matches = cls.data.standataConfig.get_filenames_by_categories(*categories)
-        name_matches = cls.data.standataConfig.get_filenames_by_regex(name)
-        matching_filenames = [f for f in name_matches if f in category_matches]
+        category_matches = set(cls.data.standataConfig.get_filenames_by_categories(*categories))
+        name_matches = cls.data.standataConfig.get_filenames_by_name(name)
+        matching_filenames = [filename for filename in name_matches if filename in category_matches]
 
         if not matching_filenames:
             raise ValueError(f"No matches found for name '{name}' and categories {tags}")
@@ -255,13 +251,15 @@ class Standata:
     def _create_filtered_data(cls, filenames: List[str]) -> StandataData:
         filtered_files_map = {k: v for k, v in cls.data.filesMapByName.dictionary.items() if k in filenames}
         filtered_entities = [e for e in cls.data.standataConfig.entities if e.filename in filenames]
-        return StandataData({
-            "filesMapByName": filtered_files_map,
-            "standataConfig": {
-                "categories": cls.data.standataConfig.categories,
-                "entities": [{"filename": e.filename, "categories": e.categories} for e in filtered_entities]
+        return StandataData(
+            {
+                "filesMapByName": filtered_files_map,
+                "standataConfig": {
+                    "categories": cls.data.standataConfig.categories,
+                    "entities": [{"filename": e.filename, "categories": e.categories} for e in filtered_entities],
+                },
             }
-        })
+        )
 
     @classmethod
     def _normalize_enum_name(cls, name: str) -> str:
@@ -274,7 +272,7 @@ class Standata:
 
     @classmethod
     def filter_by_name(cls, name: str) -> "Standata":
-        matching_filenames = cls.data.standataConfig.get_filenames_by_regex(name)
+        matching_filenames = cls.data.standataConfig.get_filenames_by_name(name)
         filtered_data = cls._create_filtered_data(matching_filenames)
         return type(cls.__name__, (cls,), {"data": filtered_data})
 
