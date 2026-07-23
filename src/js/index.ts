@@ -6,7 +6,7 @@ import baseUiSchema from "./ui/schemas.json";
 export { Standata } from "./base";
 export { MaterialStandata } from "./material";
 export { MetaPropertyStandata } from "./metaProperty";
-export type { MetaPropertySeedEntry } from "./metaProperty";
+export type { MetaPropertyMethodName, MetaPropertySeedEntry } from "./metaProperty";
 export { PropertyStandata } from "./property";
 export {
     WorkflowStandata,

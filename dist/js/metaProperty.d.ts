@@ -6,6 +6,8 @@ export interface MetaPropertySeedEntry {
         type: string;
     };
 }
+/** Known meta-property method names. Extend as new collections are added. */
+export type MetaPropertyMethodName = "pseudopotential";
 export declare class MetaPropertyStandata {
-    static getPseudopotentials(): MetaPropertySeedEntry[];
+    static getAllByMethodName(methodName: MetaPropertyMethodName): MetaPropertySeedEntry[];
 }
