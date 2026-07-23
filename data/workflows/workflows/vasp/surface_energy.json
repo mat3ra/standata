@@ -222,6 +222,30 @@
                     "tags": [],
                     "flowchartId": "assign-bulk",
                     "head": false,
+                    "next": "assign-bulk-material-ids",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-bulk-material-ids",
+                    "type": "assignment",
+                    "operand": "BULK_MATERIAL_IDS",
+                    "value": "[m['_id'] for m in DATA] if DATA else []",
+                    "input": [
+                        {
+                            "name": "DATA",
+                            "scope": "io-bulk"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-bulk-material-ids",
+                    "head": false,
                     "next": "done",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -352,12 +376,12 @@
                     "tags": [],
                     "flowchartId": "assert-bulk-query",
                     "head": false,
-                    "next": "io-bulk",
+                    "next": "io-bulk-by-build",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "io-bulk",
+                    "name": "io-bulk-by-build",
                     "type": "io",
                     "subtype": "input",
                     "results": [],
@@ -367,7 +391,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "io-bulk",
+                    "flowchartId": "io-bulk-by-build",
                     "source": "api",
                     "input": [
                         {
@@ -383,19 +407,19 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-bulk",
+                    "next": "assign-bulk-by-build",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-bulk",
+                    "name": "assign-bulk-by-build",
                     "type": "assignment",
                     "operand": "BULK",
                     "value": "DATA[0] if DATA else None",
                     "input": [
                         {
                             "name": "DATA",
-                            "scope": "io-bulk"
+                            "scope": "io-bulk-by-build"
                         }
                     ],
                     "results": [],
@@ -405,7 +429,31 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk",
+                    "flowchartId": "assign-bulk-by-build",
+                    "head": false,
+                    "next": "assign-bulk-material-ids-by-build",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-bulk-material-ids-by-build",
+                    "type": "assignment",
+                    "operand": "BULK_MATERIAL_IDS",
+                    "value": "[m['_id'] for m in DATA] if DATA else []",
+                    "input": [
+                        {
+                            "name": "DATA",
+                            "scope": "io-bulk-by-build"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-bulk-material-ids-by-build",
                     "head": false,
                     "next": "assert-bulk",
                     "schemaVersion": "2022.8.16",
@@ -425,12 +473,12 @@
                     "tags": [],
                     "flowchartId": "assert-bulk",
                     "head": false,
-                    "next": "done",
+                    "next": "done-by-build",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "done",
+                    "name": "done-by-build",
                     "type": "assignment",
                     "operand": "BULK",
                     "value": "BULK",
@@ -447,7 +495,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "done",
+                    "flowchartId": "done-by-build",
                     "head": false,
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -483,6 +531,61 @@
             },
             "units": [
                 {
+                    "name": "io-bulk-te-job",
+                    "type": "io",
+                    "subtype": "input",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "io-bulk-te-job",
+                    "source": "api",
+                    "input": [
+                        {
+                            "type": "api",
+                            "endpoint": "jobs",
+                            "endpoint_options": {
+                                "params": {
+                                    "query": "{'_material._id': {'$in': BULK_MATERIAL_IDS}, 'status': 'finished', 'workflow.name': {'$regex': 'Total Energy'}}",
+                                    "projection": "{'sort': {'updatedAt': -1}, 'limit': 1}"
+                                }
+                            },
+                            "name": "JOB_DATA"
+                        }
+                    ],
+                    "head": true,
+                    "next": "assign-bulk-te-job-id",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-bulk-te-job-id",
+                    "type": "assignment",
+                    "operand": "BULK_TE_JOB_ID",
+                    "value": "JOB_DATA[0]['_id'] if JOB_DATA else None",
+                    "input": [
+                        {
+                            "name": "JOB_DATA",
+                            "scope": "io-bulk-te-job"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-bulk-te-job-id",
+                    "head": false,
+                    "next": "io-e-bulk",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
                     "name": "io-e-bulk",
                     "type": "io",
                     "subtype": "input",
@@ -498,17 +601,17 @@
                     "input": [
                         {
                             "type": "api",
-                            "endpoint": "refined-properties",
+                            "endpoint": "properties",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'exabyteId': BULK.exabyteId, 'data.name': 'total_energy', 'group': {'$regex': 'vasp:'}}",
+                                    "query": "{'source.info.jobId': BULK_TE_JOB_ID, 'slug': 'total_energy'}",
                                     "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
                                 }
                             },
                             "name": "DATA"
                         }
                     ],
-                    "head": true,
+                    "head": false,
                     "next": "assign-e-bulk",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false

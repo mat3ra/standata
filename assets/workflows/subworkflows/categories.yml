@@ -16,6 +16,7 @@ categories:
     - hubbard_u
     - hubbard_v
     - hubbard_v_nn
+    - interfacial_energy
     - lumo_energy
     - phonon_dispersions
     - phonon_dos
@@ -291,6 +292,17 @@ entities:
       - total_energy
       - total_energy_contributions
       - total_force
+  - filename: espresso/interfacial_energy.json
+    categories:
+      - atomic_forces
+      - espresso
+      - fermi_energy
+      - interfacial_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
   - filename: espresso/kpoint_convergence.json
     categories:
       - atomic_forces
@@ -502,6 +514,9 @@ entities:
   - filename: shell/batch_espresso_pwscf.json
     categories:
       - shell
+  - filename: shell/fetch_bulk_total_energy.json
+    categories:
+      - shell
   - filename: shell/hello_world.json
     categories:
       - shell
@@ -515,6 +530,9 @@ entities:
     categories:
       - shell
   - filename: shell/utils/get_material_by_id.json
+    categories:
+      - shell
+  - filename: shell/utils/get_material_by_index.json
     categories:
       - shell
   - filename: shell/utils/resolve_bulk_from_slab_by_build.json
