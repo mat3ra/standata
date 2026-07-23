@@ -14,7 +14,25 @@
 # Elemental refs: platform materials with tags: elemental, metadata.element.
 name: Formation Energy
 units:
+  # 1. Resolve MATERIAL + elemental reference materials from the Standata bank.
   - name: shell/utils/get_elemental_materials
     type: subworkflow
+  # 2. Compute the material total energy (reused Total Energy SCF). The pw_scf
+  #    scope is pinned to 'pw-scf' so the property subworkflow can read its TE.
+  - name: total_energy
+    type: subworkflow
+    config:
+      attributes:
+        name: Compute Total Energy
+    unitConfigs:
+      - index: 0
+        type: executionBuilder
+        config:
+          attributes:
+            flowchartId: pw-scf
+  # 3. Fetch the elemental reference total energies (shared).
+  - name: resolve_elemental_total_energies
+    type: subworkflow
+  # 4. Formation energy from the collected total energies.
   - name: formation_energy
     type: subworkflow

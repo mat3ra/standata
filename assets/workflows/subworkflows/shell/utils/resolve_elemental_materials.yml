@@ -1,0 +1,97 @@
+# Resolves elemental reference materials from the Standata bank for symbols
+# present in MATERIAL and/or PRISTINE (union). Does not load a compound via
+# MATERIAL_ID — use after get_material_by_index / fetch_bulk_total_energy in
+# multi-material jobs.
+#
+# In:  MATERIAL   defective (or compound) structure
+#      PRISTINE   pristine reference structure (optional for union; if missing,
+#                 ELEMENTS falls back to MATERIAL only)
+# Out: ELEMENTS
+#      ELEMENT_MATERIALS
+#      ELEMENT_MATERIAL_IDS_BY_SYMBOL
+#      MISSING_ELEMENTAL_MATERIAL_SYMBOLS
+application:
+  name: shell
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: Resolve Elemental Materials
+units:
+  - type: assignment
+    config:
+      name: assign-elements
+      description: |
+        Sorted unique element symbols from the union of MATERIAL and PRISTINE
+        bases. Using the union keeps μ and ΔN defined when a vacancy removes
+        the last atom of a species from the defective cell.
+      flowchartId: assign-elements
+      operand: ELEMENTS
+      value: >-
+        sorted(list(set(
+            [e['value'] for e in MATERIAL.basis.elements]
+            + ([e['value'] for e in PRISTINE.basis.elements] if PRISTINE else [])
+        )))
+  - type: io
+    config:
+      name: io-elemental-materials
+      flowchartId: io-elemental-materials
+      subtype: input
+      source: api
+      input:
+        - type: api
+          endpoint: materials
+          endpoint_options:
+            params:
+              query: "{'tags': 'elemental', 'metadata.element': {'$in': ELEMENTS}}"
+          name: DATA
+  - type: assignment
+    config:
+      name: assign-element-materials-by-symbol
+      flowchartId: assign-element-materials-by-symbol
+      operand: ELEMENT_MATERIALS_BY_SYMBOL
+      value: >-
+        {
+            el: [
+                m for m in DATA
+                if m.get('metadata') and m['metadata'].get('element') == el
+            ]
+            for el in ELEMENTS
+        }
+      input:
+        - name: DATA
+          scope: io-elemental-materials
+  - type: assignment
+    config:
+      name: assign-element-material-ids-by-symbol
+      flowchartId: assign-element-material-ids-by-symbol
+      operand: ELEMENT_MATERIAL_IDS_BY_SYMBOL
+      value: >-
+        {el: [m['exabyteId'] for m in ELEMENT_MATERIALS_BY_SYMBOL[el]]
+        for el in ELEMENTS}
+  - type: assignment
+    config:
+      name: assign-element-materials
+      flowchartId: assign-element-materials
+      operand: ELEMENT_MATERIALS
+      value: >-
+        {el: ELEMENT_MATERIALS_BY_SYMBOL[el][0]
+        for el in ELEMENTS if ELEMENT_MATERIALS_BY_SYMBOL[el]}
+  - type: assignment
+    config:
+      name: assign-missing-elemental-material-symbols
+      flowchartId: assign-missing-elemental-material-symbols
+      operand: MISSING_ELEMENTAL_MATERIAL_SYMBOLS
+      value: >-
+        [el for el in ELEMENTS if not ELEMENT_MATERIAL_IDS_BY_SYMBOL[el]]
+  - type: assertion
+    config:
+      enableRender: true
+      name: assert-elemental-materials-found
+      flowchartId: assert-elemental-materials-found
+      statement: "len(MISSING_ELEMENTAL_MATERIAL_SYMBOLS) == 0"
+      errorMessage: >-
+        Missing Standata elemental reference material(s) for
+        {{ MISSING_ELEMENTAL_MATERIAL_SYMBOLS | join(', ') }}.
+        Add elemental material(s) with tags elemental and metadata.element
+        before running Defect Formation Energy.

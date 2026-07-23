@@ -5,6 +5,7 @@ categories:
     - band_gaps
     - band_structure
     - charge_density_profile
+    - defect_formation_energy
     - density_of_states
     - dielectric_tensor
     - fermi_energy
@@ -132,6 +133,17 @@ entities:
     categories:
       - atomic_forces
       - band_structure
+      - espresso
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+  - filename: espresso/defect_formation_energy.json
+    categories:
+      - atomic_forces
+      - defect_formation_energy
       - espresso
       - fermi_energy
       - pressure

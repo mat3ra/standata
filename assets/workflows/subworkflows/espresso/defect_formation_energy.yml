@@ -1,0 +1,77 @@
+# Computes the neutral defect formation energy (eV) from the defective-cell
+# total energy already in context, the pristine total energy, and the resolved
+# elemental total-energy contributions:
+#   E_defect = TE_FOR_MATERIAL − E_PRISTINE − Σ_i ΔN_i · μ_i
+#
+# Runs after espresso/total_energy (SCF on the defective cell, scope 'pw-scf'),
+# shell/fetch_bulk_total_energy (PRISTINE, E_PRISTINE) and
+# espresso/resolve_elemental_total_energies (TE_CONTRIBUTIONS_BY_SYMBOL).
+#
+# In:  total_energy (scope 'pw-scf')   defective-cell TE (eV) from pw.x
+#      MATERIAL (defective), PRISTINE, E_PRISTINE
+#      ELEMENTS, TE_CONTRIBUTIONS_BY_SYMBOL
+# Out: TE_FOR_MATERIAL                  defective-cell TE (eV) in global scope
+#      defect_formation_energy (property)
+application:
+  name: espresso
+  version: "6.3"
+method:
+  name: PseudopotentialMethod
+model:
+  name: DFTModel
+name: Calculate Defect Formation Energy
+units:
+  - type: assignment
+    config:
+      name: assign-te-for-material
+      description: |
+        Total energy of the defective supercell (eV) from the pw.x SCF run by
+        the reused espresso/total_energy subworkflow (scope 'pw-scf').
+      flowchartId: assign-te-for-material
+      operand: TE_FOR_MATERIAL
+      value: total_energy
+      input:
+        - name: total_energy
+          scope: pw-scf
+
+  - type: assignment
+    config:
+      name: assign-delta-n-by-symbol
+      description: |
+        Per-species atom-count change ΔN_i = count(defective) − count(pristine).
+        Vacancy: ΔN = −1; interstitial: ΔN = +1; antisite: combination.
+      flowchartId: assign-delta-n-by-symbol
+      operand: DELTA_N_BY_SYMBOL
+      value: >-
+        {
+            el: len([e for e in MATERIAL.basis.elements if e["value"] == el])
+              - len([e for e in PRISTINE.basis.elements if e["value"] == el])
+            for el in ELEMENTS
+        }
+
+  - type: assignment
+    config:
+      name: assign-sum-delta-n-times-mu
+      description: |
+        Chemical-potential correction Σ_i ΔN_i · μ_i, with
+        μ_i = elemental total_energy_per_atom.
+      flowchartId: assign-sum-delta-n-times-mu
+      operand: SUM_DELTA_N_TIMES_MU
+      value: >-
+        sum(
+            DELTA_N_BY_SYMBOL[el] * TE_CONTRIBUTIONS_BY_SYMBOL[el]["total_energy_per_atom"]
+            for el in ELEMENTS
+            if el in TE_CONTRIBUTIONS_BY_SYMBOL
+        )
+
+  - type: assignment
+    config:
+      name: assign-defect-formation-energy
+      description: |
+        Neutral defect formation energy (eV):
+        TE_FOR_MATERIAL − E_PRISTINE − Σ_i ΔN_i · μ_i.
+      flowchartId: assign-defect-formation-energy
+      operand: DEFECT_FORMATION_ENERGY
+      value: "TE_FOR_MATERIAL - E_PRISTINE - SUM_DELTA_N_TIMES_MU"
+      results:
+        - name: defect_formation_energy

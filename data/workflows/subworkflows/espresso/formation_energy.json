@@ -1,19 +1,12 @@
 {
-    "_id": "96ea3b36-6c3a-507b-8f4f-4d76c137bce0",
-    "name": "Formation Energy",
+    "_id": "cadbe233-ec8a-59ee-bfd9-2205cb08c5f9",
+    "name": "Calculate Formation Energy",
     "application": {
         "name": "espresso"
     },
     "properties": [
-        "atomic_forces",
-        "fermi_energy",
         "formation_energy",
-        "formation_energy_contributions",
-        "pressure",
-        "stress_tensor",
-        "total_energy",
-        "total_energy_contributions",
-        "total_force"
+        "formation_energy_contributions"
     ],
     "model": {
         "type": "dft",
@@ -26,143 +19,6 @@
         "functional": "pbe"
     },
     "units": [
-        {
-            "type": "execution",
-            "name": "pw_scf",
-            "head": true,
-            "results": [
-                {
-                    "name": "atomic_forces"
-                },
-                {
-                    "name": "fermi_energy"
-                },
-                {
-                    "name": "pressure"
-                },
-                {
-                    "name": "stress_tensor"
-                },
-                {
-                    "name": "total_energy"
-                },
-                {
-                    "name": "total_energy_contributions"
-                },
-                {
-                    "name": "total_force"
-                }
-            ],
-            "monitors": [
-                {
-                    "name": "standard_output"
-                },
-                {
-                    "name": "convergence_electronic"
-                }
-            ],
-            "flowchartId": "pw-scf",
-            "preProcessors": [],
-            "postProcessors": [],
-            "status": "idle",
-            "statusTrack": [],
-            "tags": [],
-            "application": {
-                "build": "GNU",
-                "hasAdvancedComputeOptions": true,
-                "isDefault": true,
-                "isDefaultVersion": true,
-                "isUsingMaterial": true,
-                "name": "espresso",
-                "shortName": "qe",
-                "summary": "Quantum ESPRESSO",
-                "version": "6.3",
-                "schemaVersion": "2022.8.16"
-            },
-            "executable": {
-                "applicationName": "espresso",
-                "applicationVersion": "*",
-                "hasAdvancedComputeOptions": true,
-                "isDefault": true,
-                "name": "pw.x",
-                "schemaVersion": "2022.8.16"
-            },
-            "flavor": {
-                "applicationName": "espresso",
-                "applicationVersion": "*",
-                "executableName": "pw.x",
-                "input": [
-                    {
-                        "name": "pw_scf.in"
-                    }
-                ],
-                "isDefault": true,
-                "monitors": [
-                    {
-                        "name": "standard_output"
-                    },
-                    {
-                        "name": "convergence_electronic"
-                    }
-                ],
-                "name": "pw_scf",
-                "postProcessors": [],
-                "preProcessors": [],
-                "results": [
-                    {
-                        "name": "atomic_forces"
-                    },
-                    {
-                        "name": "fermi_energy"
-                    },
-                    {
-                        "name": "pressure"
-                    },
-                    {
-                        "name": "stress_tensor"
-                    },
-                    {
-                        "name": "total_energy"
-                    },
-                    {
-                        "name": "total_energy_contributions"
-                    },
-                    {
-                        "name": "total_force"
-                    }
-                ],
-                "schemaVersion": "2022.8.16"
-            },
-            "input": [
-                {
-                    "template": {
-                        "applicationName": "espresso",
-                        "applicationVersion": "*",
-                        "content": "{% if subworkflowContext.MATERIAL_INDEX %}\n{%- set input = input.perMaterial[subworkflowContext.MATERIAL_INDEX] -%}\n{% endif -%}\n&CONTROL\n    calculation = 'scf'\n    title = ''\n    verbosity = 'low'\n    restart_mode = '{{ input.RESTART_MODE }}'\n    wf_collect = .true.\n    tstress = .true.\n    tprnfor = .true.\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    wfcdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    prefix = '__prefix__'\n    pseudo_dir = {% raw %}'{{ JOB_WORK_DIR }}/pseudo'{% endraw %}\n/\n&SYSTEM\n    ibrav = {{ input.IBRAV }}\n    nat = {{ input.NAT }}\n    ntyp = {{ input.NTYP }}\n    ecutwfc = {{ cutoffs.wavefunction }}\n    ecutrho = {{ cutoffs.density }}\n    occupations = 'smearing'\n    degauss = 0.005\n/\n&ELECTRONS\n    diagonalization = 'david'\n    diago_david_ndim = 4\n    diago_full_acc = .true.\n    mixing_beta = 0.3\n    startingwfc = 'atomic+random'\n/\n&IONS\n/\n&CELL\n/\nATOMIC_SPECIES\n{% for specie in input.ATOMIC_SPECIES -%}\n{{ specie.X }} {{ specie.Mass_X|sprintf(\"%f\") }} {{ specie.PseudoPot_X }}\n{% endfor %}\nATOMIC_POSITIONS crystal\n{%- set print_constraints = false %}\n{%- for position in input.ATOMIC_POSITIONS %}\n    {%- if position[\"if_pos(1)\"] != 1 or position[\"if_pos(2)\"] != 1 or position[\"if_pos(3)\"] != 1 %}\n        {%- set print_constraints = true %}\n    {%- endif %}\n{%- endfor %}\n{% for position in input.ATOMIC_POSITIONS -%}\n{{ position.X|sprintf(\"%-3s\") }} {{ position.x|sprintf(\"%14.9f\") }} {{ position.y|sprintf(\"%14.9f\") }} {{ position.z|sprintf(\"%14.9f\") }}{% if print_constraints %} {{ position[\"if_pos(1)\"] }} {{ position[\"if_pos(2)\"] }} {{ position[\"if_pos(3)\"] }}{% endif %}\n{% endfor %}\nCELL_PARAMETERS angstrom\n{{ input.CELL_PARAMETERS.v1[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v2[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v3[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[2]|sprintf(\"%14.9f\") }}\nK_POINTS automatic\n{% for d in kgrid.dimensions %}{{d}} {% endfor %}{% for s in kgrid.shifts %}{{s}} {% endfor %}\n",
-                        "contextProviders": [
-                            {
-                                "name": "KGridFormDataManager"
-                            },
-                            {
-                                "name": "QEPWXInputDataManager"
-                            },
-                            {
-                                "name": "PlanewaveCutoffDataManager"
-                            }
-                        ],
-                        "executableName": "pw.x",
-                        "name": "pw_scf.in",
-                        "schemaVersion": "2022.8.16"
-                    },
-                    "rendered": "",
-                    "isManuallyChanged": false
-                }
-            ],
-            "context": [],
-            "next": "assign-te-for-material",
-            "schemaVersion": "2022.8.16",
-            "isDefault": false
-        },
         {
             "name": "assign-te-for-material",
             "type": "assignment",
@@ -182,167 +38,20 @@
             "statusTrack": [],
             "tags": [],
             "flowchartId": "assign-te-for-material",
-            "head": false,
-            "next": "assign-source-of-te-for-an-element",
+            "head": true,
+            "next": "assign-precision-for-material",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "assign-source-of-te-for-an-element",
+            "name": "assign-precision-for-material",
             "type": "assignment",
-            "operand": "SOURCE_OF_TE_FOR_AN_ELEMENT",
-            "value": "'public'",
-            "input": [],
-            "results": [],
-            "monitors": [],
-            "preProcessors": [],
-            "postProcessors": [],
-            "status": "idle",
-            "statusTrack": [],
-            "tags": [],
-            "flowchartId": "assign-source-of-te-for-an-element",
-            "head": false,
-            "next": "assign-group-for-material",
-            "schemaVersion": "2022.8.16",
-            "isDefault": false
-        },
-        {
-            "name": "assign-group-for-material",
-            "type": "assignment",
-            "operand": "GROUP_FOR_MATERIAL",
-            "value": "'qe:dft:gga:pbe'",
-            "input": [],
-            "results": [],
-            "monitors": [],
-            "preProcessors": [],
-            "postProcessors": [],
-            "status": "idle",
-            "statusTrack": [],
-            "tags": [],
-            "flowchartId": "assign-group-for-material",
-            "head": false,
-            "next": "init-element-index",
-            "schemaVersion": "2022.8.16",
-            "isDefault": false
-        },
-        {
-            "name": "init-element-index",
-            "type": "assignment",
-            "operand": "ELEMENT_INDEX",
-            "value": "0",
-            "input": [],
-            "results": [],
-            "monitors": [],
-            "preProcessors": [],
-            "postProcessors": [],
-            "status": "idle",
-            "statusTrack": [],
-            "tags": [],
-            "flowchartId": "init-element-index",
-            "head": false,
-            "next": "init-te-for-elemental-materials-map-by-symbol",
-            "schemaVersion": "2022.8.16",
-            "isDefault": false
-        },
-        {
-            "name": "init-te-for-elemental-materials-map-by-symbol",
-            "type": "assignment",
-            "operand": "TE_FOR_ELEMENTAL_MATERIALS_MAP_BY_SYMBOL",
-            "value": "{}",
-            "input": [],
-            "results": [],
-            "monitors": [],
-            "preProcessors": [],
-            "postProcessors": [],
-            "status": "idle",
-            "statusTrack": [],
-            "tags": [],
-            "flowchartId": "init-te-for-elemental-materials-map-by-symbol",
-            "head": false,
-            "next": "check-te-for-elemental-materials-loop",
-            "schemaVersion": "2022.8.16",
-            "isDefault": false
-        },
-        {
-            "name": "check-te-for-elemental-materials-loop",
-            "type": "condition",
-            "input": [],
-            "statement": "ELEMENT_INDEX >= len(ELEMENTS)",
-            "maxOccurrences": 100,
-            "results": [],
-            "monitors": [],
-            "preProcessors": [],
-            "postProcessors": [],
-            "status": "idle",
-            "statusTrack": [],
-            "tags": [],
-            "flowchartId": "check-te-for-elemental-materials-loop",
-            "then": "assign-missing-te-for-element-symbols",
-            "else": "assign-current-element",
-            "head": false,
-            "next": "assign-current-element",
-            "schemaVersion": "2022.8.16",
-            "isDefault": false
-        },
-        {
-            "name": "assign-current-element",
-            "type": "assignment",
-            "operand": "CURRENT_ELEMENT",
-            "value": "ELEMENTS[ELEMENT_INDEX]",
-            "input": [],
-            "results": [],
-            "monitors": [],
-            "preProcessors": [],
-            "postProcessors": [],
-            "status": "idle",
-            "statusTrack": [],
-            "tags": [],
-            "flowchartId": "assign-current-element",
-            "head": false,
-            "next": "io-te-for-an-element",
-            "schemaVersion": "2022.8.16",
-            "isDefault": false
-        },
-        {
-            "name": "io-te-for-an-element",
-            "type": "io",
-            "subtype": "input",
-            "results": [],
-            "monitors": [],
-            "preProcessors": [],
-            "postProcessors": [],
-            "status": "idle",
-            "statusTrack": [],
-            "tags": [],
-            "flowchartId": "io-te-for-an-element",
-            "source": "api",
+            "operand": "PRECISION_FOR_MATERIAL",
+            "value": "{\n    \"precision_value\": context[\"kgrid\"].get(\"gridMetricValue\"),\n    \"precision_metric\": context[\"kgrid\"].get(\"gridMetricType\"),\n}",
             "input": [
                 {
-                    "type": "api",
-                    "endpoint": "properties",
-                    "endpoint_options": {
-                        "params": {
-                            "query": "{'exabyteId': {'$in': ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]}, 'slug': 'total_energy', 'group': GROUP_FOR_MATERIAL, 'owner.slug': {'$in': [JOB_OWNER_SLUG, 'curators']}} if SOURCE_OF_TE_FOR_AN_ELEMENT == 'my_account' else ({'exabyteId': {'$in': ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]}, 'slug': 'total_energy', 'group': GROUP_FOR_MATERIAL, 'owner.slug': 'curators'} if SOURCE_OF_TE_FOR_AN_ELEMENT == 'curators' else {'exabyteId': {'$in': ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]}, 'slug': 'total_energy', 'group': GROUP_FOR_MATERIAL})",
-                            "projection": "{\n    \"sort\": {\"precision.value\": -1},\n    \"limit\": 1,\n}"
-                        }
-                    },
-                    "name": "DATA"
-                }
-            ],
-            "head": false,
-            "next": "assign-te-for-elemental-materials-map-by-symbol",
-            "schemaVersion": "2022.8.16",
-            "isDefault": false
-        },
-        {
-            "name": "assign-te-for-elemental-materials-map-by-symbol",
-            "type": "assignment",
-            "operand": "TE_FOR_ELEMENTAL_MATERIALS_MAP_BY_SYMBOL",
-            "value": "{**TE_FOR_ELEMENTAL_MATERIALS_MAP_BY_SYMBOL, CURRENT_ELEMENT: DATA[0] if DATA else None}",
-            "input": [
-                {
-                    "name": "DATA",
-                    "scope": "io-te-for-an-element"
+                    "name": "context",
+                    "scope": "pw-scf"
                 }
             ],
             "results": [],
@@ -352,83 +61,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assign-te-for-elemental-materials-map-by-symbol",
-            "head": false,
-            "next": "increment-element-index",
-            "schemaVersion": "2022.8.16",
-            "isDefault": false
-        },
-        {
-            "name": "increment-element-index",
-            "type": "assignment",
-            "operand": "ELEMENT_INDEX",
-            "value": "ELEMENT_INDEX + 1",
-            "input": [],
-            "results": [],
-            "monitors": [],
-            "preProcessors": [],
-            "postProcessors": [],
-            "status": "idle",
-            "statusTrack": [],
-            "tags": [],
-            "flowchartId": "increment-element-index",
-            "next": "check-te-for-elemental-materials-loop",
-            "head": false,
-            "schemaVersion": "2022.8.16",
-            "isDefault": false
-        },
-        {
-            "name": "assign-missing-te-for-element-symbols",
-            "type": "assignment",
-            "operand": "MISSING_TE_FOR_ELEMENT_SYMBOLS",
-            "value": "[el for el in ELEMENTS if TE_FOR_ELEMENTAL_MATERIALS_MAP_BY_SYMBOL[el] is None]",
-            "input": [],
-            "results": [],
-            "monitors": [],
-            "preProcessors": [],
-            "postProcessors": [],
-            "status": "idle",
-            "statusTrack": [],
-            "tags": [],
-            "flowchartId": "assign-missing-te-for-element-symbols",
-            "next": "assert-te-for-elemental-materials-found",
-            "head": false,
-            "schemaVersion": "2022.8.16",
-            "isDefault": false
-        },
-        {
-            "name": "assert-te-for-elemental-materials-found",
-            "type": "assertion",
-            "statement": "len(MISSING_TE_FOR_ELEMENT_SYMBOLS) == 0",
-            "errorMessage": "Missing total_energy for elemental reference material(s) {{ MISSING_TE_FOR_ELEMENT_SYMBOLS | join(', ') }}. Run the QE Total Energy workflow for the corresponding Standata elemental material(s) before running Formation Energy.",
-            "results": [],
-            "monitors": [],
-            "preProcessors": [],
-            "postProcessors": [],
-            "status": "idle",
-            "statusTrack": [],
-            "tags": [],
-            "enableRender": true,
-            "flowchartId": "assert-te-for-elemental-materials-found",
-            "head": false,
-            "next": "assign-te-contributions-by-symbol",
-            "schemaVersion": "2022.8.16",
-            "isDefault": false
-        },
-        {
-            "name": "assign-te-contributions-by-symbol",
-            "type": "assignment",
-            "operand": "TE_CONTRIBUTIONS_BY_SYMBOL",
-            "value": "{\n    el: {\n        \"formula\": el,\n        \"n_atoms\": len(ELEMENT_MATERIALS[el].basis.elements),\n        \"is_elemental\": True,\n        \"total_energy\": TE_FOR_ELEMENTAL_MATERIALS_MAP_BY_SYMBOL[el].data.value,\n        \"total_energy_per_atom\": TE_FOR_ELEMENTAL_MATERIALS_MAP_BY_SYMBOL[el].data.value\n        / len(ELEMENT_MATERIALS[el].basis.elements),\n        \"precision_value\": TE_FOR_ELEMENTAL_MATERIALS_MAP_BY_SYMBOL[el].precision.value,\n        \"precision_metric\": TE_FOR_ELEMENTAL_MATERIALS_MAP_BY_SYMBOL[el].precision.metric,\n    }\n    for el in ELEMENTS\n    if TE_FOR_ELEMENTAL_MATERIALS_MAP_BY_SYMBOL[el]\n}",
-            "input": [],
-            "results": [],
-            "monitors": [],
-            "preProcessors": [],
-            "postProcessors": [],
-            "status": "idle",
-            "statusTrack": [],
-            "tags": [],
-            "flowchartId": "assign-te-contributions-by-symbol",
+            "flowchartId": "assign-precision-for-material",
             "head": false,
             "next": "assign-sum-te-elemental-per-atom",
             "schemaVersion": "2022.8.16",
@@ -471,30 +104,6 @@
             "statusTrack": [],
             "tags": [],
             "flowchartId": "assign-formation-energy",
-            "head": false,
-            "next": "assign-precision-for-material",
-            "schemaVersion": "2022.8.16",
-            "isDefault": false
-        },
-        {
-            "name": "assign-precision-for-material",
-            "type": "assignment",
-            "operand": "PRECISION_FOR_MATERIAL",
-            "value": "{\n    \"precision_value\": context[\"kgrid\"].get(\"gridMetricValue\"),\n    \"precision_metric\": context[\"kgrid\"].get(\"gridMetricType\"),\n}",
-            "input": [
-                {
-                    "name": "context",
-                    "scope": "pw-scf"
-                }
-            ],
-            "results": [],
-            "monitors": [],
-            "preProcessors": [],
-            "postProcessors": [],
-            "status": "idle",
-            "statusTrack": [],
-            "tags": [],
-            "flowchartId": "assign-precision-for-material",
             "head": false,
             "next": "assign-formation-energy-material-contribution",
             "schemaVersion": "2022.8.16",
