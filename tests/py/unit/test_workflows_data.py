@@ -8,7 +8,7 @@ WORKFLOW = SimpleNamespace(
     SEARCH_NAME="band_gap",
     FILENAME="espresso/band_gap.json",
     EXACT_NAME="Band Gap",
-    FILTERED_NAME="Band Gap + DoS - HSE",
+    HSE_NAME="Band Gap + DoS - HSE",
 )
 
 
@@ -16,7 +16,7 @@ def test_get_by_name():
     workflow = WorkflowStandata.get_by_name_first_match(WORKFLOW.SEARCH_NAME)
     assert type(workflow) is dict
     assert "name" in workflow
-    assert WORKFLOW.FILTERED_NAME in workflow["name"]
+    assert workflow["name"] == WORKFLOW.EXACT_NAME
 
 
 def test_get_by_categories():
@@ -52,5 +52,5 @@ def test_filter_by_application_and_get_by_name():
     workflow = WorkflowStandata.filter_by_application(APP.ESPRESSO).get_by_name_first_match(WORKFLOW.SEARCH_NAME)
     assert type(workflow) is dict
     assert "name" in workflow
-    assert workflow["name"] == WORKFLOW.FILTERED_NAME
+    assert workflow["name"] == WORKFLOW.EXACT_NAME
     assert APP.ESPRESSO in str(workflow.get("application", {})).lower()
