@@ -44,8 +44,12 @@ def rank_filenames(query: str, filenames: List[str]) -> List[str]:
     Non-matching filenames are omitted, and an empty or separator-only query yields an empty list.
     The ordering is deterministic, so a caller that keeps only the first result gets a stable,
     intent-aligned match instead of one that depends on catalog order.
+
+    A trailing file extension in the query is ignored so that filename-style queries
+    ("formation_energy.json") and bare-name queries ("formation_energy") behave identically:
+    candidates are ranked on ``Path(filename).stem``, so the query is stemmed the same way.
     """
-    canonical_query = canonicalize(query)
+    canonical_query = canonicalize(Path(query).stem)
     if not canonical_query:
         return []
     matches = (_match_sort_key(canonical_query, filename) for filename in filenames)
