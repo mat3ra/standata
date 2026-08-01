@@ -1,7 +1,7 @@
  start nwchem
  title "Test"
  charge {{ input.CHARGE }}
- geometry units au noautosym
+ geometry units angstrom noautosym
  {{ input.ATOMIC_POSITIONS }}
  end
  basis
