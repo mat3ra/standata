@@ -11,7 +11,7 @@
     "buildConfig": {
         "moduleName": "6.3-gnu",
         "imageName": "espresso",
-        "imageTag": "6.3-gnu-1",
+        "imageTag": "6.3-gnu-2",
         "bio": "Quantum ESPRESSO 6.3 (GCC 11.5.0, OpenMPI 4.1.1 and OpenBLAS)",
         "dependencies": [
             "mpi/ompi-4.1.1"
