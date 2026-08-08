@@ -1,3 +1,4 @@
+import pytest
 from types import SimpleNamespace
 
 from mat3ra.standata.data.subworkflows import subworkflows_data
@@ -57,25 +58,36 @@ def test_filter_by_application_and_get_by_name():
     assert APP.ESPRESSO in str(workflow.get("application", {})).lower()
 
 
-def _precision_expression():
+def _precision_expressions():
+    """Both shipped copies of the assign-precision-for-material expression: the standalone
+    subworkflow and the one embedded in the workflow a submitted job actually carries."""
     subworkflow = subworkflows_data["filesMapByName"]["espresso/formation_energy.json"]
-    unit = next(u for u in subworkflow["units"] if u["name"] == "assign-precision-for-material")
-    return unit["value"]
+    workflow = workflows_data["filesMapByName"]["espresso/formation_energy.json"]
+    units = list(subworkflow["units"])
+    for nested in workflow["subworkflows"]:
+        units.extend(nested["units"])
+
+    expressions = [u["value"] for u in units if u["name"] == "assign-precision-for-material"]
+    assert len(expressions) == 2, "expected the expression in both shipped copies"
+    return expressions
 
 
-def test_precision_expression_handles_unit_context_without_kgrid():
-    """A unit context only carries a kgrid entry when the grid was explicitly set, so the
-    default path evaluates this expression against an empty scope and must not raise."""
-    assert eval(_precision_expression(), {}, {"context": {}}) == {
-        "precision_value": None,
-        "precision_metric": None,
+@pytest.mark.parametrize("expression", _precision_expressions())
+def test_precision_expression_falls_back_when_kgrid_absent(expression):
+    """A unit context only carries a kgrid entry when the grid was explicitly set. On the
+    default path the expression must not raise, and must emit the schema defaults for an
+    unreported precision -- null is not permitted by core/reusable/formation-energy-contribution."""
+    assert eval(expression, {"__builtins__": {}}, {"context": {}}) == {
+        "precision_value": -1,
+        "precision_metric": "unknown",
     }
 
 
-def test_precision_expression_reports_explicitly_set_kgrid():
+@pytest.mark.parametrize("expression", _precision_expressions())
+def test_precision_expression_reports_explicitly_set_kgrid(expression):
     context = {"kgrid": {"gridMetricValue": 128, "gridMetricType": "KPPRA"}}
 
-    assert eval(_precision_expression(), {}, {"context": context}) == {
+    assert eval(expression, {"__builtins__": {}}, {"context": context}) == {
         "precision_value": 128,
         "precision_metric": "KPPRA",
     }
