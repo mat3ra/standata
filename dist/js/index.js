@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ApplicationRegistry = exports.baseUiSchema = exports.methodTree = exports.modelTree = exports.setUnitLinks = exports.setupNunjucksEnvironment = exports.applicationVersionSatisfiesSupportedRange = exports.filterMethodsByModel = exports.ModelMethodFilter = exports.MethodStandata = exports.ModelStandata = exports.ApplicationMethodStandata = exports.ApplicationModelStandata = exports.workflowSubworkflowMapByApplication = exports.SubworkflowStandata = exports.WorkflowStandata = exports.PropertyStandata = exports.MaterialStandata = exports.Standata = void 0;
+exports.ApplicationRegistry = exports.baseUiSchema = exports.methodTree = exports.modelTree = exports.setUnitLinks = exports.setupNunjucksEnvironment = exports.applicationVersionSatisfiesSupportedRange = exports.filterMethodsByModel = exports.ModelMethodFilter = exports.MethodStandata = exports.ModelStandata = exports.ApplicationMethodStandata = exports.ApplicationModelStandata = exports.workflowSubworkflowMapByApplication = exports.SubworkflowStandata = exports.WorkflowStandata = exports.PropertyStandata = exports.MetaPropertyStandata = exports.MaterialStandata = exports.Standata = void 0;
 const ApplicationRegistry_1 = __importDefault(require("./ApplicationRegistry"));
 exports.ApplicationRegistry = ApplicationRegistry_1.default;
 const methodTree_json_1 = __importDefault(require("./ui/methodTree.json"));
@@ -16,6 +16,8 @@ var base_1 = require("./base");
 Object.defineProperty(exports, "Standata", { enumerable: true, get: function () { return base_1.Standata; } });
 var material_1 = require("./material");
 Object.defineProperty(exports, "MaterialStandata", { enumerable: true, get: function () { return material_1.MaterialStandata; } });
+var metaProperty_1 = require("./metaProperty");
+Object.defineProperty(exports, "MetaPropertyStandata", { enumerable: true, get: function () { return metaProperty_1.MetaPropertyStandata; } });
 var property_1 = require("./property");
 Object.defineProperty(exports, "PropertyStandata", { enumerable: true, get: function () { return property_1.PropertyStandata; } });
 var workflow_1 = require("./workflow");
