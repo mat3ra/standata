@@ -1,13 +1,34 @@
 name: Continuous Testing and Publication
 
-on: [push] # yamllint disable-line rule:truthy
+on: # yamllint disable-line rule:truthy
+  push:
+  pull_request:
+    branches:
+      - main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
+  validate-pyproject-for-pypi:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout this repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Validate pyproject publishability
+        run: |
+          if grep -En '^\s*"[^"]+\s@\s*(git\+|hg\+|svn\+|bzr\+|https://|http://|ssh://|file://)|^\s*"(git\+|hg\+|svn\+|bzr\+|https://|http://|ssh://|file://)' pyproject.toml; then
+            echo "pyproject.toml contains direct URL/VCS dependencies that PyPI will reject."
+            exit 1
+          fi
+          echo "pyproject.toml publishability check passed."
+
   run-py-linter:
+    if: github.event_name == 'push'
     runs-on: ubuntu-24.04
     strategy:
       matrix:
@@ -36,6 +57,7 @@ jobs:
         uses: ./actions/py/lint
 
   run-py-tests:
+    if: github.event_name == 'push'
     needs: run-py-linter
     runs-on: ubuntu-24.04
     strategy:
@@ -66,6 +88,7 @@ jobs:
           unit-test-directory: tests/py/unit
 
   run-js-tests:
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -98,8 +121,7 @@ jobs:
   publish-js-package:
     needs: [run-js-tests]
     runs-on: ubuntu-latest
-    # yamllint disable-line rule:line-length
-    if: (github.repository != 'Exabyte-io/template-definitions-js-py') && (github.ref_name == 'main')
+    if: github.event_name == 'push' && (github.repository != 'Exabyte-io/template-definitions-js-py') && (github.ref_name == 'main')
 
     steps:
       - name: Checkout this repository
@@ -123,8 +145,8 @@ jobs:
   publish-py-package:
     needs: [publish-js-package]
     runs-on: ubuntu-latest
-    # yamllint disable-line rule:line-length
-    if: (github.repository != 'Exabyte-io/template-definitions-js-py') && (github.ref_name == 'main')
+    if: github.event_name == 'push' && (github.repository != 'Exabyte-io/template-definitions-js-py') && (github.ref_name == 'main')
+
     steps:
       - name: Checkout this repository
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
