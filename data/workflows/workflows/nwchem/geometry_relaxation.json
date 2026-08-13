@@ -1,10 +1,11 @@
 {
-    "_id": "b3aea14c-99ae-58f7-8aba-846c4025c80d",
-    "name": "Frequency",
+    "_id": "2d728331-1f70-5b6d-a954-343b4f4139a9",
+    "name": "Geometry Relaxation",
     "subworkflows": [
         {
-            "_id": "97436597-653f-5c7e-8e97-bf13641243bf",
-            "name": "Frequency",
+            "systemName": "nwchem-geometry-relaxation",
+            "_id": "7a234777-f928-5332-a347-775f207431a2",
+            "name": "Geometry Relaxation",
             "application": {
                 "build": "GNU",
                 "hasAdvancedComputeOptions": false,
@@ -18,11 +19,9 @@
                 "schemaVersion": "2022.8.16"
             },
             "properties": [
-                "thermal_correction_to_energy",
-                "thermal_correction_to_enthalpy",
+                "final_structure",
                 "total_energy",
-                "total_energy_contributions",
-                "zero_point_energy"
+                "total_energy_contributions"
             ],
             "model": {
                 "type": "dft",
@@ -37,7 +36,7 @@
             "units": [
                 {
                     "type": "execution",
-                    "name": "nwchem_frequency",
+                    "name": "nwchem_relaxation",
                     "head": true,
                     "results": [
                         {
@@ -47,13 +46,7 @@
                             "name": "total_energy_contributions"
                         },
                         {
-                            "name": "zero_point_energy"
-                        },
-                        {
-                            "name": "thermal_correction_to_energy"
-                        },
-                        {
-                            "name": "thermal_correction_to_enthalpy"
+                            "name": "final_structure"
                         }
                     ],
                     "monitors": [
@@ -61,7 +54,7 @@
                             "name": "standard_output"
                         }
                     ],
-                    "flowchartId": "86a36dbc-b743-5a28-9559-698ad02054a3",
+                    "flowchartId": "4c77ed68-7ff8-590a-92db-b52e919f10f4",
                     "preProcessors": [],
                     "postProcessors": [],
                     "status": "idle",
@@ -93,7 +86,7 @@
                         "executableName": "nwchem",
                         "input": [
                             {
-                                "name": "nwchem_frequency.inp"
+                                "name": "nwchem_relaxation.inp"
                             }
                         ],
                         "isDefault": false,
@@ -102,7 +95,7 @@
                                 "name": "standard_output"
                             }
                         ],
-                        "name": "nwchem_frequency",
+                        "name": "nwchem_relaxation",
                         "postProcessors": [],
                         "preProcessors": [],
                         "results": [
@@ -113,13 +106,7 @@
                                 "name": "total_energy_contributions"
                             },
                             {
-                                "name": "zero_point_energy"
-                            },
-                            {
-                                "name": "thermal_correction_to_energy"
-                            },
-                            {
-                                "name": "thermal_correction_to_enthalpy"
+                                "name": "final_structure"
                             }
                         ],
                         "schemaVersion": "2022.8.16"
@@ -129,14 +116,14 @@
                             "template": {
                                 "applicationName": "nwchem",
                                 "applicationVersion": "*",
-                                "content": " {% if input.RESTART %}restart{% else %}start{% endif %} nwchem\n title \"Test\"\n charge {{ input.CHARGE }}\n{%- if not input.RESTART %}\n geometry units angstrom noautosym\n {{ input.ATOMIC_POSITIONS }}\n end\n{%- endif %}\n basis\n   * library {{ input.BASIS }}\n end\n dft\n xc {{ input.FUNCTIONAL }}\n mult {{ input.MULT }}\n end\n driver\n maxiter 256\n inhess 1\n print default\n end\n # Uncomment the following line to perform a geometry optimization before the frequency calculation\n # task dft optimize\n task dft freq\n",
+                                "content": " start nwchem\n title \"Test\"\n charge {{ input.CHARGE }}\n geometry units angstrom noautosym\n {{ input.ATOMIC_POSITIONS }}\n end\n basis\n   * library {{ input.BASIS }}\n end\n dft\n xc {{ input.FUNCTIONAL }}\n mult {{ input.MULT }}\n end\n driver\n maxiter 256\n inhess 1\n print default\n end\n task dft optimize\n",
                                 "contextProviders": [
                                     {
                                         "name": "NWChemInputDataManager"
                                     }
                                 ],
                                 "executableName": "nwchem",
-                                "name": "nwchem_frequency.inp",
+                                "name": "nwchem_relaxation.inp",
                                 "schemaVersion": "2022.8.16"
                             },
                             "rendered": "",
@@ -155,7 +142,7 @@
     "units": [
         {
             "type": "subworkflow",
-            "name": "Frequency",
+            "name": "Geometry Relaxation",
             "results": [],
             "monitors": [],
             "preProcessors": [],
@@ -163,21 +150,22 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "_id": "97436597-653f-5c7e-8e97-bf13641243bf",
-            "flowchartId": "5e27655f-8256-5677-9797-c230faf93106",
+            "_id": "7a234777-f928-5332-a347-775f207431a2",
+            "flowchartId": "fb712b79-456d-5313-9786-3ad85d23fb9b",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         }
     ],
     "properties": [
-        "thermal_correction_to_energy",
-        "thermal_correction_to_enthalpy",
+        "final_structure",
         "total_energy",
-        "total_energy_contributions",
-        "zero_point_energy"
+        "total_energy_contributions"
     ],
     "workflows": [],
     "schemaVersion": "2022.8.16",
+    "tags": [
+        "variable-cell_relaxation"
+    ],
     "application": {
         "name": "nwchem"
     }

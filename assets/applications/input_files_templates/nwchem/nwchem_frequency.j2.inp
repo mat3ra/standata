@@ -1,9 +1,11 @@
- start nwchem
+ {% if input.RESTART %}restart{% else %}start{% endif %} nwchem
  title "Test"
  charge {{ input.CHARGE }}
+{%- if not input.RESTART %}
  geometry units angstrom noautosym
  {{ input.ATOMIC_POSITIONS }}
  end
+{%- endif %}
  basis
    * library {{ input.BASIS }}
  end
