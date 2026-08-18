@@ -25,8 +25,8 @@
     },
     "devDependencies": {
         "@exabyte-io/eslint-config": "^2025.5.13-0",
-        "@mat3ra/code": "https://github.com/mat3ra/code/releases/download/wip-c893e27/code.tgz",
-        "@mat3ra/esse": "https://github.com/mat3ra/esse/releases/download/wip-b8494e3c7/esse.tgz",
+        "@mat3ra/code": "2026.8.18-0",
+        "@mat3ra/esse": "2026.8.18-2",
         "@mat3ra/fixtures": "^2026.5.5-0",
         "@mat3ra/ide": "https://github.com/mat3ra/ide/releases/download/wip-88b8881/ide.tgz",
         "@mat3ra/made": "2026.6.27-0",
