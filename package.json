@@ -85,6 +85,7 @@
         "lint:staged": "lint-staged",
         "prettier": "prettier --check src/js tests/js",
         "check:json-minified": "ts-node scripts/check_json_minified.ts",
+        "pretest": "npm run build",
         "test": "mocha",
         "transpile": "tsc && cp -r build/standata/* ./dist/js/runtime_data/ || true",
         "prepublishOnly": "npm run build"
