@@ -11,7 +11,7 @@ __pycache__/
 /build/
 !src/py/mat3ra/standata/build
 develop-eggs/
-#dist/
+dist/
 downloads/
 eggs/
 .eggs/
