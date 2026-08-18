@@ -86,7 +86,8 @@
         "prettier": "prettier --check src/js tests/js",
         "check:json-minified": "ts-node scripts/check_json_minified.ts",
         "test": "mocha",
-        "transpile": "tsc && cp -r build/standata/* ./dist/js/runtime_data/ || true"
+        "transpile": "tsc && cp -r build/standata/* ./dist/js/runtime_data/ || true",
+        "prepublishOnly": "npm run build"
     },
     "engines": {
         "node": ">=20.0.0"
