@@ -1,0 +1,4 @@
+name: Custom Python Script
+units:
+- name: custom_script
+  type: subworkflow

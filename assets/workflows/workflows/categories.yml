@@ -421,6 +421,9 @@ entities:
       - nwchem
       - total_energy
       - total_energy_contributions
+  - filename: python/custom_script.json
+    categories:
+      - python
   - filename: python/ml/classification_workflow.json
     categories:
       - file_content
