@@ -40,10 +40,10 @@
                     "statusTrack": [],
                     "tags": [],
                     "source": "object_storage",
-                    "flowchartId": "io-user-files-flowchart-id-6b1f74c2",
                     "input": [],
+                    "flowchartId": "ac644ff3-53e7-55b1-be02-86d6df6a340d",
                     "head": true,
-                    "next": "io-material-flowchart-id-1d9a0e57",
+                    "next": "custom-script-io-material",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
@@ -59,7 +59,7 @@
                     "statusTrack": [],
                     "tags": [],
                     "source": "api",
-                    "flowchartId": "io-material-flowchart-id-1d9a0e57",
+                    "flowchartId": "custom-script-io-material",
                     "input": [
                         {
                             "type": "api",
@@ -86,7 +86,7 @@
                     "input": [
                         {
                             "name": "DATA",
-                            "scope": "io-material-flowchart-id-1d9a0e57"
+                            "scope": "custom-script-io-material"
                         }
                     ],
                     "results": [],
