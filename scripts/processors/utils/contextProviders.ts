@@ -2,22 +2,15 @@ import type { TemplateSchema } from "@mat3ra/esse/dist/js/types";
 import serverUtils from "@mat3ra/utils/server";
 import * as path from "path";
 
-import { BUILD_CONFIG } from "../../../build-config";
-
 /**
  * Maps Standata template `contextProviders[].name` (wode class names) to the Jinja
  * rendering-context key each provider exposes via `ContextProvider.name`.
  *
- * Source: dist/js/runtime_data/applications/contextProviderJinjaKeysByClassName.json
+ * Source: contextProviderJinjaKeysByClassName.json (hand-maintained, next to this file).
  * Keep in sync with `PROVIDER_REGISTRY` in `@mat3ra/wode` (`context/providers/index.ts`).
  */
 const CONTEXT_PROVIDER_JINJA_KEYS = serverUtils.json.readJSONFileSync(
-    path.resolve(
-        __dirname,
-        "../../..",
-        BUILD_CONFIG.distRuntimeDataDir,
-        "applications/contextProviderJinjaKeysByClassName.json",
-    ),
+    path.resolve(__dirname, "contextProviderJinjaKeysByClassName.json"),
 ) as Record<string, string>;
 
 type UnusedTemplateContextProviderIssue = {
