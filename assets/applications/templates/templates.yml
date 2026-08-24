@@ -33,6 +33,8 @@
 - !include 'templates/nwchem/nwchem.yml'
 # python
 - !include 'templates/python/python.yml'
+# q3
+- !include 'templates/q3/q3.yml'
 # shell
 - !include 'templates/shell/sh.yml'
 # vasp
