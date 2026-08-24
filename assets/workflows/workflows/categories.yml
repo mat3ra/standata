@@ -457,6 +457,9 @@ entities:
   - filename: shell/batch_espresso_pwscf.json
     categories:
       - shell
+  - filename: shell/custom_script.json
+    categories:
+      - shell
   - filename: shell/hello_world.json
     categories:
       - shell

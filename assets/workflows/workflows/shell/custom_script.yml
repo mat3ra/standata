@@ -1,0 +1,4 @@
+name: Custom Shell Script
+units:
+- name: custom_script
+  type: subworkflow
