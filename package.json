@@ -34,7 +34,7 @@
         "@mat3ra/prode": "https://github.com/mat3ra/prode/releases/download/wip-1d8901b/prode.tgz",
         "@mat3ra/standata": "file:./",
         "@mat3ra/tsconfig": "^2024.6.3-0",
-        "@mat3ra/utils": "https://github.com/mat3ra/utils/releases/download/wip-8b2c388/utils.tgz",
+        "@mat3ra/utils": "2026.8.18-1",
         "@types/chai": "^4.3.20",
         "@types/js-yaml": "^4.0.9",
         "@types/mocha": "^10.0.10",
