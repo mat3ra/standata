@@ -1,17 +1,7 @@
-# Fetch the precomputed bulk total energy (E_BULK) for the bulk already in context.
+# Fetch precomputed bulk total energy (E_BULK) for a material already in context.
 #
-# In:  BULK (bulk material document), SLAB (the job's own material)
+# In:  BULK, SLAB
 # Out: E_BULK
-#
-# Read from `properties`, not from a job. A total energy exists as a property whether or not the
-# job that produced it is visible to this account, and matching jobs by workflow name is neither
-# necessary nor reliable.
-#
-# Scoped to the slab's owner: E_BULK is subtracted from an SCF this job is about to run, so it is
-# only valid if both share the cutoff, k-grid and pseudopotentials -- which only holds for an
-# energy this account computed itself. `group` pins the code and functional, not the convergence.
-# `exabyteId` is shared by every copy of a material, so this stays correct whichever copy BULK
-# resolved to.
 application:
   name: shell
 method:
