@@ -3,10 +3,10 @@ monitors:
   - name: standard_output
 results: []
 flavors:
-  scf:
+  q3_scf:
     isDefault: true
     input:
-      - name: input.yml
+      - name: q3_scf.yml
     results: []
     monitors:
       - name: standard_output

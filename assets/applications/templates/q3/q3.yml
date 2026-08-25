@@ -1,5 +1,5 @@
 - content: !readFile 'input_files_templates/q3/scf.j2.yml'
-  name: input.yml
+  name: q3_scf.yml
   contextProviders: []
   applicationName: q3
   executableName: q3

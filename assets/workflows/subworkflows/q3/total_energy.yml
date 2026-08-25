@@ -1,0 +1,16 @@
+application:
+  name: q3
+  version: '2026.8.22-0'
+method:
+  name: PseudopotentialMethod
+model:
+  name: DFTModel
+name: Total Energy
+units:
+  - config:
+      execName: q3
+      flavorName: q3_scf
+      name: q3_scf
+    type: executionBuilder
+tags:
+  - default

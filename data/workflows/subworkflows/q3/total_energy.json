@@ -1,0 +1,101 @@
+{
+    "_id": "149e68bf-d438-5084-8164-bcc1cadd72df",
+    "name": "Total Energy",
+    "application": {
+        "name": "q3"
+    },
+    "properties": [],
+    "model": {
+        "type": "dft",
+        "subtype": "gga",
+        "method": {
+            "type": "unknown",
+            "subtype": "unknown",
+            "data": {}
+        },
+        "functional": "pbe"
+    },
+    "units": [
+        {
+            "type": "execution",
+            "name": "q3_scf",
+            "head": true,
+            "results": [],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                }
+            ],
+            "flowchartId": "6621ee4a-fc69-592e-a6fd-707001301632",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "q3",
+                "shortName": "q3",
+                "summary": "Quantum 3xplorer",
+                "version": "2026.8.22-0",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "applicationName": "q3",
+                "applicationVersion": "*",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "name": "q3",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "applicationName": "q3",
+                "applicationVersion": "*",
+                "executableName": "q3",
+                "input": [
+                    {
+                        "name": "q3_scf.yml"
+                    }
+                ],
+                "isDefault": true,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    }
+                ],
+                "name": "q3_scf",
+                "postProcessors": [],
+                "preProcessors": [],
+                "results": [],
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [
+                {
+                    "template": {
+                        "applicationName": "q3",
+                        "applicationVersion": "*",
+                        "content": "material: material.json\n\nmethod:\n  type: pseudopotential\n  subtype: norm-conserving\n\n  pseudopotentials:\n    {{element}}: {{path_to_pseudopotential}}\n\n  cutoffs:\n    wavefunction: 30.0\n    density: 240.0\n\n  scf:\n    convergence_threshold: 1.0e-9\n    max_iterations: 100\n\n    number_of_spin_components: 2\n    starting_magnetization:\n      Fe1: 0.5\n      Fe2: -0.5\n\n    smearing:\n      type: marzari-vanderbilt\n      degauss: 0.02\n\n    mixing:\n      beta: 0.3\n      mode: broyden\n\n    kgrid:\n      dimensions: [3, 3, 3]\n      shifts: [0, 0, 0]\n\ncontrol:\n  calculation: scf\n  prefix: q3\n  outdir: ./outdir/\n",
+                        "contextProviders": [],
+                        "executableName": "q3",
+                        "name": "q3_scf.yml",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                }
+            ],
+            "context": [],
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "isDraft": false,
+    "tags": [
+        "default"
+    ]
+}
