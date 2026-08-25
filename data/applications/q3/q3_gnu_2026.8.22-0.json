@@ -1,0 +1,17 @@
+{
+    "name": "q3",
+    "shortName": "q3",
+    "summary": "Quantum 3xplorer",
+    "isUsingMaterial": true,
+    "version": "2026.8.22-0",
+    "isDefault": true,
+    "isDefaultVersion": true,
+    "build": "GNU",
+    "hasAdvancedComputeOptions": false,
+    "buildConfig": {
+        "moduleName": "2026.8.22-0",
+        "imageName": "q3",
+        "imageTag": "2026.8.22-0",
+        "bio": "Quantum 3xplorer 2026.8.22-0"
+    }
+}

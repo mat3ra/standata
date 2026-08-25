@@ -1,0 +1,38 @@
+material: material.json
+
+method:
+  type: pseudopotential
+  subtype: norm-conserving
+
+  pseudopotentials:
+    {{element}}: {{path_to_pseudopotential}}
+
+  cutoffs:
+    wavefunction: 30.0
+    density: 240.0
+
+  scf:
+    convergence_threshold: 1.0e-9
+    max_iterations: 100
+
+    number_of_spin_components: 2
+    starting_magnetization:
+      Fe1: 0.5
+      Fe2: -0.5
+
+    smearing:
+      type: marzari-vanderbilt
+      degauss: 0.02
+
+    mixing:
+      beta: 0.3
+      mode: broyden
+
+    kgrid:
+      dimensions: [3, 3, 3]
+      shifts: [0, 0, 0]
+
+control:
+  calculation: scf
+  prefix: q3
+  outdir: ./outdir/

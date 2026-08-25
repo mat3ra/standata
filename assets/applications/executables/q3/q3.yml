@@ -1,0 +1,14 @@
+isDefault: true
+monitors:
+  - name: standard_output
+results: []
+flavors:
+  q3_scf:
+    isDefault: true
+    input:
+      - name: q3_scf.yml
+    results: []
+    monitors:
+      - name: standard_output
+    applicationName: q3
+    executableName: q3

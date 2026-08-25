@@ -51,6 +51,7 @@ categories:
     - lammps
     - nwchem
     - python
+    - q3
     - shell
     - vasp
 entities:
@@ -512,6 +513,10 @@ entities:
   - filename: python/python_script.json
     categories:
       - python
+  - filename: q3/total_energy.json
+    categories:
+      - default
+      - q3
   - filename: shell/batch_espresso_pwscf.json
     categories:
       - shell
