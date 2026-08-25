@@ -520,10 +520,10 @@
             },
             "units": [
                 {
-                    "name": "assign-bulk-material-id",
+                    "name": "assign-bulk-material",
                     "type": "assignment",
-                    "operand": "BULK_MATERIAL_ID",
-                    "value": "PRISTINE['_id']",
+                    "operand": "BULK_MATERIAL",
+                    "value": "PRISTINE",
                     "input": [],
                     "results": [],
                     "monitors": [],
@@ -532,54 +532,18 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk-material-id",
+                    "flowchartId": "assign-bulk-material",
                     "head": true,
-                    "next": "io-bulk-te-job",
+                    "next": "assign-te-bulk-group",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "io-bulk-te-job",
-                    "type": "io",
-                    "subtype": "input",
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "io-bulk-te-job",
-                    "source": "api",
-                    "input": [
-                        {
-                            "type": "api",
-                            "endpoint": "jobs",
-                            "endpoint_options": {
-                                "params": {
-                                    "query": "{'_material._id': BULK_MATERIAL_ID, 'status': 'finished', 'workflow.name': {'$regex': 'Total Energy'}}",
-                                    "projection": "{'sort': {'updatedAt': -1}, 'limit': 1}"
-                                }
-                            },
-                            "name": "JOB_DATA"
-                        }
-                    ],
-                    "head": false,
-                    "next": "assign-bulk-te-job-id",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assign-bulk-te-job-id",
+                    "name": "assign-te-bulk-group",
                     "type": "assignment",
-                    "operand": "BULK_TE_JOB_ID",
-                    "value": "JOB_DATA[0]['_id'] if JOB_DATA else None",
-                    "input": [
-                        {
-                            "name": "JOB_DATA",
-                            "scope": "io-bulk-te-job"
-                        }
-                    ],
+                    "operand": "TE_BULK_GROUP",
+                    "value": "'qe:'",
+                    "input": [],
                     "results": [],
                     "monitors": [],
                     "preProcessors": [],
@@ -587,7 +551,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk-te-job-id",
+                    "flowchartId": "assign-te-bulk-group",
                     "head": false,
                     "next": "io-te-bulk",
                     "schemaVersion": "2022.8.16",
@@ -612,7 +576,7 @@
                             "endpoint": "properties",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'source.info.jobId': BULK_TE_JOB_ID, 'slug': 'total_energy', 'group': {'$regex': 'qe:'}}",
+                                    "query": "{'exabyteId': BULK_MATERIAL.exabyteId, 'slug': 'total_energy', 'group': {'$regex': TE_BULK_GROUP}, 'owner._id': BULK_MATERIAL.owner['_id']}",
                                     "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
                                 }
                             },
