@@ -5,7 +5,7 @@ method:
   subtype: norm-conserving
 
   pseudopotentials:
-    {{ element}}: {{ path_to_pseudopotential }}
+    {{element}}: {{path_to_pseudopotential}}
 
   cutoffs:
     wavefunction: 30.0
