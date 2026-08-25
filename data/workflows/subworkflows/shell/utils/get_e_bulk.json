@@ -16,47 +16,11 @@
     },
     "units": [
         {
-            "name": "io-bulk-te-job",
-            "type": "io",
-            "subtype": "input",
-            "results": [],
-            "monitors": [],
-            "preProcessors": [],
-            "postProcessors": [],
-            "status": "idle",
-            "statusTrack": [],
-            "tags": [],
-            "flowchartId": "io-bulk-te-job",
-            "source": "api",
-            "input": [
-                {
-                    "type": "api",
-                    "endpoint": "jobs",
-                    "endpoint_options": {
-                        "params": {
-                            "query": "{'_material._id': {'$in': BULK_MATERIAL_IDS}, 'status': 'finished', 'workflow.name': {'$regex': 'Total Energy'}}",
-                            "projection": "{'sort': {'updatedAt': -1}, 'limit': 1}"
-                        }
-                    },
-                    "name": "JOB_DATA"
-                }
-            ],
-            "head": true,
-            "next": "assign-bulk-te-job-id",
-            "schemaVersion": "2022.8.16",
-            "isDefault": false
-        },
-        {
-            "name": "assign-bulk-te-job-id",
+            "name": "assign-bulk-te-group",
             "type": "assignment",
-            "operand": "BULK_TE_JOB_ID",
-            "value": "JOB_DATA[0]['_id'] if JOB_DATA else None",
-            "input": [
-                {
-                    "name": "JOB_DATA",
-                    "scope": "io-bulk-te-job"
-                }
-            ],
+            "operand": "BULK_TE_GROUP",
+            "value": "'qe:'",
+            "input": [],
             "results": [],
             "monitors": [],
             "preProcessors": [],
@@ -64,8 +28,8 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assign-bulk-te-job-id",
-            "head": false,
+            "flowchartId": "assign-bulk-te-group",
+            "head": true,
             "next": "io-e-bulk",
             "schemaVersion": "2022.8.16",
             "isDefault": false
@@ -89,7 +53,7 @@
                     "endpoint": "properties",
                     "endpoint_options": {
                         "params": {
-                            "query": "{'source.info.jobId': BULK_TE_JOB_ID, 'slug': 'total_energy'}",
+                            "query": "{'exabyteId': BULK.exabyteId, 'slug': 'total_energy', 'group': {'$regex': BULK_TE_GROUP}, 'owner._id': SLAB.owner._id}",
                             "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
                         }
                     },
@@ -129,7 +93,7 @@
             "name": "assert-e-bulk",
             "type": "assertion",
             "statement": "E_BULK != None",
-            "errorMessage": "Bulk total energy does not exist for the resolved bulk material. Run a bulk total energy workflow first.",
+            "errorMessage": "No total energy for this bulk material in this account. Run a bulk total energy workflow for it first.",
             "results": [],
             "monitors": [],
             "preProcessors": [],
