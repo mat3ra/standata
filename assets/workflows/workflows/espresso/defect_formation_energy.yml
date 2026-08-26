@@ -98,13 +98,13 @@ units:
         type: assignment
         config:
           attributes:
-            value: "PRISTINE['_id']"
-      - index: 4
+            value: "PRISTINE"
+      - index: 3
         type: assignment
         config:
           attributes:
             operand: E_PRISTINE
-      - index: 5
+      - index: 4
         type: assertion
         config:
           attributes:
