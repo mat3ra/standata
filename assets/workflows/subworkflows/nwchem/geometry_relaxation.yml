@@ -1,0 +1,20 @@
+application:
+  name: nwchem
+  version: 7.0.2
+config:
+  systemName: nwchem-geometry-relaxation
+method:
+  name: LocalOrbitalMethod
+model:
+  name: DFTModel
+name: Geometry Relaxation
+units:
+  - config:
+      execName: nwchem
+      flavorName: nwchem_relaxation
+      name: nwchem_relaxation
+    functions:
+      head: true
+    type: executionBuilder
+tags:
+  - variable-cell_relaxation

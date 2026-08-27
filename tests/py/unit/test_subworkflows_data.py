@@ -13,6 +13,9 @@ SUBWORKFLOW = SimpleNamespace(
     FILENAME="espresso/pw_scf.json",
     EXACT_NAME="pw-scf",
     RELAXATION_NAME="Variable-cell Relaxation",
+    # A molecule has no cell, so nwchem's relaxation is named for what it does; the tag both
+    # lookups filter on stays `variable-cell_relaxation`.
+    NWCHEM_RELAXATION_NAME="Geometry Relaxation",
 )
 
 
@@ -68,7 +71,7 @@ def test_filter_by_application_and_get_by_name():
         (APP.VASP, SUBWORKFLOW.RELAXATION_NAME),
         (APP.PYTHON, None),
         (APP.SHELL, None),
-        (APP.NWCHEM, None),
+        (APP.NWCHEM, SUBWORKFLOW.NWCHEM_RELAXATION_NAME),
     ],
 )
 def test_get_relaxation_by_application(application, expected_name):

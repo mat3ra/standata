@@ -1,11 +1,9 @@
- {% if input.RESTART %}restart{% else %}start{% endif %} nwchem
+ start nwchem
  title "Test"
  charge {{ input.CHARGE }}
-{%- if not input.RESTART %}
  geometry units angstrom noautosym
  {{ input.ATOMIC_POSITIONS }}
  end
-{%- endif %}
  basis
    * library {{ input.BASIS }}
  end
@@ -13,4 +11,9 @@
  xc {{ input.FUNCTIONAL }}
  mult {{ input.MULT }}
  end
- task dft energy
+ driver
+ maxiter 256
+ inhess 1
+ print default
+ end
+ task dft optimize

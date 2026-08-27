@@ -10,3 +10,9 @@
     - name: NWChemInputDataManager
   applicationName: nwchem
   executableName: nwchem
+- content: !readFile 'input_files_templates/nwchem/nwchem_relaxation.j2.inp'
+  name: nwchem_relaxation.inp
+  contextProviders:
+    - name: NWChemInputDataManager
+  applicationName: nwchem
+  executableName: nwchem
