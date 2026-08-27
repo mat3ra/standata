@@ -464,6 +464,13 @@ entities:
       - total_energy
       - total_energy_contributions
       - zero_point_energy
+  - filename: nwchem/geometry_relaxation.json
+    categories:
+      - final_structure
+      - nwchem
+      - total_energy
+      - total_energy_contributions
+      - variable-cell_relaxation
   - filename: nwchem/total_energy.json
     categories:
       - homo_energy

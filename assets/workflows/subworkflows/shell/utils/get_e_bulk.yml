@@ -1,7 +1,7 @@
 # Fetch precomputed bulk total energy (E_BULK) for a material already in context.
 #
-# In:  BULK_MATERIAL_IDS — all platform material _ids sharing the bulk hash
-# Out: BULK_TE_JOB_ID, E_BULK
+# In:  BULK, SLAB
+# Out: E_BULK
 application:
   name: shell
 method:
@@ -10,31 +10,12 @@ model:
   name: UnknownModel
 name: Get Bulk Energy
 units:
-  - type: io
-    config:
-      name: io-bulk-te-job
-      flowchartId: io-bulk-te-job
-      subtype: input
-      source: api
-      input:
-        - type: api
-          endpoint: jobs
-          endpoint_options:
-            params:
-              query: >-
-                {'_material._id': {'$in': BULK_MATERIAL_IDS}, 'status': 'finished',
-                'workflow.name': {'$regex': 'Total Energy'}}
-              projection: "{'sort': {'updatedAt': -1}, 'limit': 1}"
-          name: JOB_DATA
   - type: assignment
     config:
-      name: assign-bulk-te-job-id
-      flowchartId: assign-bulk-te-job-id
-      operand: BULK_TE_JOB_ID
-      value: "JOB_DATA[0]['_id'] if JOB_DATA else None"
-      input:
-        - name: JOB_DATA
-          scope: io-bulk-te-job
+      name: assign-bulk-te-group
+      flowchartId: assign-bulk-te-group
+      operand: BULK_TE_GROUP
+      value: "'qe:'"
   - type: io
     config:
       name: io-e-bulk
@@ -47,7 +28,8 @@ units:
           endpoint_options:
             params:
               query: >-
-                {'source.info.jobId': BULK_TE_JOB_ID, 'slug': 'total_energy'}
+                {'exabyteId': BULK.exabyteId, 'slug': 'total_energy',
+                'group': {'$regex': BULK_TE_GROUP}, 'owner._id': SLAB.owner['_id']}
               projection: "{'sort': {'precision.value': -1}, 'limit': 1}"
           name: DATA
   - type: assignment
@@ -65,5 +47,5 @@ units:
       flowchartId: assert-e-bulk
       statement: "E_BULK != None"
       errorMessage: >-
-        Bulk total energy does not exist for the resolved bulk material. Run a
-        bulk total energy workflow first.
+        No total energy for this bulk material in this account. Run a bulk total energy workflow
+        for it first.

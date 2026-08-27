@@ -1,0 +1,6 @@
+name: Geometry Relaxation
+units:
+  - name: geometry_relaxation
+    type: subworkflow
+tags:
+  - variable-cell_relaxation

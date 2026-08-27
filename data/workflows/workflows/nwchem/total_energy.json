@@ -122,7 +122,7 @@
                             "template": {
                                 "applicationName": "nwchem",
                                 "applicationVersion": "*",
-                                "content": " start nwchem\n title \"Test\"\n charge {{ input.CHARGE }}\n geometry units angstrom noautosym\n {{ input.ATOMIC_POSITIONS }}\n end\n basis\n   * library {{ input.BASIS }}\n end\n dft\n xc {{ input.FUNCTIONAL }}\n mult {{ input.MULT }}\n end\n task dft energy\n",
+                                "content": " {% if input.RESTART %}restart{% else %}start{% endif %} nwchem\n title \"Test\"\n charge {{ input.CHARGE }}\n{%- if not input.RESTART %}\n geometry units angstrom noautosym\n {{ input.ATOMIC_POSITIONS }}\n end\n{%- endif %}\n basis\n   * library {{ input.BASIS }}\n end\n dft\n xc {{ input.FUNCTIONAL }}\n mult {{ input.MULT }}\n end\n task dft energy\n",
                                 "contextProviders": [
                                     {
                                         "name": "NWChemInputDataManager"

@@ -28,10 +28,12 @@ units:
       flowchartId: assign-bulk-query
       operand: BULK_QUERY
       value: >-
-        {'scaledHash': LAST_BUILD_CRYSTAL.get('scaledHash')}
-        if LAST_BUILD_CRYSTAL and LAST_BUILD_CRYSTAL.get('scaledHash')
+        {'_id': LAST_BUILD_CRYSTAL.get('_id')}
+        if LAST_BUILD_CRYSTAL and LAST_BUILD_CRYSTAL.get('_id')
         else {'hash': LAST_BUILD_CRYSTAL.get('hash')}
         if LAST_BUILD_CRYSTAL and LAST_BUILD_CRYSTAL.get('hash')
+        else {'scaledHash': LAST_BUILD_CRYSTAL.get('scaledHash')}
+        if LAST_BUILD_CRYSTAL and LAST_BUILD_CRYSTAL.get('scaledHash')
         else None
   - type: assertion
     config:

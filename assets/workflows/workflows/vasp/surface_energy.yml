@@ -23,5 +23,11 @@ units:
     type: subworkflow
   - name: shell/utils/get_e_bulk
     type: subworkflow
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            value: "'vasp:'"
   - name: surface_energy
     type: subworkflow
