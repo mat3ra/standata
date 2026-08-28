@@ -40,12 +40,15 @@ units:
       description: |
         Capture the k-grid precision from the pw.x SCF context so the material
         contribution row reports the precision TE_FOR_MATERIAL was computed at.
+        The unit context only carries a kgrid entry when the grid was explicitly
+        set, so on the default path both fall back to the schema defaults for an
+        unreported precision (core/reusable/formation-energy-contribution).
       flowchartId: assign-precision-for-material
       operand: PRECISION_FOR_MATERIAL
       value: >-
         {
-            "precision_value": context["kgrid"].get("gridMetricValue"),
-            "precision_metric": context["kgrid"].get("gridMetricType"),
+            "precision_value": context.get("kgrid", {}).get("gridMetricValue", -1),
+            "precision_metric": context.get("kgrid", {}).get("gridMetricType", "unknown"),
         }
       input:
         - name: context

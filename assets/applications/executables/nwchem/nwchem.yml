@@ -12,6 +12,7 @@ results:
   - name: total_energy_contributions
   - name: homo_energy
   - name: lumo_energy
+  - name: final_structure
 flavors:
   nwchem_total_energy:
     isDefault: true
@@ -22,6 +23,18 @@ flavors:
       - name: total_energy_contributions
       - name: homo_energy
       - name: lumo_energy
+    monitors:
+      - name: standard_output
+    applicationName: nwchem
+    executableName: nwchem
+  nwchem_relaxation:
+    isDefault: false
+    input:
+      - name: nwchem_relaxation.inp
+    results:
+      - name: total_energy
+      - name: total_energy_contributions
+      - name: final_structure
     monitors:
       - name: standard_output
     applicationName: nwchem

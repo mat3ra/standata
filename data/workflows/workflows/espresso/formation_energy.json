@@ -745,7 +745,7 @@
                     "name": "assign-precision-for-material",
                     "type": "assignment",
                     "operand": "PRECISION_FOR_MATERIAL",
-                    "value": "{\n    \"precision_value\": context[\"kgrid\"].get(\"gridMetricValue\"),\n    \"precision_metric\": context[\"kgrid\"].get(\"gridMetricType\"),\n}",
+                    "value": "{\n    \"precision_value\": context.get(\"kgrid\", {}).get(\"gridMetricValue\", -1),\n    \"precision_metric\": context.get(\"kgrid\", {}).get(\"gridMetricType\", \"unknown\"),\n}",
                     "input": [
                         {
                             "name": "context",
