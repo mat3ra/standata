@@ -25,6 +25,8 @@ espresso:
   simple.x: !include 'executables/espresso/simple.x.yml'
   simple_bse.x: !include 'executables/espresso/simple_bse.x.yml'
   simple_ip.x: !include 'executables/espresso/simple_ip.x.yml'
+jupyterLab:
+  jupyter: !include 'executables/jupyterLab/jupyter.yml'
 lammps:
   lmp: !include 'executables/lammps/lmp.yml'
 nwchem:

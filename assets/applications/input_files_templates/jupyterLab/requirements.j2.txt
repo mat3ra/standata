@@ -1,0 +1,10 @@
+# Installed into the JupyterLab virtual environment before the notebook starts.
+# Build 'Default' builds it per job under the scratch directory; 'with-pre-installed-packages'
+# reuses the shared environment, where packages cannot be added while the notebook is running.
+
+jupyterlab==3.0.3
+notebook>=6.2.0
+exabyte-api-client>=2020.10.19
+numpy>=1.17.3
+pandas>=1.1.4
+urllib3<2
