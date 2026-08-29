@@ -1,0 +1,141 @@
+{
+    "_id": "a1395588-bf6b-54c5-92b4-ebbfa6ec8db2",
+    "name": "Jupyter Notebook",
+    "subworkflows": [
+        {
+            "_id": "e96e81f3-07f1-50a0-a886-7f13444869bb",
+            "name": "Jupyter Notebook",
+            "application": {
+                "build": "Default",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": false,
+                "name": "jupyterLab",
+                "shortName": "jl",
+                "summary": "JupyterLab",
+                "version": "4.3.0",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [],
+            "model": {
+                "type": "unknown",
+                "subtype": "unknown",
+                "method": {
+                    "type": "unknown",
+                    "subtype": "unknown",
+                    "data": {}
+                }
+            },
+            "units": [
+                {
+                    "type": "execution",
+                    "name": "notebook",
+                    "head": true,
+                    "results": [],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        },
+                        {
+                            "name": "jupyter_notebook_endpoint"
+                        }
+                    ],
+                    "flowchartId": "be67a41d-09c0-5f31-b26d-2d85dfebd13a",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "Default",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": false,
+                        "name": "jupyterLab",
+                        "shortName": "jl",
+                        "summary": "JupyterLab",
+                        "version": "4.3.0",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "jupyterLab",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "name": "jupyter",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "jupyterLab",
+                        "applicationVersion": "*",
+                        "executableName": "jupyter",
+                        "input": [
+                            {
+                                "name": "requirements.txt"
+                            }
+                        ],
+                        "isDefault": true,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            },
+                            {
+                                "name": "jupyter_notebook_endpoint"
+                            }
+                        ],
+                        "name": "notebook",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "jupyterLab",
+                                "applicationVersion": "*",
+                                "content": "# Installed into the JupyterLab virtual environment before the notebook starts.\n# Build 'Default' builds it per job under the scratch directory; 'with-pre-installed-packages'\n# reuses the shared environment, where packages cannot be added while the notebook is running.\n\njupyterlab==3.0.3\nnotebook>=6.2.0\nexabyte-api-client>=2020.10.19\nnumpy>=1.17.3\npandas>=1.1.4\nurllib3<2\n",
+                                "contextProviders": [],
+                                "executableName": "jupyter",
+                                "name": "requirements.txt",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        }
+    ],
+    "units": [
+        {
+            "type": "subworkflow",
+            "name": "Jupyter Notebook",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "e96e81f3-07f1-50a0-a886-7f13444869bb",
+            "flowchartId": "9c11c3c6-9022-554d-a624-c15a02562cc9",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "properties": [],
+    "workflows": [],
+    "schemaVersion": "2022.8.16",
+    "application": {
+        "name": "jupyterLab"
+    }
+}
