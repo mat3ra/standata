@@ -43,7 +43,7 @@
                 "name": "jupyterLab",
                 "shortName": "jl",
                 "summary": "JupyterLab",
-                "version": "4.3.0",
+                "version": "4.6.0",
                 "schemaVersion": "2022.8.16"
             },
             "executable": {
@@ -56,7 +56,7 @@
             },
             "flavor": {
                 "applicationName": "jupyterLab",
-                "applicationVersion": "*",
+                "applicationVersion": ">=4.6",
                 "executableName": "jupyter",
                 "input": [
                     {
@@ -83,7 +83,7 @@
                     "template": {
                         "applicationName": "jupyterLab",
                         "applicationVersion": "*",
-                        "content": "# Installed into the JupyterLab virtual environment before the notebook starts.\n# Build 'Default' builds it per job under the scratch directory; 'with-pre-installed-packages'\n# reuses the shared environment, where packages cannot be added while the notebook is running.\n\njupyterlab==3.0.3\nnotebook>=6.2.0\nexabyte-api-client>=2020.10.19\nnumpy>=1.17.3\npandas>=1.1.4\nurllib3<2\n",
+                        "content": "# This file is the unit's whole Python environment, installed before JupyterLab starts.\njupyterlab==4.6.0\nnotebook>=7,<8\n",
                         "contextProviders": [],
                         "executableName": "jupyter",
                         "name": "requirements.txt",

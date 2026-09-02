@@ -1,11 +1,13 @@
 name: jupyterLab
 shortName: jl
 summary: JupyterLab
-defaultVersion: '4.3.0'
+defaultVersion: '4.6.0'
 isUsingMaterial: false
 versions:
-  - version: '4.3.0'
+  - version: '4.6.0'
     isDefault: true
+    build: Default
+  - version: '4.3.0'
     build: Default
   - version: '3.0.3'
     build: Default

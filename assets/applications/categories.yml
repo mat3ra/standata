@@ -55,7 +55,7 @@ entities:
       - default_version
       - default_build
       - default
-  - filename: jupyterLab/jupyterLab_default_4.3.0.json
+  - filename: jupyterLab/jupyterLab_default_4.6.0.json
     categories:
       - programming_language
       - scripting

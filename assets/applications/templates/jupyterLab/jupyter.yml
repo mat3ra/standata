@@ -3,3 +3,21 @@
   contextProviders: []
   applicationName: jupyterLab
   executableName: jupyter
+
+- content: !readFile 'input_files_templates/jupyterLab/requirements_430.j2.txt'
+  name: requirements_430.txt
+  contextProviders: []
+  applicationName: jupyterLab
+  executableName: jupyter
+
+- content: !readFile 'input_files_templates/jupyterLab/requirements_303.j2.txt'
+  name: requirements_303.txt
+  contextProviders: []
+  applicationName: jupyterLab
+  executableName: jupyter
+
+- content: !readFile 'input_files_templates/jupyterLab/requirements_mat3ra.j2.txt'
+  name: requirements_mat3ra.txt
+  contextProviders: []
+  applicationName: jupyterLab
+  executableName: jupyter

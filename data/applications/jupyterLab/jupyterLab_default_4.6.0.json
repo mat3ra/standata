@@ -3,9 +3,9 @@
     "shortName": "jl",
     "summary": "JupyterLab",
     "isUsingMaterial": false,
-    "version": "4.3.0",
-    "isDefault": false,
-    "isDefaultVersion": false,
+    "version": "4.6.0",
+    "isDefault": true,
+    "isDefaultVersion": true,
     "build": "Default",
     "hasAdvancedComputeOptions": false
 }
