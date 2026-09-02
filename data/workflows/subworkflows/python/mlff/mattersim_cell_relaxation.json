@@ -103,7 +103,7 @@
                 "build": "GNU",
                 "hasAdvancedComputeOptions": false,
                 "isDefault": true,
-                "isDefaultVersion": true,
+                "isDefaultVersion": false,
                 "isUsingMaterial": true,
                 "name": "python",
                 "shortName": "py",

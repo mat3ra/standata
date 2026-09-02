@@ -55,7 +55,7 @@ entities:
       - default_version
       - default_build
       - default
-  - filename: python/python_gnu_3.10.13.json
+  - filename: python/python_default_3.11.10.json
     categories:
       - programming_language
       - scripting

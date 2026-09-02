@@ -3,9 +3,9 @@
     "shortName": "py",
     "summary": "Python Script",
     "isUsingMaterial": true,
-    "version": "3.10.13",
+    "version": "3.11.10",
     "isDefault": true,
-    "isDefaultVersion": false,
+    "isDefaultVersion": true,
     "build": "GNU",
     "hasAdvancedComputeOptions": false
 }
