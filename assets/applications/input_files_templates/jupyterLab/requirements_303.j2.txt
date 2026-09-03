@@ -1,4 +1,6 @@
 # This file is the unit's whole Python environment, installed before JupyterLab starts.
 jupyterlab==3.0.3
+# rupy launches `jupyter notebook`, so the notebook package is required, not just jupyterlab.
 notebook>=6.2.0,<7
+# urllib3 2.x needs OpenSSL 1.1.1+, which the 3.0.3 line's images predate.
 urllib3<2

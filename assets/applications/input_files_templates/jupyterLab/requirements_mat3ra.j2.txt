@@ -1,6 +1,7 @@
 # This file is the unit's whole Python environment, installed before JupyterLab starts.
 # Preinstalls the packages used by the api-examples notebooks.
-jupyterlab==4.6.0
+jupyterlab==4.6.*
+# rupy launches `jupyter notebook`, so the notebook package is required, not just jupyterlab.
 notebook>=7,<8
 mat3ra-api-client
 mat3ra-made[tools]

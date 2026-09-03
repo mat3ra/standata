@@ -69,7 +69,7 @@
                     },
                     "flavor": {
                         "applicationName": "jupyterLab",
-                        "applicationVersion": ">=4.6",
+                        "applicationVersion": "~4.6",
                         "executableName": "jupyter",
                         "input": [
                             {
@@ -96,7 +96,7 @@
                             "template": {
                                 "applicationName": "jupyterLab",
                                 "applicationVersion": "*",
-                                "content": "# This file is the unit's whole Python environment, installed before JupyterLab starts.\njupyterlab==4.6.0\nnotebook>=7,<8\n",
+                                "content": "# This file is the unit's whole Python environment, installed before JupyterLab starts.\njupyterlab==4.6.*\n# rupy launches `jupyter notebook`, so the notebook package is required, not just jupyterlab.\nnotebook>=7,<8\n",
                                 "contextProviders": [],
                                 "executableName": "jupyter",
                                 "name": "requirements.txt",

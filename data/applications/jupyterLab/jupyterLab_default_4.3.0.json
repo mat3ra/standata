@@ -4,7 +4,7 @@
     "summary": "JupyterLab",
     "isUsingMaterial": false,
     "version": "4.3.0",
-    "isDefault": false,
+    "isDefault": true,
     "isDefaultVersion": false,
     "build": "Default",
     "hasAdvancedComputeOptions": false

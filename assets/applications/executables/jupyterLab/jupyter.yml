@@ -5,8 +5,9 @@ monitors:
 results: []
 flavors:
   notebook:
+    # The version ranges below are disjoint, so each version line has exactly one default flavor.
     isDefault: true
-    supportedApplicationVersions: ">=4.6"
+    supportedApplicationVersions: "~4.6"
     input:
       - name: requirements.txt
     monitors:
@@ -16,6 +17,7 @@ flavors:
     executableName: jupyter
 
   notebook_430:
+    isDefault: true
     supportedApplicationVersions: "~4.3"
     input:
       - name: requirements.txt
@@ -27,6 +29,7 @@ flavors:
     executableName: jupyter
 
   notebook_303:
+    isDefault: true
     supportedApplicationVersions: "<4"
     input:
       - name: requirements.txt
@@ -38,7 +41,7 @@ flavors:
     executableName: jupyter
 
   notebook_mat3ra:
-    supportedApplicationVersions: ">=4.6"
+    supportedApplicationVersions: "~4.6"
     input:
       - name: requirements.txt
         templateName: requirements_mat3ra.txt
