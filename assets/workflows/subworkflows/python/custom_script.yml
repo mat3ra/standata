@@ -7,8 +7,6 @@ model:
   name: UnknownModel
 name: Custom Python Script
 units:
-  # Fetches the user's script, and any files it reads, from object storage. The inputs are added
-  # per job — one entry per uploaded file — since the objects only exist once they are uploaded.
   - config:
       name: io-user-files
       subtype: input
@@ -19,8 +17,6 @@ units:
       name: io-material
       subtype: input
       source: api
-      # Pinned because assign-material reads this unit's scope by id. Namespaced by subworkflow so
-      # it cannot clash if another subworkflow in the same workflow also fetches a material.
       flowchartId: custom-script-io-material
       input:
         - type: api
