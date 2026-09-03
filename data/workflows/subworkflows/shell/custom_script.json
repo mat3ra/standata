@@ -1,0 +1,171 @@
+{
+    "_id": "3adca028-b22a-51aa-88c7-0e92fda3c5db",
+    "name": "Custom Shell Script",
+    "application": {
+        "name": "shell"
+    },
+    "properties": [],
+    "model": {
+        "type": "unknown",
+        "subtype": "unknown",
+        "method": {
+            "type": "unknown",
+            "subtype": "unknown",
+            "data": {}
+        }
+    },
+    "units": [
+        {
+            "name": "io-user-files",
+            "type": "io",
+            "subtype": "input",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "source": "object_storage",
+            "input": [],
+            "flowchartId": "ac644ff3-53e7-55b1-be02-86d6df6a340d",
+            "head": true,
+            "next": "custom-shell-io-material",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "io-material",
+            "type": "io",
+            "subtype": "input",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "source": "api",
+            "flowchartId": "custom-shell-io-material",
+            "input": [
+                {
+                    "type": "api",
+                    "endpoint": "materials",
+                    "endpoint_options": {
+                        "params": {
+                            "query": "{'_id': MATERIAL_ID}",
+                            "projection": "{}"
+                        }
+                    },
+                    "name": "DATA"
+                }
+            ],
+            "head": false,
+            "next": "51e48ac9-872f-5ee3-b4bf-1a4e83ea3e5a",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "assign-material",
+            "type": "assignment",
+            "operand": "MATERIAL",
+            "value": "DATA[0]",
+            "input": [
+                {
+                    "name": "DATA",
+                    "scope": "custom-shell-io-material"
+                }
+            ],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "51e48ac9-872f-5ee3-b4bf-1a4e83ea3e5a",
+            "head": false,
+            "next": "060fc72c-bcf0-5c67-9791-78720e892683",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "execution",
+            "name": "custom_script",
+            "head": false,
+            "results": [],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                }
+            ],
+            "flowchartId": "060fc72c-bcf0-5c67-9791-78720e892683",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": false,
+                "name": "shell",
+                "shortName": "sh",
+                "summary": "Shell Script",
+                "version": "5.1.8",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "applicationName": "shell",
+                "applicationVersion": "*",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "name": "sh",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "applicationName": "shell",
+                "applicationVersion": "*",
+                "executableName": "sh",
+                "input": [
+                    {
+                        "name": "hello_world.sh"
+                    }
+                ],
+                "isDefault": true,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    }
+                ],
+                "name": "hello_world",
+                "postProcessors": [],
+                "preProcessors": [],
+                "results": [],
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [
+                {
+                    "template": {
+                        "applicationName": "shell",
+                        "applicationVersion": "*",
+                        "content": "#!/bin/bash\n# ---------------------------------------------------------------- #\n#                                                                  #\n#  Example shell script for Mat3ra.com platform.                   #\n#                                                                  #\n#  Will be used as follows:                                        #\n#                                                                  #\n#    1. shebang line is read from the first line above             #\n#    2. based on shebang one of the shell types is selected:       #\n#       - /bin/bash                                                #\n#       - /bin/csh                                                 #\n#       - /bin/tclsh                                               #\n#       - /bin/tcsh                                                #\n#       - /bin/zsh                                                 #\n#    3. runtime directory for this calculation is created          #\n#    4. the content of the script is executed                      #\n#                                                                  #\n#  Adjust the content below to include your code.                  #\n#                                                                  #\n# ---------------------------------------------------------------- #\n\necho \"Hello world!\"\n",
+                        "contextProviders": [],
+                        "executableName": "sh",
+                        "name": "hello_world.sh",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                }
+            ],
+            "context": [],
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "isDraft": false
+}

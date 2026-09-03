@@ -478,6 +478,9 @@ entities:
       - nwchem
       - total_energy
       - total_energy_contributions
+  - filename: python/custom_script.json
+    categories:
+      - python
   - filename: python/ml/classification_tail.json
     categories:
       - creates-predictions-csv-during-predict-phase
@@ -520,6 +523,9 @@ entities:
     categories:
       - python
   - filename: shell/batch_espresso_pwscf.json
+    categories:
+      - shell
+  - filename: shell/custom_script.json
     categories:
       - shell
   - filename: shell/fetch_bulk_total_energy.json

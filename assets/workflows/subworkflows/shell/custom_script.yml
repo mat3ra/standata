@@ -1,0 +1,42 @@
+application:
+  name: shell
+  version: 5.1.8
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: Custom Shell Script
+units:
+  - config:
+      name: io-user-files
+      subtype: input
+      source: object_storage
+      input: []
+    type: io
+  - config:
+      name: io-material
+      subtype: input
+      source: api
+      flowchartId: custom-shell-io-material
+      input:
+        - type: api
+          endpoint: materials
+          endpoint_options:
+            params:
+              query: "{'_id': MATERIAL_ID}"
+              projection: "{}"
+          name: DATA
+    type: io
+  - config:
+      name: assign-material
+      operand: MATERIAL
+      value: "DATA[0]"
+      input:
+        - name: DATA
+          scope: custom-shell-io-material
+    type: assignment
+  - config:
+      execName: sh
+      flavorName: hello_world
+      name: custom_script
+    type: executionBuilder
