@@ -28,13 +28,13 @@
         "@mat3ra/code": "2026.8.18-0",
         "@mat3ra/esse": "2026.8.18-2",
         "@mat3ra/fixtures": "^2026.5.5-0",
-        "@mat3ra/ide": "2026.8.18-0",
-        "@mat3ra/made": "2026.6.27-0",
-        "@mat3ra/mode": "2026.6.3-0",
-        "@mat3ra/prode": "2026.8.18-0",
+        "@mat3ra/ide": "^2026.8.18-0",
+        "@mat3ra/made": "^2026.8.18-0",
+        "@mat3ra/mode": "^2026.8.18-0",
+        "@mat3ra/prode": "^2026.8.18-0",
         "@mat3ra/standata": "file:./",
         "@mat3ra/tsconfig": "^2024.6.3-0",
-        "@mat3ra/utils": "2026.8.18-1",
+        "@mat3ra/utils": "^2026.8.18-1",
         "@types/chai": "^4.3.20",
         "@types/js-yaml": "^4.0.9",
         "@types/mocha": "^10.0.10",
@@ -79,7 +79,8 @@
         "build:models-related": "npm run build:model-method-map && npm run build:model-tree && npm run build:models-tree-config-by-application",
         "build:ui": "ts-node ui/scripts/build_ui_trees.ts",
         "build:symlink": "test -L src/js/runtime_data || ln -s ../../dist/js/runtime_data src/js/runtime_data",
-        "build": "npm run clean && npm run transpile && npm run build:symlink && npm run build:models-related && npm run build:models && npm run build:methods && npm run build:applications && npm run build:properties && npm run build:workflows && npm run build:materials && npm run build:ui",
+        "build:data": "npm run build:models-related && npm run build:models && npm run build:methods && npm run build:applications && npm run build:properties && npm run build:workflows && npm run build:materials && npm run build:ui",
+        "build": "npm run clean && npm run build:symlink && npm run build:data && npm run transpile",
         "lint": "eslint --cache src/js tests/js && prettier --write src/js tests/js",
         "lint:fix": "eslint --fix --cache src/js tests/js && prettier --write src/js tests/js",
         "lint:staged": "lint-staged",
@@ -88,7 +89,7 @@
         "pretest": "npm run build",
         "test": "mocha",
         "transpile": "tsc && cp -r build/standata/* ./dist/js/runtime_data/ || true",
-        "prepublishOnly": "npm run build"
+        "prepare": "npm run build"
     },
     "engines": {
         "node": ">=20.0.0"

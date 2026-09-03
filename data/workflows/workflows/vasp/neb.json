@@ -378,25 +378,6 @@
                     "isDefault": false
                 }
             ],
-            "compute": {
-                "ppn": 1,
-                "nodes": 1,
-                "queue": "D",
-                "timeLimit": "01:00:00",
-                "notify": "n",
-                "cluster": {
-                    "fqdn": ""
-                },
-                "timeLimitType": "per single attempt",
-                "isRestartable": true,
-                "arguments": {
-                    "nimage": 1,
-                    "npools": 1,
-                    "nband": 1,
-                    "ntg": 1,
-                    "ndiag": 1
-                }
-            },
             "schemaVersion": "2022.8.16",
             "isDraft": false
         },
