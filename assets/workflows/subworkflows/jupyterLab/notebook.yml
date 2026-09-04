@@ -1,0 +1,14 @@
+application:
+  name: jupyterLab
+  version: 4.6.0
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: Jupyter Notebook
+units:
+  - config:
+      execName: jupyter
+      flavorName: notebook
+      name: notebook
+    type: executionBuilder

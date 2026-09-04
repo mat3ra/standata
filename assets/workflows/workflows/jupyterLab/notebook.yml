@@ -1,0 +1,4 @@
+name: Jupyter Notebook
+units:
+- name: notebook
+  type: subworkflow

@@ -41,6 +41,7 @@ categories:
   application:
     - deepmd
     - espresso
+    - jupyterLab
     - lammps
     - nwchem
     - python
@@ -403,6 +404,9 @@ entities:
       - total_energy_contributions
       - total_force
       - zero_point_energy
+  - filename: jupyterLab/notebook.json
+    categories:
+      - jupyterLab
   - filename: lammps/emin.json
     categories:
       - lammps

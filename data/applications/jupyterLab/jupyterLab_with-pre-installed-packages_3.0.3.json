@@ -1,0 +1,11 @@
+{
+    "name": "jupyterLab",
+    "shortName": "jl",
+    "summary": "JupyterLab",
+    "isUsingMaterial": false,
+    "version": "3.0.3",
+    "isDefault": false,
+    "isDefaultVersion": false,
+    "build": "with-pre-installed-packages",
+    "hasAdvancedComputeOptions": false
+}

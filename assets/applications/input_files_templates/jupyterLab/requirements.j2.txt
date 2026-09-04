@@ -1,0 +1,4 @@
+# This file is the unit's whole Python environment, installed before JupyterLab starts.
+jupyterlab==4.6.*
+# rupy launches `jupyter notebook`, so the notebook package is required, not just jupyterlab.
+notebook>=7,<8
