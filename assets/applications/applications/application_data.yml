@@ -1,3 +1,4 @@
+asylum-spm: !include 'applications/asylum-spm.yml'
 deepmd: !include 'applications/deepmd.yml'
 espresso: !include 'applications/espresso.yml'
 jupyterLab: !include 'applications/jupyterLab.yml'

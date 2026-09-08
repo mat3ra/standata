@@ -34,6 +34,22 @@ describe("ApplicationRegistry", () => {
             expect(executables.some((e) => e.name === "hp.x")).to.equal(true);
         });
 
+        it("getExecutablesByApplication includes the asylum-spm loop executable", () => {
+            const asylumSpm10 = { name: "asylum-spm" as const, version: "1.0" };
+            const executables = standata.getExecutablesByApplication(asylumSpm10);
+            expect(executables.some((e) => e.name === "loop")).to.equal(true);
+        });
+
+        it("getFlavorsByApplicationExecutable includes the asylum-spm ss_pfm flavor with hysteresis_loop results", () => {
+            const asylumSpm10 = { name: "asylum-spm" as const, version: "1.0" };
+            const flavors = standata.getFlavorsByApplicationExecutable(asylumSpm10, {
+                name: "loop",
+            });
+            const ssPfm = flavors.find((f) => f.name === "ss_pfm");
+            expect(ssPfm?.isDefault).to.equal(true);
+            expect(ssPfm?.results.some((r) => r.name === "hysteresis_loop")).to.equal(true);
+        });
+
         it("getFlavorsByApplicationExecutable filters by app, version range, and executable name", () => {
             const espresso63 = { name: "espresso" as const, version: "6.3" };
             const flavors63 = standata.getFlavorsByApplicationExecutable(espresso63, {
