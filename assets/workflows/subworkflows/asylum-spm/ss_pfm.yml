@@ -1,0 +1,14 @@
+application:
+  name: asylum-spm
+  version: '1.0'
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: ss_pfm
+units:
+  - config:
+      execName: loop
+      flavorName: ss_pfm
+      name: run_loop
+    type: executionBuilder
