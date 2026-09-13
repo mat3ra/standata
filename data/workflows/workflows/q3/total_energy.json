@@ -91,8 +91,12 @@
                             "template": {
                                 "applicationName": "q3",
                                 "applicationVersion": "*",
-                                "content": "material: material.json\n\nmethod:\n  type: pseudopotential\n  subtype: norm-conserving\n\n  pseudopotentials:\n    {{element}}: {{path_to_pseudopotential}}\n\n  cutoffs:\n    wavefunction: 30.0\n    density: 240.0\n\n  scf:\n    convergence_threshold: 1.0e-9\n    max_iterations: 100\n\n    number_of_spin_components: 2\n    starting_magnetization:\n      Fe1: 0.5\n      Fe2: -0.5\n\n    smearing:\n      type: marzari-vanderbilt\n      degauss: 0.02\n\n    mixing:\n      beta: 0.3\n      mode: broyden\n\n    kgrid:\n      dimensions: [3, 3, 3]\n      shifts: [0, 0, 0]\n\ncontrol:\n  calculation: scf\n  prefix: q3\n  outdir: ./outdir/\n",
-                                "contextProviders": [],
+                                "content": "material: material.json\n\nmethod:\n  type: pseudopotential\n  subtype: norm-conserving\n\n  pseudopotentials:\n{% for specie in input.ATOMIC_SPECIES %}\n    {{ specie.X }}: {{ specie.PseudoPot_X }}\n{% endfor %}\n\n  cutoffs:\n    wavefunction: 30.0\n    density: 240.0\n\n  scf:\n    convergence_threshold: 1.0e-9\n    max_iterations: 100\n\n    number_of_spin_components: 2\n    starting_magnetization:\n      Fe1: 0.5\n      Fe2: -0.5\n\n    smearing:\n      type: marzari-vanderbilt\n      degauss: 0.02\n\n    mixing:\n      beta: 0.3\n      mode: broyden\n\n    kgrid:\n      dimensions: [3, 3, 3]\n      shifts: [0, 0, 0]\n\ncontrol:\n  calculation: scf\n  prefix: q3\n  outdir: ./outdir/\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "QEPWXInputDataManager"
+                                    }
+                                ],
                                 "executableName": "q3",
                                 "name": "q3_scf.yml",
                                 "schemaVersion": "2022.8.16"
