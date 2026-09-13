@@ -1,0 +1,10 @@
+# Below are the currently supported models.
+# Without this mapping ModelFactory.createFromApplication() finds no model tree for q3 and falls
+# back to the "unknown" model, which hides the model/method section in the workflow designer and
+# leaves the exchange-correlation pseudopotential filter with nothing to match.
+GNU:
+  q3:
+    q3_scf:
+      - path: /pb/qm/dft/ksdft/lda?functional=pz
+      - path: /pb/qm/dft/ksdft/gga?functional=pbe
+      - path: /pb/qm/dft/ksdft/gga?functional=pbesol
