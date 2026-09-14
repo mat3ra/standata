@@ -1,6 +1,6 @@
 - content: !readFile "input_files_templates/q3/scf.j2.yml"
   name: q3_scf.yml
   contextProviders:
-    - name: QEPWXInputDataManager
+    - name: Q3InputDataManager
   applicationName: q3
   executableName: q3

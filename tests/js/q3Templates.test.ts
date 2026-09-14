@@ -20,22 +20,26 @@ describe("Q3 Template Rendering", () => {
         new Environment(new FileSystemLoader(templateDirectory)),
     );
 
-    it("renders selected pseudopotential filenames for every atomic species", () => {
+    it("renders selected pseudopotential paths for every atomic species", () => {
         const templateName = "scf.j2.yml";
         const template = environment.getTemplate(templateName);
+        const ironPseudopotentialPath =
+            "/export/share/pseudo/fe/gga/pbe/gbrv/1.0/us/fe_pbe_gbrv_1.0.upf";
+        const oxygenPseudopotentialPath =
+            "/export/share/pseudo/o/gga/pbe/gbrv/1.2/us/o_pbe_gbrv_1.2.upf";
         const renderedInput = template.render({
             input: {
                 ATOMIC_SPECIES: [
-                    { X: "Fe", Mass_X: 55.845, PseudoPot_X: "fe_pbe_gbrv_1.0.upf" },
-                    { X: "O", Mass_X: 15.999, PseudoPot_X: "o_pbe_gbrv_1.2.upf" },
+                    { X: "Fe", Mass_X: 55.845, PseudoPot_X: ironPseudopotentialPath },
+                    { X: "O", Mass_X: 15.999, PseudoPot_X: oxygenPseudopotentialPath },
                 ],
             },
         });
         const input = yaml.load(renderedInput) as Q3Input;
 
         expect(input.method.pseudopotentials).to.deep.equal({
-            Fe: "fe_pbe_gbrv_1.0.upf",
-            O: "o_pbe_gbrv_1.2.upf",
+            Fe: ironPseudopotentialPath,
+            O: oxygenPseudopotentialPath,
         });
     });
 });

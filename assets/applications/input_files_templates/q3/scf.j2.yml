@@ -5,9 +5,9 @@ method:
   subtype: norm-conserving
 
   pseudopotentials:
-{% for specie in input.ATOMIC_SPECIES %}
+{%- for specie in input.ATOMIC_SPECIES %}
     {{ specie.X }}: {{ specie.PseudoPot_X }}
-{% endfor %}
+{%- endfor %}
 
   cutoffs:
     wavefunction: 30.0
