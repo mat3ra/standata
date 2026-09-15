@@ -4,3 +4,9 @@
     - name: Q3InputDataManager
   applicationName: q3
   executableName: q3
+
+- content: !readFile "input_files_templates/q3/material.j2.json"
+  name: material.json
+  contextProviders: []
+  applicationName: q3
+  executableName: q3
