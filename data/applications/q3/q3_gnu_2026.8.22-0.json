@@ -13,5 +13,9 @@
         "imageName": "q3",
         "imageTag": "2026.8.22-0",
         "bio": "Quantum 3xplorer 2026.8.22-0"
+    },
+    "runConfig": {
+        "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\n$EXEC_CMD {EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}\n",
+        "outFileName": "q3.out"
     }
 }

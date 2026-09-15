@@ -3,6 +3,12 @@ shortName: q3
 summary: Quantum 3xplorer
 defaultVersion: '2026.8.22-0'
 isUsingMaterial: true
+runConfig:
+  commandTemplate: |
+    {BASE_CMD} &&
+    {MODULE_CMD}
+    $EXEC_CMD {EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}
+  outFileName: 'q3.out'
 versions:
   - version: '2026.8.22-0'
     isDefault: true

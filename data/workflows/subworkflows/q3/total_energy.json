@@ -94,6 +94,10 @@
                 "isDefaultVersion": true,
                 "isUsingMaterial": true,
                 "name": "q3",
+                "runConfig": {
+                    "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\n$EXEC_CMD {EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}\n",
+                    "outFileName": "q3.out"
+                },
                 "shortName": "q3",
                 "summary": "Quantum 3xplorer",
                 "version": "2026.8.22-0",
