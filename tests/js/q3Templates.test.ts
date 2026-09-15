@@ -21,7 +21,7 @@ describe("Q3 Template Rendering", () => {
     );
 
     it("renders selected pseudopotential paths for every atomic species", () => {
-        const templateName = "scf.j2.yml";
+        const templateName = "scf.inp";
         const template = environment.getTemplate(templateName);
         const ironPseudopotentialPath =
             "/export/share/pseudo/fe/gga/pbe/gbrv/1.0/us/fe_pbe_gbrv_1.0.upf";
