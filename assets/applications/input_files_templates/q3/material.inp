@@ -1,0 +1,28 @@
+# material data is obtained from the job context via io-unit
+{% raw %}{{ MATERIAL | default({}) | tojson }}{% endraw %}
+
+# alternatively, material information can be provided here in JSON format
+# {
+#   "lattice": {
+#     "type": "FCC",
+#     "a": 8.19,
+#     "units": {
+#       "length": "bohr"
+#     }
+#   },
+#   "basis": {
+#     "elements": [
+#       {"id": 0, "value": "Fe1"},
+#       {"id": 1, "value": "Fe2"},
+#       {"id": 2, "value": "O"},
+#       {"id": 3, "value": "O"}
+#     ],
+#     "coordinates": [
+#       {"id": 0, "value": [0.00, 0.00, 0.00]},
+#       {"id": 1, "value": [0.50, 0.50, 0.50]},
+#       {"id": 2, "value": [0.25, 0.25, 0.25]},
+#       {"id": 3, "value": [0.75, 0.75, 0.75]}
+#     ],
+#     "units": "crystal"
+#   }
+# }

@@ -1,0 +1,35 @@
+material: material.json
+
+method:
+  type: pseudopotential
+  subtype: norm-conserving
+
+  pseudopotentials:
+{%- for specie in input.ATOMIC_SPECIES %}
+    {{ specie.X }}: {{ specie.PseudoPot_X }}
+{%- endfor %}
+
+  cutoffs:
+    wavefunction: 30.0
+    density: 240.0
+
+  scf:
+    convergence_threshold: 1.0e-9
+    max_iterations: 100
+
+    smearing:
+      type: marzari-vanderbilt
+      degauss: 0.02
+
+    mixing:
+      beta: 0.3
+      mode: broyden
+
+    kgrid:
+      dimensions: [3, 3, 3]
+      shifts: [0, 0, 0]
+
+control:
+  calculation: scf
+  prefix: q3
+  outdir: ./outdir/

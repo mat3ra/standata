@@ -67,3 +67,11 @@ entities:
       - scripting
       - default_version
       - default
+  - filename: q3/q3_gnu_2026.8.22-0.json
+    categories:
+      - quantum-mechanical
+      - modeling
+      - compiled
+      - default_version
+      - default_build
+      - default
