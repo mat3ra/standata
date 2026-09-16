@@ -1,0 +1,219 @@
+{
+    "_id": "e00de47e-81a5-5ce6-965f-8c5ac538b58f",
+    "name": "Total energy - Q3",
+    "subworkflows": [
+        {
+            "_id": "82eb90a9-1ceb-513d-8674-0f2322dd81df",
+            "name": "Total Energy",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "q3",
+                "runConfig": {
+                    "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\nmpirun -machinefile {MACHINEFILE} -np {NP} $EXEC_CMD {EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}\n",
+                    "outFileName": "q3.out"
+                },
+                "shortName": "q3",
+                "summary": "Quantum 3xplorer",
+                "version": "2026.9.15-1",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [],
+            "model": {
+                "type": "dft",
+                "subtype": "gga",
+                "method": {
+                    "type": "localorbital",
+                    "subtype": "pople",
+                    "data": {}
+                },
+                "functional": "pbe"
+            },
+            "units": [
+                {
+                    "name": "io-material",
+                    "type": "io",
+                    "subtype": "input",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "source": "api",
+                    "flowchartId": "io-material-flowchart-id-q3-scf",
+                    "input": [
+                        {
+                            "type": "api",
+                            "endpoint": "materials",
+                            "endpoint_options": {
+                                "params": {
+                                    "query": "{'_id': MATERIAL_ID}",
+                                    "projection": "{}"
+                                }
+                            },
+                            "name": "DATA"
+                        }
+                    ],
+                    "head": true,
+                    "next": "51e48ac9-872f-5ee3-b4bf-1a4e83ea3e5a",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-material",
+                    "type": "assignment",
+                    "operand": "MATERIAL",
+                    "value": "DATA[0]",
+                    "input": [
+                        {
+                            "name": "DATA",
+                            "scope": "io-material-flowchart-id-q3-scf"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "51e48ac9-872f-5ee3-b4bf-1a4e83ea3e5a",
+                    "head": false,
+                    "next": "6621ee4a-fc69-592e-a6fd-707001301632",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "q3_scf",
+                    "head": false,
+                    "results": [],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "6621ee4a-fc69-592e-a6fd-707001301632",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "q3",
+                        "runConfig": {
+                            "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\nmpirun -machinefile {MACHINEFILE} -np {NP} $EXEC_CMD {EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}\n",
+                            "outFileName": "q3.out"
+                        },
+                        "shortName": "q3",
+                        "summary": "Quantum 3xplorer",
+                        "version": "2026.9.15-1",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "q3",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "name": "q3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "q3",
+                        "applicationVersion": "*",
+                        "executableName": "q3",
+                        "input": [
+                            {
+                                "name": "q3_scf.yml"
+                            },
+                            {
+                                "name": "material.json"
+                            }
+                        ],
+                        "isDefault": true,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "q3_scf",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "q3",
+                                "applicationVersion": "*",
+                                "content": "material: material.json\n\nmethod:\n  type: pseudopotential\n  subtype: norm-conserving\n\n  pseudopotentials:\n{%- for specie in input.ATOMIC_SPECIES %}\n    {{ specie.X }}: {{ specie.PseudoPot_X }}\n{%- endfor %}\n\n  cutoffs:\n    wavefunction: 30.0\n    density: 240.0\n\n  scf:\n    convergence_threshold: 1.0e-9\n    max_iterations: 100\n\n    smearing:\n      type: marzari-vanderbilt\n      degauss: 0.02\n\n    mixing:\n      beta: 0.3\n      mode: broyden\n\n    kgrid:\n      dimensions: [3, 3, 3]\n      shifts: [0, 0, 0]\n\ncontrol:\n  calculation: scf\n  prefix: q3\n  outdir: ./outdir/\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "Q3InputDataManager"
+                                    }
+                                ],
+                                "executableName": "q3",
+                                "name": "q3_scf.yml",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        },
+                        {
+                            "template": {
+                                "applicationName": "q3",
+                                "applicationVersion": "*",
+                                "content": "{% raw %}{{ MATERIAL | default({}) | tojson }}{% endraw %}\n",
+                                "contextProviders": [],
+                                "executableName": "q3",
+                                "name": "material.json",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        }
+    ],
+    "units": [
+        {
+            "type": "subworkflow",
+            "name": "Total Energy",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "82eb90a9-1ceb-513d-8674-0f2322dd81df",
+            "flowchartId": "6059d61a-6a92-5657-9130-02208639aff8",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "properties": [],
+    "workflows": [],
+    "schemaVersion": "2022.8.16",
+    "application": {
+        "name": "q3"
+    }
+}
