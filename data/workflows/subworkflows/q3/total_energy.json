@@ -1,5 +1,5 @@
 {
-    "_id": "def1fa2c-6052-52ef-bd37-df300e931e73",
+    "_id": "82eb90a9-1ceb-513d-8674-0f2322dd81df",
     "name": "Total Energy",
     "application": {
         "name": "q3"
@@ -9,8 +9,8 @@
         "type": "dft",
         "subtype": "gga",
         "method": {
-            "type": "pseudopotential",
-            "subtype": "us",
+            "type": "localorbital",
+            "subtype": "pople",
             "data": {}
         },
         "functional": "pbe"
@@ -95,12 +95,12 @@
                 "isUsingMaterial": true,
                 "name": "q3",
                 "runConfig": {
-                    "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\n$EXEC_CMD {EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}\n",
+                    "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\nmpirun -machinefile {MACHINEFILE} -np {NP} $EXEC_CMD {EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}\n",
                     "outFileName": "q3.out"
                 },
                 "shortName": "q3",
                 "summary": "Quantum 3xplorer",
-                "version": "2026.8.22-0",
+                "version": "2026.9.15-1",
                 "schemaVersion": "2022.8.16"
             },
             "executable": {
@@ -157,7 +157,7 @@
                     "template": {
                         "applicationName": "q3",
                         "applicationVersion": "*",
-                        "content": "# material data is obtained from the job context with io-unit\n{% raw %}{{ MATERIAL | default({}) | tojson }}{% endraw %}\n\n# alternatively, material information can be provided here in JSON format\n# {\n#   \"lattice\": {\n#     \"type\": \"FCC\",\n#     \"a\": 8.19,\n#     \"units\": {\n#       \"length\": \"bohr\"\n#     }\n#   },\n#   \"basis\": {\n#     \"elements\": [\n#       {\"id\": 0, \"value\": \"Fe1\"},\n#       {\"id\": 1, \"value\": \"Fe2\"},\n#       {\"id\": 2, \"value\": \"O\"},\n#       {\"id\": 3, \"value\": \"O\"}\n#     ],\n#     \"coordinates\": [\n#       {\"id\": 0, \"value\": [0.00, 0.00, 0.00]},\n#       {\"id\": 1, \"value\": [0.50, 0.50, 0.50]},\n#       {\"id\": 2, \"value\": [0.25, 0.25, 0.25]},\n#       {\"id\": 3, \"value\": [0.75, 0.75, 0.75]}\n#     ],\n#     \"units\": \"crystal\"\n#   }\n# }\n",
+                        "content": "# material data is obtained from the job context via io-unit\n{% raw %}{{ MATERIAL | default({}) | tojson }}{% endraw %}\n\n# alternatively, material information can be provided here in JSON format\n# {\n#   \"lattice\": {\n#     \"type\": \"FCC\",\n#     \"a\": 8.19,\n#     \"units\": {\n#       \"length\": \"bohr\"\n#     }\n#   },\n#   \"basis\": {\n#     \"elements\": [\n#       {\"id\": 0, \"value\": \"Fe1\"},\n#       {\"id\": 1, \"value\": \"Fe2\"},\n#       {\"id\": 2, \"value\": \"O\"},\n#       {\"id\": 3, \"value\": \"O\"}\n#     ],\n#     \"coordinates\": [\n#       {\"id\": 0, \"value\": [0.00, 0.00, 0.00]},\n#       {\"id\": 1, \"value\": [0.50, 0.50, 0.50]},\n#       {\"id\": 2, \"value\": [0.25, 0.25, 0.25]},\n#       {\"id\": 3, \"value\": [0.75, 0.75, 0.75]}\n#     ],\n#     \"units\": \"crystal\"\n#   }\n# }\n",
                         "contextProviders": [],
                         "executableName": "q3",
                         "name": "material.json",
