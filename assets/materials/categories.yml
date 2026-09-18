@@ -522,3 +522,10 @@ entities:
       - insulator
       - non-magnetic
       - oxide
+  - filename: Mg3N2-[Magnesium_Nitride]-BCC_[Ia-3]_3D_[Bulk]-[mp-1559].json
+    categories:
+      - 3D
+      - bulk
+      - semiconductor
+      - non-magnetic
+      - nitride

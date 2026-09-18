@@ -904,3 +904,14 @@ sources:
     source: MaterialsProject
     doi:
     url: https://next-gen.materialsproject.org/materials/mp-1274279
+
+  - filename: mp-1559.poscar
+    common_name: Magnesium Nitride
+    lattice_type: BCC
+    space_group: Ia-3
+    dimensionality: 3D
+    form_factor: Bulk
+    source_id: mp-1559
+    source: MaterialsProject
+    doi: 10.17188/1191251
+    url: https://next-gen.materialsproject.org/materials/mp-1559
