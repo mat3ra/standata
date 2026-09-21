@@ -34,8 +34,7 @@
                     "endpoint": "materials",
                     "endpoint_options": {
                         "params": {
-                            "query": "{'_id': MATERIAL_ID}",
-                            "projection": "{}"
+                            "id": "MATERIAL_ID"
                         }
                     },
                     "name": "DATA"
@@ -108,7 +107,8 @@
                     "endpoint": "materials",
                     "endpoint_options": {
                         "params": {
-                            "query": "{'tags': 'elemental', 'metadata.element': {'$in': ELEMENTS}}"
+                            "tags": "'elemental'",
+                            "metadataElement": "ELEMENTS"
                         }
                     },
                     "name": "DATA"

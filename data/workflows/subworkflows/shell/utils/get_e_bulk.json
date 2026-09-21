@@ -53,8 +53,12 @@
                     "endpoint": "properties",
                     "endpoint_options": {
                         "params": {
-                            "query": "{'exabyteId': BULK.exabyteId, 'slug': 'total_energy', 'group': {'$regex': BULK_TE_GROUP}, 'owner._id': SLAB.owner['_id']}",
-                            "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
+                            "exabyteId": "BULK.exabyteId",
+                            "slug": "'total_energy'",
+                            "groupPrefix": "BULK_TE_GROUP",
+                            "ownerId": "SLAB.owner['_id']",
+                            "sort": "'-precision.value'",
+                            "limit": "1"
                         }
                     },
                     "name": "DATA"

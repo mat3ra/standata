@@ -47,8 +47,7 @@
                             "endpoint": "materials",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'_id': MATERIAL_ID}",
-                                    "projection": "{}"
+                                    "id": "MATERIAL_ID"
                                 }
                             },
                             "name": "DATA"
@@ -190,8 +189,7 @@
                             "endpoint": "materials",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'_id': BULK_ID}",
-                                    "projection": "{}"
+                                    "id": "BULK_ID"
                                 }
                             },
                             "name": "DATA"
@@ -339,15 +337,15 @@
                     "tags": [],
                     "flowchartId": "assign-crystal",
                     "head": false,
-                    "next": "assign-bulk-query",
+                    "next": "assign-bulk-id-by-build",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-bulk-query",
+                    "name": "assign-bulk-id-by-build",
                     "type": "assignment",
-                    "operand": "BULK_QUERY",
-                    "value": "{'_id': LAST_BUILD_CRYSTAL.get('_id')} if LAST_BUILD_CRYSTAL and LAST_BUILD_CRYSTAL.get('_id') else {'hash': LAST_BUILD_CRYSTAL.get('hash')} if LAST_BUILD_CRYSTAL and LAST_BUILD_CRYSTAL.get('hash') else {'scaledHash': LAST_BUILD_CRYSTAL.get('scaledHash')} if LAST_BUILD_CRYSTAL and LAST_BUILD_CRYSTAL.get('scaledHash') else None",
+                    "operand": "BULK_ID_BY_BUILD",
+                    "value": "LAST_BUILD_CRYSTAL.get('_id') if LAST_BUILD_CRYSTAL else None",
                     "input": [],
                     "results": [],
                     "monitors": [],
@@ -356,7 +354,45 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk-query",
+                    "flowchartId": "assign-bulk-id-by-build",
+                    "head": false,
+                    "next": "assign-bulk-hash",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-bulk-hash",
+                    "type": "assignment",
+                    "operand": "BULK_HASH",
+                    "value": "None if BULK_ID_BY_BUILD else LAST_BUILD_CRYSTAL.get('hash') if LAST_BUILD_CRYSTAL else None",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-bulk-hash",
+                    "head": false,
+                    "next": "assign-bulk-scaled-hash",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-bulk-scaled-hash",
+                    "type": "assignment",
+                    "operand": "BULK_SCALED_HASH",
+                    "value": "None if (BULK_ID_BY_BUILD or BULK_HASH) else LAST_BUILD_CRYSTAL.get('scaledHash') if LAST_BUILD_CRYSTAL else None",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-bulk-scaled-hash",
                     "head": false,
                     "next": "assert-bulk-query",
                     "schemaVersion": "2022.8.16",
@@ -365,8 +401,8 @@
                 {
                     "name": "assert-bulk-query",
                     "type": "assertion",
-                    "statement": "BULK_QUERY != None",
-                    "errorMessage": "Surface slab build metadata does not carry a crystal scaledHash or hash. Upload the bulk material and run its total energy workflow first.",
+                    "statement": "BULK_ID_BY_BUILD is not None or BULK_HASH is not None or BULK_SCALED_HASH is not None",
+                    "errorMessage": "Surface slab build metadata does not carry a crystal _id, hash, or scaledHash. Upload the bulk material and run its total energy workflow first.",
                     "results": [],
                     "monitors": [],
                     "preProcessors": [],
@@ -399,8 +435,9 @@
                             "endpoint": "materials",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "BULK_QUERY",
-                                    "projection": "{}"
+                                    "id": "BULK_ID_BY_BUILD",
+                                    "hashes": "BULK_HASH",
+                                    "scaledHashes": "BULK_SCALED_HASH"
                                 }
                             },
                             "name": "DATA"
@@ -568,8 +605,12 @@
                             "endpoint": "properties",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'exabyteId': BULK.exabyteId, 'slug': 'total_energy', 'group': {'$regex': BULK_TE_GROUP}, 'owner._id': SLAB.owner['_id']}",
-                                    "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
+                                    "exabyteId": "BULK.exabyteId",
+                                    "slug": "'total_energy'",
+                                    "groupPrefix": "BULK_TE_GROUP",
+                                    "ownerId": "SLAB.owner['_id']",
+                                    "sort": "'-precision.value'",
+                                    "limit": "1"
                                 }
                             },
                             "name": "DATA"
