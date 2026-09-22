@@ -71,3 +71,11 @@ entities:
     categories:
       - default
       - default_version
+  - filename: xrf-mapper/xrf-mapper_Default_1.0.json
+    categories:
+      - default
+      - default_version
+  - filename: probe-station/probe-station_Default_1.0.json
+    categories:
+      - default
+      - default_version

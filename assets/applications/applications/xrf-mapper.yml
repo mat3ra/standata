@@ -1,0 +1,9 @@
+name: xrf-mapper
+shortName: xrf
+summary: X-ray fluorescence mapper (film thickness and composition over a grid of positions)
+defaultVersion: '1.0'
+isUsingMaterial: false
+versions:
+  - version: '1.0'
+    isDefault: true
+    build: Default

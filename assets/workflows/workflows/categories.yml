@@ -1,5 +1,6 @@
 categories:
   properties:
+    - al_atomic_fraction
     - atomic_forces
     - average_potential_profile
     - band_gaps
@@ -16,6 +17,7 @@ categories:
     - homo_energy
     - hysteresis_loop
     - interfacial_energy
+    - iv_curve
     - lumo_energy
     - phonon_dispersions
     - phonon_dos
@@ -23,10 +25,12 @@ categories:
     - pressure
     - reaction_energy_barrier
     - reaction_energy_profile
+    - sc_atomic_fraction
     - stress_tensor
     - surface_energy
     - thermal_correction_to_energy
     - thermal_correction_to_enthalpy
+    - thickness
     - total_energy
     - total_energy_contributions
     - total_force
@@ -47,9 +51,11 @@ categories:
     - espresso
     - lammps
     - nwchem
+    - probe-station
     - python
     - shell
     - vasp
+    - xrf-mapper
 entities:
   - filename: asylum-spm/ss_pfm.json
     categories:
@@ -438,6 +444,11 @@ entities:
       - nwchem
       - total_energy
       - total_energy_contributions
+  - filename: probe-station/dc_iv.json
+    categories:
+      - experimental
+      - iv_curve
+      - probe-station
   - filename: python/custom_script.json
     categories:
       - python
@@ -603,3 +614,10 @@ entities:
       - total_force
       - vasp
       - zero_point_energy
+  - filename: xrf-mapper/xrf_grid.json
+    categories:
+      - al_atomic_fraction
+      - experimental
+      - sc_atomic_fraction
+      - thickness
+      - xrf-mapper

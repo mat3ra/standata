@@ -1,0 +1,15 @@
+isDefault: true
+monitors:
+  - name: standard_output
+results:
+  - name: iv_curve
+flavors:
+  dc_iv:
+    isDefault: true
+    input: []
+    monitors:
+      - name: standard_output
+    results:
+      - name: iv_curve
+    applicationName: probe-station
+    executableName: sweep

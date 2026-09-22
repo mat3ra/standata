@@ -1,0 +1,6 @@
+name: XRF Grid Map
+units:
+  - name: xrf_grid
+    type: subworkflow
+tags:
+  - experimental

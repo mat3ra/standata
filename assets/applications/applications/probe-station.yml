@@ -1,0 +1,9 @@
+name: probe-station
+shortName: iv
+summary: DC probe station (current through a pad over a bias sweep)
+defaultVersion: '1.0'
+isUsingMaterial: false
+versions:
+  - version: '1.0'
+    isDefault: true
+    build: Default

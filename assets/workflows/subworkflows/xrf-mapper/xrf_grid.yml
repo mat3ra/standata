@@ -1,0 +1,14 @@
+application:
+  name: xrf-mapper
+  version: '1.0'
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: xrf_grid
+units:
+  - config:
+      execName: map
+      flavorName: xrf_grid
+      name: map
+    type: executionBuilder
