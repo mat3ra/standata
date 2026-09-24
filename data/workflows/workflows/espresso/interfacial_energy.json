@@ -66,8 +66,7 @@
                             "endpoint": "jobs",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'_id': JOB_ID}",
-                                    "projection": "{'_materials': 1}"
+                                    "id": "JOB_ID"
                                 }
                             },
                             "name": "DATA"
@@ -121,8 +120,7 @@
                             "endpoint": "materials",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'_id': MATERIAL_ID_FOR_INDEX}",
-                                    "projection": "{}"
+                                    "id": "MATERIAL_ID_FOR_INDEX"
                                 }
                             },
                             "name": "DATA"
@@ -224,8 +222,7 @@
                             "endpoint": "jobs",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'_id': JOB_ID}",
-                                    "projection": "{'_materials': 1}"
+                                    "id": "JOB_ID"
                                 }
                             },
                             "name": "DATA"
@@ -279,8 +276,7 @@
                             "endpoint": "materials",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'_id': MATERIAL_ID_FOR_INDEX}",
-                                    "projection": "{}"
+                                    "id": "MATERIAL_ID_FOR_INDEX"
                                 }
                             },
                             "name": "DATA"
@@ -401,8 +397,12 @@
                             "endpoint": "properties",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'exabyteId': BULK_MATERIAL.exabyteId, 'slug': 'total_energy', 'group': {'$regex': TE_BULK_GROUP}, 'owner._id': BULK_MATERIAL.owner['_id']}",
-                                    "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
+                                    "exabyteId": "BULK_MATERIAL.exabyteId",
+                                    "slug": "'total_energy'",
+                                    "groupPrefix": "TE_BULK_GROUP",
+                                    "ownerId": "BULK_MATERIAL.owner['_id']",
+                                    "sort": "'-precision.value'",
+                                    "limit": "1"
                                 }
                             },
                             "name": "DATA"
@@ -522,8 +522,7 @@
                             "endpoint": "jobs",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'_id': JOB_ID}",
-                                    "projection": "{'_materials': 1}"
+                                    "id": "JOB_ID"
                                 }
                             },
                             "name": "DATA"
@@ -577,8 +576,7 @@
                             "endpoint": "materials",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'_id': MATERIAL_ID_FOR_INDEX}",
-                                    "projection": "{}"
+                                    "id": "MATERIAL_ID_FOR_INDEX"
                                 }
                             },
                             "name": "DATA"
@@ -699,8 +697,12 @@
                             "endpoint": "properties",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'exabyteId': BULK_MATERIAL.exabyteId, 'slug': 'total_energy', 'group': {'$regex': TE_BULK_GROUP}, 'owner._id': BULK_MATERIAL.owner['_id']}",
-                                    "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
+                                    "exabyteId": "BULK_MATERIAL.exabyteId",
+                                    "slug": "'total_energy'",
+                                    "groupPrefix": "TE_BULK_GROUP",
+                                    "ownerId": "BULK_MATERIAL.owner['_id']",
+                                    "sort": "'-precision.value'",
+                                    "limit": "1"
                                 }
                             },
                             "name": "DATA"
