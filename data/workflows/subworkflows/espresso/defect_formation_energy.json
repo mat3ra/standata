@@ -19,6 +19,43 @@
     },
     "units": [
         {
+            "name": "assign-charge",
+            "type": "assignment",
+            "operand": "CHARGE",
+            "value": "0",
+            "input": [],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-charge",
+            "head": true,
+            "next": "assert-vbm-for-charge",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "assert-vbm-for-charge",
+            "type": "assertion",
+            "statement": "CHARGE == 0 or E_VBM != None",
+            "errorMessage": "Valence band maximum not found for the pristine material. Run a Band Gap workflow on it before computing a charged defect.",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assert-vbm-for-charge",
+            "head": false,
+            "next": "assign-te-for-material",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
             "name": "assign-te-for-material",
             "type": "assignment",
             "operand": "TE_FOR_MATERIAL",
@@ -37,7 +74,7 @@
             "statusTrack": [],
             "tags": [],
             "flowchartId": "assign-te-for-material",
-            "head": true,
+            "head": false,
             "next": "assign-delta-n-by-symbol",
             "schemaVersion": "2022.8.16",
             "isDefault": false
@@ -84,7 +121,7 @@
             "name": "assign-defect-formation-energy",
             "type": "assignment",
             "operand": "DEFECT_FORMATION_ENERGY",
-            "value": "TE_FOR_MATERIAL - E_PRISTINE - SUM_DELTA_N_TIMES_MU",
+            "value": "TE_FOR_MATERIAL - E_PRISTINE - SUM_DELTA_N_TIMES_MU + (CHARGE * E_VBM if CHARGE else 0)",
             "input": [],
             "results": [
                 {

@@ -1,11 +1,14 @@
-# Defect formation energy (eV), neutral defects only:
-#   E_defect = E_defective − E_pristine − Σ_i ΔN_i · μ_i
+# Defect formation energy (eV) of charge state q, with the Fermi level at the
+# valence band maximum of the pristine cell (μ_e = 0):
+#   E_defect = E_defective − E_pristine − Σ_i ΔN_i · μ_i + q · E_VBM
 #
 # Multi-material workflow — submit two materials, in this order:
 #   [0] Defective supercell   (computed with pw_scf)
 #   [1] Pristine supercell    (energy fetched from its finished Total Energy job)
 #
-# Prerequisite: QE Total Energy already run on the pristine material.
+# Prerequisites: QE Total Energy on the pristine material; for q ≠ 0 also QE Band
+# Gap on it (E_VBM). A charged run sets q twice: tot_charge in pw_scf and the
+# CHARGE assignment of the defect formation energy subworkflow.
 name: Defect Formation Energy
 config:
   attributes:
@@ -99,12 +102,12 @@ units:
         config:
           attributes:
             value: "PRISTINE"
-      - index: 3
+      - index: 7
         type: assignment
         config:
           attributes:
             operand: E_PRISTINE
-      - index: 4
+      - index: 8
         type: assertion
         config:
           attributes:
@@ -112,6 +115,71 @@ units:
             errorMessage: >-
               Pristine total energy not found. Run a Total Energy workflow on
               the pristine material before running Defect Formation Energy.
+
+  - name: shell/fetch_bulk_total_energy
+    type: subworkflow
+    config:
+      attributes:
+        name: Fetch Valence Band Maximum for Pristine Material
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-bulk-material-vbm
+            value: "PRISTINE"
+      - index: 1
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-te-bulk-group-vbm
+      - index: 2
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-te-bulk-slug-vbm
+            value: "'band_gaps'"
+      - index: 3
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-reference-tags-vbm
+      - index: 4
+        type: io
+        config:
+          attributes:
+            flowchartId: io-reference-jobs-vbm
+      - index: 5
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-reference-job-ids-vbm
+            input:
+              - name: JOB_DATA
+                scope: io-reference-jobs-vbm
+      - index: 6
+        type: io
+        config:
+          attributes:
+            flowchartId: io-te-bulk-vbm
+      - index: 7
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-te-bulk-vbm
+            operand: E_VBM
+            value: >-
+              [gap for gap in DATA[0]['data']['values'] if gap['type'] == 'indirect'][0]['eigenvalueValence']
+              if DATA else None
+            input:
+              - name: DATA
+                scope: io-te-bulk-vbm
+      - index: 8
+        type: assertion
+        config:
+          attributes:
+            flowchartId: assert-te-bulk-vbm
+            statement: "True"
 
   - name: shell/utils/resolve_elemental_materials
     type: subworkflow
