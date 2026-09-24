@@ -169,7 +169,7 @@ units:
             flowchartId: assign-te-bulk-vbm
             operand: E_VBM
             value: >-
-              [gap for gap in DATA[0]['data']['values'] if gap['type'] == 'indirect'][0]['eigenvalueValence']
+              [gap.get('eigenvalueValence') for gap in DATA[0]['data']['values'] if gap['type'] == 'indirect'][0]
               if DATA else None
             input:
               - name: DATA
