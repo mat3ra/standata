@@ -1,5 +1,5 @@
 {
-    "_id": "82eb90a9-1ceb-513d-8674-0f2322dd81df",
+    "_id": "def1fa2c-6052-52ef-bd37-df300e931e73",
     "name": "Total Energy",
     "application": {
         "name": "q3"
@@ -9,8 +9,8 @@
         "type": "dft",
         "subtype": "gga",
         "method": {
-            "type": "localorbital",
-            "subtype": "pople",
+            "type": "pseudopotential",
+            "subtype": "us",
             "data": {}
         },
         "functional": "pbe"
@@ -100,7 +100,7 @@
                 },
                 "shortName": "q3",
                 "summary": "Quantum 3xplorer",
-                "version": "2026.9.15-1-mpi",
+                "version": "2026.9.15-1",
                 "schemaVersion": "2022.8.16"
             },
             "executable": {
