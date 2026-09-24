@@ -2,7 +2,7 @@ material: material.json
 
 method:
   type: pseudopotential
-  subtype: norm-conserving
+  subtype: ultrasoft
 
   pseudopotentials:
 {%- for specie in input.ATOMIC_SPECIES %}
@@ -18,7 +18,7 @@ method:
     max_iterations: 100
 
     smearing:
-      type: marzari-vanderbilt
+      type: gaussian
       degauss: 0.02
 
     mixing:

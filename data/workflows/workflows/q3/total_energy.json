@@ -3,7 +3,7 @@
     "name": "Total energy - Q3",
     "subworkflows": [
         {
-            "_id": "82eb90a9-1ceb-513d-8674-0f2322dd81df",
+            "_id": "def1fa2c-6052-52ef-bd37-df300e931e73",
             "name": "Total Energy",
             "application": {
                 "build": "GNU",
@@ -26,8 +26,8 @@
                 "type": "dft",
                 "subtype": "gga",
                 "method": {
-                    "type": "localorbital",
-                    "subtype": "pople",
+                    "type": "pseudopotential",
+                    "subtype": "us",
                     "data": {}
                 },
                 "functional": "pbe"
@@ -157,7 +157,7 @@
                             "template": {
                                 "applicationName": "q3",
                                 "applicationVersion": "*",
-                                "content": "material: material.json\n\nmethod:\n  type: pseudopotential\n  subtype: norm-conserving\n\n  pseudopotentials:\n{%- for specie in input.ATOMIC_SPECIES %}\n    {{ specie.X }}: {{ specie.PseudoPot_X }}\n{%- endfor %}\n\n  cutoffs:\n    wavefunction: 30.0\n    density: 240.0\n\n  scf:\n    convergence_threshold: 1.0e-9\n    max_iterations: 100\n\n    smearing:\n      type: marzari-vanderbilt\n      degauss: 0.02\n\n    mixing:\n      beta: 0.3\n      mode: broyden\n\n    kgrid:\n      dimensions: [3, 3, 3]\n      shifts: [0, 0, 0]\n\ncontrol:\n  calculation: scf\n  prefix: q3\n  outdir: ./outdir/\n",
+                                "content": "material: material.json\n\nmethod:\n  type: pseudopotential\n  subtype: ultrasoft\n\n  pseudopotentials:\n{%- for specie in input.ATOMIC_SPECIES %}\n    {{ specie.X }}: {{ specie.PseudoPot_X }}\n{%- endfor %}\n\n  cutoffs:\n    wavefunction: 30.0\n    density: 240.0\n\n  scf:\n    convergence_threshold: 1.0e-9\n    max_iterations: 100\n\n    smearing:\n      type: gaussian\n      degauss: 0.02\n\n    mixing:\n      beta: 0.3\n      mode: broyden\n\n    kgrid:\n      dimensions: [3, 3, 3]\n      shifts: [0, 0, 0]\n\ncontrol:\n  calculation: scf\n  prefix: q3\n  outdir: ./outdir/\n",
                                 "contextProviders": [
                                     {
                                         "name": "Q3InputDataManager"
@@ -204,7 +204,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "_id": "82eb90a9-1ceb-513d-8674-0f2322dd81df",
+            "_id": "def1fa2c-6052-52ef-bd37-df300e931e73",
             "flowchartId": "6059d61a-6a92-5657-9130-02208639aff8",
             "schemaVersion": "2022.8.16",
             "isDefault": false
