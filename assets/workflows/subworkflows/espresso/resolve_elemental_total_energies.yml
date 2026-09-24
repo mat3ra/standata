@@ -69,6 +69,19 @@ units:
       flowchartId: assign-current-element
       operand: CURRENT_ELEMENT
       value: "ELEMENTS[ELEMENT_INDEX]"
+  - type: assignment
+    config:
+      name: assign-te-owner-slug-filter
+      description: |
+        None (source 'public') omits the ownerSlug param entirely, matching any owner -
+        the flat-param equivalent of the original query dict simply not having an
+        'owner.slug' key in that branch.
+      flowchartId: assign-te-owner-slug-filter
+      operand: TE_OWNER_SLUG_FILTER
+      value: >-
+        [JOB_OWNER_SLUG, 'curators'] if SOURCE_OF_TE_FOR_AN_ELEMENT == 'my_account'
+        else 'curators' if SOURCE_OF_TE_FOR_AN_ELEMENT == 'curators'
+        else None
   - type: io
     config:
       name: io-te-for-an-element
@@ -80,22 +93,12 @@ units:
           endpoint: properties
           endpoint_options:
             params:
-              query: >-
-                {'exabyteId': {'$in': ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]},
-                'slug': 'total_energy', 'group': GROUP_FOR_MATERIAL,
-                'owner.slug': {'$in': [JOB_OWNER_SLUG, 'curators']}}
-                if SOURCE_OF_TE_FOR_AN_ELEMENT == 'my_account' else
-                ({'exabyteId': {'$in': ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]},
-                'slug': 'total_energy', 'group': GROUP_FOR_MATERIAL,
-                'owner.slug': 'curators'}
-                if SOURCE_OF_TE_FOR_AN_ELEMENT == 'curators' else
-                {'exabyteId': {'$in': ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]},
-                'slug': 'total_energy', 'group': GROUP_FOR_MATERIAL})
-              projection: >-
-                {
-                    "sort": {"precision.value": -1},
-                    "limit": 1,
-                }
+              exabyteId: "ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]"
+              slug: "'total_energy'"
+              group: "GROUP_FOR_MATERIAL"
+              ownerSlug: "TE_OWNER_SLUG_FILTER"
+              sort: "'-precision.value'"
+              limit: "1"
           name: DATA
   - type: assignment
     config:

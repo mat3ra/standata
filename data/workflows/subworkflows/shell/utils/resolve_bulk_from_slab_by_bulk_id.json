@@ -93,8 +93,7 @@
                     "endpoint": "materials",
                     "endpoint_options": {
                         "params": {
-                            "query": "{'_id': BULK_ID}",
-                            "projection": "{}"
+                            "id": "BULK_ID"
                         }
                     },
                     "name": "DATA"

@@ -66,8 +66,7 @@
                             "endpoint": "jobs",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'_id': JOB_ID}",
-                                    "projection": "{'_materials': 1}"
+                                    "id": "JOB_ID"
                                 }
                             },
                             "name": "DATA"
@@ -121,8 +120,7 @@
                             "endpoint": "materials",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'_id': MATERIAL_ID_FOR_INDEX}",
-                                    "projection": "{}"
+                                    "id": "MATERIAL_ID_FOR_INDEX"
                                 }
                             },
                             "name": "DATA"
@@ -399,8 +397,7 @@
                             "endpoint": "jobs",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'_id': JOB_ID}",
-                                    "projection": "{'_materials': 1}"
+                                    "id": "JOB_ID"
                                 }
                             },
                             "name": "DATA"
@@ -454,8 +451,7 @@
                             "endpoint": "materials",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'_id': MATERIAL_ID_FOR_INDEX}",
-                                    "projection": "{}"
+                                    "id": "MATERIAL_ID_FOR_INDEX"
                                 }
                             },
                             "name": "DATA"
@@ -576,8 +572,12 @@
                             "endpoint": "properties",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'exabyteId': BULK_MATERIAL.exabyteId, 'slug': 'total_energy', 'group': {'$regex': TE_BULK_GROUP}, 'owner._id': BULK_MATERIAL.owner['_id']}",
-                                    "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
+                                    "exabyteId": "BULK_MATERIAL.exabyteId",
+                                    "slug": "'total_energy'",
+                                    "groupPrefix": "TE_BULK_GROUP",
+                                    "ownerId": "BULK_MATERIAL.owner['_id']",
+                                    "sort": "'-precision.value'",
+                                    "limit": "1"
                                 }
                             },
                             "name": "DATA"
@@ -697,7 +697,8 @@
                             "endpoint": "materials",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'tags': 'elemental', 'metadata.element': {'$in': ELEMENTS}}"
+                                    "tags": "'elemental'",
+                                    "metadataElement": "ELEMENTS"
                                 }
                             },
                             "name": "DATA"
@@ -950,6 +951,25 @@
                     "tags": [],
                     "flowchartId": "assign-current-element",
                     "head": false,
+                    "next": "assign-te-owner-slug-filter",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-te-owner-slug-filter",
+                    "type": "assignment",
+                    "operand": "TE_OWNER_SLUG_FILTER",
+                    "value": "[JOB_OWNER_SLUG, 'curators'] if SOURCE_OF_TE_FOR_AN_ELEMENT == 'my_account' else 'curators' if SOURCE_OF_TE_FOR_AN_ELEMENT == 'curators' else None",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-te-owner-slug-filter",
+                    "head": false,
                     "next": "io-te-for-an-element",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -973,8 +993,12 @@
                             "endpoint": "properties",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'exabyteId': {'$in': ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]}, 'slug': 'total_energy', 'group': GROUP_FOR_MATERIAL, 'owner.slug': {'$in': [JOB_OWNER_SLUG, 'curators']}} if SOURCE_OF_TE_FOR_AN_ELEMENT == 'my_account' else ({'exabyteId': {'$in': ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]}, 'slug': 'total_energy', 'group': GROUP_FOR_MATERIAL, 'owner.slug': 'curators'} if SOURCE_OF_TE_FOR_AN_ELEMENT == 'curators' else {'exabyteId': {'$in': ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]}, 'slug': 'total_energy', 'group': GROUP_FOR_MATERIAL})",
-                                    "projection": "{\n    \"sort\": {\"precision.value\": -1},\n    \"limit\": 1,\n}"
+                                    "exabyteId": "ELEMENT_MATERIAL_IDS_BY_SYMBOL[CURRENT_ELEMENT]",
+                                    "slug": "'total_energy'",
+                                    "group": "GROUP_FOR_MATERIAL",
+                                    "ownerSlug": "TE_OWNER_SLUG_FILTER",
+                                    "sort": "'-precision.value'",
+                                    "limit": "1"
                                 }
                             },
                             "name": "DATA"

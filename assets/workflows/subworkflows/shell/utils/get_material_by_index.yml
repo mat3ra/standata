@@ -31,8 +31,7 @@ units:
     config:
       name: io-job
       description: |
-        Read the current job document to get its ordered material list. Only
-        `_materials` is projected — that is all we need to resolve the _id.
+        Read the current job document to get its ordered material list.
       flowchartId: io-job
       subtype: input
       source: api
@@ -41,8 +40,7 @@ units:
           endpoint: jobs
           endpoint_options:
             params:
-              query: "{'_id': JOB_ID}"
-              projection: "{'_materials': 1}"
+              id: "JOB_ID"
           name: DATA
   - type: assignment
     config:
@@ -68,8 +66,7 @@ units:
           endpoint: materials
           endpoint_options:
             params:
-              query: "{'_id': MATERIAL_ID_FOR_INDEX}"
-              projection: "{}"
+              id: "MATERIAL_ID_FOR_INDEX"
           name: DATA
   - type: assignment
     config:

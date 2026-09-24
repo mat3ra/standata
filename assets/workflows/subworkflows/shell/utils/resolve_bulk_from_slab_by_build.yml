@@ -24,24 +24,35 @@ units:
         ) or [{}])[0].get('crystal') if SLAB.metadata else None
   - type: assignment
     config:
-      name: assign-bulk-query
-      flowchartId: assign-bulk-query
-      operand: BULK_QUERY
+      name: assign-bulk-id-by-build
+      flowchartId: assign-bulk-id-by-build
+      operand: BULK_ID_BY_BUILD
+      value: "LAST_BUILD_CRYSTAL.get('_id') if LAST_BUILD_CRYSTAL else None"
+  - type: assignment
+    config:
+      name: assign-bulk-hash
+      flowchartId: assign-bulk-hash
+      operand: BULK_HASH
       value: >-
-        {'_id': LAST_BUILD_CRYSTAL.get('_id')}
-        if LAST_BUILD_CRYSTAL and LAST_BUILD_CRYSTAL.get('_id')
-        else {'hash': LAST_BUILD_CRYSTAL.get('hash')}
-        if LAST_BUILD_CRYSTAL and LAST_BUILD_CRYSTAL.get('hash')
-        else {'scaledHash': LAST_BUILD_CRYSTAL.get('scaledHash')}
-        if LAST_BUILD_CRYSTAL and LAST_BUILD_CRYSTAL.get('scaledHash')
+        None if BULK_ID_BY_BUILD
+        else LAST_BUILD_CRYSTAL.get('hash') if LAST_BUILD_CRYSTAL
+        else None
+  - type: assignment
+    config:
+      name: assign-bulk-scaled-hash
+      flowchartId: assign-bulk-scaled-hash
+      operand: BULK_SCALED_HASH
+      value: >-
+        None if (BULK_ID_BY_BUILD or BULK_HASH)
+        else LAST_BUILD_CRYSTAL.get('scaledHash') if LAST_BUILD_CRYSTAL
         else None
   - type: assertion
     config:
       name: assert-bulk-query
       flowchartId: assert-bulk-query
-      statement: "BULK_QUERY != None"
+      statement: "BULK_ID_BY_BUILD is not None or BULK_HASH is not None or BULK_SCALED_HASH is not None"
       errorMessage: >-
-        Surface slab build metadata does not carry a crystal scaledHash or hash.
+        Surface slab build metadata does not carry a crystal _id, hash, or scaledHash.
         Upload the bulk material and run its total energy workflow first.
   - type: io
     config:
@@ -54,8 +65,11 @@ units:
           endpoint: materials
           endpoint_options:
             params:
-              query: "BULK_QUERY"
-              projection: "{}"
+              # requests drops a None-valued param, so only whichever of the three is actually
+              # set (id preferred, then hash, then scaledHash - see the assignments above) is sent.
+              id: "BULK_ID_BY_BUILD"
+              hashes: "BULK_HASH"
+              scaledHashes: "BULK_SCALED_HASH"
           name: DATA
   - type: assignment
     config:

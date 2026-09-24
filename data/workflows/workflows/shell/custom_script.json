@@ -66,8 +66,7 @@
                             "endpoint": "materials",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'_id': MATERIAL_ID}",
-                                    "projection": "{}"
+                                    "id": "MATERIAL_ID"
                                 }
                             },
                             "name": "DATA"
