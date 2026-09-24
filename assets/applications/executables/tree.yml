@@ -34,7 +34,7 @@ nwchem:
 python:
   python: !include 'executables/python/python.yml'
 q3:
-  q3: !include 'executables/q3/q3.yml'
+  q3_mpi: !include 'executables/q3/q3_mpi.yml'
 shell:
   sh: !include 'executables/shell/sh.yml'
 vasp:

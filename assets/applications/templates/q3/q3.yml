@@ -3,10 +3,10 @@
   contextProviders:
     - name: Q3InputDataManager
   applicationName: q3
-  executableName: q3
+  executableName: q3_mpi
 
 - content: !readFile "input_files_templates/q3/material.inp"
   name: material.json
   contextProviders: []
   applicationName: q3
-  executableName: q3
+  executableName: q3_mpi

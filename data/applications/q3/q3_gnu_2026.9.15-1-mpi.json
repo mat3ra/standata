@@ -1,0 +1,21 @@
+{
+    "name": "q3",
+    "shortName": "q3",
+    "summary": "Quantum 3xplorer",
+    "isUsingMaterial": true,
+    "version": "2026.9.15-1-mpi",
+    "isDefault": true,
+    "isDefaultVersion": true,
+    "build": "GNU",
+    "hasAdvancedComputeOptions": false,
+    "buildConfig": {
+        "moduleName": "2026.9.15-1-mpi",
+        "imageName": "q3",
+        "imageTag": "2026.9.15-1-mpi",
+        "bio": "Quantum 3xplorer 2026.9.15-1-mpi"
+    },
+    "runConfig": {
+        "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\n$EXEC_CMD mpirun -np {NP}{EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}\n",
+        "outFileName": "q3.out"
+    }
+}

@@ -30,7 +30,7 @@ units:
           scope: io-material-flowchart-id-q3-scf
     type: assignment
   - config:
-      execName: q3
+      execName: q3_mpi
       flavorName: q3_scf
       name: q3_scf
     type: executionBuilder

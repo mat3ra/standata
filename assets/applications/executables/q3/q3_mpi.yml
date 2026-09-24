@@ -12,4 +12,4 @@ flavors:
     monitors:
       - name: standard_output
     applicationName: q3
-    executableName: q3
+    executableName: q3_mpi
