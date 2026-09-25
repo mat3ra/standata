@@ -139,6 +139,17 @@ units:
     config:
       attributes:
         name: Fetch Valence Band Maximum for Pristine Material
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            value: "PRISTINE"
+      - index: 2
+        type: assignment
+        config:
+          attributes:
+            value: "REFERENCE_JOB_FILTER"
 
   - name: shell/utils/resolve_elemental_materials
     type: subworkflow

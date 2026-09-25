@@ -1,6 +1,6 @@
 {
-    "_id": "9f1061b9-b2a6-5d45-8c0f-b0f62939fadb",
-    "name": "Fetch Valence Band Maximum for Bulk Material",
+    "_id": "6a34ad46-9955-5939-9676-d00dba810770",
+    "name": "Fetch Valence Band Maximum for Material",
     "application": {
         "name": "shell"
     },
@@ -15,6 +15,63 @@
         }
     },
     "units": [
+        {
+            "name": "assign-vbm-material",
+            "type": "assignment",
+            "operand": "VBM_MATERIAL",
+            "value": "MATERIAL",
+            "input": [],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-vbm-material",
+            "head": true,
+            "next": "assign-vbm-group",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "assign-vbm-group",
+            "type": "assignment",
+            "operand": "VBM_GROUP",
+            "value": "'qe:'",
+            "input": [],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-vbm-group",
+            "head": false,
+            "next": "assign-vbm-job-filter",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "assign-vbm-job-filter",
+            "type": "assignment",
+            "operand": "VBM_JOB_FILTER",
+            "value": "{'$nin': []}",
+            "input": [],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-vbm-job-filter",
+            "head": false,
+            "next": "io-band-gaps",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
         {
             "name": "io-band-gaps",
             "type": "io",
@@ -34,14 +91,14 @@
                     "endpoint": "properties",
                     "endpoint_options": {
                         "params": {
-                            "query": "{'exabyteId': BULK_MATERIAL.exabyteId, 'slug': 'band_gaps', 'group': {'$regex': TE_BULK_GROUP}, 'owner._id': BULK_MATERIAL.owner['_id'], 'source.info.jobId': TE_BULK_JOB_FILTER}",
+                            "query": "{'exabyteId': VBM_MATERIAL.exabyteId, 'slug': 'band_gaps', 'group': {'$regex': VBM_GROUP}, 'owner._id': VBM_MATERIAL.owner['_id'], 'source.info.jobId': VBM_JOB_FILTER}",
                             "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
                         }
                     },
                     "name": "DATA"
                 }
             ],
-            "head": true,
+            "head": false,
             "next": "assign-vbm",
             "schemaVersion": "2022.8.16",
             "isDefault": false
@@ -50,7 +107,7 @@
             "name": "assign-vbm",
             "type": "assignment",
             "operand": "E_VBM",
-            "value": "[gap.get('eigenvalueValence') for gap in DATA[0].data['values'] if gap['type'] == 'indirect'][0] if DATA else None",
+            "value": "([gap.get('eigenvalueValence') for gap in DATA[0].data.get('values', []) if gap.get('type') == 'indirect'] + [None])[0] if DATA else None",
             "input": [
                 {
                     "name": "DATA",
