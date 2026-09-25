@@ -6,12 +6,10 @@
 # In:  MATERIAL         resolved bulk reference material (default operand MATERIAL
 #                       from get_material_by_index; override the first unit's value
 #                       per instance, e.g. PRISTINE, BULK_SUBSTRATE, BULK_FILM)
+#      TE_BULK_JOB_FILTER  filter on the property's source.info.jobId (default: any job),
+#                       e.g. find_jobs_by_tags' REFERENCE_JOB_FILTER
 # Out: TE_BULK          bulk reference total energy (eV); override this operand
 #                       per instance (e.g. E_PRISTINE, TE_BULK_SUBSTRATE, TE_BULK_FILM)
-#
-# Optional per instance: REFERENCE_TAGS restricts the lookup to properties of finished
-# jobs on the material that carry all of these tags (e.g. ['charge:0']); TE_BULK_SLUG
-# reads another property of the same reference (e.g. 'band_gaps').
 application:
   name: shell
 method:
@@ -37,50 +35,17 @@ units:
       value: "'qe:'"
   - type: assignment
     config:
-      name: assign-te-bulk-slug
-      flowchartId: assign-te-bulk-slug
-      operand: TE_BULK_SLUG
-      value: "'total_energy'"
-  - type: assignment
-    config:
-      name: assign-reference-tags
+      name: assign-te-bulk-job-filter
       description: |
-        Tags every reference job must carry. Empty: any job on the material.
-      flowchartId: assign-reference-tags
-      operand: REFERENCE_TAGS
-      value: "[]"
-  - type: io
-    config:
-      name: io-reference-jobs
-      flowchartId: io-reference-jobs
-      subtype: input
-      source: api
-      input:
-        - type: api
-          endpoint: jobs
-          endpoint_options:
-            params:
-              query: >-
-                {'_material._id': BULK_MATERIAL['_id'], 'status': 'finished',
-                'tags': {'$all': REFERENCE_TAGS}}
-                if REFERENCE_TAGS else {'_id': {'$in': []}}
-              projection: "{'_id': 1}"
-          name: JOB_DATA
-  - type: assignment
-    config:
-      name: assign-reference-job-ids
-      flowchartId: assign-reference-job-ids
-      operand: REFERENCE_JOB_IDS
-      value: "[job['_id'] for job in JOB_DATA]"
-      input:
-        - name: JOB_DATA
-          scope: io-reference-jobs
+        Which jobs the total energy may come from, as a filter on source.info.jobId.
+      flowchartId: assign-te-bulk-job-filter
+      operand: TE_BULK_JOB_FILTER
+      value: "{'$nin': []}"
   - type: io
     config:
       name: io-te-bulk
       description: |
-        Highest-precision property for this material in this account, from the
-        tagged reference jobs when REFERENCE_TAGS is set.
+        Highest-precision total_energy for this material in this account.
       flowchartId: io-te-bulk
       subtype: input
       source: api
@@ -90,14 +55,10 @@ units:
           endpoint_options:
             params:
               query: >-
-                {'exabyteId': BULK_MATERIAL.exabyteId, 'slug': TE_BULK_SLUG,
+                {'exabyteId': BULK_MATERIAL.exabyteId, 'slug': 'total_energy',
                 'group': {'$regex': TE_BULK_GROUP},
                 'owner._id': BULK_MATERIAL.owner['_id'],
-                'source.info.jobId': {'$in': REFERENCE_JOB_IDS}}
-                if REFERENCE_TAGS else
-                {'exabyteId': BULK_MATERIAL.exabyteId, 'slug': TE_BULK_SLUG,
-                'group': {'$regex': TE_BULK_GROUP},
-                'owner._id': BULK_MATERIAL.owner['_id']}
+                'source.info.jobId': TE_BULK_JOB_FILTER}
               projection: "{'sort': {'precision.value': -1}, 'limit': 1}"
           name: DATA
   - type: assignment

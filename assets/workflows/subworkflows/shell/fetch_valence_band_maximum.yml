@@ -1,0 +1,43 @@
+# Fetches the valence band maximum (eV) of a bulk reference material: the valence-band eigenvalue
+# of the indirect gap in its highest-precision band_gaps property. Run it after
+# fetch_bulk_total_energy, whose BULK_MATERIAL, TE_BULK_GROUP and TE_BULK_JOB_FILTER it reuses, so
+# the total energy and the band edge come from the same jobs.
+#
+# Out: E_VBM  valence band maximum (eV), or None when no band_gaps property matches
+application:
+  name: shell
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: Fetch Valence Band Maximum for Bulk Material
+units:
+  - type: io
+    config:
+      name: io-band-gaps
+      flowchartId: io-band-gaps
+      subtype: input
+      source: api
+      input:
+        - type: api
+          endpoint: properties
+          endpoint_options:
+            params:
+              query: >-
+                {'exabyteId': BULK_MATERIAL.exabyteId, 'slug': 'band_gaps',
+                'group': {'$regex': TE_BULK_GROUP},
+                'owner._id': BULK_MATERIAL.owner['_id'],
+                'source.info.jobId': TE_BULK_JOB_FILTER}
+              projection: "{'sort': {'precision.value': -1}, 'limit': 1}"
+          name: DATA
+  - type: assignment
+    config:
+      name: assign-vbm
+      flowchartId: assign-vbm
+      operand: E_VBM
+      value: >-
+        [gap.get('eigenvalueValence') for gap in DATA[0].data['values'] if gap['type'] == 'indirect'][0]
+        if DATA else None
+      input:
+        - name: DATA
+          scope: io-band-gaps

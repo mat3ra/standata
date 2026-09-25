@@ -1,0 +1,113 @@
+{
+    "_id": "ae3d5058-215a-59ad-ac1a-381a79d1ca02",
+    "name": "Find Jobs By Tags",
+    "application": {
+        "name": "shell"
+    },
+    "properties": [],
+    "model": {
+        "type": "unknown",
+        "subtype": "unknown",
+        "method": {
+            "type": "unknown",
+            "subtype": "unknown",
+            "data": {}
+        }
+    },
+    "units": [
+        {
+            "name": "assign-tagged-jobs-material",
+            "type": "assignment",
+            "operand": "TAGGED_JOBS_MATERIAL",
+            "value": "MATERIAL",
+            "input": [],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-tagged-jobs-material",
+            "head": true,
+            "next": "assign-reference-tags",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "assign-reference-tags",
+            "type": "assignment",
+            "operand": "REFERENCE_TAGS",
+            "value": "[]",
+            "input": [],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-reference-tags",
+            "head": false,
+            "next": "io-tagged-jobs",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "io-tagged-jobs",
+            "type": "io",
+            "subtype": "input",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "io-tagged-jobs",
+            "source": "api",
+            "input": [
+                {
+                    "type": "api",
+                    "endpoint": "jobs",
+                    "endpoint_options": {
+                        "params": {
+                            "query": "{'_material._id': TAGGED_JOBS_MATERIAL['_id'], 'status': 'finished', 'tags': {'$all': REFERENCE_TAGS}}",
+                            "projection": "{'_id': 1}"
+                        }
+                    },
+                    "name": "DATA"
+                }
+            ],
+            "head": false,
+            "next": "assign-reference-job-filter",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "assign-reference-job-filter",
+            "type": "assignment",
+            "operand": "REFERENCE_JOB_FILTER",
+            "value": "{'$in': [job['_id'] for job in DATA]} if REFERENCE_TAGS else {'$nin': []}",
+            "input": [
+                {
+                    "name": "DATA",
+                    "scope": "io-tagged-jobs"
+                }
+            ],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-reference-job-filter",
+            "head": false,
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "isDraft": false
+}

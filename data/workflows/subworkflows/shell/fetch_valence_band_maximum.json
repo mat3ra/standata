@@ -1,0 +1,75 @@
+{
+    "_id": "9f1061b9-b2a6-5d45-8c0f-b0f62939fadb",
+    "name": "Fetch Valence Band Maximum for Bulk Material",
+    "application": {
+        "name": "shell"
+    },
+    "properties": [],
+    "model": {
+        "type": "unknown",
+        "subtype": "unknown",
+        "method": {
+            "type": "unknown",
+            "subtype": "unknown",
+            "data": {}
+        }
+    },
+    "units": [
+        {
+            "name": "io-band-gaps",
+            "type": "io",
+            "subtype": "input",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "io-band-gaps",
+            "source": "api",
+            "input": [
+                {
+                    "type": "api",
+                    "endpoint": "properties",
+                    "endpoint_options": {
+                        "params": {
+                            "query": "{'exabyteId': BULK_MATERIAL.exabyteId, 'slug': 'band_gaps', 'group': {'$regex': TE_BULK_GROUP}, 'owner._id': BULK_MATERIAL.owner['_id'], 'source.info.jobId': TE_BULK_JOB_FILTER}",
+                            "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
+                        }
+                    },
+                    "name": "DATA"
+                }
+            ],
+            "head": true,
+            "next": "assign-vbm",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "assign-vbm",
+            "type": "assignment",
+            "operand": "E_VBM",
+            "value": "[gap.get('eigenvalueValence') for gap in DATA[0].data['values'] if gap['type'] == 'indirect'][0] if DATA else None",
+            "input": [
+                {
+                    "name": "DATA",
+                    "scope": "io-band-gaps"
+                }
+            ],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-vbm",
+            "head": false,
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "isDraft": false
+}

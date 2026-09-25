@@ -90,12 +90,12 @@ units:
         config:
           attributes:
             value: "BULK_SUBSTRATE"
-      - index: 7
+      - index: 4
         type: assignment
         config:
           attributes:
             operand: TE_BULK_SUBSTRATE
-      - index: 8
+      - index: 5
         type: assertion
         config:
           attributes:
@@ -162,31 +162,13 @@ units:
         type: assignment
         config:
           attributes:
-            flowchartId: assign-te-bulk-slug-film
+            flowchartId: assign-te-bulk-job-filter-film
       - index: 3
-        type: assignment
-        config:
-          attributes:
-            flowchartId: assign-reference-tags-film
-      - index: 4
-        type: io
-        config:
-          attributes:
-            flowchartId: io-reference-jobs-film
-      - index: 5
-        type: assignment
-        config:
-          attributes:
-            flowchartId: assign-reference-job-ids-film
-            input:
-              - name: JOB_DATA
-                scope: io-reference-jobs-film
-      - index: 6
         type: io
         config:
           attributes:
             flowchartId: io-te-bulk-film
-      - index: 7
+      - index: 4
         type: assignment
         config:
           attributes:
@@ -195,7 +177,7 @@ units:
             input:
               - name: DATA
                 scope: io-te-bulk-film
-      - index: 8
+      - index: 5
         type: assertion
         config:
           attributes:

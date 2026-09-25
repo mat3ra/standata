@@ -494,6 +494,128 @@
             "isDraft": false
         },
         {
+            "_id": "3fee0c38-0b48-5851-b6ff-7e3aea62ecfb",
+            "name": "Find Reference Jobs for Pristine Material",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": false,
+                "name": "shell",
+                "shortName": "sh",
+                "summary": "Shell Script",
+                "version": "5.1.8",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [],
+            "model": {
+                "type": "unknown",
+                "subtype": "unknown",
+                "method": {
+                    "type": "unknown",
+                    "subtype": "unknown",
+                    "data": {}
+                }
+            },
+            "units": [
+                {
+                    "name": "assign-tagged-jobs-material",
+                    "type": "assignment",
+                    "operand": "TAGGED_JOBS_MATERIAL",
+                    "value": "PRISTINE",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-tagged-jobs-material",
+                    "head": true,
+                    "next": "assign-reference-tags",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-reference-tags",
+                    "type": "assignment",
+                    "operand": "REFERENCE_TAGS",
+                    "value": "[]",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-reference-tags",
+                    "head": false,
+                    "next": "io-tagged-jobs",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "io-tagged-jobs",
+                    "type": "io",
+                    "subtype": "input",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "io-tagged-jobs",
+                    "source": "api",
+                    "input": [
+                        {
+                            "type": "api",
+                            "endpoint": "jobs",
+                            "endpoint_options": {
+                                "params": {
+                                    "query": "{'_material._id': TAGGED_JOBS_MATERIAL['_id'], 'status': 'finished', 'tags': {'$all': REFERENCE_TAGS}}",
+                                    "projection": "{'_id': 1}"
+                                }
+                            },
+                            "name": "DATA"
+                        }
+                    ],
+                    "head": false,
+                    "next": "assign-reference-job-filter",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-reference-job-filter",
+                    "type": "assignment",
+                    "operand": "REFERENCE_JOB_FILTER",
+                    "value": "{'$in': [job['_id'] for job in DATA]} if REFERENCE_TAGS else {'$nin': []}",
+                    "input": [
+                        {
+                            "name": "DATA",
+                            "scope": "io-tagged-jobs"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-reference-job-filter",
+                    "head": false,
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
             "_id": "663534ea-592c-5ee6-b482-b78a1ddf8ad5",
             "name": "Fetch Total Energy for Pristine Material",
             "application": {
@@ -553,15 +675,15 @@
                     "tags": [],
                     "flowchartId": "assign-te-bulk-group",
                     "head": false,
-                    "next": "assign-te-bulk-slug",
+                    "next": "assign-te-bulk-job-filter",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-te-bulk-slug",
+                    "name": "assign-te-bulk-job-filter",
                     "type": "assignment",
-                    "operand": "TE_BULK_SLUG",
-                    "value": "'total_energy'",
+                    "operand": "TE_BULK_JOB_FILTER",
+                    "value": "REFERENCE_JOB_FILTER",
                     "input": [],
                     "results": [],
                     "monitors": [],
@@ -570,81 +692,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-te-bulk-slug",
-                    "head": false,
-                    "next": "assign-reference-tags",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assign-reference-tags",
-                    "type": "assignment",
-                    "operand": "REFERENCE_TAGS",
-                    "value": "[]",
-                    "input": [],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-reference-tags",
-                    "head": false,
-                    "next": "io-reference-jobs",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "io-reference-jobs",
-                    "type": "io",
-                    "subtype": "input",
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "io-reference-jobs",
-                    "source": "api",
-                    "input": [
-                        {
-                            "type": "api",
-                            "endpoint": "jobs",
-                            "endpoint_options": {
-                                "params": {
-                                    "query": "{'_material._id': BULK_MATERIAL['_id'], 'status': 'finished', 'tags': {'$all': REFERENCE_TAGS}} if REFERENCE_TAGS else {'_id': {'$in': []}}",
-                                    "projection": "{'_id': 1}"
-                                }
-                            },
-                            "name": "JOB_DATA"
-                        }
-                    ],
-                    "head": false,
-                    "next": "assign-reference-job-ids",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assign-reference-job-ids",
-                    "type": "assignment",
-                    "operand": "REFERENCE_JOB_IDS",
-                    "value": "[job['_id'] for job in JOB_DATA]",
-                    "input": [
-                        {
-                            "name": "JOB_DATA",
-                            "scope": "io-reference-jobs"
-                        }
-                    ],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-reference-job-ids",
+                    "flowchartId": "assign-te-bulk-job-filter",
                     "head": false,
                     "next": "io-te-bulk",
                     "schemaVersion": "2022.8.16",
@@ -669,7 +717,7 @@
                             "endpoint": "properties",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'exabyteId': BULK_MATERIAL.exabyteId, 'slug': TE_BULK_SLUG, 'group': {'$regex': TE_BULK_GROUP}, 'owner._id': BULK_MATERIAL.owner['_id'], 'source.info.jobId': {'$in': REFERENCE_JOB_IDS}} if REFERENCE_TAGS else {'exabyteId': BULK_MATERIAL.exabyteId, 'slug': TE_BULK_SLUG, 'group': {'$regex': TE_BULK_GROUP}, 'owner._id': BULK_MATERIAL.owner['_id']}",
+                                    "query": "{'exabyteId': BULK_MATERIAL.exabyteId, 'slug': 'total_energy', 'group': {'$regex': TE_BULK_GROUP}, 'owner._id': BULK_MATERIAL.owner['_id'], 'source.info.jobId': TE_BULK_JOB_FILTER}",
                                     "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
                                 }
                             },
@@ -753,83 +801,7 @@
             },
             "units": [
                 {
-                    "name": "assign-bulk-material",
-                    "type": "assignment",
-                    "operand": "BULK_MATERIAL",
-                    "value": "PRISTINE",
-                    "input": [],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-bulk-material-vbm",
-                    "head": true,
-                    "next": "assign-te-bulk-group-vbm",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assign-te-bulk-group",
-                    "type": "assignment",
-                    "operand": "TE_BULK_GROUP",
-                    "value": "'qe:'",
-                    "input": [],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-te-bulk-group-vbm",
-                    "head": false,
-                    "next": "assign-te-bulk-slug-vbm",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assign-te-bulk-slug",
-                    "type": "assignment",
-                    "operand": "TE_BULK_SLUG",
-                    "value": "'band_gaps'",
-                    "input": [],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-te-bulk-slug-vbm",
-                    "head": false,
-                    "next": "assign-reference-tags-vbm",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assign-reference-tags",
-                    "type": "assignment",
-                    "operand": "REFERENCE_TAGS",
-                    "value": "[]",
-                    "input": [],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-reference-tags-vbm",
-                    "head": false,
-                    "next": "io-reference-jobs-vbm",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "io-reference-jobs",
+                    "name": "io-band-gaps",
                     "type": "io",
                     "subtype": "input",
                     "results": [],
@@ -839,62 +811,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "io-reference-jobs-vbm",
-                    "source": "api",
-                    "input": [
-                        {
-                            "type": "api",
-                            "endpoint": "jobs",
-                            "endpoint_options": {
-                                "params": {
-                                    "query": "{'_material._id': BULK_MATERIAL['_id'], 'status': 'finished', 'tags': {'$all': REFERENCE_TAGS}} if REFERENCE_TAGS else {'_id': {'$in': []}}",
-                                    "projection": "{'_id': 1}"
-                                }
-                            },
-                            "name": "JOB_DATA"
-                        }
-                    ],
-                    "head": false,
-                    "next": "assign-reference-job-ids-vbm",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assign-reference-job-ids",
-                    "type": "assignment",
-                    "operand": "REFERENCE_JOB_IDS",
-                    "value": "[job['_id'] for job in JOB_DATA]",
-                    "input": [
-                        {
-                            "name": "JOB_DATA",
-                            "scope": "io-reference-jobs-vbm"
-                        }
-                    ],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-reference-job-ids-vbm",
-                    "head": false,
-                    "next": "io-te-bulk-vbm",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "io-te-bulk",
-                    "type": "io",
-                    "subtype": "input",
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "io-te-bulk-vbm",
+                    "flowchartId": "io-band-gaps",
                     "source": "api",
                     "input": [
                         {
@@ -902,27 +819,27 @@
                             "endpoint": "properties",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'exabyteId': BULK_MATERIAL.exabyteId, 'slug': TE_BULK_SLUG, 'group': {'$regex': TE_BULK_GROUP}, 'owner._id': BULK_MATERIAL.owner['_id'], 'source.info.jobId': {'$in': REFERENCE_JOB_IDS}} if REFERENCE_TAGS else {'exabyteId': BULK_MATERIAL.exabyteId, 'slug': TE_BULK_SLUG, 'group': {'$regex': TE_BULK_GROUP}, 'owner._id': BULK_MATERIAL.owner['_id']}",
+                                    "query": "{'exabyteId': BULK_MATERIAL.exabyteId, 'slug': 'band_gaps', 'group': {'$regex': TE_BULK_GROUP}, 'owner._id': BULK_MATERIAL.owner['_id'], 'source.info.jobId': TE_BULK_JOB_FILTER}",
                                     "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
                                 }
                             },
                             "name": "DATA"
                         }
                     ],
-                    "head": false,
-                    "next": "assign-te-bulk-vbm",
+                    "head": true,
+                    "next": "assign-vbm",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-te-bulk",
+                    "name": "assign-vbm",
                     "type": "assignment",
                     "operand": "E_VBM",
-                    "value": "[gap.get('eigenvalueValence') for gap in DATA[0]['data']['values'] if gap['type'] == 'indirect'][0] if DATA else None",
+                    "value": "[gap.get('eigenvalueValence') for gap in DATA[0].data['values'] if gap['type'] == 'indirect'][0] if DATA else None",
                     "input": [
                         {
                             "name": "DATA",
-                            "scope": "io-te-bulk-vbm"
+                            "scope": "io-band-gaps"
                         }
                     ],
                     "results": [],
@@ -932,25 +849,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-te-bulk-vbm",
-                    "head": false,
-                    "next": "assert-te-bulk-vbm",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assert-te-bulk",
-                    "type": "assertion",
-                    "statement": "True",
-                    "errorMessage": "Bulk total energy not found for a reference material in this account. Run a Total Energy workflow on each bulk reference before running this workflow.",
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assert-te-bulk-vbm",
+                    "flowchartId": "assign-vbm",
                     "head": false,
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -1612,6 +1511,21 @@
             "tags": [],
             "_id": "3e037731-e243-5d62-a95b-b616e75b70d3",
             "flowchartId": "87840eb0-53f2-5568-b718-69854a1b0ca7",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "subworkflow",
+            "name": "Find Reference Jobs for Pristine Material",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "3fee0c38-0b48-5851-b6ff-7e3aea62ecfb",
+            "flowchartId": "bdeac1c0-06a8-546d-b01a-d0fb6383a3bd",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
