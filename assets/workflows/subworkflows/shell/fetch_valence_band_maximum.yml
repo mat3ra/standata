@@ -4,6 +4,8 @@
 #
 # In:  MATERIAL             material whose band_gaps to read (override the first unit's value)
 #      VBM_GROUP            method group the band_gaps must belong to (default 'qe:')
+#      VBM_JOB_FILTER       filter on the property's source.info.jobId (default: any job),
+#                           e.g. find_jobs_by_tags' REFERENCE_JOB_FILTER
 # Out: E_VBM                valence band maximum (eV), or None when no band_gaps matches or
 #                           it has no indirect gap with a valence eigenvalue
 application:
@@ -26,6 +28,12 @@ units:
       flowchartId: assign-vbm-group
       operand: VBM_GROUP
       value: "'qe:'"
+  - type: assignment
+    config:
+      name: assign-vbm-job-filter
+      flowchartId: assign-vbm-job-filter
+      operand: VBM_JOB_FILTER
+      value: "{'$nin': []}"
   - type: io
     config:
       name: io-band-gaps
@@ -40,7 +48,8 @@ units:
               query: >-
                 {'exabyteId': VBM_MATERIAL.exabyteId, 'slug': 'band_gaps',
                 'group': {'$regex': VBM_GROUP},
-                'owner._id': VBM_MATERIAL.owner['_id']}
+                'owner._id': VBM_MATERIAL.owner['_id'],
+                'source.info.jobId': VBM_JOB_FILTER}
               projection: "{'sort': {'precision.value': -1}, 'limit': 1}"
           name: DATA
   - type: assignment
