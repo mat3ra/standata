@@ -834,25 +834,6 @@
                     "tags": [],
                     "flowchartId": "assign-vbm-group",
                     "head": false,
-                    "next": "assign-vbm-job-filter",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assign-vbm-job-filter",
-                    "type": "assignment",
-                    "operand": "VBM_JOB_FILTER",
-                    "value": "REFERENCE_JOB_FILTER",
-                    "input": [],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-vbm-job-filter",
-                    "head": false,
                     "next": "io-band-gaps",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -876,7 +857,7 @@
                             "endpoint": "properties",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'exabyteId': VBM_MATERIAL.exabyteId, 'slug': 'band_gaps', 'group': {'$regex': VBM_GROUP}, 'owner._id': VBM_MATERIAL.owner['_id'], 'source.info.jobId': VBM_JOB_FILTER}",
+                                    "query": "{'exabyteId': VBM_MATERIAL.exabyteId, 'slug': 'band_gaps', 'group': {'$regex': VBM_GROUP}, 'owner._id': VBM_MATERIAL.owner['_id']}",
                                     "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
                                 }
                             },

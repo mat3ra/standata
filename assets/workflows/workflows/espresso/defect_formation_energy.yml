@@ -9,7 +9,7 @@
 # Prerequisites: QE Total Energy on the pristine material; for q ≠ 0 also QE Band
 # Gap on it (E_VBM). A charged run sets q twice: tot_charge in pw_scf and the
 # CHARGE assignment of the defect formation energy subworkflow. REFERENCE_TAGS
-# restricts both pristine references to jobs carrying those tags.
+# restricts the pristine total energy to jobs carrying those tags.
 name: Defect Formation Energy
 config:
   attributes:
@@ -145,11 +145,6 @@ units:
         config:
           attributes:
             value: "PRISTINE"
-      - index: 2
-        type: assignment
-        config:
-          attributes:
-            value: "REFERENCE_JOB_FILTER"
 
   - name: shell/utils/resolve_elemental_materials
     type: subworkflow
