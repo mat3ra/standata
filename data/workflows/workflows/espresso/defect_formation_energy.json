@@ -572,9 +572,28 @@
                     "tags": [],
                     "flowchartId": "assign-reference-tags",
                     "head": false,
-                    "next": "assign-reference-group",
+                    "next": "assign-reference-job-filter",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
+                },
+                {
+                    "name": "assign-reference-job-filter",
+                    "type": "assignment",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-reference-job-filter",
+                    "input": [],
+                    "head": false,
+                    "next": "assign-reference-group",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false,
+                    "operand": "REFERENCE_JOB_FILTER",
+                    "value": "{'$nin': []}"
                 },
                 {
                     "name": "assign-reference-group",
@@ -636,7 +655,7 @@
                             "endpoint": "properties",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'exabyteId': REFERENCE_MATERIAL.exabyteId, 'slug': REFERENCE_PROPERTY, 'group': {'$regex': REFERENCE_GROUP}, 'owner._id': REFERENCE_MATERIAL.owner['_id'], 'tags': REFERENCE_TAGS_FILTER}",
+                                    "query": "{'exabyteId': REFERENCE_MATERIAL.exabyteId, 'slug': REFERENCE_PROPERTY, 'group': {'$regex': REFERENCE_GROUP}, 'owner._id': REFERENCE_MATERIAL.owner['_id'], 'tags': REFERENCE_TAGS_FILTER, 'source.info.jobId': REFERENCE_JOB_FILTER}",
                                     "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
                                 }
                             },
@@ -751,9 +770,28 @@
                     "tags": [],
                     "flowchartId": "assign-reference-tags-vbm",
                     "head": false,
-                    "next": "assign-reference-group-vbm",
+                    "next": "assign-reference-job-filter-vbm",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
+                },
+                {
+                    "name": "assign-reference-job-filter-vbm",
+                    "type": "assignment",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-reference-job-filter-vbm",
+                    "input": [],
+                    "head": false,
+                    "next": "assign-reference-group-vbm",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false,
+                    "operand": "REFERENCE_JOB_FILTER",
+                    "value": "{'$nin': []}"
                 },
                 {
                     "name": "assign-reference-group",
@@ -815,7 +853,7 @@
                             "endpoint": "properties",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'exabyteId': REFERENCE_MATERIAL.exabyteId, 'slug': REFERENCE_PROPERTY, 'group': {'$regex': REFERENCE_GROUP}, 'owner._id': REFERENCE_MATERIAL.owner['_id'], 'tags': REFERENCE_TAGS_FILTER}",
+                                    "query": "{'exabyteId': REFERENCE_MATERIAL.exabyteId, 'slug': REFERENCE_PROPERTY, 'group': {'$regex': REFERENCE_GROUP}, 'owner._id': REFERENCE_MATERIAL.owner['_id'], 'tags': REFERENCE_TAGS_FILTER, 'source.info.jobId': REFERENCE_JOB_FILTER}",
                                     "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
                                 }
                             },
@@ -1414,7 +1452,7 @@
                     "name": "assert-vbm-for-charge",
                     "type": "assertion",
                     "statement": "CHARGE == 0 or E_VBM != None",
-                    "errorMessage": "Valence band maximum not found for the pristine material. Run a Band Gap workflow on it before computing a charged defect.",
+                    "errorMessage": "Valence band maximum not found for the pristine material. Run a Band Gap workflow on it, matching this job's reference job filter or tags, before computing a charged defect.",
                     "results": [],
                     "monitors": [],
                     "preProcessors": [],

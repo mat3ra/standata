@@ -70,7 +70,8 @@ units:
       statement: "CHARGE == 0 or E_VBM != None"
       errorMessage: >-
         Valence band maximum not found for the pristine material. Run a Band Gap
-        workflow on it before computing a charged defect.
+        workflow on it, matching this job's reference job filter or tags, before
+        computing a charged defect.
 
   - type: assignment
     config:

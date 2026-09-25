@@ -8,9 +8,10 @@
 #
 # Prerequisites: QE Total Energy on the pristine material; for q ≠ 0 also QE Band
 # Gap on it (E_VBM). A charged run sets q twice: tot_charge in pw_scf and the
-# CHARGE assignment of the defect formation energy subworkflow. REFERENCE_TAGS
-# names the conditions the pristine references were computed under (e.g.
-# ['charge:0']); each is the property that carries those tags.
+# CHARGE assignment of the defect formation energy subworkflow. Each pristine
+# reference is a property of the pristine cell; a caller narrows it by naming the
+# job (assign-reference-job-filter, -vbm) or the tags it was computed under
+# (REFERENCE_TAGS, e.g. ['charge:0']). Both default to any job.
 name: Defect Formation Energy
 config:
   attributes:
@@ -38,7 +39,7 @@ units:
             flowchartId: set-material-index-defective
 
   # Compute the defective-cell total energy (reused Total Energy SCF) while
-  # MATERIAL_INDEX is still 0 -- before fetch_bulk_total_energy moves it to the
+  # MATERIAL_INDEX is still 0 -- before the pristine references move it to the
   # pristine cell. The pw_scf scope is pinned to 'pw-scf' so the property
   # subworkflow can read its total_energy.
   - name: total_energy
@@ -93,9 +94,9 @@ units:
               - name: DATA
                 scope: io-material-pristine
 
-  # Each pristine reference is one property, computed under REFERENCE_TAGS, looked up
-  # on its own so neither can be confused with the other. The second instance reads
-  # the REFERENCE_TAGS set in the first, so one override covers both.
+  # Each pristine reference is one property, looked up on its own so neither can be
+  # confused with the other. The job filters are per instance; the second instance
+  # reads the REFERENCE_TAGS set in the first, so one tags override covers both.
   - name: shell/fetch_reference_property
     type: subworkflow
     config:
@@ -107,7 +108,7 @@ units:
         config:
           attributes:
             value: "PRISTINE"
-      - index: 6
+      - index: 7
         type: assignment
         config:
           attributes:
@@ -141,18 +142,24 @@ units:
         type: assignment
         config:
           attributes:
-            flowchartId: assign-reference-group-vbm
+            name: assign-reference-job-filter-vbm
+            flowchartId: assign-reference-job-filter-vbm
       - index: 4
         type: assignment
         config:
           attributes:
-            flowchartId: assign-reference-tags-filter-vbm
+            flowchartId: assign-reference-group-vbm
       - index: 5
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-reference-tags-filter-vbm
+      - index: 6
         type: io
         config:
           attributes:
             flowchartId: io-reference-property-vbm
-      - index: 6
+      - index: 7
         type: assignment
         config:
           attributes:

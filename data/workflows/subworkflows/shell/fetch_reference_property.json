@@ -68,6 +68,25 @@
             "tags": [],
             "flowchartId": "assign-reference-tags",
             "head": false,
+            "next": "assign-reference-job-filter",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "assign-reference-job-filter",
+            "type": "assignment",
+            "operand": "REFERENCE_JOB_FILTER",
+            "value": "{'$nin': []}",
+            "input": [],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-reference-job-filter",
+            "head": false,
             "next": "assign-reference-group",
             "schemaVersion": "2022.8.16",
             "isDefault": false
@@ -129,7 +148,7 @@
                     "endpoint": "properties",
                     "endpoint_options": {
                         "params": {
-                            "query": "{'exabyteId': REFERENCE_MATERIAL.exabyteId, 'slug': REFERENCE_PROPERTY, 'group': {'$regex': REFERENCE_GROUP}, 'owner._id': REFERENCE_MATERIAL.owner['_id'], 'tags': REFERENCE_TAGS_FILTER}",
+                            "query": "{'exabyteId': REFERENCE_MATERIAL.exabyteId, 'slug': REFERENCE_PROPERTY, 'group': {'$regex': REFERENCE_GROUP}, 'owner._id': REFERENCE_MATERIAL.owner['_id'], 'tags': REFERENCE_TAGS_FILTER, 'source.info.jobId': REFERENCE_JOB_FILTER}",
                             "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
                         }
                     },

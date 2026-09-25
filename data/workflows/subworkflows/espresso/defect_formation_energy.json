@@ -97,7 +97,7 @@
             "name": "assert-vbm-for-charge",
             "type": "assertion",
             "statement": "CHARGE == 0 or E_VBM != None",
-            "errorMessage": "Valence band maximum not found for the pristine material. Run a Band Gap workflow on it before computing a charged defect.",
+            "errorMessage": "Valence band maximum not found for the pristine material. Run a Band Gap workflow on it, matching this job's reference job filter or tags, before computing a charged defect.",
             "results": [],
             "monitors": [],
             "preProcessors": [],

@@ -1,14 +1,16 @@
 # Fetches one reference property of a material from a prior calculation: the highest-
-# precision holder of the given slug, method group and owner, computed under the given
-# tags. Tags are the conditions the producing job ran with -- its own tags, which the
-# platform copies onto every property it produces -- e.g. ['charge:0']. One query per
-# reference; when several holders match, the tags are not specific enough and precision
+# precision holder of the given slug, method group and owner, narrowed to the producing
+# job by id (a caller that created or found the job names it) or by tags (the conditions
+# the job ran with, which the platform copies onto the properties it produces, e.g.
+# ['charge:0']). One query per reference; when several holders still match, precision
 # decides. Resolve the material first (e.g. shell/utils/get_material_by_index) and
 # override the first unit's value to reference it.
 #
 # In:  MATERIAL             material whose property to read (override the first unit's value)
 #      REFERENCE_PROPERTY   property slug, e.g. 'total_energy', 'band_gaps' (default 'total_energy')
 #      REFERENCE_TAGS       tags the producing job must carry (default: none, i.e. any job)
+#      REFERENCE_JOB_FILTER filter on the producing job's id, e.g. {'$in': ['<job id>']} to name the
+#                           job outright (default: any job)
 #      REFERENCE_GROUP      method group the property must belong to (default 'qe:')
 # Out: REFERENCE_DATA       the property's data, or None when nothing matches; override this
 #                           operand per instance (e.g. PRISTINE_TOTAL_ENERGY, PRISTINE_BAND_GAPS)
@@ -38,6 +40,16 @@ units:
       flowchartId: assign-reference-tags
       operand: REFERENCE_TAGS
       value: "[]"
+  - type: assignment
+    config:
+      name: assign-reference-job-filter
+      description: |
+        Which job the property may come from, as a filter on source.info.jobId. A caller that
+        already knows the job (a notebook that created or found it) names it here and needs no
+        tags on the property at all.
+      flowchartId: assign-reference-job-filter
+      operand: REFERENCE_JOB_FILTER
+      value: "{'$nin': []}"
   - type: assignment
     config:
       name: assign-reference-group
@@ -72,7 +84,7 @@ units:
                 {'exabyteId': REFERENCE_MATERIAL.exabyteId, 'slug': REFERENCE_PROPERTY,
                 'group': {'$regex': REFERENCE_GROUP},
                 'owner._id': REFERENCE_MATERIAL.owner['_id'],
-                'tags': REFERENCE_TAGS_FILTER}
+                'tags': REFERENCE_TAGS_FILTER, 'source.info.jobId': REFERENCE_JOB_FILTER}
               projection: "{'sort': {'precision.value': -1}, 'limit': 1}"
           name: DATA
   - type: assignment
