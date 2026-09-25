@@ -15,7 +15,7 @@
         "bio": "Quantum 3xplorer 2026.9.15-1 (MPI)"
     },
     "runConfig": {
-        "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\n$EXEC_CMD mpirun -np {NP}{EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}\n",
+        "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\n$EXEC_CMD mpirun -np {NP} {EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}\n",
         "outFileName": "q3.out"
     }
 }

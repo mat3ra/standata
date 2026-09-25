@@ -7,7 +7,7 @@ runConfig:
   commandTemplate: |
     {BASE_CMD} &&
     {MODULE_CMD}
-    $EXEC_CMD mpirun -np {NP}{EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}
+    $EXEC_CMD mpirun -np {NP} {EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}
   outFileName: 'q3.out'
 versions:
   - version: '2026.9.15-1'

@@ -95,7 +95,7 @@
                 "isUsingMaterial": true,
                 "name": "q3",
                 "runConfig": {
-                    "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\n$EXEC_CMD mpirun -np {NP}{EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}\n",
+                    "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\n$EXEC_CMD mpirun -np {NP} {EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}\n",
                     "outFileName": "q3.out"
                 },
                 "shortName": "q3",
