@@ -1,0 +1,62 @@
+# Finds the one finished job on a material that carries every given tag and computes a given
+# property -- the most recent, when several do -- and returns a filter on a property's
+# source.info.jobId that selects it (e.g. for fetch_bulk_total_energy's TE_BULK_JOB_FILTER).
+# With no tags the filter matches any job. One query per reference, so references never
+# crowd each other out; more than one match means the tags are not specific enough.
+#
+# In:  MATERIAL              material whose jobs to search (override the first unit's value)
+#      REFERENCE_TAGS        tags the job must carry, e.g. ['charge:0'] (default: none)
+#      REFERENCE_PROPERTY    property the job's workflow computes (default 'total_energy')
+# Out: REFERENCE_JOB_FILTER  {'$in': [job id]} ({'$in': []} when none matches), or
+#                            {'$nin': []} without tags
+application:
+  name: shell
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: Find Job By Tags
+units:
+  - type: assignment
+    config:
+      name: assign-tagged-job-material
+      flowchartId: assign-tagged-job-material
+      operand: TAGGED_JOB_MATERIAL
+      value: "MATERIAL"
+  - type: assignment
+    config:
+      name: assign-reference-tags
+      flowchartId: assign-reference-tags
+      operand: REFERENCE_TAGS
+      value: "[]"
+  - type: assignment
+    config:
+      name: assign-reference-property
+      flowchartId: assign-reference-property
+      operand: REFERENCE_PROPERTY
+      value: "'total_energy'"
+  - type: io
+    config:
+      name: io-tagged-job
+      flowchartId: io-tagged-job
+      subtype: input
+      source: api
+      input:
+        - type: api
+          endpoint: jobs
+          endpoint_options:
+            params:
+              query: >-
+                {'_material._id': TAGGED_JOB_MATERIAL['_id'], 'status': 'finished',
+                'tags': {'$all': REFERENCE_TAGS}, 'workflow.properties': REFERENCE_PROPERTY}
+              projection: "{'sort': {'updatedAt': -1}, 'limit': 1}"
+          name: DATA
+  - type: assignment
+    config:
+      name: assign-reference-job-filter
+      flowchartId: assign-reference-job-filter
+      operand: REFERENCE_JOB_FILTER
+      value: "{'$in': [job['_id'] for job in DATA]} if REFERENCE_TAGS else {'$nin': []}"
+      input:
+        - name: DATA
+          scope: io-tagged-job

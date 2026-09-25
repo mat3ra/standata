@@ -7,7 +7,7 @@
 #                       from get_material_by_index; override the first unit's value
 #                       per instance, e.g. PRISTINE, BULK_SUBSTRATE, BULK_FILM)
 #      TE_BULK_JOB_FILTER  filter on the property's source.info.jobId (default: any job),
-#                       e.g. find_jobs_by_tags' REFERENCE_JOB_FILTER
+#                       e.g. find_job_by_tags' REFERENCE_JOB_FILTER
 # Out: TE_BULK          bulk reference total energy (eV); override this operand
 #                       per instance (e.g. E_PRISTINE, TE_BULK_SUBSTRATE, TE_BULK_FILM)
 application:

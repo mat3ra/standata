@@ -9,7 +9,8 @@
 # Prerequisites: QE Total Energy on the pristine material; for q ≠ 0 also QE Band
 # Gap on it (E_VBM). A charged run sets q twice: tot_charge in pw_scf and the
 # CHARGE assignment of the defect formation energy subworkflow. REFERENCE_TAGS
-# restricts both pristine references to jobs carrying those tags.
+# picks each pristine reference from the one tagged job that computes it: the
+# total energy from a total_energy job, E_VBM from a band_gaps job.
 name: Defect Formation Energy
 config:
   attributes:
@@ -92,11 +93,11 @@ units:
               - name: DATA
                 scope: io-material-pristine
 
-  - name: shell/utils/find_jobs_by_tags
+  - name: shell/utils/find_job_by_tags
     type: subworkflow
     config:
       attributes:
-        name: Find Reference Jobs for Pristine Material
+        name: Find Total Energy Job for Pristine Material
     unitConfigs:
       - index: 0
         type: assignment
@@ -134,6 +135,47 @@ units:
               Pristine total energy not found. Run a Total Energy workflow on
               the pristine material before running Defect Formation Energy.
 
+  # Same tags, its own job: the band_gaps reference is looked up on its own so it
+  # can never be crowded out by, or confused with, the total energy one.
+  - name: shell/utils/find_job_by_tags
+    type: subworkflow
+    config:
+      attributes:
+        name: Find Band Gap Job for Pristine Material
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-tagged-job-material-vbm
+            value: "PRISTINE"
+      - index: 1
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-reference-tags-vbm
+            value: "REFERENCE_TAGS"
+      - index: 2
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-reference-property-vbm
+            value: "'band_gaps'"
+      - index: 3
+        type: io
+        config:
+          attributes:
+            flowchartId: io-tagged-job-vbm
+      - index: 4
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-reference-job-filter-vbm
+            operand: VBM_REFERENCE_JOB_FILTER
+            input:
+              - name: DATA
+                scope: io-tagged-job-vbm
+
   - name: shell/fetch_valence_band_maximum
     type: subworkflow
     config:
@@ -149,7 +191,7 @@ units:
         type: assignment
         config:
           attributes:
-            value: "REFERENCE_JOB_FILTER"
+            value: "VBM_REFERENCE_JOB_FILTER"
 
   - name: shell/utils/resolve_elemental_materials
     type: subworkflow

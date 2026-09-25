@@ -1,6 +1,6 @@
 {
-    "_id": "ae3d5058-215a-59ad-ac1a-381a79d1ca02",
-    "name": "Find Jobs By Tags",
+    "_id": "11f7a5f3-a844-5fd6-bb98-ec63534b315d",
+    "name": "Find Job By Tags",
     "application": {
         "name": "shell"
     },
@@ -16,9 +16,9 @@
     },
     "units": [
         {
-            "name": "assign-tagged-jobs-material",
+            "name": "assign-tagged-job-material",
             "type": "assignment",
-            "operand": "TAGGED_JOBS_MATERIAL",
+            "operand": "TAGGED_JOB_MATERIAL",
             "value": "MATERIAL",
             "input": [],
             "results": [],
@@ -28,7 +28,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assign-tagged-jobs-material",
+            "flowchartId": "assign-tagged-job-material",
             "head": true,
             "next": "assign-reference-tags",
             "schemaVersion": "2022.8.16",
@@ -49,12 +49,31 @@
             "tags": [],
             "flowchartId": "assign-reference-tags",
             "head": false,
-            "next": "io-tagged-jobs",
+            "next": "assign-reference-property",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "io-tagged-jobs",
+            "name": "assign-reference-property",
+            "type": "assignment",
+            "operand": "REFERENCE_PROPERTY",
+            "value": "'total_energy'",
+            "input": [],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-reference-property",
+            "head": false,
+            "next": "io-tagged-job",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "io-tagged-job",
             "type": "io",
             "subtype": "input",
             "results": [],
@@ -64,7 +83,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "io-tagged-jobs",
+            "flowchartId": "io-tagged-job",
             "source": "api",
             "input": [
                 {
@@ -72,8 +91,8 @@
                     "endpoint": "jobs",
                     "endpoint_options": {
                         "params": {
-                            "query": "{'_material._id': TAGGED_JOBS_MATERIAL['_id'], 'status': 'finished', 'tags': {'$all': REFERENCE_TAGS}}",
-                            "projection": "{'_id': 1}"
+                            "query": "{'_material._id': TAGGED_JOB_MATERIAL['_id'], 'status': 'finished', 'tags': {'$all': REFERENCE_TAGS}, 'workflow.properties': REFERENCE_PROPERTY}",
+                            "projection": "{'sort': {'updatedAt': -1}, 'limit': 1}"
                         }
                     },
                     "name": "DATA"
@@ -92,7 +111,7 @@
             "input": [
                 {
                     "name": "DATA",
-                    "scope": "io-tagged-jobs"
+                    "scope": "io-tagged-job"
                 }
             ],
             "results": [],
