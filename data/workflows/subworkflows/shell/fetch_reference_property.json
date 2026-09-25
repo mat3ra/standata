@@ -1,6 +1,6 @@
 {
-    "_id": "11f7a5f3-a844-5fd6-bb98-ec63534b315d",
-    "name": "Find Job By Tags",
+    "_id": "b231a342-28a2-5149-a869-167c3710e6ab",
+    "name": "Fetch Reference Property for Material",
     "application": {
         "name": "shell"
     },
@@ -16,9 +16,9 @@
     },
     "units": [
         {
-            "name": "assign-tagged-job-material",
+            "name": "assign-reference-material",
             "type": "assignment",
-            "operand": "TAGGED_JOB_MATERIAL",
+            "operand": "REFERENCE_MATERIAL",
             "value": "MATERIAL",
             "input": [],
             "results": [],
@@ -28,27 +28,8 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assign-tagged-job-material",
+            "flowchartId": "assign-reference-material",
             "head": true,
-            "next": "assign-reference-tags",
-            "schemaVersion": "2022.8.16",
-            "isDefault": false
-        },
-        {
-            "name": "assign-reference-tags",
-            "type": "assignment",
-            "operand": "REFERENCE_TAGS",
-            "value": "[]",
-            "input": [],
-            "results": [],
-            "monitors": [],
-            "preProcessors": [],
-            "postProcessors": [],
-            "status": "idle",
-            "statusTrack": [],
-            "tags": [],
-            "flowchartId": "assign-reference-tags",
-            "head": false,
             "next": "assign-reference-property",
             "schemaVersion": "2022.8.16",
             "isDefault": false
@@ -68,12 +49,69 @@
             "tags": [],
             "flowchartId": "assign-reference-property",
             "head": false,
-            "next": "io-tagged-job",
+            "next": "assign-reference-tags",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "io-tagged-job",
+            "name": "assign-reference-tags",
+            "type": "assignment",
+            "operand": "REFERENCE_TAGS",
+            "value": "[]",
+            "input": [],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-reference-tags",
+            "head": false,
+            "next": "assign-reference-group",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "assign-reference-group",
+            "type": "assignment",
+            "operand": "REFERENCE_GROUP",
+            "value": "'qe:'",
+            "input": [],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-reference-group",
+            "head": false,
+            "next": "assign-reference-tags-filter",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "assign-reference-tags-filter",
+            "type": "assignment",
+            "operand": "REFERENCE_TAGS_FILTER",
+            "value": "{'$all': REFERENCE_TAGS} if REFERENCE_TAGS else {'$nin': []}",
+            "input": [],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "assign-reference-tags-filter",
+            "head": false,
+            "next": "io-reference-property",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "io-reference-property",
             "type": "io",
             "subtype": "input",
             "results": [],
@@ -83,35 +121,35 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "io-tagged-job",
+            "flowchartId": "io-reference-property",
             "source": "api",
             "input": [
                 {
                     "type": "api",
-                    "endpoint": "jobs",
+                    "endpoint": "properties",
                     "endpoint_options": {
                         "params": {
-                            "query": "{'_material._id': TAGGED_JOB_MATERIAL['_id'], 'status': 'finished', 'tags': {'$all': REFERENCE_TAGS}, 'workflow.properties': REFERENCE_PROPERTY}",
-                            "projection": "{'sort': {'updatedAt': -1}, 'limit': 1}"
+                            "query": "{'exabyteId': REFERENCE_MATERIAL.exabyteId, 'slug': REFERENCE_PROPERTY, 'group': {'$regex': REFERENCE_GROUP}, 'owner._id': REFERENCE_MATERIAL.owner['_id'], 'tags': REFERENCE_TAGS_FILTER}",
+                            "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
                         }
                     },
                     "name": "DATA"
                 }
             ],
             "head": false,
-            "next": "assign-reference-job-filter",
+            "next": "assign-reference-data",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "assign-reference-job-filter",
+            "name": "assign-reference-data",
             "type": "assignment",
-            "operand": "REFERENCE_JOB_FILTER",
-            "value": "{'$in': [job['_id'] for job in DATA]} if REFERENCE_TAGS else {'$nin': []}",
+            "operand": "REFERENCE_DATA",
+            "value": "DATA[0].data if DATA else None",
             "input": [
                 {
                     "name": "DATA",
-                    "scope": "io-tagged-job"
+                    "scope": "io-reference-property"
                 }
             ],
             "results": [],
@@ -121,7 +159,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "assign-reference-job-filter",
+            "flowchartId": "assign-reference-data",
             "head": false,
             "schemaVersion": "2022.8.16",
             "isDefault": false

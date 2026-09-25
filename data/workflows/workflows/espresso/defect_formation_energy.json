@@ -494,147 +494,6 @@
             "isDraft": false
         },
         {
-            "_id": "1c6e4893-98bc-5249-8c10-47647e630b8f",
-            "name": "Find Total Energy Job for Pristine Material",
-            "application": {
-                "build": "GNU",
-                "hasAdvancedComputeOptions": false,
-                "isDefault": true,
-                "isDefaultVersion": true,
-                "isUsingMaterial": false,
-                "name": "shell",
-                "shortName": "sh",
-                "summary": "Shell Script",
-                "version": "5.1.8",
-                "schemaVersion": "2022.8.16"
-            },
-            "properties": [],
-            "model": {
-                "type": "unknown",
-                "subtype": "unknown",
-                "method": {
-                    "type": "unknown",
-                    "subtype": "unknown",
-                    "data": {}
-                }
-            },
-            "units": [
-                {
-                    "name": "assign-tagged-job-material",
-                    "type": "assignment",
-                    "operand": "TAGGED_JOB_MATERIAL",
-                    "value": "PRISTINE",
-                    "input": [],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-tagged-job-material",
-                    "head": true,
-                    "next": "assign-reference-tags",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assign-reference-tags",
-                    "type": "assignment",
-                    "operand": "REFERENCE_TAGS",
-                    "value": "[]",
-                    "input": [],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-reference-tags",
-                    "head": false,
-                    "next": "assign-reference-property",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assign-reference-property",
-                    "type": "assignment",
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-reference-property",
-                    "input": [],
-                    "head": false,
-                    "next": "io-tagged-job",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false,
-                    "operand": "REFERENCE_PROPERTY",
-                    "value": "'total_energy'"
-                },
-                {
-                    "name": "io-tagged-job",
-                    "type": "io",
-                    "input": [
-                        {
-                            "name": "DATA",
-                            "type": "api",
-                            "endpoint": "jobs",
-                            "endpoint_options": {
-                                "params": {
-                                    "query": "{'_material._id': TAGGED_JOB_MATERIAL['_id'], 'status': 'finished', 'tags': {'$all': REFERENCE_TAGS}, 'workflow.properties': REFERENCE_PROPERTY}",
-                                    "projection": "{'sort': {'updatedAt': -1}, 'limit': 1}"
-                                }
-                            }
-                        }
-                    ],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "io-tagged-job",
-                    "head": false,
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false,
-                    "subtype": "input",
-                    "source": "api",
-                    "next": "assign-reference-job-filter"
-                },
-                {
-                    "name": "assign-reference-job-filter",
-                    "type": "assignment",
-                    "operand": "REFERENCE_JOB_FILTER",
-                    "value": "{'$in': [job['_id'] for job in DATA]} if REFERENCE_TAGS else {'$nin': []}",
-                    "input": [
-                        {
-                            "name": "DATA",
-                            "scope": "io-tagged-job"
-                        }
-                    ],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-reference-job-filter",
-                    "head": false,
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                }
-            ],
-            "schemaVersion": "2022.8.16",
-            "isDraft": false
-        },
-        {
             "_id": "663534ea-592c-5ee6-b482-b78a1ddf8ad5",
             "name": "Fetch Total Energy for Pristine Material",
             "application": {
@@ -661,9 +520,9 @@
             },
             "units": [
                 {
-                    "name": "assign-bulk-material",
+                    "name": "assign-reference-material",
                     "type": "assignment",
-                    "operand": "BULK_MATERIAL",
+                    "operand": "REFERENCE_MATERIAL",
                     "value": "PRISTINE",
                     "input": [],
                     "results": [],
@@ -673,17 +532,17 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-bulk-material",
+                    "flowchartId": "assign-reference-material",
                     "head": true,
-                    "next": "assign-te-bulk-group",
+                    "next": "assign-reference-property",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-te-bulk-group",
+                    "name": "assign-reference-property",
                     "type": "assignment",
-                    "operand": "TE_BULK_GROUP",
-                    "value": "'qe:'",
+                    "operand": "REFERENCE_PROPERTY",
+                    "value": "'total_energy'",
                     "input": [],
                     "results": [],
                     "monitors": [],
@@ -692,17 +551,17 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-te-bulk-group",
+                    "flowchartId": "assign-reference-property",
                     "head": false,
-                    "next": "assign-te-bulk-job-filter",
+                    "next": "assign-reference-tags",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "assign-te-bulk-job-filter",
+                    "name": "assign-reference-tags",
                     "type": "assignment",
-                    "operand": "TE_BULK_JOB_FILTER",
-                    "value": "REFERENCE_JOB_FILTER",
+                    "operand": "REFERENCE_TAGS",
+                    "value": "[]",
                     "input": [],
                     "results": [],
                     "monitors": [],
@@ -711,16 +570,53 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-te-bulk-job-filter",
+                    "flowchartId": "assign-reference-tags",
                     "head": false,
-                    "next": "io-te-bulk",
+                    "next": "assign-reference-group",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "io-te-bulk",
+                    "name": "assign-reference-group",
+                    "type": "assignment",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-reference-group",
+                    "input": [],
+                    "head": false,
+                    "next": "assign-reference-tags-filter",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false,
+                    "operand": "REFERENCE_GROUP",
+                    "value": "'qe:'"
+                },
+                {
+                    "name": "assign-reference-tags-filter",
+                    "type": "assignment",
+                    "operand": "REFERENCE_TAGS_FILTER",
+                    "value": "{'$all': REFERENCE_TAGS} if REFERENCE_TAGS else {'$nin': []}",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-reference-tags-filter",
+                    "head": false,
+                    "next": "io-reference-property",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "io-reference-property",
                     "type": "io",
-                    "subtype": "input",
                     "results": [],
                     "monitors": [],
                     "preProcessors": [],
@@ -728,7 +624,11 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "io-te-bulk",
+                    "flowchartId": "io-reference-property",
+                    "head": false,
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false,
+                    "subtype": "input",
                     "source": "api",
                     "input": [
                         {
@@ -736,27 +636,24 @@
                             "endpoint": "properties",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'exabyteId': BULK_MATERIAL.exabyteId, 'slug': 'total_energy', 'group': {'$regex': TE_BULK_GROUP}, 'owner._id': BULK_MATERIAL.owner['_id'], 'source.info.jobId': TE_BULK_JOB_FILTER}",
+                                    "query": "{'exabyteId': REFERENCE_MATERIAL.exabyteId, 'slug': REFERENCE_PROPERTY, 'group': {'$regex': REFERENCE_GROUP}, 'owner._id': REFERENCE_MATERIAL.owner['_id'], 'tags': REFERENCE_TAGS_FILTER}",
                                     "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
                                 }
                             },
                             "name": "DATA"
                         }
                     ],
-                    "head": false,
-                    "next": "assign-te-bulk",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
+                    "next": "assign-reference-data"
                 },
                 {
-                    "name": "assign-te-bulk",
+                    "name": "assign-reference-data",
                     "type": "assignment",
-                    "operand": "E_PRISTINE",
-                    "value": "DATA[0].data.value if DATA else None",
+                    "operand": "PRISTINE_TOTAL_ENERGY",
+                    "value": "DATA[0].data if DATA else None",
                     "input": [
                         {
                             "name": "DATA",
-                            "scope": "io-te-bulk"
+                            "scope": "io-reference-property"
                         }
                     ],
                     "results": [],
@@ -766,25 +663,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-te-bulk",
-                    "head": false,
-                    "next": "assert-te-bulk",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assert-te-bulk",
-                    "type": "assertion",
-                    "statement": "E_PRISTINE != None",
-                    "errorMessage": "Pristine total energy not found. Run a Total Energy workflow on the pristine material before running Defect Formation Energy.",
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assert-te-bulk",
+                    "flowchartId": "assign-reference-data",
                     "head": false,
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -794,8 +673,8 @@
             "isDraft": false
         },
         {
-            "_id": "cd04f5f9-15b8-571d-a003-93d23772ed9e",
-            "name": "Find Band Gap Job for Pristine Material",
+            "_id": "b6dfdabd-6f6d-53cd-88be-441a98e2c51c",
+            "name": "Fetch Band Gaps for Pristine Material",
             "application": {
                 "build": "GNU",
                 "hasAdvancedComputeOptions": false,
@@ -820,9 +699,9 @@
             },
             "units": [
                 {
-                    "name": "assign-tagged-job-material",
+                    "name": "assign-reference-material",
                     "type": "assignment",
-                    "operand": "TAGGED_JOB_MATERIAL",
+                    "operand": "REFERENCE_MATERIAL",
                     "value": "PRISTINE",
                     "input": [],
                     "results": [],
@@ -832,27 +711,8 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-tagged-job-material-vbm",
+                    "flowchartId": "assign-reference-material-vbm",
                     "head": true,
-                    "next": "assign-reference-tags-vbm",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assign-reference-tags",
-                    "type": "assignment",
-                    "operand": "REFERENCE_TAGS",
-                    "value": "REFERENCE_TAGS",
-                    "input": [],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-reference-tags-vbm",
-                    "head": false,
                     "next": "assign-reference-property-vbm",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -872,163 +732,82 @@
                     "tags": [],
                     "flowchartId": "assign-reference-property-vbm",
                     "head": false,
-                    "next": "io-tagged-job-vbm",
+                    "next": "assign-reference-tags-vbm",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "io-tagged-job",
+                    "name": "assign-reference-tags",
+                    "type": "assignment",
+                    "operand": "REFERENCE_TAGS",
+                    "value": "REFERENCE_TAGS",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-reference-tags-vbm",
+                    "head": false,
+                    "next": "assign-reference-group-vbm",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-reference-group",
+                    "type": "assignment",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-reference-group-vbm",
+                    "input": [],
+                    "head": false,
+                    "next": "assign-reference-tags-filter-vbm",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false,
+                    "operand": "REFERENCE_GROUP",
+                    "value": "'qe:'"
+                },
+                {
+                    "name": "assign-reference-tags-filter",
+                    "type": "assignment",
+                    "operand": "REFERENCE_TAGS_FILTER",
+                    "value": "{'$all': REFERENCE_TAGS} if REFERENCE_TAGS else {'$nin': []}",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-reference-tags-filter-vbm",
+                    "head": false,
+                    "next": "io-reference-property-vbm",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "io-reference-property",
                     "type": "io",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "io-reference-property-vbm",
+                    "head": false,
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false,
                     "subtype": "input",
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "io-tagged-job-vbm",
-                    "source": "api",
-                    "input": [
-                        {
-                            "type": "api",
-                            "endpoint": "jobs",
-                            "endpoint_options": {
-                                "params": {
-                                    "query": "{'_material._id': TAGGED_JOB_MATERIAL['_id'], 'status': 'finished', 'tags': {'$all': REFERENCE_TAGS}, 'workflow.properties': REFERENCE_PROPERTY}",
-                                    "projection": "{'sort': {'updatedAt': -1}, 'limit': 1}"
-                                }
-                            },
-                            "name": "DATA"
-                        }
-                    ],
-                    "head": false,
-                    "next": "assign-reference-job-filter-vbm",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assign-reference-job-filter",
-                    "type": "assignment",
-                    "operand": "VBM_REFERENCE_JOB_FILTER",
-                    "value": "{'$in': [job['_id'] for job in DATA]} if REFERENCE_TAGS else {'$nin': []}",
-                    "input": [
-                        {
-                            "name": "DATA",
-                            "scope": "io-tagged-job-vbm"
-                        }
-                    ],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-reference-job-filter-vbm",
-                    "head": false,
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                }
-            ],
-            "schemaVersion": "2022.8.16",
-            "isDraft": false
-        },
-        {
-            "_id": "9ff6eeea-010c-5e1b-a922-1309cf0689f0",
-            "name": "Fetch Valence Band Maximum for Pristine Material",
-            "application": {
-                "build": "GNU",
-                "hasAdvancedComputeOptions": false,
-                "isDefault": true,
-                "isDefaultVersion": true,
-                "isUsingMaterial": false,
-                "name": "shell",
-                "shortName": "sh",
-                "summary": "Shell Script",
-                "version": "5.1.8",
-                "schemaVersion": "2022.8.16"
-            },
-            "properties": [],
-            "model": {
-                "type": "unknown",
-                "subtype": "unknown",
-                "method": {
-                    "type": "unknown",
-                    "subtype": "unknown",
-                    "data": {}
-                }
-            },
-            "units": [
-                {
-                    "name": "assign-vbm-material",
-                    "type": "assignment",
-                    "operand": "VBM_MATERIAL",
-                    "value": "PRISTINE",
-                    "input": [],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-vbm-material",
-                    "head": true,
-                    "next": "assign-vbm-group",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assign-vbm-group",
-                    "type": "assignment",
-                    "operand": "VBM_GROUP",
-                    "value": "'qe:'",
-                    "input": [],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-vbm-group",
-                    "head": false,
-                    "next": "assign-vbm-job-filter",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assign-vbm-job-filter",
-                    "type": "assignment",
-                    "operand": "VBM_JOB_FILTER",
-                    "value": "VBM_REFERENCE_JOB_FILTER",
-                    "input": [],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-vbm-job-filter",
-                    "head": false,
-                    "next": "io-band-gaps",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "io-band-gaps",
-                    "type": "io",
-                    "subtype": "input",
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "io-band-gaps",
                     "source": "api",
                     "input": [
                         {
@@ -1036,27 +815,24 @@
                             "endpoint": "properties",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'exabyteId': VBM_MATERIAL.exabyteId, 'slug': 'band_gaps', 'group': {'$regex': VBM_GROUP}, 'owner._id': VBM_MATERIAL.owner['_id'], 'source.info.jobId': VBM_JOB_FILTER}",
+                                    "query": "{'exabyteId': REFERENCE_MATERIAL.exabyteId, 'slug': REFERENCE_PROPERTY, 'group': {'$regex': REFERENCE_GROUP}, 'owner._id': REFERENCE_MATERIAL.owner['_id'], 'tags': REFERENCE_TAGS_FILTER}",
                                     "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
                                 }
                             },
                             "name": "DATA"
                         }
                     ],
-                    "head": false,
-                    "next": "assign-vbm",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
+                    "next": "assign-reference-data-vbm"
                 },
                 {
-                    "name": "assign-vbm",
+                    "name": "assign-reference-data",
                     "type": "assignment",
-                    "operand": "E_VBM",
-                    "value": "([gap.get('eigenvalueValence') for gap in DATA[0].data.get('values', []) if gap.get('type') == 'indirect'] + [None])[0] if DATA else None",
+                    "operand": "PRISTINE_BAND_GAPS",
+                    "value": "DATA[0].data if DATA else None",
                     "input": [
                         {
                             "name": "DATA",
-                            "scope": "io-band-gaps"
+                            "scope": "io-reference-property-vbm"
                         }
                     ],
                     "results": [],
@@ -1066,7 +842,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-vbm",
+                    "flowchartId": "assign-reference-data-vbm",
                     "head": false,
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -1574,6 +1350,62 @@
                     "tags": [],
                     "flowchartId": "assign-charge",
                     "head": true,
+                    "next": "assign-e-pristine",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-e-pristine",
+                    "type": "assignment",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-e-pristine",
+                    "head": false,
+                    "next": "assert-e-pristine",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false,
+                    "operand": "E_PRISTINE",
+                    "value": "PRISTINE_TOTAL_ENERGY.get('value') if PRISTINE_TOTAL_ENERGY else None",
+                    "input": []
+                },
+                {
+                    "name": "assert-e-pristine",
+                    "type": "assertion",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assert-e-pristine",
+                    "head": false,
+                    "next": "assign-e-vbm",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false,
+                    "statement": "E_PRISTINE != None",
+                    "errorMessage": "Pristine total energy not found. Run a Total Energy workflow on the pristine material, tagged as this job's references are (REFERENCE_TAGS, e.g. charge:0), before running Defect Formation Energy."
+                },
+                {
+                    "name": "assign-e-vbm",
+                    "type": "assignment",
+                    "operand": "E_VBM",
+                    "value": "([gap.get('eigenvalueValence') for gap in PRISTINE_BAND_GAPS.get('values', []) if gap.get('type') == 'indirect'] + [None])[0] if PRISTINE_BAND_GAPS else None",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "assign-e-vbm",
+                    "head": false,
                     "next": "assert-vbm-for-charge",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -1733,21 +1565,6 @@
         },
         {
             "type": "subworkflow",
-            "name": "Find Total Energy Job for Pristine Material",
-            "results": [],
-            "monitors": [],
-            "preProcessors": [],
-            "postProcessors": [],
-            "status": "idle",
-            "statusTrack": [],
-            "tags": [],
-            "_id": "1c6e4893-98bc-5249-8c10-47647e630b8f",
-            "flowchartId": "b3810fa8-6371-574d-a7df-cf39d7e8199d",
-            "schemaVersion": "2022.8.16",
-            "isDefault": false
-        },
-        {
-            "type": "subworkflow",
             "name": "Fetch Total Energy for Pristine Material",
             "results": [],
             "monitors": [],
@@ -1763,7 +1580,7 @@
         },
         {
             "type": "subworkflow",
-            "name": "Find Band Gap Job for Pristine Material",
+            "name": "Fetch Band Gaps for Pristine Material",
             "results": [],
             "monitors": [],
             "preProcessors": [],
@@ -1771,23 +1588,8 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "_id": "cd04f5f9-15b8-571d-a003-93d23772ed9e",
-            "flowchartId": "a788d25f-af16-5bc2-89c2-8a59e1d5a60c",
-            "schemaVersion": "2022.8.16",
-            "isDefault": false
-        },
-        {
-            "type": "subworkflow",
-            "name": "Fetch Valence Band Maximum for Pristine Material",
-            "results": [],
-            "monitors": [],
-            "preProcessors": [],
-            "postProcessors": [],
-            "status": "idle",
-            "statusTrack": [],
-            "tags": [],
-            "_id": "9ff6eeea-010c-5e1b-a922-1309cf0689f0",
-            "flowchartId": "39c856fa-7019-5735-85e3-930b510f9e58",
+            "_id": "b6dfdabd-6f6d-53cd-88be-441a98e2c51c",
+            "flowchartId": "2d056e4d-1bdb-5379-90ba-806c01e789a6",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },

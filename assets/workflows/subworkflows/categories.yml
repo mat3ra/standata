@@ -535,16 +535,13 @@ entities:
   - filename: shell/fetch_bulk_total_energy.json
     categories:
       - shell
-  - filename: shell/fetch_valence_band_maximum.json
+  - filename: shell/fetch_reference_property.json
     categories:
       - shell
   - filename: shell/hello_world.json
     categories:
       - shell
   - filename: shell/utils/assign_elements_from_material.json
-    categories:
-      - shell
-  - filename: shell/utils/find_job_by_tags.json
     categories:
       - shell
   - filename: shell/utils/get_e_bulk.json

@@ -6,8 +6,6 @@
 # In:  MATERIAL         resolved bulk reference material (default operand MATERIAL
 #                       from get_material_by_index; override the first unit's value
 #                       per instance, e.g. PRISTINE, BULK_SUBSTRATE, BULK_FILM)
-#      TE_BULK_JOB_FILTER  filter on the property's source.info.jobId (default: any job),
-#                       e.g. find_job_by_tags' REFERENCE_JOB_FILTER
 # Out: TE_BULK          bulk reference total energy (eV); override this operand
 #                       per instance (e.g. E_PRISTINE, TE_BULK_SUBSTRATE, TE_BULK_FILM)
 application:
@@ -33,14 +31,6 @@ units:
       flowchartId: assign-te-bulk-group
       operand: TE_BULK_GROUP
       value: "'qe:'"
-  - type: assignment
-    config:
-      name: assign-te-bulk-job-filter
-      description: |
-        Which jobs the total energy may come from, as a filter on source.info.jobId.
-      flowchartId: assign-te-bulk-job-filter
-      operand: TE_BULK_JOB_FILTER
-      value: "{'$nin': []}"
   - type: io
     config:
       name: io-te-bulk
@@ -57,8 +47,7 @@ units:
               query: >-
                 {'exabyteId': BULK_MATERIAL.exabyteId, 'slug': 'total_energy',
                 'group': {'$regex': TE_BULK_GROUP},
-                'owner._id': BULK_MATERIAL.owner['_id'],
-                'source.info.jobId': TE_BULK_JOB_FILTER}
+                'owner._id': BULK_MATERIAL.owner['_id']}
               projection: "{'sort': {'precision.value': -1}, 'limit': 1}"
           name: DATA
   - type: assignment

@@ -378,25 +378,6 @@
                     "tags": [],
                     "flowchartId": "assign-te-bulk-group",
                     "head": false,
-                    "next": "assign-te-bulk-job-filter",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assign-te-bulk-job-filter",
-                    "type": "assignment",
-                    "operand": "TE_BULK_JOB_FILTER",
-                    "value": "{'$nin': []}",
-                    "input": [],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-te-bulk-job-filter",
-                    "head": false,
                     "next": "io-te-bulk",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -420,7 +401,7 @@
                             "endpoint": "properties",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'exabyteId': BULK_MATERIAL.exabyteId, 'slug': 'total_energy', 'group': {'$regex': TE_BULK_GROUP}, 'owner._id': BULK_MATERIAL.owner['_id'], 'source.info.jobId': TE_BULK_JOB_FILTER}",
+                                    "query": "{'exabyteId': BULK_MATERIAL.exabyteId, 'slug': 'total_energy', 'group': {'$regex': TE_BULK_GROUP}, 'owner._id': BULK_MATERIAL.owner['_id']}",
                                     "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
                                 }
                             },
@@ -695,25 +676,6 @@
                     "tags": [],
                     "flowchartId": "assign-te-bulk-group-film",
                     "head": false,
-                    "next": "assign-te-bulk-job-filter-film",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "assign-te-bulk-job-filter",
-                    "type": "assignment",
-                    "operand": "TE_BULK_JOB_FILTER",
-                    "value": "{'$nin': []}",
-                    "input": [],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "assign-te-bulk-job-filter-film",
-                    "head": false,
                     "next": "io-te-bulk-film",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -737,7 +699,7 @@
                             "endpoint": "properties",
                             "endpoint_options": {
                                 "params": {
-                                    "query": "{'exabyteId': BULK_MATERIAL.exabyteId, 'slug': 'total_energy', 'group': {'$regex': TE_BULK_GROUP}, 'owner._id': BULK_MATERIAL.owner['_id'], 'source.info.jobId': TE_BULK_JOB_FILTER}",
+                                    "query": "{'exabyteId': BULK_MATERIAL.exabyteId, 'slug': 'total_energy', 'group': {'$regex': TE_BULK_GROUP}, 'owner._id': BULK_MATERIAL.owner['_id']}",
                                     "projection": "{'sort': {'precision.value': -1}, 'limit': 1}"
                                 }
                             },
