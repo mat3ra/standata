@@ -1,11 +1,17 @@
-# Defect formation energy (eV), neutral defects only:
-#   E_defect = E_defective − E_pristine − Σ_i ΔN_i · μ_i
+# Defect formation energy (eV) of charge state q, with the Fermi level at the
+# valence band maximum of the pristine cell (μ_e = 0):
+#   E_defect = E_defective − E_pristine − Σ_i ΔN_i · μ_i + q · E_VBM
 #
 # Multi-material workflow — submit two materials, in this order:
 #   [0] Defective supercell   (computed with pw_scf)
 #   [1] Pristine supercell    (energy fetched from its finished Total Energy job)
 #
-# Prerequisite: QE Total Energy already run on the pristine material.
+# Prerequisites: QE Total Energy on the pristine material; for q ≠ 0 also QE Band
+# Gap on it (E_VBM). A charged run sets q twice: tot_charge in pw_scf and the
+# CHARGE assignment of the defect formation energy subworkflow. Each pristine
+# reference is a property of the pristine cell; a caller narrows it by naming the
+# job (assign-reference-job-filter, -vbm) or the tags it was computed under
+# (REFERENCE_TAGS, e.g. ['charge:0']). Both default to any job.
 name: Defect Formation Energy
 config:
   attributes:
@@ -33,7 +39,7 @@ units:
             flowchartId: set-material-index-defective
 
   # Compute the defective-cell total energy (reused Total Energy SCF) while
-  # MATERIAL_INDEX is still 0 -- before fetch_bulk_total_energy moves it to the
+  # MATERIAL_INDEX is still 0 -- before the pristine references move it to the
   # pristine cell. The pw_scf scope is pinned to 'pw-scf' so the property
   # subworkflow can read its total_energy.
   - name: total_energy
@@ -88,7 +94,10 @@ units:
               - name: DATA
                 scope: io-material-pristine
 
-  - name: shell/fetch_bulk_total_energy
+  # Each pristine reference is one property, looked up on its own so neither can be
+  # confused with the other. The job filters are per instance; the second instance
+  # reads the REFERENCE_TAGS set in the first, so one tags override covers both.
+  - name: shell/fetch_reference_property
     type: subworkflow
     config:
       attributes:
@@ -99,19 +108,66 @@ units:
         config:
           attributes:
             value: "PRISTINE"
+      - index: 7
+        type: assignment
+        config:
+          attributes:
+            operand: PRISTINE_TOTAL_ENERGY
+
+  - name: shell/fetch_reference_property
+    type: subworkflow
+    config:
+      attributes:
+        name: Fetch Band Gaps for Pristine Material
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-reference-material-vbm
+            value: "PRISTINE"
+      - index: 1
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-reference-property-vbm
+            value: "'band_gaps'"
+      - index: 2
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-reference-tags-vbm
+            value: "REFERENCE_TAGS"
       - index: 3
         type: assignment
         config:
           attributes:
-            operand: E_PRISTINE
+            name: assign-reference-job-filter-vbm
+            flowchartId: assign-reference-job-filter-vbm
       - index: 4
-        type: assertion
+        type: assignment
         config:
           attributes:
-            statement: "E_PRISTINE != None"
-            errorMessage: >-
-              Pristine total energy not found. Run a Total Energy workflow on
-              the pristine material before running Defect Formation Energy.
+            flowchartId: assign-reference-group-vbm
+      - index: 5
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-reference-tags-filter-vbm
+      - index: 6
+        type: io
+        config:
+          attributes:
+            flowchartId: io-reference-property-vbm
+      - index: 7
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-reference-data-vbm
+            operand: PRISTINE_BAND_GAPS
+            input:
+              - name: DATA
+                scope: io-reference-property-vbm
 
   - name: shell/utils/resolve_elemental_materials
     type: subworkflow

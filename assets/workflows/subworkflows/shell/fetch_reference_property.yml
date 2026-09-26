@@ -1,0 +1,98 @@
+# Fetches one reference property of a material from a prior calculation: the highest-
+# precision holder of the given slug, method group and owner, narrowed to the producing
+# job by id (a caller that created or found the job names it) or by tags (the conditions
+# the job ran with, which the platform copies onto the properties it produces, e.g.
+# ['charge:0']). One query per reference; when several holders still match, precision
+# decides. Resolve the material first (e.g. shell/utils/get_material_by_index) and
+# override the first unit's value to reference it.
+#
+# In:  MATERIAL             material whose property to read (override the first unit's value)
+#      REFERENCE_PROPERTY   property slug, e.g. 'total_energy', 'band_gaps' (default 'total_energy')
+#      REFERENCE_TAGS       tags the producing job must carry (default: none, i.e. any job)
+#      REFERENCE_JOB_FILTER filter on the producing job's id, e.g. {'$in': ['<job id>']} to name the
+#                           job outright (default: any job)
+#      REFERENCE_GROUP      method group the property must belong to (default 'qe:')
+# Out: REFERENCE_DATA       the property's data, or None when nothing matches; override this
+#                           operand per instance (e.g. PRISTINE_TOTAL_ENERGY, PRISTINE_BAND_GAPS)
+application:
+  name: shell
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: Fetch Reference Property for Material
+units:
+  - type: assignment
+    config:
+      name: assign-reference-material
+      flowchartId: assign-reference-material
+      operand: REFERENCE_MATERIAL
+      value: "MATERIAL"
+  - type: assignment
+    config:
+      name: assign-reference-property
+      flowchartId: assign-reference-property
+      operand: REFERENCE_PROPERTY
+      value: "'total_energy'"
+  - type: assignment
+    config:
+      name: assign-reference-tags
+      flowchartId: assign-reference-tags
+      operand: REFERENCE_TAGS
+      value: "[]"
+  - type: assignment
+    config:
+      name: assign-reference-job-filter
+      description: |
+        Which job the property may come from, as a filter on source.info.jobId. A caller that
+        already knows the job (a notebook that created or found it) names it here and needs no
+        tags on the property at all.
+      flowchartId: assign-reference-job-filter
+      operand: REFERENCE_JOB_FILTER
+      value: "{'$nin': []}"
+  - type: assignment
+    config:
+      name: assign-reference-group
+      flowchartId: assign-reference-group
+      operand: REFERENCE_GROUP
+      value: "'qe:'"
+  - type: assignment
+    config:
+      name: assign-reference-tags-filter
+      description: |
+        {'$all': []} matches nothing in Mongo, and {'$exists': True} would skip properties
+        recorded before tags were, so "no tags" is spelled {'$nin': []}: true for every
+        document, with or without the field.
+      flowchartId: assign-reference-tags-filter
+      operand: REFERENCE_TAGS_FILTER
+      value: "{'$all': REFERENCE_TAGS} if REFERENCE_TAGS else {'$nin': []}"
+  - type: io
+    config:
+      name: io-reference-property
+      description: |
+        Highest-precision property of that slug on this material, in this account,
+        computed under these tags.
+      flowchartId: io-reference-property
+      subtype: input
+      source: api
+      input:
+        - type: api
+          endpoint: properties
+          endpoint_options:
+            params:
+              query: >-
+                {'exabyteId': REFERENCE_MATERIAL.exabyteId, 'slug': REFERENCE_PROPERTY,
+                'group': {'$regex': REFERENCE_GROUP},
+                'owner._id': REFERENCE_MATERIAL.owner['_id'],
+                'tags': REFERENCE_TAGS_FILTER, 'source.info.jobId': REFERENCE_JOB_FILTER}
+              projection: "{'sort': {'precision.value': -1}, 'limit': 1}"
+          name: DATA
+  - type: assignment
+    config:
+      name: assign-reference-data
+      flowchartId: assign-reference-data
+      operand: REFERENCE_DATA
+      value: "DATA[0].data if DATA else None"
+      input:
+        - name: DATA
+          scope: io-reference-property
