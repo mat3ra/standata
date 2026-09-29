@@ -1,0 +1,14 @@
+application:
+  name: asylum-spm
+  version: '1.0'
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: ac_topography
+units:
+  - config:
+      execName: scan
+      flavorName: ac_topography
+      name: run_scan
+    type: executionBuilder

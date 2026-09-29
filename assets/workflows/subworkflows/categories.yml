@@ -6,6 +6,7 @@ categories:
     - band_gaps
     - band_structure
     - charge_density_profile
+    - correlation_length
     - defect_formation_energy
     - density_of_states
     - dielectric_tensor
@@ -14,6 +15,7 @@ categories:
     - final_structure
     - formation_energy
     - formation_energy_contributions
+    - grain_radius_median
     - homo_energy
     - hubbard_u
     - hubbard_v
@@ -22,6 +24,7 @@ categories:
     - interfacial_energy
     - iv_curve
     - lumo_energy
+    - peak_to_valley_p01_p99
     - phonon_dispersions
     - phonon_dos
     - potential_profile
@@ -31,6 +34,8 @@ categories:
     - sc_atomic_fraction
     - stress_tensor
     - surface_energy
+    - surface_roughness_mean
+    - surface_roughness_rms
     - thermal_correction_to_energy
     - thermal_correction_to_enthalpy
     - thickness
@@ -62,6 +67,14 @@ categories:
     - vasp
     - xrf-mapper
 entities:
+  - filename: asylum-spm/ac_topography.json
+    categories:
+      - asylum-spm
+      - correlation_length
+      - grain_radius_median
+      - peak_to_valley_p01_p99
+      - surface_roughness_mean
+      - surface_roughness_rms
   - filename: asylum-spm/ss_pfm.json
     categories:
       - asylum-spm

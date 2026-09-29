@@ -31,9 +31,8 @@ describe("Workflow Standata", () => {
             "experimental",
             "afm",
         ) as unknown as WorkflowSchema[];
-        expect(entities).to.have.lengthOf(1);
-        const [workflow] = entities;
-        expect(workflow.name).to.equal("SS-PFM Hysteresis Loop");
+        const workflow = entities.find((entity) => entity.name === "SS-PFM Hysteresis Loop") as WorkflowSchema;
+        expect(workflow).to.not.be.undefined;
         expect(workflow.properties).to.include("hysteresis_loop");
         expect(workflow.subworkflows[0].application.name).to.equal("asylum-spm");
         const unit = workflow.subworkflows[0].units[0] as any;

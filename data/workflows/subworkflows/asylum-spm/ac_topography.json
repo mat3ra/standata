@@ -1,0 +1,117 @@
+{
+    "_id": "7159520f-d048-526c-83e8-e847967b50fd",
+    "name": "ac_topography",
+    "application": {
+        "name": "asylum-spm"
+    },
+    "properties": [
+        "correlation_length",
+        "grain_radius_median",
+        "peak_to_valley_p01_p99",
+        "surface_roughness_mean",
+        "surface_roughness_rms"
+    ],
+    "model": {
+        "type": "unknown",
+        "subtype": "unknown",
+        "method": {
+            "type": "unknown",
+            "subtype": "unknown",
+            "data": {}
+        }
+    },
+    "units": [
+        {
+            "type": "execution",
+            "name": "run_scan",
+            "head": true,
+            "results": [
+                {
+                    "name": "surface_roughness_rms"
+                },
+                {
+                    "name": "surface_roughness_mean"
+                },
+                {
+                    "name": "peak_to_valley_p01_p99"
+                },
+                {
+                    "name": "correlation_length"
+                },
+                {
+                    "name": "grain_radius_median"
+                }
+            ],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                }
+            ],
+            "flowchartId": "4fec1df0-453c-5006-bc73-1cb1633da8dd",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "build": "afm-lib",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": false,
+                "name": "asylum-spm",
+                "shortName": "spm",
+                "summary": "Asylum Research SPM driven by afm-lib (switching-spectroscopy PFM)",
+                "version": "1.0",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "applicationName": "asylum-spm",
+                "applicationVersion": "*",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": false,
+                "name": "scan",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "applicationName": "asylum-spm",
+                "applicationVersion": "*",
+                "executableName": "scan",
+                "input": [],
+                "isDefault": true,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    }
+                ],
+                "name": "ac_topography",
+                "postProcessors": [],
+                "preProcessors": [],
+                "results": [
+                    {
+                        "name": "surface_roughness_rms"
+                    },
+                    {
+                        "name": "surface_roughness_mean"
+                    },
+                    {
+                        "name": "peak_to_valley_p01_p99"
+                    },
+                    {
+                        "name": "correlation_length"
+                    },
+                    {
+                        "name": "grain_radius_median"
+                    }
+                ],
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [],
+            "context": [],
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "isDraft": false
+}
