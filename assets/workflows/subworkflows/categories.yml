@@ -535,6 +535,9 @@ entities:
   - filename: shell/fetch_bulk_total_energy.json
     categories:
       - shell
+  - filename: shell/fetch_reference_property.json
+    categories:
+      - shell
   - filename: shell/hello_world.json
     categories:
       - shell

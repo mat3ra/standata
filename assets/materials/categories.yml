@@ -313,6 +313,13 @@ entities:
       - semiconductor
       - non-magnetic
       - oxide
+  - filename: SnO2-[Tin_Dioxide]-TET_[P4_2%2Fmnm]_3D_[Bulk]-[mp-856].json
+    categories:
+      - 3D
+      - bulk
+      - semiconductor
+      - non-magnetic
+      - oxide
   - filename: NbSe2-[Niobium_Diselenide]-HEX_[P-6m2]_2D_[Monolayer]-[2dm-3941].json
     categories:
       - 2D

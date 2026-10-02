@@ -474,6 +474,17 @@ sources:
     doi: 10.17188/1196204
     url: https://next-gen.materialsproject.org/materials/mp-2097
 
+  - filename: mp-856.poscar
+    common_name: Tin Dioxide
+    lattice_type: TET
+    space_group: P4_2/mnm
+    dimensionality: 3D
+    form_factor: Bulk
+    source_id: mp-856
+    source: MaterialsProject
+    doi: 10.17188/1272823
+    url: https://next-gen.materialsproject.org/materials/mp-856
+
   - filename: 2dm-3941.poscar
     common_name: Niobium Diselenide
     lattice_type: HEX
