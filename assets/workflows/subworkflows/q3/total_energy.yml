@@ -1,0 +1,38 @@
+application:
+  name: q3
+  version: '2026.9.15-1'
+method:
+  name: PseudopotentialMethod
+model:
+  name: DFTModel
+name: Total Energy
+units:
+  - config:
+      name: io-material
+      subtype: input
+      source: api
+      flowchartId: io-material-flowchart-id-q3-scf
+      input:
+        - type: api
+          endpoint: materials
+          endpoint_options:
+            params:
+              query: "{'_id': MATERIAL_ID}"
+              projection: "{}"
+          name: DATA
+    type: io
+  - config:
+      name: assign-material
+      operand: MATERIAL
+      value: "DATA[0]"
+      input:
+        - name: DATA
+          scope: io-material-flowchart-id-q3-scf
+    type: assignment
+  - config:
+      execName: q3_mpi
+      flavorName: q3_scf
+      name: q3_scf
+    type: executionBuilder
+tags:
+  - default
