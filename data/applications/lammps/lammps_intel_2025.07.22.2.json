@@ -5,7 +5,7 @@
     "isUsingMaterial": true,
     "version": "2025.07.22.2",
     "isDefault": false,
-    "isDefaultVersion": true,
+    "isDefaultVersion": false,
     "build": "Intel",
     "hasAdvancedComputeOptions": false,
     "buildConfig": {
@@ -13,7 +13,9 @@
         "imageName": "lammps",
         "imageTag": "2025.07.22.2-host-intel-2023.1-0",
         "bio": "LAMMPS 22Jul2025Update2 (Intel OneAPI 2023.1)",
-        "dependencies": [],
+        "dependencies": [
+            "intel/oneapi-2023.1.0"
+        ],
         "environmentVariables": {
             "SOFTWARE_COMPILERS_PATH": "/export/compute/software/compilers",
             "SOFTWARE_LIBRARIES_PATH": "/export/compute/software/libraries",
@@ -24,7 +26,7 @@
         }
     },
     "runConfig": {
-        "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\n$EXEC_CMD mpirun -machinefile {MACHINEFILE} -np {NP} {EXECUTABLE} -i {INPUTFILE} -l {OUTPUTFILE}\n",
+        "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\nmpirun -machinefile {MACHINEFILE} -np {NP} $EXEC_CMD {EXECUTABLE} -i {INPUTFILE} -l {OUTPUTFILE}\n",
         "outFileName": "log.out"
     }
 }

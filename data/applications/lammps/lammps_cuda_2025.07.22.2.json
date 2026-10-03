@@ -5,7 +5,7 @@
     "isUsingMaterial": true,
     "version": "2025.07.22.2",
     "isDefault": false,
-    "isDefaultVersion": true,
+    "isDefaultVersion": false,
     "build": "CUDA",
     "hasAdvancedComputeOptions": false,
     "buildConfig": {
@@ -13,7 +13,10 @@
         "imageName": "lammps",
         "imageTag": "2025.07.22.2-host-intel-2023.1-cuda-12.8-0",
         "bio": "LAMMPS 22Jul2025Update2 (Intel OneAPI 2023.1 + CUDA 12.8)",
-        "dependencies": [],
+        "dependencies": [
+            "intel/oneapi-2023.1.0",
+            "nvhpc/25.3-cuda-12.8"
+        ],
         "environmentVariables": {
             "SOFTWARE_LIBRARIES_PATH": "/export/compute/software/libraries",
             "APPTAINERENV_PREPEND_PATH": "$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mpi/2021.9.0/libfabric/bin:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mpi/2021.9.0/bin:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/mkl/2023.1.0/bin/intel64:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/dev-utilities/2021.9.0/bin:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/debugger/2023.1.0/gdb/intel64/bin:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/lib/oclfpga/bin:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/bin/intel64:$env(SOFTWARE_LIBRARIES_PATH)/intel-oneapi/2023.1.0/compiler/2023.1.0/linux/bin:$env(SOFTWARE_LIBRARIES_PATH)/nvhpc-25.3-cuda-12.8/Linux_x86_64/25.3/cuda/bin",
@@ -23,7 +26,7 @@
         }
     },
     "runConfig": {
-        "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\n$EXEC_CMD mpirun -machinefile {MACHINEFILE} -np {NP} {EXECUTABLE} -i {INPUTFILE} -l {OUTPUTFILE}\n",
+        "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\nmpirun -machinefile {MACHINEFILE} -np {NP} $EXEC_CMD {EXECUTABLE} -i {INPUTFILE} -l {OUTPUTFILE}\n",
         "outFileName": "log.out"
     }
 }
