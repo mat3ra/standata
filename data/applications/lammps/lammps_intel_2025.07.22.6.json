@@ -3,15 +3,15 @@
     "shortName": "lmp",
     "summary": "LAMMPS",
     "isUsingMaterial": true,
-    "version": "2025.07.22.2",
+    "version": "2025.07.22.6",
     "isDefault": false,
-    "isDefaultVersion": false,
+    "isDefaultVersion": true,
     "build": "Intel",
     "hasAdvancedComputeOptions": false,
     "buildConfig": {
-        "moduleName": "2025.07.22.2-intel-2023.1",
+        "moduleName": "2025.07.22.6-intel-2023.1",
         "imageName": "lammps",
-        "imageTag": "2025.07.22.2-host-intel-2023.1-0",
+        "imageTag": "2025.07.22.6-host-intel-2023.1-0",
         "bio": "LAMMPS 22Jul2025Update2 (Intel OneAPI 2023.1)",
         "dependencies": [
             "intel/oneapi-2023.1.0"
