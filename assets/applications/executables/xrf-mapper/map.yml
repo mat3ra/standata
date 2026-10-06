@@ -2,9 +2,8 @@ isDefault: true
 monitors:
   - name: standard_output
 results:
-  - name: thickness
-  - name: al_atomic_fraction
-  - name: sc_atomic_fraction
+  - name: film_thickness
+  - name: elemental_ratio
 flavors:
   xrf_grid:
     isDefault: true
@@ -12,8 +11,7 @@ flavors:
     monitors:
       - name: standard_output
     results:
-      - name: thickness
-      - name: al_atomic_fraction
-      - name: sc_atomic_fraction
+      - name: film_thickness
+      - name: elemental_ratio
     applicationName: xrf-mapper
     executableName: map

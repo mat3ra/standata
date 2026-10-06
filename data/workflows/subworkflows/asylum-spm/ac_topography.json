@@ -5,11 +5,9 @@
         "name": "asylum-spm"
     },
     "properties": [
-        "correlation_length",
-        "grain_radius_median",
-        "peak_to_valley_p01_p99",
-        "surface_roughness_mean",
-        "surface_roughness_rms"
+        "areal_surface_texture",
+        "grain_coverage",
+        "grain_size"
     ],
     "model": {
         "type": "unknown",
@@ -27,19 +25,13 @@
             "head": true,
             "results": [
                 {
-                    "name": "surface_roughness_rms"
+                    "name": "areal_surface_texture"
                 },
                 {
-                    "name": "surface_roughness_mean"
+                    "name": "grain_size"
                 },
                 {
-                    "name": "peak_to_valley_p01_p99"
-                },
-                {
-                    "name": "correlation_length"
-                },
-                {
-                    "name": "grain_radius_median"
+                    "name": "grain_coverage"
                 }
             ],
             "monitors": [
@@ -89,19 +81,13 @@
                 "preProcessors": [],
                 "results": [
                     {
-                        "name": "surface_roughness_rms"
+                        "name": "areal_surface_texture"
                     },
                     {
-                        "name": "surface_roughness_mean"
+                        "name": "grain_size"
                     },
                     {
-                        "name": "peak_to_valley_p01_p99"
-                    },
-                    {
-                        "name": "correlation_length"
-                    },
-                    {
-                        "name": "grain_radius_median"
+                        "name": "grain_coverage"
                     }
                 ],
                 "schemaVersion": "2022.8.16"

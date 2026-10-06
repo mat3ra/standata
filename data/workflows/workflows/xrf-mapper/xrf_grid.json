@@ -1,5 +1,5 @@
 {
-    "_id": "ceb91e51-d20c-5f0c-9c0d-1686197b8113",
+    "_id": "acf3f122-20b7-5dc4-b047-ce75f9cd0d09",
     "name": "XRF Grid Map",
     "subworkflows": [
         {
@@ -18,9 +18,8 @@
                 "schemaVersion": "2022.8.16"
             },
             "properties": [
-                "al_atomic_fraction",
-                "sc_atomic_fraction",
-                "thickness"
+                "elemental_ratio",
+                "film_thickness"
             ],
             "model": {
                 "type": "unknown",
@@ -38,13 +37,10 @@
                     "head": true,
                     "results": [
                         {
-                            "name": "thickness"
+                            "name": "film_thickness"
                         },
                         {
-                            "name": "al_atomic_fraction"
-                        },
-                        {
-                            "name": "sc_atomic_fraction"
+                            "name": "elemental_ratio"
                         }
                     ],
                     "monitors": [
@@ -94,13 +90,10 @@
                         "preProcessors": [],
                         "results": [
                             {
-                                "name": "thickness"
+                                "name": "film_thickness"
                             },
                             {
-                                "name": "al_atomic_fraction"
-                            },
-                            {
-                                "name": "sc_atomic_fraction"
+                                "name": "elemental_ratio"
                             }
                         ],
                         "schemaVersion": "2022.8.16"
@@ -133,9 +126,8 @@
         }
     ],
     "properties": [
-        "al_atomic_fraction",
-        "sc_atomic_fraction",
-        "thickness"
+        "elemental_ratio",
+        "film_thickness"
     ],
     "workflows": [],
     "schemaVersion": "2022.8.16",

@@ -1,41 +1,38 @@
 categories:
   properties:
-    - al_atomic_fraction
+    - areal_surface_texture
     - atomic_forces
     - average_potential_profile
     - band_gaps
     - band_structure
     - charge_density_profile
-    - correlation_length
     - defect_formation_energy
     - density_of_states
     - dielectric_tensor
+    - elemental_ratio
     - fermi_energy
     - file_content
+    - film_thickness
     - final_structure
     - formation_energy
     - formation_energy_contributions
-    - grain_radius_median
+    - grain_coverage
+    - grain_size
     - homo_energy
     - hysteresis_loop
     - interfacial_energy
     - iv_curve
     - lumo_energy
-    - peak_to_valley_p01_p99
     - phonon_dispersions
     - phonon_dos
     - potential_profile
     - pressure
     - reaction_energy_barrier
     - reaction_energy_profile
-    - sc_atomic_fraction
     - stress_tensor
     - surface_energy
-    - surface_roughness_mean
-    - surface_roughness_rms
     - thermal_correction_to_energy
     - thermal_correction_to_enthalpy
-    - thickness
     - total_energy
     - total_energy_contributions
     - total_force
@@ -65,13 +62,11 @@ entities:
   - filename: asylum-spm/ac_topography.json
     categories:
       - afm
+      - areal_surface_texture
       - asylum-spm
-      - correlation_length
       - experimental
-      - grain_radius_median
-      - peak_to_valley_p01_p99
-      - surface_roughness_mean
-      - surface_roughness_rms
+      - grain_coverage
+      - grain_size
   - filename: asylum-spm/ss_pfm.json
     categories:
       - afm
@@ -631,8 +626,7 @@ entities:
       - zero_point_energy
   - filename: xrf-mapper/xrf_grid.json
     categories:
-      - al_atomic_fraction
+      - elemental_ratio
       - experimental
-      - sc_atomic_fraction
-      - thickness
+      - film_thickness
       - xrf-mapper

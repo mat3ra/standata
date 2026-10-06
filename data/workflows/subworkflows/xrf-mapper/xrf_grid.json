@@ -5,9 +5,8 @@
         "name": "xrf-mapper"
     },
     "properties": [
-        "al_atomic_fraction",
-        "sc_atomic_fraction",
-        "thickness"
+        "elemental_ratio",
+        "film_thickness"
     ],
     "model": {
         "type": "unknown",
@@ -25,13 +24,10 @@
             "head": true,
             "results": [
                 {
-                    "name": "thickness"
+                    "name": "film_thickness"
                 },
                 {
-                    "name": "al_atomic_fraction"
-                },
-                {
-                    "name": "sc_atomic_fraction"
+                    "name": "elemental_ratio"
                 }
             ],
             "monitors": [
@@ -81,13 +77,10 @@
                 "preProcessors": [],
                 "results": [
                     {
-                        "name": "thickness"
+                        "name": "film_thickness"
                     },
                     {
-                        "name": "al_atomic_fraction"
-                    },
-                    {
-                        "name": "sc_atomic_fraction"
+                        "name": "elemental_ratio"
                     }
                 ],
                 "schemaVersion": "2022.8.16"

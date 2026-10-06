@@ -1,5 +1,5 @@
 {
-    "_id": "51d5a22f-3afb-5832-8a11-a8de71866292",
+    "_id": "c0a24542-5f6f-58a3-b0df-9c5d5d42e73d",
     "name": "AC Topography",
     "subworkflows": [
         {
@@ -18,11 +18,9 @@
                 "schemaVersion": "2022.8.16"
             },
             "properties": [
-                "correlation_length",
-                "grain_radius_median",
-                "peak_to_valley_p01_p99",
-                "surface_roughness_mean",
-                "surface_roughness_rms"
+                "areal_surface_texture",
+                "grain_coverage",
+                "grain_size"
             ],
             "model": {
                 "type": "unknown",
@@ -40,19 +38,13 @@
                     "head": true,
                     "results": [
                         {
-                            "name": "surface_roughness_rms"
+                            "name": "areal_surface_texture"
                         },
                         {
-                            "name": "surface_roughness_mean"
+                            "name": "grain_size"
                         },
                         {
-                            "name": "peak_to_valley_p01_p99"
-                        },
-                        {
-                            "name": "correlation_length"
-                        },
-                        {
-                            "name": "grain_radius_median"
+                            "name": "grain_coverage"
                         }
                     ],
                     "monitors": [
@@ -102,19 +94,13 @@
                         "preProcessors": [],
                         "results": [
                             {
-                                "name": "surface_roughness_rms"
+                                "name": "areal_surface_texture"
                             },
                             {
-                                "name": "surface_roughness_mean"
+                                "name": "grain_size"
                             },
                             {
-                                "name": "peak_to_valley_p01_p99"
-                            },
-                            {
-                                "name": "correlation_length"
-                            },
-                            {
-                                "name": "grain_radius_median"
+                                "name": "grain_coverage"
                             }
                         ],
                         "schemaVersion": "2022.8.16"
@@ -147,11 +133,9 @@
         }
     ],
     "properties": [
-        "correlation_length",
-        "grain_radius_median",
-        "peak_to_valley_p01_p99",
-        "surface_roughness_mean",
-        "surface_roughness_rms"
+        "areal_surface_texture",
+        "grain_coverage",
+        "grain_size"
     ],
     "workflows": [],
     "schemaVersion": "2022.8.16",

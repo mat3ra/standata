@@ -2,11 +2,9 @@ isDefault: false
 monitors:
   - name: standard_output
 results:
-  - name: surface_roughness_rms
-  - name: surface_roughness_mean
-  - name: peak_to_valley_p01_p99
-  - name: correlation_length
-  - name: grain_radius_median
+  - name: areal_surface_texture
+  - name: grain_size
+  - name: grain_coverage
 flavors:
   ac_topography:
     isDefault: true
@@ -14,10 +12,8 @@ flavors:
     monitors:
       - name: standard_output
     results:
-      - name: surface_roughness_rms
-      - name: surface_roughness_mean
-      - name: peak_to_valley_p01_p99
-      - name: correlation_length
-      - name: grain_radius_median
+      - name: areal_surface_texture
+      - name: grain_size
+      - name: grain_coverage
     applicationName: asylum-spm
     executableName: scan
