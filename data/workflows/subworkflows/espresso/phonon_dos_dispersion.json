@@ -488,7 +488,7 @@
                     "template": {
                         "applicationName": "espresso",
                         "applicationVersion": "*",
-                        "content": "&INPUT\n    asr = 'simple'\n    flfrc ='force_constants.fc'\n    flfrq ='frequencies.freq'\n    flvec ='normal_modes.out'\n    q_in_band_form = .true.\n /\n{{ipath.length}}\n{% for point in ipath -%}\n{% for d in point.coordinates %}{{d|sprintf(\"%14.9f\")}} {% endfor -%}{{point.steps}}\n{% endfor %}\n",
+                        "content": "&INPUT\n    asr = 'simple'\n    flfrc ='force_constants.fc'\n    flfrq ='frequencies.freq'\n    flvec ='normal_modes.out'\n    q_in_band_form = .true.\n    q_in_cryst_coord = .true.\n /\n{{ipath.length}}\n{% for point in ipath -%}\n{% for d in point.coordinates %}{{d|sprintf(\"%14.9f\")}} {% endfor -%}{{point.steps}}\n{% endfor %}\n",
                         "contextProviders": [
                             {
                                 "name": "IPathFormDataManager"
