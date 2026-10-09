@@ -1,0 +1,38 @@
+{
+    "slug": "pseudopotential",
+    "data": {
+        "element": "Si",
+        "hash": "8621b1e56e721feb9ba48381024e82ba",
+        "filename": "si_pbe_dojo-jth_1.1.upf",
+        "path": "/export/share/pseudo/si/gga/pbe/dojo-jth/1.1/paw/si_pbe_dojo-jth_1.1.upf",
+        "valenceConfiguration": [
+            {
+                "orbitalName": "3S",
+                "orbitalIndex": 1,
+                "principalNumber": 3,
+                "angularMomentum": 0,
+                "occupation": 2.0
+            },
+            {
+                "orbitalName": "3P",
+                "orbitalIndex": 2,
+                "principalNumber": 3,
+                "angularMomentum": 1,
+                "occupation": 2.0
+            }
+        ],
+        "apps": ["espresso"],
+        "exchangeCorrelation": {
+            "functional": "pbe",
+            "approximation": "gga"
+        },
+        "name": "pseudopotential",
+        "source": "dojo-jth",
+        "type": "paw",
+        "version": "1.1"
+    },
+    "source": {
+        "info": {},
+        "type": "exabyte"
+    }
+}

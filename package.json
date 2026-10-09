@@ -24,7 +24,7 @@
         "typescript": "^5.9.3"
     },
     "devDependencies": {
-        "@exabyte-io/eslint-config": "^2025.5.13-0",
+        "@mat3ra/eslint-config": "^2026.7.12-0",
         "@mat3ra/code": "2026.8.18-0",
         "@mat3ra/esse": "2026.8.18-2",
         "@mat3ra/fixtures": "^2026.5.5-0",
@@ -69,6 +69,7 @@
         "create:materials": "python scripts/materials/create_materials.py",
         "build:materials": "ts-node --transpile-only scripts/materials/build_materials.ts",
         "build:properties": "ts-node --transpile-only scripts/properties/build_properties.ts",
+        "build:metaproperties": "ts-node --transpile-only scripts/metaProperties/build_meta_properties.ts",
         "build:workflows": "ts-node --transpile-only scripts/workflows/build_workflows.ts",
         "build:applications": "ts-node --transpile-only scripts/applications/build_applications.ts && ts-node --transpile-only scripts/applications/build_executable_flavor_map_by_application.ts",
         "build:models": "ts-node --transpile-only scripts/models/build_models.ts",
@@ -79,7 +80,7 @@
         "build:models-related": "npm run build:model-method-map && npm run build:model-tree && npm run build:models-tree-config-by-application",
         "build:ui": "ts-node ui/scripts/build_ui_trees.ts",
         "build:symlink": "test -L src/js/runtime_data || ln -s ../../dist/js/runtime_data src/js/runtime_data",
-        "build:data": "npm run build:models-related && npm run build:models && npm run build:methods && npm run build:applications && npm run build:properties && npm run build:workflows && npm run build:materials && npm run build:ui",
+        "build:data": "npm run build:models-related && npm run build:models && npm run build:methods && npm run build:applications && npm run build:properties && npm run build:metaproperties&& npm run build:workflows && npm run build:materials && npm run build:ui",
         "build": "npm run clean && npm run build:symlink && npm run build:data && npm run transpile",
         "lint": "eslint --cache src/js tests/js && prettier --write src/js tests/js",
         "lint:fix": "eslint --fix --cache src/js tests/js && prettier --write src/js tests/js",
