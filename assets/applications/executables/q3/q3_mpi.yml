@@ -8,7 +8,9 @@ flavors:
     input:
       - name: q3_scf.yml
       - name: material.json
-    results: []
+    results:
+      - name: total_energy
+      - name: fermi_energy
     monitors:
       - name: standard_output
     applicationName: q3

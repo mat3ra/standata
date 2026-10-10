@@ -530,7 +530,9 @@ entities:
   - filename: q3/total_energy.json
     categories:
       - default
+      - fermi_energy
       - q3
+      - total_energy
   - filename: shell/batch_espresso_pwscf.json
     categories:
       - shell

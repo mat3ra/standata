@@ -4,7 +4,10 @@
     "application": {
         "name": "q3"
     },
-    "properties": [],
+    "properties": [
+        "fermi_energy",
+        "total_energy"
+    ],
     "model": {
         "type": "dft",
         "subtype": "gga",
@@ -75,7 +78,14 @@
             "type": "execution",
             "name": "q3_scf",
             "head": false,
-            "results": [],
+            "results": [
+                {
+                    "name": "total_energy"
+                },
+                {
+                    "name": "fermi_energy"
+                }
+            ],
             "monitors": [
                 {
                     "name": "standard_output"
@@ -132,7 +142,14 @@
                 "name": "q3_scf",
                 "postProcessors": [],
                 "preProcessors": [],
-                "results": [],
+                "results": [
+                    {
+                        "name": "total_energy"
+                    },
+                    {
+                        "name": "fermi_energy"
+                    }
+                ],
                 "schemaVersion": "2022.8.16"
             },
             "input": [
