@@ -1,0 +1,57 @@
+{
+  "name": "AlAs, Aluminum Arsenide, FCC (F-43m) 3D (Bulk), mp-2172",
+  "lattice": {
+    "a": 4.0526,
+    "b": 4.0526,
+    "c": 4.0526,
+    "alpha": 60.0,
+    "beta": 60.0,
+    "gamma": 60.0,
+    "units": {
+      "length": "angstrom",
+      "angle": "degree"
+    },
+    "type": "FCC"
+  },
+  "basis": {
+    "elements": [
+      {
+        "id": 0,
+        "value": "Al"
+      },
+      {
+        "id": 1,
+        "value": "As"
+      }
+    ],
+    "coordinates": [
+      {
+        "id": 0,
+        "value": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": 1,
+        "value": [
+          0.25,
+          0.25,
+          0.25
+        ]
+      }
+    ],
+    "units": "crystal",
+    "constraints": [],
+    "labels": []
+  },
+  "external": {
+    "id": "mp-2172",
+    "source": "MaterialsProject",
+    "doi": "10.17188/1189128",
+    "url": "https://next-gen.materialsproject.org/materials/mp-2172",
+    "origin": true
+  },
+  "isNonPeriodic": false
+}
