@@ -118,7 +118,7 @@ sources:
     form_factor: Bulk
     source_id: mp-2172
     source: MaterialsProject
-    doi: 10.17188/1189128
+    doi: 10.17188/1197136
     url: https://next-gen.materialsproject.org/materials/mp-2172
 
   - filename: mp-804.poscar
