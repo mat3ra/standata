@@ -32,10 +32,14 @@ categories:
     - scanning-electron-microscopy
     - thermogravimetric-analysis
   application:
+    - deepmd
     - espresso
-    - vasp
+    - lammps
+    - nwchem
     - python
+    - q3
     - shell
+    - vasp
 
 entities:
   - filename: valence_band_offset.json
