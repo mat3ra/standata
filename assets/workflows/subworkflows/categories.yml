@@ -17,6 +17,7 @@ categories:
     - hubbard_u
     - hubbard_v
     - hubbard_v_nn
+    - hysteresis_loop
     - interfacial_energy
     - lumo_energy
     - phonon_dispersions
@@ -46,6 +47,7 @@ categories:
     - wfn
     - wfn_plot
   application:
+    - asylum-spm
     - deepmd
     - espresso
     - jupyterLab
@@ -55,6 +57,10 @@ categories:
     - shell
     - vasp
 entities:
+  - filename: asylum-spm/ss_pfm.json
+    categories:
+      - asylum-spm
+      - hysteresis_loop
   - filename: deepmd/deepmd.json
     categories:
       - deepmd

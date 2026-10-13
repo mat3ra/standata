@@ -1,0 +1,11 @@
+{
+    "name": "asylum-spm",
+    "shortName": "spm",
+    "summary": "Asylum Research SPM driven by afm-lib (switching-spectroscopy PFM)",
+    "isUsingMaterial": false,
+    "version": "1.0",
+    "isDefault": true,
+    "isDefaultVersion": true,
+    "build": "afm-lib",
+    "hasAdvancedComputeOptions": false
+}

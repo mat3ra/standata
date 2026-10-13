@@ -1,3 +1,5 @@
+asylum-spm:
+  loop: !include 'executables/asylum-spm/loop.yml'
 deepmd:
   dp: !include 'executables/deepmd/dp.yml'
   lmp: !include 'executables/deepmd/lmp.yml'

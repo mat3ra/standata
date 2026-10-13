@@ -67,3 +67,7 @@ entities:
       - scripting
       - default_version
       - default
+  - filename: asylum-spm/asylum-spm_afm-lib_1.0.json
+    categories:
+      - default
+      - default_version

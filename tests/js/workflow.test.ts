@@ -25,6 +25,22 @@ describe("Workflow Standata", () => {
         });
     });
 
+    it("finds the experimental SS-PFM workflow by its tags", () => {
+        const std = new WorkflowStandata();
+        const entities = std.findEntitiesByTags(
+            "experimental",
+            "afm",
+        ) as unknown as WorkflowSchema[];
+        expect(entities).to.have.lengthOf(1);
+        const [workflow] = entities;
+        expect(workflow.name).to.equal("SS-PFM Hysteresis Loop");
+        expect(workflow.properties).to.include("hysteresis_loop");
+        expect(workflow.subworkflows[0].application.name).to.equal("asylum-spm");
+        const unit = workflow.subworkflows[0].units[0] as any;
+        expect(unit.executable.name).to.equal("loop");
+        expect(unit.flavor.name).to.equal("ss_pfm");
+    });
+
     it("can get default workflow", () => {
         const std = new WorkflowStandata();
         const defaultWorkflow = std.getDefault() as any;

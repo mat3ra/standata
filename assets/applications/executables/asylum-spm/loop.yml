@@ -1,0 +1,15 @@
+isDefault: true
+monitors:
+  - name: standard_output
+results:
+  - name: hysteresis_loop
+flavors:
+  ss_pfm:
+    isDefault: true
+    input: []
+    monitors:
+      - name: standard_output
+    results:
+      - name: hysteresis_loop
+    applicationName: asylum-spm
+    executableName: loop

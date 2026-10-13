@@ -1,0 +1,9 @@
+name: asylum-spm
+shortName: spm
+summary: Asylum Research SPM driven by afm-lib (switching-spectroscopy PFM)
+defaultVersion: '1.0'
+isUsingMaterial: false
+versions:
+  - version: '1.0'
+    isDefault: true
+    build: afm-lib
