@@ -2,6 +2,8 @@
   name: q3_scf.yml
   contextProviders:
     - name: Q3InputDataManager
+    - name: KGridFormDataManager
+    - name: PlanewaveCutoffDataManager
   applicationName: q3
   executableName: q3_mpi
 

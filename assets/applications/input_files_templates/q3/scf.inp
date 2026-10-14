@@ -10,8 +10,8 @@ method:
 {%- endfor %}
 
   cutoffs:
-    wavefunction: 30.0
-    density: 240.0
+    wavefunction: {{ cutoffs.wavefunction }}
+    density: {{ cutoffs.density }}
 
   scf:
     convergence_threshold: 1.0e-9
@@ -26,8 +26,8 @@ method:
       mode: broyden
 
     kgrid:
-      dimensions: [3, 3, 3]
-      shifts: [0, 0, 0]
+      dimensions: [{{ kgrid.dimensions | join(', ') }}]
+      shifts: [{{ kgrid.shifts | join(', ') }}]
 
 control:
   calculation: scf

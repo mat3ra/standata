@@ -34,6 +34,8 @@ describe("Q3 Template Rendering", () => {
                     { X: "O", Mass_X: 15.999, PseudoPot_X: oxygenPseudopotentialPath },
                 ],
             },
+            cutoffs: { wavefunction: 30, density: 240 },
+            kgrid: { dimensions: [3, 3, 3], shifts: [0, 0, 0] },
         });
         const input = yaml.load(renderedInput) as Q3Input;
 
