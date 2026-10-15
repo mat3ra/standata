@@ -579,6 +579,9 @@
                 {
                     "name": "assign-reference-job-filter",
                     "type": "assignment",
+                    "operand": "REFERENCE_JOB_FILTER",
+                    "value": "{'$nin': []}",
+                    "input": [],
                     "results": [],
                     "monitors": [],
                     "preProcessors": [],
@@ -587,17 +590,17 @@
                     "statusTrack": [],
                     "tags": [],
                     "flowchartId": "assign-reference-job-filter",
-                    "input": [],
                     "head": false,
                     "next": "assign-reference-group",
                     "schemaVersion": "2022.8.16",
-                    "isDefault": false,
-                    "operand": "REFERENCE_JOB_FILTER",
-                    "value": "{'$nin': []}"
+                    "isDefault": false
                 },
                 {
                     "name": "assign-reference-group",
                     "type": "assignment",
+                    "operand": "REFERENCE_GROUP",
+                    "value": "'qe:'",
+                    "input": [],
                     "results": [],
                     "monitors": [],
                     "preProcessors": [],
@@ -606,13 +609,10 @@
                     "statusTrack": [],
                     "tags": [],
                     "flowchartId": "assign-reference-group",
-                    "input": [],
                     "head": false,
                     "next": "assign-reference-tags-filter",
                     "schemaVersion": "2022.8.16",
-                    "isDefault": false,
-                    "operand": "REFERENCE_GROUP",
-                    "value": "'qe:'"
+                    "isDefault": false
                 },
                 {
                     "name": "assign-reference-tags-filter",
@@ -636,6 +636,7 @@
                 {
                     "name": "io-reference-property",
                     "type": "io",
+                    "subtype": "input",
                     "results": [],
                     "monitors": [],
                     "preProcessors": [],
@@ -644,10 +645,6 @@
                     "statusTrack": [],
                     "tags": [],
                     "flowchartId": "io-reference-property",
-                    "head": false,
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false,
-                    "subtype": "input",
                     "source": "api",
                     "input": [
                         {
@@ -662,7 +659,10 @@
                             "name": "DATA"
                         }
                     ],
-                    "next": "assign-reference-data"
+                    "head": false,
+                    "next": "assign-reference-data",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
                 },
                 {
                     "name": "assign-reference-data",
@@ -777,6 +777,9 @@
                 {
                     "name": "assign-reference-job-filter-vbm",
                     "type": "assignment",
+                    "operand": "REFERENCE_JOB_FILTER",
+                    "value": "{'$nin': []}",
+                    "input": [],
                     "results": [],
                     "monitors": [],
                     "preProcessors": [],
@@ -785,17 +788,17 @@
                     "statusTrack": [],
                     "tags": [],
                     "flowchartId": "assign-reference-job-filter-vbm",
-                    "input": [],
                     "head": false,
                     "next": "assign-reference-group-vbm",
                     "schemaVersion": "2022.8.16",
-                    "isDefault": false,
-                    "operand": "REFERENCE_JOB_FILTER",
-                    "value": "{'$nin': []}"
+                    "isDefault": false
                 },
                 {
                     "name": "assign-reference-group",
                     "type": "assignment",
+                    "operand": "REFERENCE_GROUP",
+                    "value": "'qe:'",
+                    "input": [],
                     "results": [],
                     "monitors": [],
                     "preProcessors": [],
@@ -804,13 +807,10 @@
                     "statusTrack": [],
                     "tags": [],
                     "flowchartId": "assign-reference-group-vbm",
-                    "input": [],
                     "head": false,
                     "next": "assign-reference-tags-filter-vbm",
                     "schemaVersion": "2022.8.16",
-                    "isDefault": false,
-                    "operand": "REFERENCE_GROUP",
-                    "value": "'qe:'"
+                    "isDefault": false
                 },
                 {
                     "name": "assign-reference-tags-filter",
@@ -834,6 +834,7 @@
                 {
                     "name": "io-reference-property",
                     "type": "io",
+                    "subtype": "input",
                     "results": [],
                     "monitors": [],
                     "preProcessors": [],
@@ -842,10 +843,6 @@
                     "statusTrack": [],
                     "tags": [],
                     "flowchartId": "io-reference-property-vbm",
-                    "head": false,
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false,
-                    "subtype": "input",
                     "source": "api",
                     "input": [
                         {
@@ -860,7 +857,10 @@
                             "name": "DATA"
                         }
                     ],
-                    "next": "assign-reference-data-vbm"
+                    "head": false,
+                    "next": "assign-reference-data-vbm",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
                 },
                 {
                     "name": "assign-reference-data",
@@ -1395,6 +1395,9 @@
                 {
                     "name": "assign-e-pristine",
                     "type": "assignment",
+                    "operand": "E_PRISTINE",
+                    "value": "PRISTINE_TOTAL_ENERGY.get('value') if PRISTINE_TOTAL_ENERGY else None",
+                    "input": [],
                     "results": [],
                     "monitors": [],
                     "preProcessors": [],
@@ -1406,14 +1409,13 @@
                     "head": false,
                     "next": "assert-e-pristine",
                     "schemaVersion": "2022.8.16",
-                    "isDefault": false,
-                    "operand": "E_PRISTINE",
-                    "value": "PRISTINE_TOTAL_ENERGY.get('value') if PRISTINE_TOTAL_ENERGY else None",
-                    "input": []
+                    "isDefault": false
                 },
                 {
                     "name": "assert-e-pristine",
                     "type": "assertion",
+                    "statement": "E_PRISTINE != None",
+                    "errorMessage": "Pristine total energy not found. Run a Total Energy workflow on the pristine material, tagged as this job's references are (REFERENCE_TAGS, e.g. charge:0), before running Defect Formation Energy.",
                     "results": [],
                     "monitors": [],
                     "preProcessors": [],
@@ -1425,9 +1427,7 @@
                     "head": false,
                     "next": "assign-e-vbm",
                     "schemaVersion": "2022.8.16",
-                    "isDefault": false,
-                    "statement": "E_PRISTINE != None",
-                    "errorMessage": "Pristine total energy not found. Run a Total Energy workflow on the pristine material, tagged as this job's references are (REFERENCE_TAGS, e.g. charge:0), before running Defect Formation Energy."
+                    "isDefault": false
                 },
                 {
                     "name": "assign-e-vbm",
