@@ -1,7 +1,7 @@
 name: q3
 shortName: q3
 summary: Quantum 3xplorer
-defaultVersion: '2026.9.15-1'
+defaultVersion: '2026.10.13-2'
 isUsingMaterial: true
 runConfig:
   commandTemplate: |
@@ -10,11 +10,11 @@ runConfig:
     $EXEC_CMD mpirun -np {NP} {EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}
   outFileName: 'q3.out'
 versions:
-  - version: '2026.9.15-1'
+  - version: '2026.10.13-2'
     isDefault: true
     build: GNU
     buildConfig:
-      moduleName: '2026.9.15-1-mpi'
+      moduleName: '2026.10.13-2-mpi'
       imageName: 'q3'
-      imageTag: '2026.9.15-1-mpi'
-      bio: 'Quantum 3xplorer 2026.9.15-1 (MPI)'
+      imageTag: '2026.10.13-2-mpi'
+      bio: 'Quantum 3xplorer 2026.10.13-2 (MPI)'
