@@ -2,6 +2,8 @@
 # and is thus NOT self-sufficient!
 # Furthermore, this subworkflow expects the following variable(s) to exist in the global context:
 # E_FERMI, VBM, BAND_GAP_INDIRECT, AVG_ESP_INTERFACE, AVG_ESP_SEMICONDUCTOR
+# SEMICONDUCTOR_ESP_MINIMUM_INDEX selects the same semiconductor plane in both ESP profiles:
+# -1 (outermost minimum) when the semiconductor is the film, 0 when it is the substrate.
 application:
   name: python
   version: 3.10.13

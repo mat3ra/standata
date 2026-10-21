@@ -4,7 +4,8 @@
 #   - Semiconductor - the semiconductor part of the interface
 # The Fermi level is taken from the interface calculation, where metal and semiconductor share it.
 # The semiconductor valence band maximum is aligned to the interface through the averaged
-# electrostatic potential at the same semiconductor plane in both calculations.
+# electrostatic potential at the same semiconductor plane in both calculations; the plane is selected
+# in the final subworkflow. Asymmetric slabs need a dipole correction in the pw.x input.
 #
 # Relevant references:
 #   - http://dx.doi.org/10.1103/PhysRevLett.61.734
