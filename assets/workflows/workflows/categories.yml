@@ -332,6 +332,18 @@ entities:
     categories:
       - band_structure
       - espresso
+  - filename: espresso/schottky_barrier.json
+    categories:
+      - atomic_forces
+      - average_potential_profile
+      - band_gaps
+      - espresso
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
   - filename: espresso/surface_energy.json
     categories:
       - atomic_forces

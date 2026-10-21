@@ -1,0 +1,43 @@
+# Note: this subworkflow is assumed to be used as part of the Schottky barrier height workflow
+# and is thus NOT self-sufficient!
+# Furthermore, this subworkflow expects the following variable(s) to exist in the global context:
+# E_FERMI, VBM, BAND_GAP_INDIRECT, AVG_ESP_INTERFACE, AVG_ESP_SEMICONDUCTOR
+application:
+  name: python
+  version: 3.10.13
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: Calculate Schottky Barrier
+units:
+  - config:
+      name: Set Semiconductor ESP Minimum Index
+      operand: SEMICONDUCTOR_ESP_MINIMUM_INDEX
+      value: "-1"
+    type: assignment
+  - config:
+      name: Set Semiconductor Band Gap
+      operand: BAND_GAP
+      value: "BAND_GAP_INDIRECT['value']"
+    type: assignment
+  - config:
+      name: Fermi energy relative to macroscopically averaged ESP in interface
+      operand: FERMI_ENERGY_TO_ESP
+      value: "E_FERMI - AVG_ESP_INTERFACE[SEMICONDUCTOR_ESP_MINIMUM_INDEX]"
+    type: assignment
+  - config:
+      name: Valence band maximum relative to macroscopically averaged ESP in semiconductor
+      operand: VBM_TO_ESP
+      value: "VBM - AVG_ESP_SEMICONDUCTOR[SEMICONDUCTOR_ESP_MINIMUM_INDEX]"
+    type: assignment
+  - config:
+      name: p-type Schottky Barrier Height
+      operand: SCHOTTKY_BARRIER_P
+      value: "FERMI_ENERGY_TO_ESP - VBM_TO_ESP"
+    type: assignment
+  - config:
+      name: n-type Schottky Barrier Height
+      operand: SCHOTTKY_BARRIER_N
+      value: "BAND_GAP - SCHOTTKY_BARRIER_P"
+    type: assignment
