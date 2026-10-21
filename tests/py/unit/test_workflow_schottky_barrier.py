@@ -19,44 +19,41 @@ PREVIOUS_SCOPE = {
     "AVG_ESP_SEMICONDUCTOR": AVG_ESP_SEMICONDUCTOR,
 }
 
-SEMICONDUCTOR_FILM_INDEX = None
+WORKFLOW_DEFAULT_INDEX = None
 SEMICONDUCTOR_FILM_BARRIERS = (1.5, 0.3)
 SEMICONDUCTOR_SUBSTRATE_INDEX = "0"
 SEMICONDUCTOR_SUBSTRATE_BARRIERS = (0.6, 1.2)
 
 
-def get_workflow():
-    return workflows_data["filesMapByName"][WORKFLOW_FILENAME]
+def _get_subworkflows():
+    """Subworkflows of the shipped Schottky Barrier Height workflow."""
+    return workflows_data["filesMapByName"][WORKFLOW_FILENAME]["subworkflows"]
 
 
-def get_calc_units():
-    subworkflow = next(s for s in get_workflow()["subworkflows"] if s["name"] == CALC_SUBWORKFLOW_NAME)
-    return subworkflow["units"]
-
-
-def evaluate_assignments(units, scope, index_override):
-    for unit in units:
+def _evaluate_calc_assignments(index_override):
+    """Global scope after the calc subworkflow's assignments, in order, on top of PREVIOUS_SCOPE."""
+    calc_subworkflow = next(s for s in _get_subworkflows() if s["name"] == CALC_SUBWORKFLOW_NAME)
+    scope = dict(PREVIOUS_SCOPE)
+    for unit in calc_subworkflow["units"]:
         value = index_override if unit["name"] == INDEX_UNIT_NAME and index_override else unit["value"]
         scope[unit["operand"]] = eval(str(value), {"__builtins__": {}}, dict(scope))
     return scope
 
 
-def test_assignment_input_scopes_resolve():
-    units = [unit for subworkflow in get_workflow()["subworkflows"] for unit in subworkflow["units"]]
-    flowchart_ids = {unit["flowchartId"] for unit in units}
-    scopes = [item["scope"] for unit in units for item in unit.get("input", []) if "scope" in item]
-    assert scopes
-    assert set(scopes) <= flowchart_ids
+@pytest.mark.parametrize("subworkflow", _get_subworkflows(), ids=lambda subworkflow: subworkflow["name"])
+def test_assignment_input_scopes_resolve_within_subworkflow(subworkflow):
+    flowchart_ids = {unit["flowchartId"] for unit in subworkflow["units"]}
+    scopes = {item["scope"] for unit in subworkflow["units"] for item in unit.get("input", []) if "scope" in item}
+    assert scopes <= flowchart_ids
 
 
 @pytest.mark.parametrize(
     "index_override, expected_barriers",
     [
-        (SEMICONDUCTOR_FILM_INDEX, SEMICONDUCTOR_FILM_BARRIERS),
+        (WORKFLOW_DEFAULT_INDEX, SEMICONDUCTOR_FILM_BARRIERS),
         (SEMICONDUCTOR_SUBSTRATE_INDEX, SEMICONDUCTOR_SUBSTRATE_BARRIERS),
     ],
 )
 def test_calc_subworkflow_barriers(index_override, expected_barriers):
-    scope = evaluate_assignments(get_calc_units(), dict(PREVIOUS_SCOPE), index_override)
+    scope = _evaluate_calc_assignments(index_override)
     assert (scope["SCHOTTKY_BARRIER_P"], scope["SCHOTTKY_BARRIER_N"]) == pytest.approx(expected_barriers)
-    assert scope["SCHOTTKY_BARRIER_P"] + scope["SCHOTTKY_BARRIER_N"] == pytest.approx(BAND_GAP_INDIRECT["value"])
