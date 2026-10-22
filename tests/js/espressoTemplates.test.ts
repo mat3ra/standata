@@ -34,6 +34,13 @@ describe("Espresso Template Rendering", () => {
     const env = setupNunjucksEnvironment(new Environment(new FileSystemLoader(templatePath)));
 
     getTemplateContexts().forEach((context) => {
+        it(`accepts an explicit EOS functional with ${context.name} context`, () => {
+            const output = env.getTemplate("pw_scf_volume_scaled.j2.in").render({
+                ...context.context,
+                input: { ...context.context.input, INPUT_DFT: "XC-000I-000I-101L-130L" },
+            });
+            expect(output).to.contain("input_dft = 'XC-000I-000I-101L-130L'");
+        });
         it(`scales EOS cell vectors at runtime with ${context.name} context`, () => {
             const baseline = getRenderedTemplateFile(context.name, "pw_scf").content;
             const output = env.getTemplate("pw_scf_volume_scaled.j2.in").render(context.context);
