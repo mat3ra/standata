@@ -1,6 +1,6 @@
-import pytest
 from types import SimpleNamespace
 
+import pytest
 from mat3ra.standata.data.subworkflows import subworkflows_data
 from mat3ra.standata.data.workflows import workflows_data
 from mat3ra.standata.workflows import WorkflowStandata
@@ -91,3 +91,26 @@ def test_precision_expression_reports_explicitly_set_kgrid(expression):
         "precision_value": 128,
         "precision_metric": "KPPRA",
     }
+
+
+def test_equation_of_state_volume_loop():
+    workflow = WorkflowStandata.find_by_application_and_name(APP.ESPRESSO, "Equation of State")
+    assert workflow["application"]["name"] == APP.ESPRESSO
+    subworkflow = workflow["subworkflows"][0]
+    units = {unit["flowchartId"]: unit for unit in subworkflow["units"]}
+    assert units["initial-volume-scale"]["head"]
+    assert units["initial-volume-scale"]["value"] == 0.88
+    assert units["volume-scale-increment"]["value"] == 0.03
+    assert units["number-of-volumes"]["value"] == 9
+    assert units["calculate-volume-scale"]["value"] == "INITIAL_VOLUME_SCALE + VOLUME_INDEX * VOLUME_SCALE_INCREMENT"
+    assert units["calculate-volume-scale"]["next"] == "volume-energy"
+    assert units["volume-energy"]["next"] == "increment-volume-index"
+    assert units["increment-volume-index"]["next"] == "continue-volume-sweep"
+    assert units["continue-volume-sweep"]["then"] == "calculate-volume-scale"
+    assert units["continue-volume-sweep"]["else"] == "volume-sweep-finished"
+    assert units["continue-volume-sweep"]["statement"] == "VOLUME_INDEX < NUMBER_OF_VOLUMES"
+    assert units["continue-volume-sweep"]["throwException"]
+    assert units["volume-energy"]["results"] == [{"name": "total_energy"}]
+    template = units["volume-energy"]["input"][0]["template"]
+    assert template["name"] == "pw_scf_equation_of_state.in"
+    assert template["content"].count("VOLUME_SCALE ** (1.0 / 3.0)") == 9
