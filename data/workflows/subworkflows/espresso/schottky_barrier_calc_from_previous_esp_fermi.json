@@ -135,7 +135,7 @@
             "name": "Schottky Barrier Height",
             "type": "assignment",
             "operand": "SCHOTTKY_BARRIER_HEIGHT",
-            "value": "{\"pType\": SCHOTTKY_BARRIER_P, \"nType\": SCHOTTKY_BARRIER_N, \"units\": \"eV\"}",
+            "value": "{\"pType\": {\"name\": \"p_type\", \"value\": SCHOTTKY_BARRIER_P}, \"nType\": {\"name\": \"n_type\", \"value\": SCHOTTKY_BARRIER_N}, \"units\": \"eV\"}",
             "input": [],
             "results": [
                 {

@@ -59,7 +59,7 @@ def test_calc_subworkflow_barriers(index_override, expected_barriers):
     scope = _evaluate_calc_assignments(index_override)
     assert (scope["SCHOTTKY_BARRIER_P"], scope["SCHOTTKY_BARRIER_N"]) == pytest.approx(expected_barriers)
     assert scope["SCHOTTKY_BARRIER_HEIGHT"] == {
-        "pType": pytest.approx(expected_barriers[0]),
-        "nType": pytest.approx(expected_barriers[1]),
+        "pType": {"name": "p_type", "value": pytest.approx(expected_barriers[0])},
+        "nType": {"name": "n_type", "value": pytest.approx(expected_barriers[1])},
         "units": PROPERTY_UNITS,
     }
