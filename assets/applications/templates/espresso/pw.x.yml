@@ -401,12 +401,3 @@
     - name: NonCollinearMagnetizationDataManager
   applicationName: espresso
   executableName: pw.x
-
-- content: !readFile 'input_files_templates/espresso/pw_scf_equation_of_state.j2.in'
-  name: pw_scf_equation_of_state.in
-  contextProviders:
-    - name: KGridFormDataManager
-    - name: QEPWXInputDataManager
-    - name: PlanewaveCutoffDataManager
-  applicationName: espresso
-  executableName: pw.x

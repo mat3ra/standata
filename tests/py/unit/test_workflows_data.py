@@ -112,5 +112,8 @@ def test_equation_of_state_volume_loop():
     assert units["continue-volume-sweep"]["throwException"]
     assert units["volume-energy"]["results"] == [{"name": "total_energy"}]
     template = units["volume-energy"]["input"][0]["template"]
-    assert template["name"] == "pw_scf_equation_of_state.in"
+    assert units["volume-energy"]["flavor"]["name"] == "pw_scf"
+    assert template["name"] == "pw_scf.in"
+    total_energy = WorkflowStandata.find_by_application_and_name(APP.ESPRESSO, "Total Energy")
+    assert template == total_energy["subworkflows"][0]["units"][0]["input"][0]["template"]
     assert template["content"].count("VOLUME_SCALE ** (1.0 / 3.0)") == 9

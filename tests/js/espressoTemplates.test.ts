@@ -26,10 +26,7 @@ describe("Espresso Template Rendering", () => {
     );
     const templateNames = fs
         .readdirSync(templatePath)
-        .filter(
-            (fileName) =>
-                fileName.endsWith(".j2.in") && fileName !== "pw_scf_equation_of_state.j2.in",
-        )
+        .filter((fileName) => fileName.endsWith(".j2.in"))
         .map((fileName) => fileName.replace(/\.j2\.in$/, ""))
         .sort();
     const env = setupNunjucksEnvironment(new Environment(new FileSystemLoader(templatePath)));
@@ -37,9 +34,13 @@ describe("Espresso Template Rendering", () => {
     getTemplateContexts().forEach((context) => {
         it(`scales EOS cell vectors at runtime with ${context.name} context`, () => {
             const baseline = getRenderedTemplateFile(context.name, "pw_scf").content;
-            const output = env
-                .getTemplate("pw_scf_equation_of_state.j2.in")
-                .render(context.context);
+            const output = env.getTemplate("pw_scf.j2.in").render({
+                ...context.context,
+                subworkflowContext: {
+                    ...context.context.subworkflowContext,
+                    VOLUME_SCALE: "INITIAL_VOLUME_SCALE + VOLUME_INDEX * VOLUME_SCALE_INCREMENT",
+                },
+            });
             const cellPattern = /CELL_PARAMETERS angstrom\n([\s\S]*?)K_POINTS/;
             const baselineMatch = baseline.match(cellPattern);
             const runtimeMatch = output.match(cellPattern);
