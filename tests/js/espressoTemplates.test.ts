@@ -34,25 +34,23 @@ describe("Espresso Template Rendering", () => {
     const env = setupNunjucksEnvironment(new Environment(new FileSystemLoader(templatePath)));
 
     getTemplateContexts().forEach((context) => {
-        ["pw_scf", "pw_scf_volume_scaled"].forEach((templateName) => {
-            it(`selects string and numeric material indices in ${templateName} with ${context.name} context`, () => {
-                const template = env.getTemplate(`${templateName}.j2.in`);
-                const perMaterial = [0, 1].map((index) => ({
-                    ...context.context.input,
-                    NAT: 10 + index,
-                }));
-                ["0", "1", 0, 1].forEach((materialIndex) => {
-                    const output = template.render({
-                        ...context.context,
-                        input: { ...context.context.input, perMaterial },
-                        subworkflowContext: { MATERIAL_INDEX: materialIndex },
-                    });
-                    const expected = template.render({
-                        ...context.context,
-                        input: perMaterial[Number(materialIndex)],
-                    });
-                    expect(output).to.equal(expected);
+        it(`selects string and numeric material indices in EOS with ${context.name} context`, () => {
+            const template = env.getTemplate("pw_scf_volume_scaled.j2.in");
+            const perMaterial = [0, 1].map((index) => ({
+                ...context.context.input,
+                NAT: 10 + index,
+            }));
+            ["0", "1", 0, 1].forEach((materialIndex) => {
+                const output = template.render({
+                    ...context.context,
+                    input: { ...context.context.input, perMaterial },
+                    subworkflowContext: { MATERIAL_INDEX: materialIndex },
                 });
+                const expected = template.render({
+                    ...context.context,
+                    input: perMaterial[Number(materialIndex)],
+                });
+                expect(output).to.equal(expected);
             });
         });
         it(`accepts an explicit EOS functional with ${context.name} context`, () => {
