@@ -43,3 +43,10 @@ units:
       operand: SCHOTTKY_BARRIER_N
       value: "BAND_GAP - SCHOTTKY_BARRIER_P"
     type: assignment
+  - config:
+      name: Schottky Barrier Height
+      operand: SCHOTTKY_BARRIER_HEIGHT
+      value: '{"pType": SCHOTTKY_BARRIER_P, "nType": SCHOTTKY_BARRIER_N, "units": "eV"}'
+      results:
+        - name: schottky_barrier_height
+    type: assignment

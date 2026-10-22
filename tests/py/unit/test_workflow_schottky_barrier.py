@@ -23,6 +23,7 @@ WORKFLOW_DEFAULT_INDEX = None
 SEMICONDUCTOR_FILM_BARRIERS = (1.5, 0.3)
 SEMICONDUCTOR_SUBSTRATE_INDEX = "0"
 SEMICONDUCTOR_SUBSTRATE_BARRIERS = (0.6, 1.2)
+PROPERTY_UNITS = "eV"
 
 
 def _get_subworkflows():
@@ -57,3 +58,8 @@ def test_assignment_input_scopes_resolve_within_subworkflow(subworkflow):
 def test_calc_subworkflow_barriers(index_override, expected_barriers):
     scope = _evaluate_calc_assignments(index_override)
     assert (scope["SCHOTTKY_BARRIER_P"], scope["SCHOTTKY_BARRIER_N"]) == pytest.approx(expected_barriers)
+    assert scope["SCHOTTKY_BARRIER_HEIGHT"] == {
+        "pType": pytest.approx(expected_barriers[0]),
+        "nType": pytest.approx(expected_barriers[1]),
+        "units": PROPERTY_UNITS,
+    }

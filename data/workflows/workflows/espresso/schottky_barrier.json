@@ -1315,7 +1315,9 @@
                 "version": "3.10.13",
                 "schemaVersion": "2022.8.16"
             },
-            "properties": [],
+            "properties": [
+                "schottky_barrier_height"
+            ],
             "model": {
                 "type": "unknown",
                 "subtype": "unknown",
@@ -1436,6 +1438,29 @@
                     "tags": [],
                     "flowchartId": "839c29c5-5978-5b9b-884f-f27938361b58",
                     "head": false,
+                    "next": "46c00139-bda4-5cba-b6d2-8ff945710dfe",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "Schottky Barrier Height",
+                    "type": "assignment",
+                    "operand": "SCHOTTKY_BARRIER_HEIGHT",
+                    "value": "{\"pType\": SCHOTTKY_BARRIER_P, \"nType\": SCHOTTKY_BARRIER_N, \"units\": \"eV\"}",
+                    "input": [],
+                    "results": [
+                        {
+                            "name": "schottky_barrier_height"
+                        }
+                    ],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "46c00139-bda4-5cba-b6d2-8ff945710dfe",
+                    "head": false,
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 }
@@ -1530,7 +1555,8 @@
         "total_energy",
         "total_energy_contributions",
         "total_force",
-        "band_gaps"
+        "band_gaps",
+        "schottky_barrier_height"
     ],
     "workflows": [],
     "isMultiMaterial": true,
