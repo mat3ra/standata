@@ -110,7 +110,10 @@ def test_equation_of_state_volume_loop():
     assert units["continue-volume-sweep"]["else"] == "volume-sweep-finished"
     assert units["continue-volume-sweep"]["statement"] == "VOLUME_INDEX < NUMBER_OF_VOLUMES"
     assert units["continue-volume-sweep"]["throwException"]
-    assert units["volume-energy"]["results"] == [{"name": "total_energy"}]
+    assert units["volume-energy"]["results"] == [
+        {"name": "total_energy"},
+        {"name": "material", "kwargs": {"is_initial_structure": True}},
+    ]
     template = units["volume-energy"]["input"][0]["template"]
     assert units["volume-energy"]["flavor"]["name"] == "pw_scf_volume_scaled"
     assert template["name"] == "pw_scf_volume_scaled.in"

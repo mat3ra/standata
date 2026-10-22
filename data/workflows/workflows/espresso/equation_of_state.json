@@ -1,5 +1,5 @@
 {
-    "_id": "d4dce734-0307-539e-a812-1410988565aa",
+    "_id": "fe3a0fa6-b8d8-5bca-a1a9-d1415c19ecc6",
     "name": "Equation of State",
     "subworkflows": [
         {
@@ -18,6 +18,7 @@
                 "schemaVersion": "2022.8.16"
             },
             "properties": [
+                "material",
                 "total_energy"
             ],
             "model": {
@@ -133,6 +134,12 @@
                     "results": [
                         {
                             "name": "total_energy"
+                        },
+                        {
+                            "name": "material",
+                            "kwargs": {
+                                "is_initial_structure": true
+                            }
                         }
                     ],
                     "monitors": [],
@@ -295,6 +302,7 @@
         }
     ],
     "properties": [
+        "material",
         "total_energy"
     ],
     "workflows": [],

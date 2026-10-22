@@ -395,7 +395,8 @@ The workflow uses the `pw_scf_volume_scaled` flavor. Its input template follows
 `pw_scf`, retaining runtime Jinja expressions that multiply each initial
 cell-vector component by the cube root of `VOLUME_SCALE`. Fractional atomic
 positions remain fixed. The ordinary `pw_scf` template is unchanged. The job runner executes
-one SCF per iteration; EXPRESS extracts `total_energy`. Match results by unit ID
+one SCF per iteration; EXPRESS extracts `total_energy` and the initial `material`,
+whose derived properties include the cell volume from QE output. Match results by unit ID
 and repetition index. Material, pseudopotentials, cutoffs, and k-grid are supplied
 when constructing a job. Fitting the energy-volume curve and comparison against
 reference data belong to the consumer, not this workflow definition.

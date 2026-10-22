@@ -5,6 +5,7 @@
         "name": "espresso"
     },
     "properties": [
+        "material",
         "total_energy"
     ],
     "model": {
@@ -120,6 +121,12 @@
             "results": [
                 {
                     "name": "total_energy"
+                },
+                {
+                    "name": "material",
+                    "kwargs": {
+                        "is_initial_structure": true
+                    }
                 }
             ],
             "monitors": [],

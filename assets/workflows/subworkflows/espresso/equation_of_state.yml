@@ -49,6 +49,9 @@ units:
     attributes:
       results:
         - name: total_energy
+        - name: material
+          kwargs:
+            is_initial_structure: true
       monitors: []
       preProcessors: []
       postProcessors: []
