@@ -391,12 +391,10 @@ i * VOLUME_SCALE_INCREMENT`. These are volume ratios V/V₀, not lattice-length
 ratios. Edit the three initialization assignments to change the sweep; use positive
 volume ratios and a count from 4 to 1000 for an EOS fit.
 
-The workflow reuses the `pw_scf` flavor and input template. When rendering the
-input, expose the workflow's assignment variables through `subworkflowContext`.
-If `VOLUME_SCALE` is present, the template retains runtime Jinja expressions that
-multiply each initial cell-vector component by the cube root of `VOLUME_SCALE`.
-Without that variable, ordinary SCF input is unchanged. Fractional atomic
-positions remain fixed. The job runner executes
+The workflow uses the `pw_scf_volume_scaled` flavor. Its input template follows
+`pw_scf`, retaining runtime Jinja expressions that multiply each initial
+cell-vector component by the cube root of `VOLUME_SCALE`. Fractional atomic
+positions remain fixed. The ordinary `pw_scf` template is unchanged. The job runner executes
 one SCF per iteration; EXPRESS extracts `total_energy`. Match results by unit ID
 and repetition index. Material, pseudopotentials, cutoffs, and k-grid are supplied
 when constructing a job. Fitting the energy-volume curve and comparison against

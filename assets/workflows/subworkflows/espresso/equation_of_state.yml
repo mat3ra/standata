@@ -45,7 +45,7 @@ units:
       name: Volume energy
       flowchartId: volume-energy
       execName: pw.x
-      flavorName: pw_scf
+      flavorName: pw_scf_volume_scaled
     attributes:
       results:
         - name: total_energy

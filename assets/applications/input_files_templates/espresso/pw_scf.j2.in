@@ -49,14 +49,8 @@ ATOMIC_POSITIONS crystal
 {{ position.X|sprintf("%-3s") }} {{ position.x|sprintf("%14.9f") }} {{ position.y|sprintf("%14.9f") }} {{ position.z|sprintf("%14.9f") }}{% if print_constraints %} {{ position["if_pos(1)"] }} {{ position["if_pos(2)"] }} {{ position["if_pos(3)"] }}{% endif %}
 {% endfor %}
 CELL_PARAMETERS angstrom
-{% if subworkflowContext.VOLUME_SCALE is defined -%}
-{% raw %}{{ {% endraw %}{{ input.CELL_PARAMETERS.v1[0] }}{% raw %} * VOLUME_SCALE ** (1.0 / 3.0) }}{% endraw %} {% raw %}{{ {% endraw %}{{ input.CELL_PARAMETERS.v1[1] }}{% raw %} * VOLUME_SCALE ** (1.0 / 3.0) }}{% endraw %} {% raw %}{{ {% endraw %}{{ input.CELL_PARAMETERS.v1[2] }}{% raw %} * VOLUME_SCALE ** (1.0 / 3.0) }}{% endraw %}
-{% raw %}{{ {% endraw %}{{ input.CELL_PARAMETERS.v2[0] }}{% raw %} * VOLUME_SCALE ** (1.0 / 3.0) }}{% endraw %} {% raw %}{{ {% endraw %}{{ input.CELL_PARAMETERS.v2[1] }}{% raw %} * VOLUME_SCALE ** (1.0 / 3.0) }}{% endraw %} {% raw %}{{ {% endraw %}{{ input.CELL_PARAMETERS.v2[2] }}{% raw %} * VOLUME_SCALE ** (1.0 / 3.0) }}{% endraw %}
-{% raw %}{{ {% endraw %}{{ input.CELL_PARAMETERS.v3[0] }}{% raw %} * VOLUME_SCALE ** (1.0 / 3.0) }}{% endraw %} {% raw %}{{ {% endraw %}{{ input.CELL_PARAMETERS.v3[1] }}{% raw %} * VOLUME_SCALE ** (1.0 / 3.0) }}{% endraw %} {% raw %}{{ {% endraw %}{{ input.CELL_PARAMETERS.v3[2] }}{% raw %} * VOLUME_SCALE ** (1.0 / 3.0) }}{% endraw %}
-{% else -%}
 {{ input.CELL_PARAMETERS.v1[0]|sprintf("%14.9f") }} {{ input.CELL_PARAMETERS.v1[1]|sprintf("%14.9f") }} {{ input.CELL_PARAMETERS.v1[2]|sprintf("%14.9f") }}
 {{ input.CELL_PARAMETERS.v2[0]|sprintf("%14.9f") }} {{ input.CELL_PARAMETERS.v2[1]|sprintf("%14.9f") }} {{ input.CELL_PARAMETERS.v2[2]|sprintf("%14.9f") }}
 {{ input.CELL_PARAMETERS.v3[0]|sprintf("%14.9f") }} {{ input.CELL_PARAMETERS.v3[1]|sprintf("%14.9f") }} {{ input.CELL_PARAMETERS.v3[2]|sprintf("%14.9f") }}
-{% endif -%}
 K_POINTS automatic
 {% for d in kgrid.dimensions %}{{d}} {% endfor %}{% for s in kgrid.shifts %}{{s}} {% endfor %}
