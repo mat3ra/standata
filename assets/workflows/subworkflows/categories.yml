@@ -79,6 +79,17 @@ entities:
       - total_energy
       - total_energy_contributions
       - total_force
+  - filename: espresso/average_electrostatic_potential_with_fermi.json
+    categories:
+      - atomic_forces
+      - average_potential_profile
+      - espresso
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
   - filename: espresso/average_electrostatic_potential.json
     categories:
       - atomic_forces
@@ -396,6 +407,9 @@ entities:
       - band_structure
       - espresso
   - filename: espresso/resolve_elemental_total_energies.json
+    categories:
+      - espresso
+  - filename: espresso/schottky_barrier_calc_from_previous_esp_fermi.json
     categories:
       - espresso
   - filename: espresso/surface_energy.json

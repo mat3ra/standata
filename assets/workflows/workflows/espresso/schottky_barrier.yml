@@ -1,0 +1,79 @@
+# Schottky barrier height for a metal/semiconductor interface via the potential lineup method.
+# The workflow assumes 2 structures being present:
+#   - Interface - the metal/semiconductor interface
+#   - Semiconductor - the semiconductor part of the interface
+# The Fermi level is taken from the interface calculation, where metal and semiconductor share it.
+# The semiconductor valence band maximum is aligned to the interface through the averaged
+# electrostatic potential at the same semiconductor plane in both calculations; the plane is selected
+# in the final subworkflow. Asymmetric slabs need a dipole correction in the pw.x input.
+#
+# Relevant references:
+#   - http://dx.doi.org/10.1103/PhysRevLett.61.734
+#   - http://dx.doi.org/10.1088/0953-8984/19/21/213203
+
+name: Schottky Barrier Height
+config:
+  attributes:
+    isMultiMaterial: true
+units:
+  # interface-related subworkflows
+  - name: average_electrostatic_potential_with_fermi
+    type: subworkflow
+    config:
+      attributes:
+        name: Fermi Energy + Avg ESP (Interface)
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            name: Set Material Index (Interface)
+            value: "0"
+  - name: average_electrostatic_potential_find_minima
+    type: subworkflow
+    config:
+      attributes:
+        name: Find ESP Values (Interface)
+    unitConfigs:
+      - index: 1
+        type: assignment
+        config:
+          attributes:
+            operand: AVG_ESP_INTERFACE
+
+  # semiconductor-related subworkflows
+  - name: average_electrostatic_potential_via_band_structure
+    type: subworkflow
+    config:
+      attributes:
+        name: BS + Avg ESP (Semiconductor)
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            name: Set Material Index (Semiconductor)
+            value: "1"
+  - name: average_electrostatic_potential_find_minima
+    type: subworkflow
+    config:
+      attributes:
+        name: Find ESP Values (Semiconductor)
+    unitConfigs:
+      - index: 0
+        type: executionBuilder
+        config:
+          attributes:
+            flowchartId: python-find-extrema-semiconductor
+      - index: 1
+        type: assignment
+        config:
+          attributes:
+            operand: AVG_ESP_SEMICONDUCTOR
+            input:
+              - name: STDOUT
+                scope: python-find-extrema-semiconductor
+
+  # final subworkflow to calculate Schottky barrier heights
+  - name: schottky_barrier_calc_from_previous_esp_fermi
+    type: subworkflow
