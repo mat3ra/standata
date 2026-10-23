@@ -37,18 +37,13 @@ units:
       name: p-type Schottky Barrier Height
       operand: SCHOTTKY_BARRIER_P
       value: "FERMI_ENERGY_TO_ESP - VBM_TO_ESP"
+      results:
+        - name: schottky_barrier_height_p
     type: assignment
   - config:
       name: n-type Schottky Barrier Height
       operand: SCHOTTKY_BARRIER_N
       value: "BAND_GAP - SCHOTTKY_BARRIER_P"
-    type: assignment
-  - config:
-      name: Schottky Barrier Height
-      operand: SCHOTTKY_BARRIER_HEIGHT
-      value: >-
-        {"pType": {"name": "p_type", "value": SCHOTTKY_BARRIER_P},
-        "nType": {"name": "n_type", "value": SCHOTTKY_BARRIER_N}, "units": "eV"}
       results:
-        - name: schottky_barrier_height
+        - name: schottky_barrier_height_n
     type: assignment

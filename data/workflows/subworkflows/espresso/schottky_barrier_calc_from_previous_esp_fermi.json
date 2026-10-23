@@ -5,7 +5,8 @@
         "name": "espresso"
     },
     "properties": [
-        "schottky_barrier_height"
+        "schottky_barrier_height_n",
+        "schottky_barrier_height_p"
     ],
     "model": {
         "type": "unknown",
@@ -99,7 +100,11 @@
             "operand": "SCHOTTKY_BARRIER_P",
             "value": "FERMI_ENERGY_TO_ESP - VBM_TO_ESP",
             "input": [],
-            "results": [],
+            "results": [
+                {
+                    "name": "schottky_barrier_height_p"
+                }
+            ],
             "monitors": [],
             "preProcessors": [],
             "postProcessors": [],
@@ -118,28 +123,9 @@
             "operand": "SCHOTTKY_BARRIER_N",
             "value": "BAND_GAP - SCHOTTKY_BARRIER_P",
             "input": [],
-            "results": [],
-            "monitors": [],
-            "preProcessors": [],
-            "postProcessors": [],
-            "status": "idle",
-            "statusTrack": [],
-            "tags": [],
-            "flowchartId": "839c29c5-5978-5b9b-884f-f27938361b58",
-            "head": false,
-            "next": "46c00139-bda4-5cba-b6d2-8ff945710dfe",
-            "schemaVersion": "2022.8.16",
-            "isDefault": false
-        },
-        {
-            "name": "Schottky Barrier Height",
-            "type": "assignment",
-            "operand": "SCHOTTKY_BARRIER_HEIGHT",
-            "value": "{\"pType\": {\"name\": \"p_type\", \"value\": SCHOTTKY_BARRIER_P}, \"nType\": {\"name\": \"n_type\", \"value\": SCHOTTKY_BARRIER_N}, \"units\": \"eV\"}",
-            "input": [],
             "results": [
                 {
-                    "name": "schottky_barrier_height"
+                    "name": "schottky_barrier_height_n"
                 }
             ],
             "monitors": [],
@@ -148,7 +134,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "46c00139-bda4-5cba-b6d2-8ff945710dfe",
+            "flowchartId": "839c29c5-5978-5b9b-884f-f27938361b58",
             "head": false,
             "schemaVersion": "2022.8.16",
             "isDefault": false

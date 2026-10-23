@@ -22,7 +22,8 @@ categories:
     - pressure
     - reaction_energy_barrier
     - reaction_energy_profile
-    - schottky_barrier_height
+    - schottky_barrier_height_n
+    - schottky_barrier_height_p
     - stress_tensor
     - surface_energy
     - thermal_correction_to_energy
@@ -341,7 +342,8 @@ entities:
       - espresso
       - fermi_energy
       - pressure
-      - schottky_barrier_height
+      - schottky_barrier_height_n
+      - schottky_barrier_height_p
       - stress_tensor
       - total_energy
       - total_energy_contributions
