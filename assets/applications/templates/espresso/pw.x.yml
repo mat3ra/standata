@@ -401,3 +401,12 @@
     - name: NonCollinearMagnetizationDataManager
   applicationName: espresso
   executableName: pw.x
+
+- content: !readFile 'input_files_templates/espresso/pw_scf_volume_scaled.j2.in'
+  name: pw_scf_volume_scaled.in
+  contextProviders:
+    - name: KGridFormDataManager
+    - name: QEPWXInputDataManager
+    - name: PlanewaveCutoffDataManager
+  applicationName: espresso
+  executableName: pw.x

@@ -1,0 +1,78 @@
+# Fixed-count volume sweep, using the same control units as kpoint_convergence.
+# The QE template scales cell vectors by VOLUME_SCALE ** (1/3),
+# keeping fractional atomic coordinates fixed. VOLUME_SCALE is V/V0.
+name: Equation of State
+application:
+  name: espresso
+  version: "6.3"
+method:
+  name: PseudopotentialMethod
+model:
+  name: DFTModel
+units:
+  - type: assignment
+    config:
+      name: Initial volume scale
+      flowchartId: initial-volume-scale
+      operand: INITIAL_VOLUME_SCALE
+      value: 0.88
+  - type: assignment
+    config:
+      name: Volume scale increment
+      flowchartId: volume-scale-increment
+      operand: VOLUME_SCALE_INCREMENT
+      value: 0.03
+  - type: assignment
+    config:
+      name: Number of volumes
+      flowchartId: number-of-volumes
+      operand: NUMBER_OF_VOLUMES
+      value: 9
+  - type: assignment
+    config:
+      name: Initialize volume index
+      flowchartId: initialize-volume-index
+      operand: VOLUME_INDEX
+      value: 0
+  - type: assignment
+    config:
+      name: Calculate volume scale
+      flowchartId: calculate-volume-scale
+      operand: VOLUME_SCALE
+      value: INITIAL_VOLUME_SCALE + VOLUME_INDEX * VOLUME_SCALE_INCREMENT
+  - type: executionBuilder
+    config:
+      name: Volume energy
+      flowchartId: volume-energy
+      execName: pw.x
+      flavorName: pw_scf_volume_scaled
+    attributes:
+      results:
+        - name: total_energy
+        - name: material
+          kwargs:
+            is_initial_structure: true
+      monitors: []
+      preProcessors: []
+      postProcessors: []
+  - type: assignment
+    config:
+      name: Increment volume index
+      flowchartId: increment-volume-index
+      operand: VOLUME_INDEX
+      value: VOLUME_INDEX + 1
+  - type: condition
+    config:
+      name: Continue volume sweep
+      flowchartId: continue-volume-sweep
+      statement: VOLUME_INDEX < NUMBER_OF_VOLUMES
+      then: calculate-volume-scale
+      else: volume-sweep-finished
+      maxOccurrences: 1000
+      throwException: true
+  - type: assignment
+    config:
+      name: Volume sweep finished
+      flowchartId: volume-sweep-finished
+      operand: VOLUME_INDEX
+      value: VOLUME_INDEX
