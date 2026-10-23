@@ -19,6 +19,7 @@ categories:
     - hubbard_v_nn
     - interfacial_energy
     - lumo_energy
+    - material
     - phonon_dispersions
     - phonon_dos
     - potential_profile
@@ -219,6 +220,11 @@ entities:
       - total_energy
       - total_energy_contributions
       - total_force
+  - filename: espresso/equation_of_state.json
+    categories:
+      - espresso
+      - material
+      - total_energy
   - filename: espresso/esm_relax.json
     categories:
       - atomic_forces

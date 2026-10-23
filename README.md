@@ -380,3 +380,25 @@ See existing files in `ui/assets/` for examples. TypeScript types are in `ui/typ
 
 We want to keep the runtime_data files minified with no formatting for the sake of download size.
 During build process, we run transpilation of TypeScript to JavaScript using `tsc` to make all runtime_data files available for src/js/ files. Later we build runtime_data files using `npm run build:runtime-data` command. They are copied to `dist/js/runtime_data` folder directly to preserve minified content. Do not run `tsc` transpilation on its own for commiting, only if needed for local development.
+
+### Quantum ESPRESSO equation of state
+
+The **Equation of State** workflow uses assignment and condition units, following
+`kpoint_convergence`, to implement a fixed-count for loop. Its subworkflow assigns
+`INITIAL_VOLUME_SCALE` (0.88), `VOLUME_SCALE_INCREMENT` (0.03), and
+`NUMBER_OF_VOLUMES` (9). At index `i`, `VOLUME_SCALE = INITIAL_VOLUME_SCALE +
+i * VOLUME_SCALE_INCREMENT`. These are volume ratios V/V₀, not lattice-length
+ratios. Edit the three initialization assignments to change the sweep; use positive
+volume ratios and a count from 4 to 1000 for an EOS fit.
+
+The workflow uses the `pw_scf_volume_scaled` flavor. Its input template follows
+`pw_scf`, retaining runtime Jinja expressions that multiply each initial
+cell-vector component by the cube root of `VOLUME_SCALE`. Fractional atomic
+positions remain fixed. The ordinary `pw_scf` template is unchanged. The job runner executes
+one SCF per iteration; EXPRESS extracts `total_energy` and the initial `material`,
+whose derived properties include the cell volume from QE output. Match results by unit ID
+and repetition index. Material, pseudopotentials, cutoffs, and k-grid are supplied
+when constructing a job. Fitting the energy-volume curve and comparison against
+reference data belong to the consumer, not this workflow definition.
+
+The nine-point defaults are sampling parameters, not a convergence guarantee.
