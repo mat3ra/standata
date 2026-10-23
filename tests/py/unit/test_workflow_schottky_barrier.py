@@ -23,6 +23,10 @@ WORKFLOW_DEFAULT_INDEX = None
 SEMICONDUCTOR_FILM_BARRIERS = (1.5, 0.3)
 SEMICONDUCTOR_SUBSTRATE_INDEX = "0"
 SEMICONDUCTOR_SUBSTRATE_BARRIERS = (0.6, 1.2)
+PUBLISHED_RESULTS_BY_OPERAND = {
+    "SCHOTTKY_BARRIER_P": ["schottky_barrier_height_p"],
+    "SCHOTTKY_BARRIER_N": ["schottky_barrier_height_n"],
+}
 
 
 def _get_subworkflows():
@@ -57,3 +61,10 @@ def test_assignment_input_scopes_resolve_within_subworkflow(subworkflow):
 def test_calc_subworkflow_barriers(index_override, expected_barriers):
     scope = _evaluate_calc_assignments(index_override)
     assert (scope["SCHOTTKY_BARRIER_P"], scope["SCHOTTKY_BARRIER_N"]) == pytest.approx(expected_barriers)
+
+
+@pytest.mark.parametrize("operand, expected_results", PUBLISHED_RESULTS_BY_OPERAND.items())
+def test_calc_subworkflow_publishes_barrier_properties(operand, expected_results):
+    calc_subworkflow = next(s for s in _get_subworkflows() if s["name"] == CALC_SUBWORKFLOW_NAME)
+    unit = next(u for u in calc_subworkflow["units"] if u.get("operand") == operand)
+    assert [result["name"] for result in unit["results"]] == expected_results

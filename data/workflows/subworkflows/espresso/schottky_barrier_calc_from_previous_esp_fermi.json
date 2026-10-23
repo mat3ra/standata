@@ -4,7 +4,10 @@
     "application": {
         "name": "espresso"
     },
-    "properties": [],
+    "properties": [
+        "schottky_barrier_height_n",
+        "schottky_barrier_height_p"
+    ],
     "model": {
         "type": "unknown",
         "subtype": "unknown",
@@ -97,7 +100,11 @@
             "operand": "SCHOTTKY_BARRIER_P",
             "value": "FERMI_ENERGY_TO_ESP - VBM_TO_ESP",
             "input": [],
-            "results": [],
+            "results": [
+                {
+                    "name": "schottky_barrier_height_p"
+                }
+            ],
             "monitors": [],
             "preProcessors": [],
             "postProcessors": [],
@@ -116,7 +123,11 @@
             "operand": "SCHOTTKY_BARRIER_N",
             "value": "BAND_GAP - SCHOTTKY_BARRIER_P",
             "input": [],
-            "results": [],
+            "results": [
+                {
+                    "name": "schottky_barrier_height_n"
+                }
+            ],
             "monitors": [],
             "preProcessors": [],
             "postProcessors": [],
