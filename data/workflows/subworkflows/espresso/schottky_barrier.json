@@ -60,8 +60,13 @@
             "name": "Fermi energy relative to macroscopically averaged ESP in interface",
             "type": "assignment",
             "operand": "FERMI_ENERGY_TO_ESP",
-            "value": "E_FERMI - AVG_ESP_INTERFACE[SEMICONDUCTOR_ESP_MINIMUM_INDEX]",
-            "input": [],
+            "value": "fermi_energy - AVG_ESP_INTERFACE[SEMICONDUCTOR_ESP_MINIMUM_INDEX]",
+            "input": [
+                {
+                    "name": "fermi_energy",
+                    "scope": "pw-scf-interface"
+                }
+            ],
             "results": [],
             "monitors": [],
             "preProcessors": [],

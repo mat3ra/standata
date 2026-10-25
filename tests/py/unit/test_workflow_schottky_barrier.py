@@ -12,7 +12,7 @@ BAND_GAP_INDIRECT = {"type": "indirect", "value": 1.8, "eigenvalueValence": VALE
 AVG_ESP_INTERFACE = [-7.6, -9.0, -8.0]
 AVG_ESP_SEMICONDUCTOR = [-7.5, -7.0]
 PREVIOUS_SCOPE = {
-    "E_FERMI": FERMI_ENERGY,
+    "fermi_energy": FERMI_ENERGY,
     "VBM": VALENCE_BAND_MAXIMUM,
     "BAND_GAP_INDIRECT": BAND_GAP_INDIRECT,
     "AVG_ESP_INTERFACE": AVG_ESP_INTERFACE,
@@ -45,8 +45,10 @@ def _evaluate_calc_assignments(index_override):
 
 
 @pytest.mark.parametrize("subworkflow", _get_subworkflows(), ids=lambda subworkflow: subworkflow["name"])
-def test_assignment_input_scopes_resolve_within_subworkflow(subworkflow):
-    flowchart_ids = {unit["flowchartId"] for unit in subworkflow["units"]}
+def test_assignment_input_scopes_resolve_within_subworkflow_or_earlier(subworkflow):
+    subworkflows = _get_subworkflows()
+    subworkflows_so_far = subworkflows[: subworkflows.index(subworkflow) + 1]
+    flowchart_ids = {unit["flowchartId"] for earlier in subworkflows_so_far for unit in earlier["units"]}
     scopes = {item["scope"] for unit in subworkflow["units"] for item in unit.get("input", []) if "scope" in item}
     assert scopes <= flowchart_ids
 

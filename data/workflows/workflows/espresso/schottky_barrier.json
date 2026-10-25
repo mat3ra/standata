@@ -1,10 +1,10 @@
 {
-    "_id": "a854f00d-bfbe-5e4b-b279-d3087dc71ba3",
+    "_id": "48c72fc7-dfa5-5cbd-b755-9644db9b10d5",
     "name": "Schottky Barrier Height",
     "subworkflows": [
         {
-            "_id": "cf1da111-144a-5f0a-8031-31f3148b837e",
-            "name": "Fermi Energy + Avg ESP (Interface)",
+            "_id": "86c3fd14-fa43-530a-bc81-bb5c8e3eecc5",
+            "name": "Avg ESP (Interface)",
             "application": {
                 "build": "GNU",
                 "hasAdvancedComputeOptions": true,
@@ -39,28 +39,9 @@
             },
             "units": [
                 {
-                    "name": "Set Material Index (Interface)",
-                    "type": "assignment",
-                    "operand": "MATERIAL_INDEX",
-                    "value": "0",
-                    "input": [],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "0f21d8c4-ab32-53ba-b40d-fc9b6608e1b9",
-                    "head": true,
-                    "next": "pw-scf-fermi-energy",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
                     "type": "execution",
                     "name": "pw_scf",
-                    "head": false,
+                    "head": true,
                     "results": [
                         {
                             "name": "atomic_forces"
@@ -92,7 +73,7 @@
                             "name": "convergence_electronic"
                         }
                     ],
-                    "flowchartId": "pw-scf-fermi-energy",
+                    "flowchartId": "pw-scf-interface",
                     "preProcessors": [],
                     "postProcessors": [],
                     "status": "idle",
@@ -190,30 +171,6 @@
                         }
                     ],
                     "context": [],
-                    "next": "013b90e5-ec45-51cb-89b0-765718b8f4ab",
-                    "schemaVersion": "2022.8.16",
-                    "isDefault": false
-                },
-                {
-                    "name": "Set Fermi Energy",
-                    "type": "assignment",
-                    "operand": "E_FERMI",
-                    "value": "fermi_energy",
-                    "input": [
-                        {
-                            "name": "fermi_energy",
-                            "scope": "pw-scf-fermi-energy"
-                        }
-                    ],
-                    "results": [],
-                    "monitors": [],
-                    "preProcessors": [],
-                    "postProcessors": [],
-                    "status": "idle",
-                    "statusTrack": [],
-                    "tags": [],
-                    "flowchartId": "013b90e5-ec45-51cb-89b0-765718b8f4ab",
-                    "head": false,
                     "next": "9ed927b1-3d84-5730-a6a8-1b1cfba39bde",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -291,7 +248,7 @@
                         }
                     ],
                     "context": [],
-                    "next": "average-electrostatic-potential-fermi",
+                    "next": "average-electrostatic-potential-interface",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
@@ -309,7 +266,7 @@
                             "name": "standard_output"
                         }
                     ],
-                    "flowchartId": "average-electrostatic-potential-fermi",
+                    "flowchartId": "average-electrostatic-potential-interface",
                     "preProcessors": [],
                     "postProcessors": [],
                     "status": "idle",
@@ -388,7 +345,7 @@
                     "input": [
                         {
                             "name": "average_potential_profile",
-                            "scope": "average-electrostatic-potential-fermi"
+                            "scope": "average-electrostatic-potential-interface"
                         }
                     ],
                     "results": [],
@@ -1371,8 +1328,13 @@
                     "name": "Fermi energy relative to macroscopically averaged ESP in interface",
                     "type": "assignment",
                     "operand": "FERMI_ENERGY_TO_ESP",
-                    "value": "E_FERMI - AVG_ESP_INTERFACE[SEMICONDUCTOR_ESP_MINIMUM_INDEX]",
-                    "input": [],
+                    "value": "fermi_energy - AVG_ESP_INTERFACE[SEMICONDUCTOR_ESP_MINIMUM_INDEX]",
+                    "input": [
+                        {
+                            "name": "fermi_energy",
+                            "scope": "pw-scf-interface"
+                        }
+                    ],
                     "results": [],
                     "monitors": [],
                     "preProcessors": [],
@@ -1458,7 +1420,7 @@
     "units": [
         {
             "type": "subworkflow",
-            "name": "Fermi Energy + Avg ESP (Interface)",
+            "name": "Avg ESP (Interface)",
             "results": [],
             "monitors": [],
             "preProcessors": [],
@@ -1466,8 +1428,8 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "_id": "cf1da111-144a-5f0a-8031-31f3148b837e",
-            "flowchartId": "9387c947-102a-5bee-b424-6a221d75cfbe",
+            "_id": "86c3fd14-fa43-530a-bc81-bb5c8e3eecc5",
+            "flowchartId": "cb092b8e-6847-584f-8791-fe3eb97a8134",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },

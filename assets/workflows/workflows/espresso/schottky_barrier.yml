@@ -17,18 +17,29 @@ config:
     isMultiMaterial: true
 units:
   # interface-related subworkflows
-  - name: average_electrostatic_potential_with_fermi
+  - name: average_electrostatic_potential
     type: subworkflow
     config:
       attributes:
-        name: Fermi Energy + Avg ESP (Interface)
+        name: Avg ESP (Interface)
     unitConfigs:
       - index: 0
+        type: executionBuilder
+        config:
+          attributes:
+            flowchartId: pw-scf-interface
+      - index: 2
+        type: executionBuilder
+        config:
+          attributes:
+            flowchartId: average-electrostatic-potential-interface
+      - index: 3
         type: assignment
         config:
           attributes:
-            name: Set Material Index (Interface)
-            value: "0"
+            input:
+              - name: average_potential_profile
+                scope: average-electrostatic-potential-interface
   - name: average_electrostatic_potential_find_minima
     type: subworkflow
     config:
@@ -75,5 +86,5 @@ units:
                 scope: python-find-extrema-semiconductor
 
   # final subworkflow to calculate Schottky barrier heights
-  - name: schottky_barrier_calc_from_previous_esp_fermi
+  - name: schottky_barrier
     type: subworkflow
