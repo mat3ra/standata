@@ -26,6 +26,8 @@ categories:
     - pressure
     - reaction_energy_barrier
     - reaction_energy_profile
+    - schottky_barrier_height_n
+    - schottky_barrier_height_p
     - stress_tensor
     - surface_energy
     - thermal_correction_to_energy
@@ -398,6 +400,11 @@ entities:
   - filename: espresso/resolve_elemental_total_energies.json
     categories:
       - espresso
+  - filename: espresso/schottky_barrier.json
+    categories:
+      - espresso
+      - schottky_barrier_height_n
+      - schottky_barrier_height_p
   - filename: espresso/surface_energy.json
     categories:
       - atomic_forces
