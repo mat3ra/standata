@@ -16,8 +16,6 @@ units:
             executableName: python
             contextProviders: []
             content: !readFile 'assets/applications/input_files_templates/python/valence_band_offset_polar.pyi'
-          rendered: ""
-          isManuallyChanged: false
         - template:
             name: requirements.txt
             applicationName: python
@@ -26,8 +24,6 @@ units:
             contextProviders: []
             # yamllint disable-line rule:line-length
             content: !readFile 'assets/applications/input_files_templates/python/requirements_valence_band_offset_polar.j2.txt'
-          rendered: ""
-          isManuallyChanged: false
       results:
         - name: file_content
           basename: "polar_vbo_fit_interface.png"
