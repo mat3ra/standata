@@ -1,3 +1,7 @@
+# Note: this subworkflow is assumed to be used as part of the polar valence band offset workflow
+# and is thus NOT self-sufficient!
+# Furthermore, its script reads pw_scf.out, pw_scf.out-1, pw_scf.out-2 and the average_potential_profile of
+# average-electrostatic-potential, average-electrostatic-potential-left, average-electrostatic-potential-right.
 application:
   name: python
   version: 3.10.13

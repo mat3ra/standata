@@ -4,7 +4,7 @@
 #   - Interface Left
 #   - Interface Right
 # and repeats bandstructure + electrostatic potential calculation (subworkflow) for them.
-# Then, fits the potential in each slab and calculates the band offset from the fits.
+# Then, fits the potential in each slab and takes VBO = (dV_interface) - (dV_bulk) of the fitted values.
 #
 # Relevant references:
 #   - Choudhary & Garrity, arXiv:2401.02021 (InterMat)
