@@ -7,10 +7,35 @@ model:
   name: UnknownModel
 name: Python VBO Polar PostProcess
 units:
-  - config:
+  - attributes:
+      input:
+        - template:
+            name: script.py
+            applicationName: python
+            applicationVersion: "*"
+            executableName: python
+            contextProviders: []
+            content: !readFile 'assets/applications/input_files_templates/python/valence_band_offset_polar.pyi'
+          rendered: ""
+          isManuallyChanged: false
+        - template:
+            name: requirements.txt
+            applicationName: python
+            applicationVersion: "*"
+            executableName: python
+            contextProviders: []
+            # yamllint disable-line rule:line-length
+            content: !readFile 'assets/applications/input_files_templates/python/requirements_valence_band_offset_polar.j2.txt'
+          rendered: ""
+          isManuallyChanged: false
+      results:
+        - name: file_content
+          basename: "polar_vbo_fit_interface.png"
+          filetype: "image"
+    config:
       name: Get VBO for Polar material
       execName: python
-      flavorName: valence_band_offset_polar
+      flavorName: hello_world
       flowchartId: python-polar-vbo
     type: executionBuilder
   - config:

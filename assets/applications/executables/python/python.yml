@@ -49,21 +49,6 @@ flavors:
     applicationName: python
     executableName: python
 
-  valence_band_offset_polar:
-    input:
-      - name: script.py
-        templateName: valence_band_offset_polar.py
-      - name: requirements.txt
-        templateName: requirements_valence_band_offset_polar.txt
-    results:
-      - name: file_content
-        filetype: image
-        basename: "polar_vbo_fit_interface.png"
-    monitors:
-      - name: standard_output
-    applicationName: python
-    executableName: python
-
   "generic:post_processing:plot:matplotlib":
     input:
       - name: plot.py
