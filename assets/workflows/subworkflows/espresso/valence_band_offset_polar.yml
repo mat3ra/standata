@@ -1,0 +1,25 @@
+application:
+  name: python
+  version: 3.10.13
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: Python VBO Polar PostProcess
+units:
+  - config:
+      name: Get VBO for Polar material
+      execName: python
+      flavorName: valence_band_offset_polar
+      flowchartId: python-polar-vbo
+    type: executionBuilder
+  - config:
+      name: Valence Band Offset
+      operand: VALENCE_BAND_OFFSET
+      value: 'json.loads(STDOUT.splitlines()[-1])["valence_band_offset"]'
+      input:
+        - name: STDOUT
+          scope: python-polar-vbo
+      results:
+        - name: valence_band_offset
+    type: assignment

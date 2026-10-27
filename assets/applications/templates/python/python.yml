@@ -40,6 +40,18 @@
   applicationName: python
   executableName: python
 
+- content: !readFile 'input_files_templates/python/valence_band_offset_polar.pyi'
+  name: valence_band_offset_polar.py
+  contextProviders: []
+  applicationName: python
+  executableName: python
+
+- content: !readFile 'input_files_templates/python/requirements_valence_band_offset_polar.j2.txt'
+  name: requirements_valence_band_offset_polar.txt
+  contextProviders: []
+  applicationName: python
+  executableName: python
+
 - content: !readFile 'input_files_templates/python/espresso_extract_kpoints.pyi'
   name: espresso_extract_kpoints.py
   contextProviders: []
