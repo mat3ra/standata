@@ -1,0 +1,50 @@
+# Note: this subworkflow is assumed to be used as part of the polar valence band offset workflow
+# and is thus NOT self-sufficient!
+# Furthermore, its script reads pw_scf.out, pw_scf.out-1, pw_scf.out-2 and the average_potential_profile of
+# average-electrostatic-potential, average-electrostatic-potential-left, average-electrostatic-potential-right.
+application:
+  name: python
+  version: 3.10.13
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: Python VBO Polar PostProcess
+units:
+  - attributes:
+      input:
+        - template:
+            name: script.py
+            applicationName: python
+            applicationVersion: "*"
+            executableName: python
+            contextProviders: []
+            content: !readFile 'assets/applications/input_files_templates/python/valence_band_offset_polar.pyi'
+        - template:
+            name: requirements.txt
+            applicationName: python
+            applicationVersion: "*"
+            executableName: python
+            contextProviders: []
+            # yamllint disable-line rule:line-length
+            content: !readFile 'assets/applications/input_files_templates/python/requirements_valence_band_offset_polar.j2.txt'
+      results:
+        - name: file_content
+          basename: "polar_vbo_fit_interface.png"
+          filetype: "image"
+    config:
+      name: Get VBO for Polar material
+      execName: python
+      flavorName: hello_world
+      flowchartId: python-polar-vbo
+    type: executionBuilder
+  - config:
+      name: Valence Band Offset
+      operand: VALENCE_BAND_OFFSET
+      value: 'json.loads(STDOUT.splitlines()[-1])["valence_band_offset"]'
+      input:
+        - name: STDOUT
+          scope: python-polar-vbo
+      results:
+        - name: valence_band_offset
+    type: assignment

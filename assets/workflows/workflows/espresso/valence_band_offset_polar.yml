@@ -1,0 +1,119 @@
+# Valence band offset for a polar interface via a linear fit of the electrostatic potential in each slab.
+# The workflow assumes 3 structures being present:
+#   - Interface
+#   - Interface Left
+#   - Interface Right
+# and repeats bandstructure + electrostatic potential calculation (subworkflow) for them.
+# Then, fits the potential in each slab and takes VBO = (dV_interface) - (dV_bulk) of the fitted values.
+#
+# Relevant references:
+#   - Choudhary & Garrity, arXiv:2401.02021 (InterMat)
+
+name: Valence Band Offset for Polar Material
+config:
+  attributes:
+    isMultiMaterial: true
+units:
+  # interface-related subworkflows
+  - name: average_electrostatic_potential_via_band_structure
+    type: subworkflow
+    config:
+      attributes:
+        name: BS + Avg ESP (Interface)
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            name: Set Material Index (Interface)
+            value: "0"
+
+  # interface-left-related subworkflows
+  - name: average_electrostatic_potential_via_band_structure
+    type: subworkflow
+    config:
+      attributes:
+        name: BS + Avg ESP (interface left)
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            name: Set Material Index (Interface left)
+            value: "1"
+      - index: 2
+        type: executionBuilder
+        config:
+          attributes:
+            flowchartId: pw-bands-calculate-band-gap-left
+      - index: 3
+        type: assignment
+        config:
+          attributes:
+            input:
+              - name: band_gaps
+                scope: pw-bands-calculate-band-gap-left
+      - index: 4
+        type: assignment
+        config:
+          attributes:
+            operand: VBM_LEFT
+      - index: 7
+        type: executionBuilder
+        config:
+          attributes:
+            flowchartId: average-electrostatic-potential-left
+      - index: 8
+        type: assignment
+        config:
+          attributes:
+            input:
+              - name: average_potential_profile
+                scope: average-electrostatic-potential-left
+
+  # interface-right-related subworkflows
+  - name: average_electrostatic_potential_via_band_structure
+    type: subworkflow
+    config:
+      attributes:
+        name: BS + Avg ESP (interface right)
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            name: Set Material Index (Interface right)
+            value: "2"
+      - index: 2
+        type: executionBuilder
+        config:
+          attributes:
+            flowchartId: pw-bands-calculate-band-gap-right
+      - index: 3
+        type: assignment
+        config:
+          attributes:
+            input:
+              - name: band_gaps
+                scope: pw-bands-calculate-band-gap-right
+      - index: 4
+        type: assignment
+        config:
+          attributes:
+            operand: VBM_RIGHT
+      - index: 7
+        type: executionBuilder
+        config:
+          attributes:
+            flowchartId: average-electrostatic-potential-right
+      - index: 8
+        type: assignment
+        config:
+          attributes:
+            input:
+              - name: average_potential_profile
+                scope: average-electrostatic-potential-right
+
+  # final subworkflow to calculate valence band offset from a linear fit of the potential in each slab
+  - name: valence_band_offset_polar
+    type: subworkflow

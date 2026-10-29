@@ -376,6 +376,20 @@ entities:
       - total_energy
       - total_energy_contributions
       - total_force
+  - filename: espresso/valence_band_offset_polar.json
+    categories:
+      - atomic_forces
+      - average_potential_profile
+      - band_gaps
+      - espresso
+      - fermi_energy
+      - file_content
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+      - valence_band_offset
   - filename: espresso/valence_band_offset.json
     categories:
       - atomic_forces

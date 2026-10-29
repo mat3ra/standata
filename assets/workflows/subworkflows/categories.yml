@@ -431,6 +431,12 @@ entities:
     categories:
       - espresso
       - valence_band_offset
+  - filename: espresso/valence_band_offset_polar.json
+    categories:
+      - espresso
+      - file_content
+      - python
+      - valence_band_offset
   - filename: espresso/variable_cell_relaxation.json
     categories:
       - atomic_forces
