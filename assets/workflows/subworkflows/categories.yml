@@ -19,12 +19,15 @@ categories:
     - hubbard_v_nn
     - interfacial_energy
     - lumo_energy
+    - material
     - phonon_dispersions
     - phonon_dos
     - potential_profile
     - pressure
     - reaction_energy_barrier
     - reaction_energy_profile
+    - schottky_barrier_height_n
+    - schottky_barrier_height_p
     - stress_tensor
     - surface_energy
     - thermal_correction_to_energy
@@ -206,6 +209,11 @@ entities:
       - total_energy
       - total_energy_contributions
       - total_force
+  - filename: espresso/equation_of_state.json
+    categories:
+      - espresso
+      - material
+      - total_energy
   - filename: espresso/esm_relax.json
     categories:
       - atomic_forces
@@ -392,6 +400,11 @@ entities:
   - filename: espresso/resolve_elemental_total_energies.json
     categories:
       - espresso
+  - filename: espresso/schottky_barrier.json
+    categories:
+      - espresso
+      - schottky_barrier_height_n
+      - schottky_barrier_height_p
   - filename: espresso/surface_energy.json
     categories:
       - atomic_forces
@@ -533,6 +546,9 @@ entities:
     categories:
       - shell
   - filename: shell/fetch_bulk_total_energy.json
+    categories:
+      - shell
+  - filename: shell/fetch_reference_property.json
     categories:
       - shell
   - filename: shell/hello_world.json

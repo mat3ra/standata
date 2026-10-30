@@ -1,14 +1,15 @@
-# Computes the neutral defect formation energy (eV) from the defective-cell
-# total energy already in context, the pristine total energy, and the resolved
-# elemental total-energy contributions:
-#   E_defect = TE_FOR_MATERIAL − E_PRISTINE − Σ_i ΔN_i · μ_i
+# Computes the defect formation energy (eV) of charge state CHARGE, with the
+# Fermi level at the pristine valence band maximum, from the defective-cell
+# total energy already in context, the pristine total energy, the resolved
+# elemental total-energy contributions and, for CHARGE ≠ 0, the pristine VBM:
+#   E_defect = TE_FOR_MATERIAL − E_PRISTINE − Σ_i ΔN_i · μ_i + CHARGE · E_VBM
 #
 # Runs after espresso/total_energy (SCF on the defective cell, scope 'pw-scf'),
-# shell/fetch_bulk_total_energy (PRISTINE, E_PRISTINE) and
-# espresso/resolve_elemental_total_energies (TE_CONTRIBUTIONS_BY_SYMBOL).
+# shell/fetch_reference_property twice (PRISTINE_TOTAL_ENERGY, PRISTINE_BAND_GAPS)
+# and espresso/resolve_elemental_total_energies (TE_CONTRIBUTIONS_BY_SYMBOL).
 #
 # In:  total_energy (scope 'pw-scf')   defective-cell TE (eV) from pw.x
-#      MATERIAL (defective), PRISTINE, E_PRISTINE
+#      MATERIAL (defective), PRISTINE, PRISTINE_TOTAL_ENERGY, PRISTINE_BAND_GAPS
 #      ELEMENTS, TE_CONTRIBUTIONS_BY_SYMBOL
 # Out: TE_FOR_MATERIAL                  defective-cell TE (eV) in global scope
 #      defect_formation_energy (property)
@@ -21,6 +22,57 @@ model:
   name: DFTModel
 name: Calculate Defect Formation Energy
 units:
+  - type: assignment
+    config:
+      name: assign-charge
+      description: |
+        Net charge q of the defective supercell in units of e; must equal
+        tot_charge of its pw_scf.
+      flowchartId: assign-charge
+      operand: CHARGE
+      value: "0"
+
+  - type: assignment
+    config:
+      name: assign-e-pristine
+      description: |
+        Pristine total energy (eV), from the reference computed under REFERENCE_TAGS.
+      flowchartId: assign-e-pristine
+      operand: E_PRISTINE
+      value: "PRISTINE_TOTAL_ENERGY.get('value') if PRISTINE_TOTAL_ENERGY else None"
+
+  - type: assertion
+    config:
+      name: assert-e-pristine
+      flowchartId: assert-e-pristine
+      statement: "E_PRISTINE != None"
+      errorMessage: >-
+        Pristine total energy not found. Run a Total Energy workflow on the pristine
+        material, tagged as this job's references are (REFERENCE_TAGS, e.g. charge:0),
+        before running Defect Formation Energy.
+
+  - type: assignment
+    config:
+      name: assign-e-vbm
+      description: |
+        Valence band maximum (eV): the valence-band eigenvalue of the indirect gap in the
+        pristine band_gaps reference. None without such a reference or eigenvalue.
+      flowchartId: assign-e-vbm
+      operand: E_VBM
+      value: >-
+        ([gap.get('eigenvalueValence') for gap in PRISTINE_BAND_GAPS.get('values', [])
+        if gap.get('type') == 'indirect'] + [None])[0] if PRISTINE_BAND_GAPS else None
+
+  - type: assertion
+    config:
+      name: assert-vbm-for-charge
+      flowchartId: assert-vbm-for-charge
+      statement: "CHARGE == 0 or E_VBM != None"
+      errorMessage: >-
+        Valence band maximum not found for the pristine material. Run a Band Gap
+        workflow on it, matching this job's reference job filter or tags, before
+        computing a charged defect.
+
   - type: assignment
     config:
       name: assign-te-for-material
@@ -68,10 +120,10 @@ units:
     config:
       name: assign-defect-formation-energy
       description: |
-        Neutral defect formation energy (eV):
-        TE_FOR_MATERIAL − E_PRISTINE − Σ_i ΔN_i · μ_i.
+        Defect formation energy (eV) at the pristine valence band maximum:
+        TE_FOR_MATERIAL − E_PRISTINE − Σ_i ΔN_i · μ_i + CHARGE · E_VBM.
       flowchartId: assign-defect-formation-energy
       operand: DEFECT_FORMATION_ENERGY
-      value: "TE_FOR_MATERIAL - E_PRISTINE - SUM_DELTA_N_TIMES_MU"
+      value: "TE_FOR_MATERIAL - E_PRISTINE - SUM_DELTA_N_TIMES_MU + (CHARGE * E_VBM if CHARGE else 0)"
       results:
         - name: defect_formation_energy

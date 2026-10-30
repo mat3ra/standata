@@ -10,7 +10,17 @@ versions:
     buildConfig:
       moduleName: '3.1.2-cpu'
       imageName: 'deepmd'
-      imageTag: '3.1.2-cpu-0'
+      imageTag: '3.1.2-cpu-1'
       bio: 'DeepMD 3.1.2 (CPU build)'
+      dependencies: []
+      environmentVariables: {}
+  - version: '3.1.2'
+    isDefault: false
+    build: GPU
+    buildConfig:
+      moduleName: '3.1.2-gpu'
+      imageName: 'deepmd'
+      imageTag: '3.1.2-gpu-1'
+      bio: 'DeepMD 3.1.2 (GPU build)'
       dependencies: []
       environmentVariables: {}

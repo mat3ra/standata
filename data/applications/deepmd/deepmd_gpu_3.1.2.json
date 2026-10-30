@@ -1,0 +1,19 @@
+{
+    "name": "deepmd",
+    "shortName": "dp",
+    "summary": "DeepMD",
+    "isUsingMaterial": true,
+    "version": "3.1.2",
+    "isDefault": false,
+    "isDefaultVersion": true,
+    "build": "GPU",
+    "hasAdvancedComputeOptions": false,
+    "buildConfig": {
+        "moduleName": "3.1.2-gpu",
+        "imageName": "deepmd",
+        "imageTag": "3.1.2-gpu-1",
+        "bio": "DeepMD 3.1.2 (GPU build)",
+        "dependencies": [],
+        "environmentVariables": {}
+    }
+}
