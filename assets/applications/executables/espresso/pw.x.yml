@@ -24,6 +24,14 @@ results:
   - name: total_energy_contributions
   - name: total_force
 flavors:
+  pw_scf_volume_scaled:
+    input:
+      - name: pw_scf_volume_scaled.in
+    results:
+      - name: total_energy
+    applicationName: espresso
+    executableName: pw.x
+
   pw_scf:
     isDefault: true
     input:

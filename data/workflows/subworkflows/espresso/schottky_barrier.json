@@ -1,0 +1,150 @@
+{
+    "_id": "78bf0c04-cacb-56ca-8816-9a1168014e70",
+    "name": "Calculate Schottky Barrier",
+    "application": {
+        "name": "espresso"
+    },
+    "properties": [
+        "schottky_barrier_height_n",
+        "schottky_barrier_height_p"
+    ],
+    "model": {
+        "type": "unknown",
+        "subtype": "unknown",
+        "method": {
+            "type": "unknown",
+            "subtype": "unknown",
+            "data": {}
+        }
+    },
+    "units": [
+        {
+            "name": "Set Semiconductor ESP Minimum Index",
+            "type": "assignment",
+            "operand": "SEMICONDUCTOR_ESP_MINIMUM_INDEX",
+            "value": "-1",
+            "input": [],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "70478a31-c470-55e7-b181-83e25466b8b6",
+            "head": true,
+            "next": "7c975d2f-90c1-572d-a823-7fcf55ce5eaf",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "Set Semiconductor Band Gap",
+            "type": "assignment",
+            "operand": "BAND_GAP",
+            "value": "BAND_GAP_INDIRECT['value']",
+            "input": [],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "7c975d2f-90c1-572d-a823-7fcf55ce5eaf",
+            "head": false,
+            "next": "ad6b5e8e-e515-5b16-a904-5ca20b126de9",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "Fermi energy relative to macroscopically averaged ESP in interface",
+            "type": "assignment",
+            "operand": "FERMI_ENERGY_TO_ESP",
+            "value": "fermi_energy - AVG_ESP_INTERFACE[SEMICONDUCTOR_ESP_MINIMUM_INDEX]",
+            "input": [
+                {
+                    "name": "fermi_energy",
+                    "scope": "pw-scf-interface"
+                }
+            ],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "ad6b5e8e-e515-5b16-a904-5ca20b126de9",
+            "head": false,
+            "next": "1554c2ba-5f27-5e56-9e45-103eca16fa9c",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "Valence band maximum relative to macroscopically averaged ESP in semiconductor",
+            "type": "assignment",
+            "operand": "VBM_TO_ESP",
+            "value": "VBM - AVG_ESP_SEMICONDUCTOR[SEMICONDUCTOR_ESP_MINIMUM_INDEX]",
+            "input": [],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "1554c2ba-5f27-5e56-9e45-103eca16fa9c",
+            "head": false,
+            "next": "7c8767b7-1ed3-5dae-9237-a633aaeaa5c2",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "p-type Schottky Barrier Height",
+            "type": "assignment",
+            "operand": "SCHOTTKY_BARRIER_P",
+            "value": "FERMI_ENERGY_TO_ESP - VBM_TO_ESP",
+            "input": [],
+            "results": [
+                {
+                    "name": "schottky_barrier_height_p"
+                }
+            ],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "7c8767b7-1ed3-5dae-9237-a633aaeaa5c2",
+            "head": false,
+            "next": "839c29c5-5978-5b9b-884f-f27938361b58",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "n-type Schottky Barrier Height",
+            "type": "assignment",
+            "operand": "SCHOTTKY_BARRIER_N",
+            "value": "BAND_GAP - SCHOTTKY_BARRIER_P",
+            "input": [],
+            "results": [
+                {
+                    "name": "schottky_barrier_height_n"
+                }
+            ],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "839c29c5-5978-5b9b-884f-f27938361b58",
+            "head": false,
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "isDraft": false
+}
