@@ -18,7 +18,7 @@
                 },
                 "shortName": "q3",
                 "summary": "Quantum 3xplorer",
-                "version": "2026.10.13-2",
+                "version": "2026.10.31-0",
                 "schemaVersion": "2022.8.16"
             },
             "properties": [
@@ -127,7 +127,7 @@
                         },
                         "shortName": "q3",
                         "summary": "Quantum 3xplorer",
-                        "version": "2026.10.13-2",
+                        "version": "2026.10.31-0",
                         "schemaVersion": "2022.8.16"
                     },
                     "executable": {

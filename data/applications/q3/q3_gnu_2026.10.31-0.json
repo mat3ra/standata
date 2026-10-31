@@ -3,16 +3,16 @@
     "shortName": "q3",
     "summary": "Quantum 3xplorer",
     "isUsingMaterial": true,
-    "version": "2026.10.13-2",
+    "version": "2026.10.31-0",
     "isDefault": true,
     "isDefaultVersion": true,
     "build": "GNU",
     "hasAdvancedComputeOptions": false,
     "buildConfig": {
-        "moduleName": "2026.10.13-2-mpi",
+        "moduleName": "2026.10.31-0-mpi",
         "imageName": "q3",
-        "imageTag": "2026.10.13-2-mpi",
-        "bio": "Quantum 3xplorer 2026.10.13-2 (MPI)"
+        "imageTag": "2026.10.31-0-mpi",
+        "bio": "Quantum 3xplorer 2026.10.31-0 (MPI)"
     },
     "runConfig": {
         "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\n$EXEC_CMD mpirun -np {NP} {EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}\n",

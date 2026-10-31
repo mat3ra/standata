@@ -67,7 +67,7 @@ entities:
       - scripting
       - default_version
       - default
-  - filename: q3/q3_gnu_2026.10.13-2-mpi.json
+  - filename: q3/q3_gnu_2026.10.31-0-mpi.json
     categories:
       - quantum-mechanical
       - modeling
