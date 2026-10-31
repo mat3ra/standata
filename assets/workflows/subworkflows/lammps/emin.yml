@@ -1,6 +1,6 @@
 application:
   name: lammps
-  version: 2025.07.22.2
+  version: 2025.07.22.6
 method:
   name: UnknownMethod
 model:

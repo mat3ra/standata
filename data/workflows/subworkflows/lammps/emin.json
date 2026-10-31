@@ -39,12 +39,12 @@
                 "isUsingMaterial": true,
                 "name": "lammps",
                 "runConfig": {
-                    "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\n$EXEC_CMD mpirun -machinefile {MACHINEFILE} -np {NP} {EXECUTABLE} -i {INPUTFILE} -l {OUTPUTFILE}\n",
+                    "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\nmpirun -machinefile {MACHINEFILE} -np {NP} $EXEC_CMD {EXECUTABLE} -i {INPUTFILE} -l {OUTPUTFILE}\n",
                     "outFileName": "log.out"
                 },
                 "shortName": "lmp",
                 "summary": "LAMMPS",
-                "version": "2025.07.22.2",
+                "version": "2025.07.22.6",
                 "schemaVersion": "2022.8.16"
             },
             "executable": {

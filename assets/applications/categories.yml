@@ -32,7 +32,7 @@ entities:
       - default_version
       - modeling
       - statistical
-  - filename: lammps/lammps_gnu_2025.07.22.2.json
+  - filename: lammps/lammps_gnu_2025.07.22.6.json
     categories:
       - default
       - default_build
