@@ -18,6 +18,7 @@
     "NWChemInputDataManager": "input",
     "NonCollinearMagnetizationDataManager": "nonCollinearMagnetization",
     "PlanewaveCutoffDataManager": "cutoffs",
+    "Q3InputDataManager": "input",
     "QENEBInputDataManager": "input",
     "QEPWXInputDataManager": "input",
     "QGridFormDataManager": "qgrid",
