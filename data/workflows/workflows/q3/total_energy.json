@@ -135,13 +135,13 @@
                         "applicationVersion": "*",
                         "hasAdvancedComputeOptions": false,
                         "isDefault": true,
-                        "name": "q3_mpi",
+                        "name": "q3",
                         "schemaVersion": "2022.8.16"
                     },
                     "flavor": {
                         "applicationName": "q3",
                         "applicationVersion": "*",
-                        "executableName": "q3_mpi",
+                        "executableName": "q3",
                         "input": [
                             {
                                 "name": "q3_scf.yml"
@@ -186,7 +186,7 @@
                                         "name": "PlanewaveCutoffDataManager"
                                     }
                                 ],
-                                "executableName": "q3_mpi",
+                                "executableName": "q3",
                                 "name": "q3_scf.yml",
                                 "schemaVersion": "2022.8.16"
                             },
@@ -199,7 +199,7 @@
                                 "applicationVersion": "*",
                                 "content": "{% raw %}{{ MATERIAL | default({}) | tojson }}{% endraw %}\n",
                                 "contextProviders": [],
-                                "executableName": "q3_mpi",
+                                "executableName": "q3",
                                 "name": "material.json",
                                 "schemaVersion": "2022.8.16"
                             },

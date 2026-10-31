@@ -5,10 +5,10 @@
     - name: KGridFormDataManager
     - name: PlanewaveCutoffDataManager
   applicationName: q3
-  executableName: q3_mpi
+  executableName: q3
 
 - content: !readFile "input_files_templates/q3/material.inp"
   name: material.json
   contextProviders: []
   applicationName: q3
-  executableName: q3_mpi
+  executableName: q3
