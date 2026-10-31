@@ -1,0 +1,105 @@
+{
+  "name": "SiO2, Beta Cristobalite, FCC (Fd-3m) 3D (Bulk), mp-8352",
+  "lattice": {
+    "a": 5.231694,
+    "b": 5.231694,
+    "c": 5.231694,
+    "alpha": 60.0,
+    "beta": 60.0,
+    "gamma": 60.0,
+    "units": {
+      "length": "angstrom",
+      "angle": "degree"
+    },
+    "type": "FCC"
+  },
+  "basis": {
+    "elements": [
+      {
+        "id": 0,
+        "value": "Si"
+      },
+      {
+        "id": 1,
+        "value": "Si"
+      },
+      {
+        "id": 2,
+        "value": "O"
+      },
+      {
+        "id": 3,
+        "value": "O"
+      },
+      {
+        "id": 4,
+        "value": "O"
+      },
+      {
+        "id": 5,
+        "value": "O"
+      }
+    ],
+    "coordinates": [
+      {
+        "id": 0,
+        "value": [
+          0.75,
+          0.75,
+          0.75
+        ]
+      },
+      {
+        "id": 1,
+        "value": [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": 2,
+        "value": [
+          0.625,
+          0.625,
+          0.125
+        ]
+      },
+      {
+        "id": 3,
+        "value": [
+          0.625,
+          0.125,
+          0.625
+        ]
+      },
+      {
+        "id": 4,
+        "value": [
+          0.625,
+          0.625,
+          0.625
+        ]
+      },
+      {
+        "id": 5,
+        "value": [
+          0.125,
+          0.625,
+          0.625
+        ]
+      }
+    ],
+    "units": "crystal",
+    "constraints": [],
+    "labels": []
+  },
+  "external": {
+    "id": "mp-8352",
+    "source": "MaterialsProject",
+    "doi": "10.17188/1281939",
+    "url": "https://next-gen.materialsproject.org/materials/mp-8352",
+    "origin": true
+  },
+  "isNonPeriodic": false
+}
