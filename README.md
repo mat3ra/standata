@@ -1,6 +1,6 @@
 # Standata
 
-Standard data (stan-data) for digital materials R&D entities in the [ESSE](https://github.com/Exabyte-io/esse) data format.
+Standard data (stan-data) for digital materials R&D entities in the [ESSE](https://github.com/mat3ra/esse) data format.
 
 ## 1. Installation
 
@@ -148,7 +148,7 @@ npm run build:categories -- materials/categories.yml
 
 ## 5. Development
 
-See [ESSE](https://github.com/Exabyte-io/esse) for the notes about development and testing.
+See [ESSE](https://github.com/mat3ra/esse) for the notes about development and testing.
 
 To develop, first, create a virtual environment and install the dev dependencies:
 
@@ -339,7 +339,7 @@ The following custom YAML types are available for entity definitions:
 
 For complete examples, see the asset files in the `assets/` directory.
 
-For definitions of custom directives go to [code.js](https://github.com/Exabyte-io/code.js).
+For definitions of custom directives go to [code.js](https://github.com/mat3ra/code.js).
 
 #### 5.3.7. Building All Entities
 
