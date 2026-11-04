@@ -12,11 +12,14 @@ SCRIPT = next(item["template"]["content"] for item in SCRIPT_UNIT["input"] if it
 RESULT_UNIT = next(unit for unit in UNITS if unit["name"] == "Valence Band Offset")
 SCRIPT_NAMESPACE = {"__name__": "script"}
 exec(SCRIPT, SCRIPT_NAMESPACE)
-get_block_centers, get_structure = SCRIPT_NAMESPACE["get_block_centers"], SCRIPT_NAMESPACE["get_structure"]
+get_block_centers, get_plane_period = SCRIPT_NAMESPACE["get_block_centers"], SCRIPT_NAMESPACE["get_plane_period"]
+get_structure, get_rendered_pw_input = SCRIPT_NAMESPACE["get_structure"], SCRIPT_NAMESPACE["get_rendered_pw_input"]
 get_valence_band_offset = SCRIPT_NAMESPACE["get_valence_band_offset"]
 FIXTURES_DIRECTORY = Path(__file__).parent.parent / "fixtures"
 # job y9NnPhvRqdWN4hX8N: cubic SiO2/HfO2 (001) superlattice, profiles downsampled above the FFT grid
 VALENCE_BAND_OFFSET_BY_CHECKPOINT = {"valence_band_offset_bulk_checkpoint.json": -0.3602}
+# job cTZuQ9ek4x66jAHus: monoclinic SiO2/HfO2 superlattice and its HfO2 bulk, c tilted from the a, b normal
+PLANE_PERIOD_BY_PW_INPUTS = {"valence_band_offset_bulk_monoclinic_hafnia_pw_inputs.json": 2.6251}
 ERROR_BY_BULK_ELEMENTS = {(("Si", "O"), ("O", "Si")): "be located", (("Si", "O", "Hf"), ("Hf", "O")): "material order"}
 
 
@@ -55,12 +58,34 @@ def test_get_block_centers_raises(bulk_elements, message):
         get_block_centers(np.array(["Si", "O"]), np.array([0.1, 0.6]), *bulk_elements)
 
 
+def _get_checkpoint_structures(checkpoint_name):
+    """Interface, left and right structures from the rendered pw_scf inputs in the checkpoint."""
+    workflow = json.loads((FIXTURES_DIRECTORY / checkpoint_name).read_text())["scope"]["global"]["WORKFLOW"]
+    flowchart_ids = SCRIPT_NAMESPACE["AVERAGE_FLOWCHART_IDS"]
+    return [get_structure(get_rendered_pw_input(workflow, flowchart_id)) for flowchart_id in flowchart_ids]
+
+
 # Interface Left with the a, b of Beta Cristobalite as stored (fcc primitive cell), not those of the superlattice
 @pytest.mark.parametrize("checkpoint_name", VALENCE_BAND_OFFSET_BY_CHECKPOINT)
 def test_get_valence_band_offset_with_bulk_off_the_interface_plane(checkpoint_name):
-    workflow = json.loads((FIXTURES_DIRECTORY / checkpoint_name).read_text())["scope"]["global"]["WORKFLOW"]
-    rendered_pw_inputs = [subworkflow["units"][0]["input"][0]["rendered"] for subworkflow in workflow["subworkflows"]]
-    interface, left, right = [get_structure(rendered_pw_input) for rendered_pw_input in rendered_pw_inputs]
+    interface, left, right = _get_checkpoint_structures(checkpoint_name)
     in_plane_cell = np.loadtxt(Path(__file__).parents[3] / "assets/materials/mp-8352.poscar", skiprows=2, max_rows=2)
+    left.in_plane_metric = in_plane_cell @ in_plane_cell.T
     with pytest.raises(ValueError, match="Interface's a, b"):
-        get_valence_band_offset([], [interface, (*left[:3], in_plane_cell @ in_plane_cell.T), right], [])
+        get_valence_band_offset([], [interface, left, right], [])
+
+
+# The SiO2 bulk picked as the Interface: its cell is thinner than the windows of the superlattice and HfO2
+@pytest.mark.parametrize("checkpoint_name", VALENCE_BAND_OFFSET_BY_CHECKPOINT)
+def test_get_valence_band_offset_with_materials_in_the_wrong_order(checkpoint_name):
+    interface, left, right = _get_checkpoint_structures(checkpoint_name)
+    with pytest.raises(ValueError, match="thicker"):
+        get_valence_band_offset([], [left, interface, right], [])
+
+
+@pytest.mark.parametrize("pw_inputs_name, expected", PLANE_PERIOD_BY_PW_INPUTS.items())
+def test_get_plane_period_with_tilted_c(pw_inputs_name, expected):
+    pw_inputs = json.loads((FIXTURES_DIRECTORY / pw_inputs_name).read_text())
+    interface, bulk = [get_structure(pw_input) for pw_input in pw_inputs]
+    assert bulk.in_plane_metric == pytest.approx(interface.in_plane_metric)
+    assert get_plane_period(bulk) == pytest.approx(expected, abs=1e-4)
