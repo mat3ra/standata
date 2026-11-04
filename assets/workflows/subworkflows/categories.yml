@@ -427,6 +427,11 @@ entities:
       - total_energy
       - total_energy_contributions
       - total_force
+  - filename: espresso/valence_band_offset_bulk.json
+    categories:
+      - espresso
+      - python
+      - valence_band_offset
   - filename: espresso/valence_band_offset_calc_from_previous_esp_vbm.json
     categories:
       - espresso

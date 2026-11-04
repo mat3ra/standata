@@ -1,0 +1,109 @@
+# Valence band offset of a periodic superlattice from its two bulks (bulk method):
+#   VBO = (E_VBM - V)_left - (E_VBM - V)_right + (V_left - V_right)_interface
+# V of a bulk: the mean of its planar-averaged electrostatic potential. V in the interface: the planar average smoothed
+# by a double convolution with the bulks' plane periods (Junquera et al., J. Phys.: Condens. Matter 19, 213203 (2007)),
+# at the centre of each block, found from the elements of one bulk only; a block without them fills the rest.
+import json
+
+import numpy as np
+
+CHECKPOINT_FILE = "./.mat3ra/checkpoint"
+AVERAGE_FLOWCHART_IDS = [
+    "average-electrostatic-potential",
+    "average-electrostatic-potential-left",
+    "average-electrostatic-potential-right",
+]
+VALENCE_BAND_MAXIMUM_OPERANDS = ["VBM_LEFT", "VBM_RIGHT"]
+PLANE_POSITION_TOLERANCE = 1e-3  # crystal coordinate along the normal
+
+
+def get_rendered_pw_input(workflow, average_flowchart_id):
+    """Rendered pw_scf input of the subworkflow that holds the given averaging unit."""
+    subworkflow = next(
+        subworkflow
+        for subworkflow in workflow["subworkflows"]
+        if any(unit["flowchartId"] == average_flowchart_id for unit in subworkflow["units"])
+    )
+    return next(unit["input"][0]["rendered"] for unit in subworkflow["units"] if unit["name"] == "pw_scf")
+
+
+def get_structure(rendered_pw_input):
+    """Elements, crystal coordinates along the normal and the cell height normal to the first two vectors."""
+    positions = rendered_pw_input.split("ATOMIC_POSITIONS crystal\n")[1].split("\n\n")[0].splitlines()
+    cell_rows = rendered_pw_input.split("CELL_PARAMETERS angstrom\n")[1].splitlines()[:3]
+    cell = np.array([row.split() for row in cell_rows], dtype=float)
+    elements = np.array([position.split()[0] for position in positions])
+    heights = np.array([position.split()[3] for position in positions], dtype=float) % 1
+    return elements, heights, abs(np.linalg.det(cell)) / np.linalg.norm(np.cross(cell[0], cell[1]))
+
+
+def is_plane_shift(elements, heights, shift):
+    """Whether moving every atom by `shift` along the normal lands it on an atom of the same element."""
+    distances = np.abs((heights[:, None] + shift - heights[None, :] + 0.5) % 1 - 0.5)
+    distances[elements[:, None] != elements[None, :]] = 1
+    return bool(np.all(distances.min(axis=1) < PLANE_POSITION_TOLERANCE))
+
+
+def get_plane_period(elements, heights, cell_height):
+    plane_counts = [count for count in range(1, len(heights) + 1) if is_plane_shift(elements, heights, 1 / count)]
+    return cell_height / max(plane_counts)
+
+
+def get_largest_gap_center(heights):
+    """Centre of the widest interval free of the given crystal coordinates on the periodic cell."""
+    sorted_heights = np.sort(heights)
+    gaps = np.diff(sorted_heights, append=sorted_heights[0] + 1)
+    return (sorted_heights[np.argmax(gaps)] + gaps.max() / 2) % 1
+
+
+def get_block_center(heights, is_own_marker, is_other_marker):
+    """Centre of a block: the middle of its marker atoms, or of the gap between the other block's."""
+    if is_own_marker.any():
+        return (get_largest_gap_center(heights[is_own_marker]) + 0.5) % 1
+    return get_largest_gap_center(heights[is_other_marker])
+
+
+def get_block_centers(elements, heights, left_elements, right_elements):
+    """Crystal coordinates of the centres of the left and right blocks of the interface."""
+    is_left_marker = np.isin(elements, list(set(left_elements) - set(right_elements)))
+    is_right_marker = np.isin(elements, list(set(right_elements) - set(left_elements)))
+    if not is_left_marker.any() and not is_right_marker.any():
+        raise ValueError("No element of the interface occurs in only one bulk: the blocks cannot be located.")
+    return [
+        get_block_center(heights, is_left_marker, is_right_marker),
+        get_block_center(heights, is_right_marker, is_left_marker),
+    ]
+
+
+def get_macroscopic_average(planar_average, profile_length, window_lengths):
+    """Planar average convolved on the periodic cell with a box window of each length."""
+    coefficients = np.fft.rfft(planar_average)
+    for window_length in window_lengths:
+        coefficients *= np.sinc(np.arange(len(coefficients)) * window_length / profile_length)
+    return np.fft.irfft(coefficients, len(planar_average))
+
+
+def get_valence_band_offset(profiles, structures, valence_band_maxima):
+    """Profiles and structures in the order interface, left, right; valence band maxima left, right."""
+    (elements, heights, _), *bulk_structures = structures
+    positions = np.array(profiles[0]["xDataArray"])
+    profile_length = len(positions) * positions[1]
+    plane_periods = [get_plane_period(*structure) for structure in bulk_structures]
+    macroscopic_average = get_macroscopic_average(profiles[0]["yDataSeries"][0], profile_length, plane_periods)
+    centers = get_block_centers(elements, heights, bulk_structures[0][0], bulk_structures[1][0])
+    left, right = [
+        np.interp(center * profile_length, positions, macroscopic_average, period=profile_length) for center in centers
+    ]
+    bulk_left, bulk_right = [np.mean(profile["yDataSeries"][0]) for profile in profiles[1:]]
+    return (valence_band_maxima[0] - bulk_left) - (valence_band_maxima[1] - bulk_right) + (left - right)
+
+
+if __name__ == "__main__":
+    with open(CHECKPOINT_FILE) as checkpoint_file:
+        scope = json.load(checkpoint_file)["scope"]
+    profiles = [scope["local"][flowchart_id]["average_potential_profile"] for flowchart_id in AVERAGE_FLOWCHART_IDS]
+    workflow = scope["global"]["WORKFLOW"]
+    rendered_pw_inputs = [get_rendered_pw_input(workflow, flowchart_id) for flowchart_id in AVERAGE_FLOWCHART_IDS]
+    structures = [get_structure(rendered_pw_input) for rendered_pw_input in rendered_pw_inputs]
+    valence_band_maxima = [scope["global"][operand] for operand in VALENCE_BAND_MAXIMUM_OPERANDS]
+    print(json.dumps({"valence_band_offset": get_valence_band_offset(profiles, structures, valence_band_maxima)}))

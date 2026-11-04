@@ -1,0 +1,43 @@
+# Part of the Valence Band Offset (Bulk Method) workflow, NOT self-sufficient: its script reads VBM_LEFT, VBM_RIGHT,
+# and each ESP subworkflow's average_potential_profile and rendered pw_scf input.
+application:
+  name: python
+  version: 3.10.13
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: Calculate VBO (Bulk Method)
+units:
+  - attributes:
+      input:
+        - template:
+            name: script.py
+            applicationName: python
+            applicationVersion: "*"
+            executableName: python
+            contextProviders: []
+            content: !readFile 'assets/applications/input_files_templates/python/valence_band_offset_bulk.pyi'
+        - template:
+            name: requirements.txt
+            applicationName: python
+            applicationVersion: "*"
+            executableName: python
+            contextProviders: []
+            content: !readFile 'assets/applications/input_files_templates/python/requirements.j2.txt'
+    config:
+      name: Calculate VBO (Bulk Method)
+      execName: python
+      flavorName: hello_world
+      flowchartId: python-valence-band-offset-bulk
+    type: executionBuilder
+  - config:
+      name: Valence Band Offset
+      operand: VALENCE_BAND_OFFSET
+      value: 'json.loads(STDOUT.splitlines()[-1])["valence_band_offset"]'
+      input:
+        - name: STDOUT
+          scope: python-valence-band-offset-bulk
+      results:
+        - name: valence_band_offset
+    type: assignment

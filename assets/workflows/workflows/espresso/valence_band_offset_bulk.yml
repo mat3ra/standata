@@ -1,0 +1,99 @@
+# Valence band offset of a periodic superlattice via the potential lineup method, with bulk references.
+# Assumes 3 structures: Interface (the superlattice, e.g. SiO2/HfO2), Interface Left and Interface Right (the two
+# materials in bulk, strained to the in-plane cell of the interface). The interface runs no band structure.
+# Reference: http://dx.doi.org/10.1088/0953-8984/19/21/213203
+
+name: Valence Band Offset (Bulk Method)
+config:
+  attributes:
+    isMultiMaterial: true
+units:
+  - name: average_electrostatic_potential
+    type: subworkflow
+    config:
+      attributes:
+        name: Avg ESP (Interface)
+  - name: average_electrostatic_potential_via_band_structure
+    type: subworkflow
+    config:
+      attributes:
+        name: BS + Avg ESP (interface left)
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            name: Set Material Index (Interface left)
+            value: "1"
+      - index: 2
+        type: executionBuilder
+        config:
+          attributes:
+            flowchartId: pw-bands-calculate-band-gap-left
+      - index: 3
+        type: assignment
+        config:
+          attributes:
+            input:
+              - name: band_gaps
+                scope: pw-bands-calculate-band-gap-left
+      - index: 4
+        type: assignment
+        config:
+          attributes:
+            operand: VBM_LEFT
+      - index: 7
+        type: executionBuilder
+        config:
+          attributes:
+            flowchartId: average-electrostatic-potential-left
+      - index: 8
+        type: assignment
+        config:
+          attributes:
+            input:
+              - name: average_potential_profile
+                scope: average-electrostatic-potential-left
+  - name: average_electrostatic_potential_via_band_structure
+    type: subworkflow
+    config:
+      attributes:
+        name: BS + Avg ESP (interface right)
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            name: Set Material Index (Interface right)
+            value: "2"
+      - index: 2
+        type: executionBuilder
+        config:
+          attributes:
+            flowchartId: pw-bands-calculate-band-gap-right
+      - index: 3
+        type: assignment
+        config:
+          attributes:
+            input:
+              - name: band_gaps
+                scope: pw-bands-calculate-band-gap-right
+      - index: 4
+        type: assignment
+        config:
+          attributes:
+            operand: VBM_RIGHT
+      - index: 7
+        type: executionBuilder
+        config:
+          attributes:
+            flowchartId: average-electrostatic-potential-right
+      - index: 8
+        type: assignment
+        config:
+          attributes:
+            input:
+              - name: average_potential_profile
+                scope: average-electrostatic-potential-right
+  - name: valence_band_offset_bulk
+    type: subworkflow
