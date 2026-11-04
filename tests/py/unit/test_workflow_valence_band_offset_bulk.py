@@ -85,7 +85,6 @@ def test_get_valence_band_offset_with_materials_in_the_wrong_order(checkpoint_na
 
 @pytest.mark.parametrize("pw_inputs_name, expected", PLANE_PERIOD_BY_PW_INPUTS.items())
 def test_get_plane_period_with_tilted_c(pw_inputs_name, expected):
-    pw_inputs = json.loads((FIXTURES_DIRECTORY / pw_inputs_name).read_text())
-    interface, bulk = [get_structure(pw_input) for pw_input in pw_inputs]
+    interface, bulk = map(get_structure, json.loads((FIXTURES_DIRECTORY / pw_inputs_name).read_text()))
     assert bulk.in_plane_metric == pytest.approx(interface.in_plane_metric)
     assert get_plane_period(bulk) == pytest.approx(expected, abs=1e-4)

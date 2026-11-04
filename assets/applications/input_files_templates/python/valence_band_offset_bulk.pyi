@@ -45,17 +45,16 @@ def get_structure(rendered_pw_input):
     )
 
 
-def is_plane_shift(elements, heights, shift):
+def is_plane_shift(structure, shift):
     """Whether moving every atom by `shift` along the normal lands it on an atom of the same element."""
-    distances = np.abs((heights[:, None] + shift - heights[None, :] + 0.5) % 1 - 0.5)
-    distances[elements[:, None] != elements[None, :]] = 1
+    distances = np.abs((structure.heights[:, None] + shift - structure.heights[None, :] + 0.5) % 1 - 0.5)
+    distances[structure.elements[:, None] != structure.elements[None, :]] = 1
     return bool(np.all(distances.min(axis=1) < PLANE_POSITION_TOLERANCE))
 
 
 def get_plane_period(structure):
     """Plane spacing along the normal: cell height over the largest n whose c/n shift maps the atoms onto themselves."""
-    elements, heights = structure.elements, structure.heights
-    plane_counts = [count for count in range(1, len(heights) + 1) if is_plane_shift(elements, heights, 1 / count)]
+    plane_counts = [count for count in range(1, len(structure.heights) + 1) if is_plane_shift(structure, 1 / count)]
     return structure.cell_height / max(plane_counts)
 
 
