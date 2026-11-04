@@ -1,7 +1,12 @@
 # Valence band offset of a periodic superlattice via the potential lineup method, with bulk references.
 # Assumes 3 structures: Interface (the superlattice, e.g. SiO2/HfO2), Interface Left and Interface Right (the two
-# materials in bulk, strained to the in-plane cell of the interface). The interface runs no band structure.
-# Reference: http://dx.doi.org/10.1088/0953-8984/19/21/213203
+# materials in bulk, stacked along the interface normal, in its strain state); each block of the interface is thicker
+# than the two bulks' plane periods combined. The interface runs no band structure. Positive when the left VBM is above
+# the right (Prodhomme et al., Appl. Phys. Lett. 99, 022101 (2011)); unlike Valence Band Offset (2D), the sign is kept.
+# Relevant references:
+#   - http://dx.doi.org/10.1103/PhysRevB.34.5621
+#   - http://dx.doi.org/10.1103/PhysRevLett.61.734
+#   - http://dx.doi.org/10.1088/0953-8984/19/21/213203
 
 name: Valence Band Offset (Bulk Method)
 config:

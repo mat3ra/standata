@@ -28,6 +28,7 @@ units:
     config:
       name: Calculate VBO (Bulk Method)
       execName: python
+      # hello_world with the script inline: a new python flavor fails job creation until the web-app pins this Standata
       flavorName: hello_world
       flowchartId: python-valence-band-offset-bulk
     type: executionBuilder

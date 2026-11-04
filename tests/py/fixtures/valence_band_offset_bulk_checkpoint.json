@@ -8,7 +8,9 @@
                     {
                         "units": [
                             {
-                                "name": "pw_scf",
+                                "flavor": {
+                                    "name": "pw_scf"
+                                },
                                 "flowchartId": "9fc7a088-5533-5f70-bb33-f676ec65f565",
                                 "input": [
                                     {
@@ -17,7 +19,6 @@
                                 ]
                             },
                             {
-                                "name": "average ESP",
                                 "flowchartId": "average-electrostatic-potential"
                             }
                         ]
@@ -25,7 +26,9 @@
                     {
                         "units": [
                             {
-                                "name": "pw_scf",
+                                "flavor": {
+                                    "name": "pw_scf"
+                                },
                                 "flowchartId": "3e6d3a1e-8d6c-5d5f-9a97-ffc0b895ef08",
                                 "input": [
                                     {
@@ -34,7 +37,6 @@
                                 ]
                             },
                             {
-                                "name": "average ESP",
                                 "flowchartId": "average-electrostatic-potential-left"
                             }
                         ]
@@ -42,7 +44,9 @@
                     {
                         "units": [
                             {
-                                "name": "pw_scf",
+                                "flavor": {
+                                    "name": "pw_scf"
+                                },
                                 "flowchartId": "b89d6348-3915-5c24-9fbb-350bc98ac708",
                                 "input": [
                                     {
@@ -51,7 +55,6 @@
                                 ]
                             },
                             {
-                                "name": "average ESP",
                                 "flowchartId": "average-electrostatic-potential-right"
                             }
                         ]

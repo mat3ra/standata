@@ -1,12 +1,15 @@
 # Valence band offset of a periodic superlattice from its two bulks (bulk method):
 #   VBO = (E_VBM - V)_left - (E_VBM - V)_right + (V_left - V_right)_interface
 # V of a bulk: the mean of its planar-averaged electrostatic potential. V in the interface: the planar average smoothed
-# by a double convolution with the bulks' plane periods (Junquera et al., J. Phys.: Condens. Matter 19, 213203 (2007)),
-# at the centre of each block, found from the elements of one bulk only; a block without them fills the rest.
+# by a double convolution with the bulks' plane periods (Junquera et al. 2007), at the centre of each block.
 import json
 
 import numpy as np
 
+# Data From Context
+# -----------------
+# rupy writes CHECKPOINT_FILE. scope.local: average_potential_profile of each average.x unit (AVERAGE_FLOWCHART_IDS).
+# scope.global: VBM_LEFT/RIGHT from "Set Valence Band Maximum", and WORKFLOW with each pw_scf unit's rendered input.
 CHECKPOINT_FILE = "./.mat3ra/checkpoint"
 AVERAGE_FLOWCHART_IDS = [
     "average-electrostatic-potential",
@@ -24,17 +27,18 @@ def get_rendered_pw_input(workflow, average_flowchart_id):
         for subworkflow in workflow["subworkflows"]
         if any(unit["flowchartId"] == average_flowchart_id for unit in subworkflow["units"])
     )
-    return next(unit["input"][0]["rendered"] for unit in subworkflow["units"] if unit["name"] == "pw_scf")
+    pw_scf_unit = next(unit for unit in subworkflow["units"] if unit.get("flavor", {}).get("name") == "pw_scf")
+    return pw_scf_unit["input"][0]["rendered"]
 
 
 def get_structure(rendered_pw_input):
-    """Elements, crystal coordinates along the normal and the cell height normal to the first two vectors."""
+    """Elements, crystal coordinates along c, the cell height normal to a, b, and the dot products of a, b."""
     positions = rendered_pw_input.split("ATOMIC_POSITIONS crystal\n")[1].split("\n\n")[0].splitlines()
     cell_rows = rendered_pw_input.split("CELL_PARAMETERS angstrom\n")[1].splitlines()[:3]
     cell = np.array([row.split() for row in cell_rows], dtype=float)
     elements = np.array([position.split()[0] for position in positions])
     heights = np.array([position.split()[3] for position in positions], dtype=float) % 1
-    return elements, heights, abs(np.linalg.det(cell)) / np.linalg.norm(np.cross(cell[0], cell[1]))
+    return elements, heights, abs(np.linalg.det(cell)) / np.linalg.norm(np.cross(*cell[:2])), cell[:2] @ cell[:2].T
 
 
 def is_plane_shift(elements, heights, shift):
@@ -45,6 +49,7 @@ def is_plane_shift(elements, heights, shift):
 
 
 def get_plane_period(elements, heights, cell_height):
+    """Plane spacing along the normal: cell height over the largest n whose c/n shift maps the atoms onto themselves."""
     plane_counts = [count for count in range(1, len(heights) + 1) if is_plane_shift(elements, heights, 1 / count)]
     return cell_height / max(plane_counts)
 
@@ -65,6 +70,8 @@ def get_block_center(heights, is_own_marker, is_other_marker):
 
 def get_block_centers(elements, heights, left_elements, right_elements):
     """Crystal coordinates of the centres of the left and right blocks of the interface."""
+    if not set(left_elements) | set(right_elements) <= set(elements):
+        raise ValueError("Interface Left/Right hold an element the Interface lacks: check the material order.")
     is_left_marker = np.isin(elements, list(set(left_elements) - set(right_elements)))
     is_right_marker = np.isin(elements, list(set(right_elements) - set(left_elements)))
     if not is_left_marker.any() and not is_right_marker.any():
@@ -75,27 +82,27 @@ def get_block_centers(elements, heights, left_elements, right_elements):
     ]
 
 
-def get_macroscopic_average(planar_average, profile_length, window_lengths):
+def get_macroscopic_average(planar_average, cell_height, window_lengths):
     """Planar average convolved on the periodic cell with a box window of each length."""
     coefficients = np.fft.rfft(planar_average)
     for window_length in window_lengths:
-        coefficients *= np.sinc(np.arange(len(coefficients)) * window_length / profile_length)
+        coefficients *= np.sinc(np.arange(len(coefficients)) * window_length / cell_height)
     return np.fft.irfft(coefficients, len(planar_average))
 
 
 def get_valence_band_offset(profiles, structures, valence_band_maxima):
-    """Profiles and structures in the order interface, left, right; valence band maxima left, right."""
-    (elements, heights, _), *bulk_structures = structures
-    positions = np.array(profiles[0]["xDataArray"])
-    profile_length = len(positions) * positions[1]
-    plane_periods = [get_plane_period(*structure) for structure in bulk_structures]
-    macroscopic_average = get_macroscopic_average(profiles[0]["yDataSeries"][0], profile_length, plane_periods)
-    centers = get_block_centers(elements, heights, bulk_structures[0][0], bulk_structures[1][0])
-    left, right = [
-        np.interp(center * profile_length, positions, macroscopic_average, period=profile_length) for center in centers
-    ]
-    bulk_left, bulk_right = [np.mean(profile["yDataSeries"][0]) for profile in profiles[1:]]
-    return (valence_band_maxima[0] - bulk_left) - (valence_band_maxima[1] - bulk_right) + (left - right)
+    """VBM left - VBM right (eV), aligned by the interface's potential; profiles, structures: interface, left, right."""
+    (elements, heights, cell_height, in_plane_metric), *bulk_structures = structures
+    if not all(np.allclose(bulk_in_plane_metric, in_plane_metric) for *_, bulk_in_plane_metric in bulk_structures):
+        raise ValueError("Interface Left/Right need the Interface's a, b: stacked along its normal, strained to it.")
+    plane_periods = [get_plane_period(*structure[:3]) for structure in bulk_structures]
+    macroscopic_average = get_macroscopic_average(profiles[0]["yDataSeries"][0], cell_height, plane_periods)
+    sample_positions = np.arange(len(macroscopic_average)) / len(macroscopic_average)
+    centers = get_block_centers(elements, heights, *[bulk_elements for bulk_elements, *_ in bulk_structures])
+    left_block_potential, right_block_potential = np.interp(centers, sample_positions, macroscopic_average, period=1)
+    left_bulk_potential, right_bulk_potential = [np.mean(profile["yDataSeries"][0]) for profile in profiles[1:]]
+    bulk_term = (valence_band_maxima[0] - left_bulk_potential) - (valence_band_maxima[1] - right_bulk_potential)
+    return bulk_term + left_block_potential - right_block_potential
 
 
 if __name__ == "__main__":
