@@ -101,7 +101,7 @@ def get_valence_band_offset(profiles, structures, valence_band_maxima):
         raise ValueError("Interface Left/Right need the Interface's a, b: same lengths, angle and order.")
     plane_periods = [get_plane_period(bulk) for bulk in (left, right)]
     if interface.cell_height <= 2 * sum(plane_periods):
-        raise ValueError("Each Interface block must be thicker than both plane periods: check the material order.")
+        raise ValueError("Each Interface block must be thicker than the two plane periods combined: check the material order.")
     macroscopic_average = get_macroscopic_average(profiles[0]["yDataSeries"][0], interface.cell_height, plane_periods)
     sample_positions = np.arange(len(macroscopic_average)) / len(macroscopic_average)
     centers = get_block_centers(interface.elements, interface.heights, left.elements, right.elements)
