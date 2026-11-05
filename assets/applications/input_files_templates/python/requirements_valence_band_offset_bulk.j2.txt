@@ -1,0 +1,2 @@
+numpy<2
+mat3ra-made==2026.11.4.post0

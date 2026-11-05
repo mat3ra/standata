@@ -100,5 +100,48 @@ units:
             input:
               - name: average_potential_profile
                 scope: average-electrostatic-potential-right
+  - name: shell/utils/get_material_by_index
+    type: subworkflow
+    config:
+      attributes:
+        name: Load Interface Material
+    unitConfigs:
+      - index: 4
+        type: assignment
+        config:
+          attributes:
+            operand: INTERFACE
+  - name: shell/utils/get_material_by_index
+    type: subworkflow
+    config:
+      attributes:
+        name: Load Left Bulk Material
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            value: "1"
+      - index: 4
+        type: assignment
+        config:
+          attributes:
+            operand: LEFT_BULK
+  - name: shell/utils/get_material_by_index
+    type: subworkflow
+    config:
+      attributes:
+        name: Load Right Bulk Material
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            value: "2"
+      - index: 4
+        type: assignment
+        config:
+          attributes:
+            operand: RIGHT_BULK
   - name: valence_band_offset_bulk
     type: subworkflow
