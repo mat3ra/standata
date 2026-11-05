@@ -18,40 +18,41 @@ AVERAGE_FLOWCHART_IDS = [
     "average-electrostatic-potential-left",
     "average-electrostatic-potential-right",
 ]
-MATERIAL_OPERANDS = ["INTERFACE", "LEFT_BULK", "RIGHT_BULK"]
+MATERIAL_OPERANDS = ["INTERFACE", "BULK_LEFT", "BULK_RIGHT"]
 VALENCE_BAND_MAXIMUM_OPERANDS = ["VBM_LEFT", "VBM_RIGHT"]
 PLANE_POSITION_TOLERANCE = 1e-3  # crystal coordinate along the normal
 
 
-def get_heights(material):
-    """Crystal coordinates of the atoms along c."""
-    material.to_crystal()
-    return np.array(material.basis.coordinates.get_values_along_axis("z"))
+class LayeredMaterial(Material):
+    """A made Material read along c, the stacking axis of the interface: its atomic planes and their period."""
 
+    @property
+    def heights(self):
+        """Crystal coordinates of the atoms along c."""
+        return np.array(self.basis.coordinates.get_values_along_axis("z"))
 
-def get_cell_height(material):
-    """Height of the cell normal to a, b (Å): its volume over the area spanned by a and b."""
-    vector_a, vector_b, _ = material.lattice.vector_arrays
-    return material.lattice.cell_volume / np.linalg.norm(np.cross(vector_a, vector_b))
+    @property
+    def cell_height(self):
+        """Height of the cell normal to a, b (Å): the (001) interplanar spacing."""
+        return 1 / self.lattice.reciprocal_vector_norms[2]
 
+    def is_plane_shift(self, shift):
+        """Whether moving every atom by `shift` along the normal lands it on an atom of the same element."""
+        heights, elements = self.heights, np.array(self.basis.elements.values)
+        distances = np.abs((heights[:, None] + shift - heights[None, :] + 0.5) % 1 - 0.5)
+        distances[elements[:, None] != elements[None, :]] = 1
+        return bool(np.all(distances.min(axis=1) < PLANE_POSITION_TOLERANCE))
 
-def is_plane_shift(material, shift):
-    """Whether moving every atom by `shift` along the normal lands it on an atom of the same element."""
-    heights, elements = get_heights(material), np.array(material.basis.elements.values)
-    distances = np.abs((heights[:, None] + shift - heights[None, :] + 0.5) % 1 - 0.5)
-    distances[elements[:, None] != elements[None, :]] = 1
-    return bool(np.all(distances.min(axis=1) < PLANE_POSITION_TOLERANCE))
-
-
-def get_plane_period(material):
-    """Plane spacing along the normal: cell height over the largest n whose c/n shift maps the atoms onto themselves."""
-    counts = range(1, material.basis.number_of_atoms + 1)
-    return get_cell_height(material) / max(count for count in counts if is_plane_shift(material, 1 / count))
+    @property
+    def plane_period(self):
+        """Plane spacing along the normal: the cell height over the largest n for which a c/n shift is a plane shift."""
+        counts = range(1, self.basis.number_of_atoms + 1)
+        return self.cell_height / max(count for count in counts if self.is_plane_shift(1 / count))
 
 
 def get_largest_gap_center(heights):
     """Centre of the widest interval free of the given crystal coordinates on the periodic cell."""
-    sorted_heights = np.sort(heights)
+    sorted_heights = np.sort(heights % 1)
     gaps = np.diff(sorted_heights, append=sorted_heights[0] + 1)
     return (sorted_heights[np.argmax(gaps)] + gaps.max() / 2) % 1
 
@@ -85,32 +86,43 @@ def get_macroscopic_average(planar_average, cell_height, window_lengths):
     return np.fft.irfft(coefficients, len(planar_average))
 
 
-def get_valence_band_offset(profiles, materials, valence_band_maxima):
-    """VBM left - VBM right (eV), aligned by the interface's potential; profiles, materials: interface, left, right."""
-    interface, left, right = materials
-    in_plane_parameters = [[material.lattice.a, material.lattice.b, material.lattice.gamma] for material in materials]
+def check_materials(interface, left, right):
+    """Raise when Interface Left/Right are off the Interface's a, b, or its blocks are thin for their plane periods."""
+    in_plane_parameters = [
+        [material.lattice.a, material.lattice.b, material.lattice.gamma] for material in (interface, left, right)
+    ]
     if not np.allclose(in_plane_parameters[1:], in_plane_parameters[0]):
         raise ValueError("Interface Left/Right need the Interface's a, b: same lengths, angle and order.")
-    plane_periods = [get_plane_period(bulk) for bulk in (left, right)]
-    cell_height = get_cell_height(interface)
-    if cell_height <= 2 * sum(plane_periods):
+    if interface.cell_height <= 2 * (left.plane_period + right.plane_period):
         raise ValueError(
             "Each Interface block must be thicker than the two plane periods combined: check the material order."
         )
-    macroscopic_average = get_macroscopic_average(profiles[0]["yDataSeries"][0], cell_height, plane_periods)
+
+
+def get_valence_band_offset(interface, left, right, planar_averages, valence_band_maxima):
+    """VBM left - VBM right (eV), aligned by the interface's potential; planar averages: interface, left, right."""
+    interface_planar_average, left_planar_average, right_planar_average = planar_averages
+    left_valence_band_maximum, right_valence_band_maximum = valence_band_maxima
+    window_lengths = [left.plane_period, right.plane_period]
+    macroscopic_average = get_macroscopic_average(interface_planar_average, interface.cell_height, window_lengths)
     sample_positions = np.arange(len(macroscopic_average)) / len(macroscopic_average)
-    elements = [material.basis.elements.values for material in materials]
-    centers = get_block_centers(np.array(elements[0]), get_heights(interface), *elements[1:])
+    elements = np.array(interface.basis.elements.values)
+    centers = get_block_centers(elements, interface.heights, left.basis.elements.values, right.basis.elements.values)
     left_block_potential, right_block_potential = np.interp(centers, sample_positions, macroscopic_average, period=1)
-    left_bulk_potential, right_bulk_potential = [np.mean(profile["yDataSeries"][0]) for profile in profiles[1:]]
-    bulk_term = (valence_band_maxima[0] - left_bulk_potential) - (valence_band_maxima[1] - right_bulk_potential)
-    return bulk_term + left_block_potential - right_block_potential
+    left_bulk_term = left_valence_band_maximum - np.mean(left_planar_average)
+    right_bulk_term = right_valence_band_maximum - np.mean(right_planar_average)
+    return left_bulk_term - right_bulk_term + left_block_potential - right_block_potential
 
 
 if __name__ == "__main__":
     with open(CHECKPOINT_FILE) as checkpoint_file:
         scope = json.load(checkpoint_file)["scope"]
     profiles = [scope["local"][flowchart_id]["average_potential_profile"] for flowchart_id in AVERAGE_FLOWCHART_IDS]
-    materials = [Material.create(scope["global"][operand]) for operand in MATERIAL_OPERANDS]
+    planar_averages = [profile["yDataSeries"][0] for profile in profiles]
+    interface, left, right = [LayeredMaterial.create(scope["global"][operand]) for operand in MATERIAL_OPERANDS]
+    for material in (interface, left, right):
+        material.to_crystal()
     valence_band_maxima = [scope["global"][operand] for operand in VALENCE_BAND_MAXIMUM_OPERANDS]
-    print(json.dumps({"valence_band_offset": get_valence_band_offset(profiles, materials, valence_band_maxima)}))
+    check_materials(interface, left, right)
+    valence_band_offset = get_valence_band_offset(interface, left, right, planar_averages, valence_band_maxima)
+    print(json.dumps({"valence_band_offset": valence_band_offset}))

@@ -3,7 +3,6 @@ from pathlib import Path
 
 import numpy as np
 import pytest
-from mat3ra.made.material import Material
 from mat3ra.standata.data.workflows import workflows_data
 from mat3ra.standata.materials import Materials
 
@@ -14,8 +13,8 @@ SCRIPT = next(item["template"]["content"] for item in SCRIPT_UNIT["input"] if it
 RESULT_UNIT = next(unit for unit in UNITS if unit["name"] == "Valence Band Offset")
 SCRIPT_NAMESPACE = {"__name__": "script"}
 exec(SCRIPT, SCRIPT_NAMESPACE)
-get_block_centers, get_plane_period = SCRIPT_NAMESPACE["get_block_centers"], SCRIPT_NAMESPACE["get_plane_period"]
-get_valence_band_offset = SCRIPT_NAMESPACE["get_valence_band_offset"]
+get_block_centers, check_materials = SCRIPT_NAMESPACE["get_block_centers"], SCRIPT_NAMESPACE["check_materials"]
+LayeredMaterial = SCRIPT_NAMESPACE["LayeredMaterial"]
 FIXTURES_DIRECTORY = Path(__file__).parent.parent / "fixtures"
 # job y9NnPhvRqdWN4hX8N: cubic SiO2/HfO2 (001) superlattice, profiles downsampled above the FFT grid
 VALENCE_BAND_OFFSET_BY_CHECKPOINT = {"valence_band_offset_bulk_checkpoint.json": -0.3602}
@@ -47,6 +46,8 @@ def test_script_reads_what_the_workflow_writes():
         (["Si", "Si", "O", "Hf", "Hf"], [0.3, 0.4, 0.6, 0.9, 0.0], ["Si", "O"], ["Hf", "O"], [0.35, 0.95]),
         # Si/SiO2: no element of the left bulk alone, so its block fills the gap between the right block's O
         (["Si", "Si", "O", "O"], [0.1, 0.3, 0.6, 0.8], ["Si"], ["Si", "O"], [0.2, 0.7]),
+        # the right block across the cell boundary, one of its atoms stored outside [0, 1)
+        (["Si", "Si", "Hf", "Hf", "Hf", "Hf"], [0.3, 0.5, 0.8, 0.9, 0.02, 1.1], ["Si"], ["Hf"], [0.4, 0.95]),
     ],
 )
 def test_get_block_centers(elements, heights, left_elements, right_elements, expected_centers):
@@ -63,27 +64,27 @@ def test_get_block_centers_raises(bulk_elements, message):
 def _get_checkpoint_materials(checkpoint_name):
     """Interface, left and right materials as the workflow stores them in the checkpoint."""
     scope_global = json.loads((FIXTURES_DIRECTORY / checkpoint_name).read_text())["scope"]["global"]
-    return [Material.create(scope_global[operand]) for operand in SCRIPT_NAMESPACE["MATERIAL_OPERANDS"]]
+    return [LayeredMaterial.create(scope_global[operand]) for operand in SCRIPT_NAMESPACE["MATERIAL_OPERANDS"]]
 
 
 # Interface Left: Beta Cristobalite as stored (fcc primitive cell), not in the a, b of the superlattice
 @pytest.mark.parametrize("checkpoint_name", VALENCE_BAND_OFFSET_BY_CHECKPOINT)
-def test_get_valence_band_offset_with_bulk_off_the_interface_plane(checkpoint_name):
+def test_check_materials_with_bulk_off_the_interface_plane(checkpoint_name):
     interface, _, right = _get_checkpoint_materials(checkpoint_name)
-    left = Material.create(Materials.get_by_name_first_match("mp-8352"))
+    left = LayeredMaterial.create(Materials.get_by_name_first_match("mp-8352"))
     with pytest.raises(ValueError, match="Interface's a, b"):
-        get_valence_band_offset([], [interface, left, right], [])
+        check_materials(interface, left, right)
 
 
 # The SiO2 bulk picked as the Interface: its cell is thinner than the windows of the superlattice and HfO2
 @pytest.mark.parametrize("checkpoint_name", VALENCE_BAND_OFFSET_BY_CHECKPOINT)
-def test_get_valence_band_offset_with_materials_in_the_wrong_order(checkpoint_name):
+def test_check_materials_with_materials_in_the_wrong_order(checkpoint_name):
     interface, left, right = _get_checkpoint_materials(checkpoint_name)
     with pytest.raises(ValueError, match="thicker"):
-        get_valence_band_offset([], [left, interface, right], [])
+        check_materials(left, interface, right)
 
 
 @pytest.mark.parametrize("material_name, expected", PLANE_PERIOD_BY_MATERIAL.items())
-def test_get_plane_period_with_tilted_c(material_name, expected):
-    bulk = Material.create(json.loads((FIXTURES_DIRECTORY / material_name).read_text()))
-    assert get_plane_period(bulk) == pytest.approx(expected, abs=1e-4)
+def test_plane_period_with_tilted_c(material_name, expected):
+    bulk = LayeredMaterial.create(json.loads((FIXTURES_DIRECTORY / material_name).read_text()))
+    assert bulk.plane_period == pytest.approx(expected, abs=1e-4)

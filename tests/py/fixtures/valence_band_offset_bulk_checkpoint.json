@@ -170,7 +170,7 @@
                 },
                 "isNonPeriodic": false
             },
-            "LEFT_BULK": {
+            "BULK_LEFT": {
                 "name": "SiO2 beta-cristobalite (001) bulk",
                 "basis": {
                     "units": "crystal",
@@ -223,7 +223,7 @@
                 },
                 "isNonPeriodic": false
             },
-            "RIGHT_BULK": {
+            "BULK_RIGHT": {
                 "name": "HfO2 cubic (001) bulk strained",
                 "basis": {
                     "units": "crystal",

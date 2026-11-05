@@ -111,33 +111,11 @@ units:
         config:
           attributes:
             flowchartId: set-material-index-interface
-      - index: 1
-        type: io
-        config:
-          attributes:
-            flowchartId: io-job-interface
-      - index: 2
-        type: assignment
-        config:
-          attributes:
-            flowchartId: assign-material-id-interface
-            input:
-              - name: DATA
-                scope: io-job-interface
-      - index: 3
-        type: io
-        config:
-          attributes:
-            flowchartId: io-material-interface
       - index: 4
         type: assignment
         config:
           attributes:
-            flowchartId: assign-material-interface
             operand: INTERFACE
-            input:
-              - name: DATA
-                scope: io-material-interface
   - name: shell/utils/get_material_by_index
     type: subworkflow
     config:
@@ -173,7 +151,7 @@ units:
         config:
           attributes:
             flowchartId: assign-material-left
-            operand: LEFT_BULK
+            operand: BULK_LEFT
             input:
               - name: DATA
                 scope: io-material-left
@@ -212,7 +190,7 @@ units:
         config:
           attributes:
             flowchartId: assign-material-right
-            operand: RIGHT_BULK
+            operand: BULK_RIGHT
             input:
               - name: DATA
                 scope: io-material-right

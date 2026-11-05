@@ -1,5 +1,5 @@
-# Part of the Valence Band Offset (Bulk Method) workflow, NOT self-sufficient: its script reads INTERFACE, LEFT_BULK,
-# RIGHT_BULK, VBM_LEFT, VBM_RIGHT, and each ESP subworkflow's average_potential_profile.
+# Part of the Valence Band Offset (Bulk Method) workflow, NOT self-sufficient: its script reads INTERFACE, BULK_LEFT,
+# BULK_RIGHT, VBM_LEFT, VBM_RIGHT, and each ESP subworkflow's average_potential_profile.
 application:
   name: python
   version: 3.10.13
