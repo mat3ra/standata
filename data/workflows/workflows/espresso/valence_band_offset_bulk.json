@@ -1597,9 +1597,9 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "set-material-index",
+                    "flowchartId": "set-material-index-interface",
                     "head": true,
-                    "next": "io-job",
+                    "next": "io-job-interface",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
@@ -1614,7 +1614,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "io-job",
+                    "flowchartId": "io-job-interface",
                     "source": "api",
                     "input": [
                         {
@@ -1630,7 +1630,7 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-material-id",
+                    "next": "assign-material-id-interface",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
@@ -1642,7 +1642,7 @@
                     "input": [
                         {
                             "name": "DATA",
-                            "scope": "io-job"
+                            "scope": "io-job-interface"
                         }
                     ],
                     "results": [],
@@ -1652,9 +1652,9 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-material-id",
+                    "flowchartId": "assign-material-id-interface",
                     "head": false,
-                    "next": "io-material",
+                    "next": "io-material-interface",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
@@ -1669,7 +1669,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "io-material",
+                    "flowchartId": "io-material-interface",
                     "source": "api",
                     "input": [
                         {
@@ -1685,7 +1685,7 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-material",
+                    "next": "assign-material-interface",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
@@ -1697,7 +1697,7 @@
                     "input": [
                         {
                             "name": "DATA",
-                            "scope": "io-material"
+                            "scope": "io-material-interface"
                         }
                     ],
                     "results": [],
@@ -1707,7 +1707,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-material",
+                    "flowchartId": "assign-material-interface",
                     "head": false,
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -1755,9 +1755,9 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "set-material-index",
+                    "flowchartId": "set-material-index-left",
                     "head": true,
-                    "next": "io-job",
+                    "next": "io-job-left",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
@@ -1772,7 +1772,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "io-job",
+                    "flowchartId": "io-job-left",
                     "source": "api",
                     "input": [
                         {
@@ -1788,7 +1788,7 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-material-id",
+                    "next": "assign-material-id-left",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
@@ -1800,7 +1800,7 @@
                     "input": [
                         {
                             "name": "DATA",
-                            "scope": "io-job"
+                            "scope": "io-job-left"
                         }
                     ],
                     "results": [],
@@ -1810,9 +1810,9 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-material-id",
+                    "flowchartId": "assign-material-id-left",
                     "head": false,
-                    "next": "io-material",
+                    "next": "io-material-left",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
@@ -1827,7 +1827,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "io-material",
+                    "flowchartId": "io-material-left",
                     "source": "api",
                     "input": [
                         {
@@ -1843,7 +1843,7 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-material",
+                    "next": "assign-material-left",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
@@ -1855,7 +1855,7 @@
                     "input": [
                         {
                             "name": "DATA",
-                            "scope": "io-material"
+                            "scope": "io-material-left"
                         }
                     ],
                     "results": [],
@@ -1865,7 +1865,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-material",
+                    "flowchartId": "assign-material-left",
                     "head": false,
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -1913,9 +1913,9 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "set-material-index",
+                    "flowchartId": "set-material-index-right",
                     "head": true,
-                    "next": "io-job",
+                    "next": "io-job-right",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
@@ -1930,7 +1930,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "io-job",
+                    "flowchartId": "io-job-right",
                     "source": "api",
                     "input": [
                         {
@@ -1946,7 +1946,7 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-material-id",
+                    "next": "assign-material-id-right",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
@@ -1958,7 +1958,7 @@
                     "input": [
                         {
                             "name": "DATA",
-                            "scope": "io-job"
+                            "scope": "io-job-right"
                         }
                     ],
                     "results": [],
@@ -1968,9 +1968,9 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-material-id",
+                    "flowchartId": "assign-material-id-right",
                     "head": false,
-                    "next": "io-material",
+                    "next": "io-material-right",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
@@ -1985,7 +1985,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "io-material",
+                    "flowchartId": "io-material-right",
                     "source": "api",
                     "input": [
                         {
@@ -2001,7 +2001,7 @@
                         }
                     ],
                     "head": false,
-                    "next": "assign-material",
+                    "next": "assign-material-right",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
@@ -2013,7 +2013,7 @@
                     "input": [
                         {
                             "name": "DATA",
-                            "scope": "io-material"
+                            "scope": "io-material-right"
                         }
                     ],
                     "results": [],
@@ -2023,7 +2023,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "assign-material",
+                    "flowchartId": "assign-material-right",
                     "head": false,
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
