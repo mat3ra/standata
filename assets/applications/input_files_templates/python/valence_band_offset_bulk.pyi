@@ -26,6 +26,13 @@ PLANE_POSITION_TOLERANCE = 1e-3  # crystal coordinate along the normal
 class LayeredMaterial(Material):
     """A made Material read along c, the stacking axis of the interface: its atomic planes and their period."""
 
+    @classmethod
+    def create(cls, config):
+        """The material in crystal units: its heights and plane shifts are fractions of c."""
+        material = super().create(config)
+        material.to_crystal()
+        return material
+
     @property
     def heights(self):
         """Crystal coordinates of the atoms along c."""
@@ -88,10 +95,9 @@ def get_macroscopic_average(planar_average, cell_height, window_lengths):
 
 def check_materials(interface, left, right):
     """Raise when Interface Left/Right are off the Interface's a, b, or its blocks are thin for their plane periods."""
-    in_plane_parameters = [
-        [material.lattice.a, material.lattice.b, material.lattice.gamma] for material in (interface, left, right)
-    ]
-    if not np.allclose(in_plane_parameters[1:], in_plane_parameters[0]):
+    interface_in_plane_parameters = [interface.lattice.a, interface.lattice.b, interface.lattice.gamma]
+    bulk_in_plane_parameters = [[bulk.lattice.a, bulk.lattice.b, bulk.lattice.gamma] for bulk in (left, right)]
+    if not np.allclose(bulk_in_plane_parameters, interface_in_plane_parameters):
         raise ValueError("Interface Left/Right need the Interface's a, b: same lengths, angle and order.")
     if interface.cell_height <= 2 * (left.plane_period + right.plane_period):
         raise ValueError(
@@ -120,8 +126,6 @@ if __name__ == "__main__":
     profiles = [scope["local"][flowchart_id]["average_potential_profile"] for flowchart_id in AVERAGE_FLOWCHART_IDS]
     planar_averages = [profile["yDataSeries"][0] for profile in profiles]
     interface, left, right = [LayeredMaterial.create(scope["global"][operand]) for operand in MATERIAL_OPERANDS]
-    for material in (interface, left, right):
-        material.to_crystal()
     valence_band_maxima = [scope["global"][operand] for operand in VALENCE_BAND_MAXIMUM_OPERANDS]
     check_materials(interface, left, right)
     valence_band_offset = get_valence_band_offset(interface, left, right, planar_averages, valence_band_maxima)

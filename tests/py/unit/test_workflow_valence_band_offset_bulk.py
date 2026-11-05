@@ -88,3 +88,10 @@ def test_check_materials_with_materials_in_the_wrong_order(checkpoint_name):
 def test_plane_period_with_tilted_c(material_name, expected):
     bulk = LayeredMaterial.create(json.loads((FIXTURES_DIRECTORY / material_name).read_text()))
     assert bulk.plane_period == pytest.approx(expected, abs=1e-4)
+
+
+@pytest.mark.parametrize("material_name, expected", PLANE_PERIOD_BY_MATERIAL.items())
+def test_create_from_cartesian_coordinates(material_name, expected):
+    material = LayeredMaterial.create(json.loads((FIXTURES_DIRECTORY / material_name).read_text()))
+    material.to_cartesian()
+    assert LayeredMaterial.create(material.to_dict()).plane_period == pytest.approx(expected, abs=1e-4)
