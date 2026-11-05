@@ -21,7 +21,8 @@
                 "occupation": 2.0
             }
         ],
-        "apps": ["espresso"],
+        "cutoffs": {},
+        "apps": ["espresso", "q3"],
         "exchangeCorrelation": {
             "functional": "pbe",
             "approximation": "gga"
