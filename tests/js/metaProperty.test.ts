@@ -2,7 +2,7 @@ import { expect } from "chai";
 import { readFileSync } from "fs";
 import path from "path";
 
-import { MetaPropertyStandata } from "../../src/js";
+import { MetaPropertyStandata } from "../../src/js/metaProperty";
 
 const siPseudo = JSON.parse(
     readFileSync(path.join(__dirname, "fixtures", "si_pbe_dojo-jth_1.1.pseudo.json"), "utf8"),
