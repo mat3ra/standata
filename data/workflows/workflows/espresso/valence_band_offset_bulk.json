@@ -930,12 +930,12 @@
                         }
                     ],
                     "context": [],
-                    "next": "c6c11873-91d7-5422-8302-3dcc1ce971e9",
+                    "next": "933e9c81-4212-5eab-a070-61b2b6a108aa",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "Set Macroscopically Averaged ESP Data",
+                    "name": "Set Average ESP Value (Interface left)",
                     "type": "assignment",
                     "operand": "AVG_ESP_LEFT",
                     "value": "[np.mean(average_potential_profile['yDataSeries'][1])]",
@@ -952,7 +952,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "c6c11873-91d7-5422-8302-3dcc1ce971e9",
+                    "flowchartId": "933e9c81-4212-5eab-a070-61b2b6a108aa",
                     "head": false,
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -1527,12 +1527,12 @@
                         }
                     ],
                     "context": [],
-                    "next": "c6c11873-91d7-5422-8302-3dcc1ce971e9",
+                    "next": "92d57efd-533f-512a-a218-1a2f4c964a62",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "Set Macroscopically Averaged ESP Data",
+                    "name": "Set Average ESP Value (Interface right)",
                     "type": "assignment",
                     "operand": "AVG_ESP_RIGHT",
                     "value": "[np.mean(average_potential_profile['yDataSeries'][1])]",
@@ -1549,7 +1549,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "c6c11873-91d7-5422-8302-3dcc1ce971e9",
+                    "flowchartId": "92d57efd-533f-512a-a218-1a2f4c964a62",
                     "head": false,
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -2125,7 +2125,7 @@
                             "template": {
                                 "applicationName": "python",
                                 "applicationVersion": "*",
-                                "content": "# ----------------------------------------------------------- #\n# This script averages an array along c over each bulk block  #\n# of an interface, in a window as tall as that bulk's cell,   #\n# centred on the block's own atoms.                           #\n# Note: This template expects the array and the materials to  #\n# be defined in the context (see details below).              #\n# ----------------------------------------------------------- #\nimport json\n\nimport numpy as np\n\n# Data From Context\n# -----------------\n# 'array_from_context': the profile along c of the interface, a 1D list sampled over its cell.\n# INTERFACE, BULK_LEFT, BULK_RIGHT: the materials, in crystal coordinates, assigned by preceding units.\n{% raw %}Y = np.array({{array_from_context}})\nINTERFACE, BULK_LEFT, BULK_RIGHT = json.loads(r\"\"\"{{ [INTERFACE, BULK_LEFT, BULK_RIGHT] | tojson }}\"\"\"){% endraw %}\n\n\ndef get_height(lattice):\n    \"\"\"Cell height normal to a, b (Å): V / |a x b| from the lattice parameters.\"\"\"\n    cosines = np.cos(np.radians([lattice[\"alpha\"], lattice[\"beta\"], lattice[\"gamma\"]]))\n    return lattice[\"c\"] * np.sqrt(1 - cosines @ cosines + 2 * cosines.prod()) / np.sqrt(1 - cosines[2] ** 2)\n\n\n# Find Block Averages\n# -------------------\nelements = [np.array([e[\"value\"] for e in m[\"basis\"][\"elements\"]]) for m in (INTERFACE, BULK_LEFT, BULK_RIGHT)]\nheights = np.array([coordinate[\"value\"][2] for coordinate in INTERFACE[\"basis\"][\"coordinates\"]]) % 1\npositions = np.arange(len(Y)) / len(Y)\naverages = []\nfor bulk, own, other in ((BULK_LEFT, elements[1], elements[2]), (BULK_RIGHT, elements[2], elements[1])):\n    is_own, is_other = np.isin(elements[0], np.setdiff1d(own, other)), np.isin(elements[0], np.setdiff1d(other, own))\n    markers, shift = (heights[is_own], 0.5) if is_own.any() else (heights[is_other], 0)\n    sorted_markers = np.sort(markers)\n    gaps = np.diff(sorted_markers, append=sorted_markers[0] + 1)\n    center = (sorted_markers[np.argmax(gaps)] + gaps.max() / 2 + shift) % 1\n    window = get_height(bulk[\"lattice\"]) / get_height(INTERFACE[\"lattice\"])\n    averages.append(Y[np.abs((positions - center + 0.5) % 1 - 0.5) <= window / 2].mean())\n\n# print final values to standard output (STDOUT),\n# so that they can be read by a subsequent assignment unit (using value=STDOUT)\nprint(json.dumps({\"averages\": averages}, indent=4))\n",
+                                "content": "# ----------------------------------------------------------- #\n# This script averages an array along c over each bulk block  #\n# of an interface, in a window as tall as that bulk's cell,   #\n# centred on the block's own atoms.                           #\n# Note: This template expects the array and the materials to  #\n# be defined in the context (see details below).              #\n# ----------------------------------------------------------- #\nimport json\n\nimport numpy as np\n\n# Data From Context\n# -----------------\n# 'array_from_context': the profile along c of the interface, a 1D list sampled over its cell.\n# INTERFACE, BULK_LEFT, BULK_RIGHT: the materials assigned by preceding units.\n{% raw %}profile = np.array({{array_from_context}})\nINTERFACE, BULK_LEFT, BULK_RIGHT = json.loads(r\"\"\"{{ [INTERFACE, BULK_LEFT, BULK_RIGHT] | tojson }}\"\"\"){% endraw %}\n\n\ndef get_cell_height(lattice):\n    \"\"\"Cell height normal to a, b (Å): V / |a x b| from the lattice parameters.\"\"\"\n    cosines = np.cos(np.radians([lattice[\"alpha\"], lattice[\"beta\"], lattice[\"gamma\"]]))\n    return lattice[\"c\"] * np.sqrt(1 - cosines @ cosines + 2 * cosines.prod()) / np.sqrt(1 - cosines[2] ** 2)\n\n\n# Find Block Averages\n# -------------------\ninterface_elements, left_elements, right_elements = [\n    np.array([element[\"value\"] for element in material[\"basis\"][\"elements\"]])\n    for material in (INTERFACE, BULK_LEFT, BULK_RIGHT)\n]\ncoordinates = np.array([coordinate[\"value\"] for coordinate in INTERFACE[\"basis\"][\"coordinates\"]])\nif INTERFACE[\"basis\"][\"units\"] == \"cartesian\":\n    coordinates = coordinates @ np.linalg.inv([INTERFACE[\"lattice\"][\"vectors\"][axis] for axis in \"abc\"])\nheights = coordinates[:, 2] % 1\npositions = np.arange(len(profile)) / len(profile)\naverages = []\nfor bulk, own_elements, other_elements in (\n    (BULK_LEFT, left_elements, right_elements),\n    (BULK_RIGHT, right_elements, left_elements),\n):\n    block_heights = np.sort(heights[np.isin(interface_elements, np.setdiff1d(own_elements, other_elements))])\n    # the block's centre is the middle of its atoms: half a cell from the middle of the widest gap between them\n    gaps = np.diff(block_heights, append=block_heights[0] + 1)\n    center = (block_heights[np.argmax(gaps)] + gaps.max() / 2 + 0.5) % 1\n    window = get_cell_height(bulk[\"lattice\"]) / get_cell_height(INTERFACE[\"lattice\"])\n    averages.append(profile[np.abs((positions - center + 0.5) % 1 - 0.5) <= window / 2].mean())\n\n# print final values to standard output (STDOUT),\n# so that they can be read by a subsequent assignment unit (using value=STDOUT)\nprint(json.dumps({\"averages\": averages}, indent=4))\n",
                                 "contextProviders": [],
                                 "executableName": "python",
                                 "name": "find_block_averages.py",
