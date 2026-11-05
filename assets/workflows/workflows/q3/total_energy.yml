@@ -1,0 +1,4 @@
+name: Total energy - Q3
+units:
+- name: total_energy
+  type: subworkflow

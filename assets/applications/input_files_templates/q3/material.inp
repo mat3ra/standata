@@ -1,0 +1,1 @@
+{% raw %}{{ MATERIAL | default({}) | tojson }}{% endraw %}
