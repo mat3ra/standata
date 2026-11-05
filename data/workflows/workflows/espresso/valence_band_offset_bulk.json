@@ -937,8 +937,8 @@
                 {
                     "name": "Set Macroscopically Averaged ESP Data",
                     "type": "assignment",
-                    "operand": "array_from_context",
-                    "value": "average_potential_profile['yDataSeries'][1]",
+                    "operand": "AVG_ESP_LEFT",
+                    "value": "[np.mean(average_potential_profile['yDataSeries'][1])]",
                     "input": [
                         {
                             "name": "average_potential_profile",
@@ -1534,8 +1534,8 @@
                 {
                     "name": "Set Macroscopically Averaged ESP Data",
                     "type": "assignment",
-                    "operand": "array_from_context",
-                    "value": "average_potential_profile['yDataSeries'][1]",
+                    "operand": "AVG_ESP_RIGHT",
+                    "value": "[np.mean(average_potential_profile['yDataSeries'][1])]",
                     "input": [
                         {
                             "name": "average_potential_profile",
@@ -2033,8 +2033,8 @@
             "isDraft": false
         },
         {
-            "_id": "d3590bd5-a1f2-5f2d-8da1-1c95ff8d0f3d",
-            "name": "Calculate VBO (Bulk Method)",
+            "_id": "059f5c20-b683-59b8-b6ce-ba0673c6e7f9",
+            "name": "Find ESP Block Averages",
             "application": {
                 "build": "GNU",
                 "hasAdvancedComputeOptions": false,
@@ -2047,9 +2047,7 @@
                 "version": "3.10.13",
                 "schemaVersion": "2022.8.16"
             },
-            "properties": [
-                "valence_band_offset"
-            ],
+            "properties": [],
             "model": {
                 "type": "unknown",
                 "subtype": "unknown",
@@ -2062,7 +2060,7 @@
             "units": [
                 {
                     "type": "execution",
-                    "name": "Calculate VBO (Bulk Method)",
+                    "name": "Find Block Averages",
                     "head": true,
                     "results": [],
                     "monitors": [
@@ -2070,7 +2068,7 @@
                             "name": "standard_output"
                         }
                     ],
-                    "flowchartId": "python-valence-band-offset-bulk",
+                    "flowchartId": "python-find-block-averages",
                     "preProcessors": [],
                     "postProcessors": [],
                     "status": "idle",
@@ -2102,20 +2100,21 @@
                         "executableName": "python",
                         "input": [
                             {
-                                "name": "script.py",
-                                "templateName": "hello_world.py"
+                                "name": "find_block_averages.py",
+                                "templateName": "find_block_averages.py"
                             },
                             {
-                                "name": "requirements.txt"
+                                "name": "requirements.txt",
+                                "templateName": "processing_requirements.txt"
                             }
                         ],
-                        "isDefault": true,
+                        "isDefault": false,
                         "monitors": [
                             {
                                 "name": "standard_output"
                             }
                         ],
-                        "name": "hello_world",
+                        "name": "generic:processing:find_block_averages:numpy",
                         "postProcessors": [],
                         "preProcessors": [],
                         "results": [],
@@ -2124,30 +2123,144 @@
                     "input": [
                         {
                             "template": {
-                                "name": "script.py",
                                 "applicationName": "python",
                                 "applicationVersion": "*",
-                                "executableName": "python",
+                                "content": "# ----------------------------------------------------------- #\n# This script averages an array along c over each bulk block  #\n# of an interface, in a window as tall as that bulk's cell,   #\n# centred on the block's own atoms.                           #\n# Note: This template expects the array and the materials to  #\n# be defined in the context (see details below).              #\n# ----------------------------------------------------------- #\nimport json\n\nimport numpy as np\n\n# Data From Context\n# -----------------\n# 'array_from_context': the profile along c of the interface, a 1D list sampled over its cell.\n# INTERFACE, BULK_LEFT, BULK_RIGHT: the materials, in crystal coordinates, assigned by preceding units.\n{% raw %}Y = np.array({{array_from_context}})\nINTERFACE, BULK_LEFT, BULK_RIGHT = json.loads(r\"\"\"{{ [INTERFACE, BULK_LEFT, BULK_RIGHT] | tojson }}\"\"\"){% endraw %}\n\n\ndef get_height(lattice):\n    \"\"\"Cell height normal to a, b (Å): V / |a x b| from the lattice parameters.\"\"\"\n    cosines = np.cos(np.radians([lattice[\"alpha\"], lattice[\"beta\"], lattice[\"gamma\"]]))\n    return lattice[\"c\"] * np.sqrt(1 - cosines @ cosines + 2 * cosines.prod()) / np.sqrt(1 - cosines[2] ** 2)\n\n\n# Find Block Averages\n# -------------------\nelements = [np.array([e[\"value\"] for e in m[\"basis\"][\"elements\"]]) for m in (INTERFACE, BULK_LEFT, BULK_RIGHT)]\nheights = np.array([coordinate[\"value\"][2] for coordinate in INTERFACE[\"basis\"][\"coordinates\"]]) % 1\npositions = np.arange(len(Y)) / len(Y)\naverages = []\nfor bulk, own, other in ((BULK_LEFT, elements[1], elements[2]), (BULK_RIGHT, elements[2], elements[1])):\n    is_own, is_other = np.isin(elements[0], np.setdiff1d(own, other)), np.isin(elements[0], np.setdiff1d(other, own))\n    markers, shift = (heights[is_own], 0.5) if is_own.any() else (heights[is_other], 0)\n    sorted_markers = np.sort(markers)\n    gaps = np.diff(sorted_markers, append=sorted_markers[0] + 1)\n    center = (sorted_markers[np.argmax(gaps)] + gaps.max() / 2 + shift) % 1\n    window = get_height(bulk[\"lattice\"]) / get_height(INTERFACE[\"lattice\"])\n    averages.append(Y[np.abs((positions - center + 0.5) % 1 - 0.5) <= window / 2].mean())\n\n# print final values to standard output (STDOUT),\n# so that they can be read by a subsequent assignment unit (using value=STDOUT)\nprint(json.dumps({\"averages\": averages}, indent=4))\n",
                                 "contextProviders": [],
-                                "content": "# Valence band offset of a periodic superlattice from its two bulks (bulk method):\n#   VBO = (E_VBM - V)_left - (E_VBM - V)_right + (V_left - V_right)_interface\n# V of a bulk: the mean of its planar-averaged electrostatic potential. V in the interface: the planar average smoothed\n# by a double convolution with the bulks' plane periods (Junquera et al. 2007), at the centre of each block.\nimport json\n\nimport numpy as np\nfrom mat3ra.made.material import Material\n\nPLANE_POSITION_TOLERANCE = 1e-3  # crystal coordinate along c\n\n\ndef get_plane_period(bulk):\n    \"\"\"Spacing of the (001) planes over the largest n whose c/n shift maps every atom onto one of its element.\"\"\"\n    heights = np.array(bulk.basis.coordinates.get_values_along_axis(\"z\"))\n    elements = np.array(bulk.basis.elements.values)\n    for count in range(len(elements), 0, -1):\n        distances = np.abs((heights[:, None] + 1 / count - heights + 0.5) % 1 - 0.5)\n        if np.all(np.where(elements[:, None] == elements, distances, 1).min(axis=1) < PLANE_POSITION_TOLERANCE):\n            return 1 / bulk.lattice.reciprocal_vector_norms[2] / count\n\n\ndef get_block_center(own_heights, other_heights):\n    \"\"\"Centre of a block: opposite the widest gap between its own atoms, or in the widest gap between the other's.\"\"\"\n    marker_heights, shift = (own_heights, 0.5) if len(own_heights) else (other_heights, 0)\n    sorted_heights = np.sort(marker_heights % 1)\n    gaps = np.diff(sorted_heights, append=sorted_heights[0] + 1)\n    return (sorted_heights[np.argmax(gaps)] + gaps.max() / 2 + shift) % 1\n\n\n# The checkpoint rupy writes: the three materials, VBM_LEFT/RIGHT and each average.x unit's average_potential_profile.\nwith open(\"./.mat3ra/checkpoint\") as checkpoint_file:\n    scope = json.load(checkpoint_file)[\"scope\"]\nmaterials = [Material.create(scope[\"global\"][operand]) for operand in (\"INTERFACE\", \"BULK_LEFT\", \"BULK_RIGHT\")]\nfor material in materials:\n    material.to_crystal()\ninterface, left, right = materials\ninterface_profile, left_profile, right_profile = [\n    scope[\"local\"][f\"average-electrostatic-potential{side}\"][\"average_potential_profile\"][\"yDataSeries\"][0]\n    for side in (\"\", \"-left\", \"-right\")\n]\nbulk_in_plane = [[bulk.lattice.a, bulk.lattice.b, bulk.lattice.gamma] for bulk in (left, right)]\nif not np.allclose(bulk_in_plane, [interface.lattice.a, interface.lattice.b, interface.lattice.gamma]):\n    raise ValueError(\"Interface Left/Right need the Interface's a, b: same lengths, angle and order.\")\ncell_height = 1 / interface.lattice.reciprocal_vector_norms[2]\nplane_periods = [get_plane_period(bulk) for bulk in (left, right)]\nelements = np.array(interface.basis.elements.values)\nleft_elements, right_elements = set(left.basis.elements.values), set(right.basis.elements.values)\nif not left_elements | right_elements <= set(elements) or cell_height <= 2 * sum(plane_periods):\n    raise ValueError(\"Interface too thin or missing a bulk element: check the material order.\")\nheights = np.array(interface.basis.coordinates.get_values_along_axis(\"z\"))\nleft_heights = heights[np.isin(elements, list(left_elements - right_elements))]\nright_heights = heights[np.isin(elements, list(right_elements - left_elements))]\ncenters = [get_block_center(left_heights, right_heights), get_block_center(right_heights, left_heights)]\ncoefficients = np.fft.rfft(interface_profile)\nfor plane_period in plane_periods:\n    coefficients *= np.sinc(np.arange(len(coefficients)) * plane_period / cell_height)\nmacroscopic_average = np.fft.irfft(coefficients, len(interface_profile))\nsample_positions = np.arange(len(macroscopic_average)) / len(macroscopic_average)\nleft_block, right_block = np.interp(centers, sample_positions, macroscopic_average, period=1)\nbulk_term = scope[\"global\"][\"VBM_LEFT\"] - np.mean(left_profile) - scope[\"global\"][\"VBM_RIGHT\"] + np.mean(right_profile)\nprint(json.dumps({\"valence_band_offset\": bulk_term + left_block - right_block}))\n",
+                                "executableName": "python",
+                                "name": "find_block_averages.py",
                                 "schemaVersion": "2022.8.16"
                             },
+                            "rendered": "",
                             "isManuallyChanged": false
                         },
                         {
                             "template": {
-                                "name": "requirements.txt",
                                 "applicationName": "python",
                                 "applicationVersion": "*",
-                                "executableName": "python",
+                                "content": "# ----------------------------------------------------------------- #\n#                                                                   #\n#  Example Python package requirements for the Mat3ra platform      #\n#                                                                   #\n#  Will be used as follows:                                         #\n#                                                                   #\n#    1. A runtime directory for this calculation is created         #\n#    2. This list is used to populate a Python virtual environment  #\n#    3. The virtual environment is activated                        #\n#    4. The Python process running the script included within this  #\n#       job is started                                              #\n#                                                                   #\n#  For more information visit:                                      #\n#   - https://pip.pypa.io/en/stable/reference/pip_install           #\n#   - https://virtualenv.pypa.io/en/stable/                         #\n#                                                                   #\n# ----------------------------------------------------------------- #\n\n\nmunch>=3.0.0\nnumpy>=1.19.5\nscipy>=1.5.4\nmatplotlib>=3.0.0\n",
                                 "contextProviders": [],
-                                "content": "numpy<2\nmat3ra-made==2026.11.4.post0\n",
+                                "executableName": "python",
+                                "name": "requirements.txt",
                                 "schemaVersion": "2022.8.16"
                             },
+                            "rendered": "",
                             "isManuallyChanged": false
                         }
                     ],
                     "context": [],
+                    "next": "de0c5ab6-dc8c-5c03-823a-1ad75d2effb5",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "Set Average ESP Values",
+                    "type": "assignment",
+                    "operand": "AVG_ESP_INTERFACE",
+                    "value": "json.loads(STDOUT)['averages']",
+                    "input": [
+                        {
+                            "name": "STDOUT",
+                            "scope": "python-find-block-averages"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "de0c5ab6-dc8c-5c03-823a-1ad75d2effb5",
+                    "head": false,
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
+            "_id": "1b70e606-a7ee-599e-89e0-91a7dc5faa4a",
+            "name": "Calculate VBO",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": false,
+                "isUsingMaterial": true,
+                "name": "python",
+                "shortName": "py",
+                "summary": "Python Script",
+                "version": "3.10.13",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [
+                "valence_band_offset"
+            ],
+            "model": {
+                "type": "unknown",
+                "subtype": "unknown",
+                "method": {
+                    "type": "unknown",
+                    "subtype": "unknown",
+                    "data": {}
+                }
+            },
+            "units": [
+                {
+                    "name": "Difference of valence band maxima",
+                    "type": "assignment",
+                    "operand": "VBM_DIFF",
+                    "value": "VBM_LEFT - VBM_RIGHT",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "bd4eaa98-b001-5694-87ef-ec77540502ab",
+                    "head": true,
+                    "next": "2626f7bb-d392-5fd4-ab71-329b508de347",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "Difference of macroscopically averaged ESP in bulk",
+                    "type": "assignment",
+                    "operand": "AVG_ESP_DIFF",
+                    "value": "AVG_ESP_LEFT[0] - AVG_ESP_RIGHT[0]",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "2626f7bb-d392-5fd4-ab71-329b508de347",
+                    "head": false,
+                    "next": "b7307787-53e2-599b-ad12-d627b04074b4",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "Lineup of macroscopically averaged ESP in interface",
+                    "type": "assignment",
+                    "operand": "ESP_LINEUP",
+                    "value": "AVG_ESP_INTERFACE[0] - AVG_ESP_INTERFACE[1]",
+                    "input": [],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "b7307787-53e2-599b-ad12-d627b04074b4",
+                    "head": false,
                     "next": "197f4b4d-cb7b-57be-a885-d44cb1f61905",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -2156,13 +2269,8 @@
                     "name": "Valence Band Offset",
                     "type": "assignment",
                     "operand": "VALENCE_BAND_OFFSET",
-                    "value": "json.loads(STDOUT.splitlines()[-1])[\"valence_band_offset\"]",
-                    "input": [
-                        {
-                            "name": "STDOUT",
-                            "scope": "python-valence-band-offset-bulk"
-                        }
-                    ],
+                    "value": "VBM_DIFF - AVG_ESP_DIFF + ESP_LINEUP",
+                    "input": [],
                     "results": [
                         {
                             "name": "valence_band_offset"
@@ -2277,7 +2385,7 @@
         },
         {
             "type": "subworkflow",
-            "name": "Calculate VBO (Bulk Method)",
+            "name": "Find ESP Block Averages",
             "results": [],
             "monitors": [],
             "preProcessors": [],
@@ -2285,8 +2393,23 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "_id": "d3590bd5-a1f2-5f2d-8da1-1c95ff8d0f3d",
-            "flowchartId": "d4038294-38de-5573-8c61-bea239ca205f",
+            "_id": "059f5c20-b683-59b8-b6ce-ba0673c6e7f9",
+            "flowchartId": "6183b37d-d549-5408-bc7b-e6214d857192",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "subworkflow",
+            "name": "Calculate VBO",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "1b70e606-a7ee-599e-89e0-91a7dc5faa4a",
+            "flowchartId": "0e0b141a-39ca-52bc-9094-e5f96dc72f39",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         }

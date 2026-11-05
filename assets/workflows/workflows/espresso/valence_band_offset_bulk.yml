@@ -1,8 +1,8 @@
 # Valence band offset of a periodic superlattice via the potential lineup method, with bulk references.
 # Assumes 3 structures: Interface (the superlattice, e.g. SiO2/HfO2), Interface Left and Interface Right (the two
-# materials in bulk, stacked along the interface normal, in its strain state); each block of the interface is thicker
-# than the two bulks' plane periods combined. The interface runs no band structure. Positive when the left VBM is above
-# the right (Prodhomme et al., Appl. Phys. Lett. 99, 022101 (2011)); unlike Valence Band Offset (2D), the sign is kept.
+# materials in bulk, stacked along the interface normal, in its strain state); each block of the interface is at least
+# one bulk cell thick. The interface runs no band structure. Positive when the left VBM is above the right (Prodhomme
+# et al., Appl. Phys. Lett. 99, 022101 (2011)); unlike Valence Band Offset (2D), the sign is kept.
 # Relevant references:
 #   - http://dx.doi.org/10.1103/PhysRevB.34.5621
 #   - http://dx.doi.org/10.1103/PhysRevLett.61.734
@@ -56,6 +56,8 @@ units:
         type: assignment
         config:
           attributes:
+            operand: AVG_ESP_LEFT
+            value: "[np.mean(average_potential_profile['yDataSeries'][1])]"
             input:
               - name: average_potential_profile
                 scope: average-electrostatic-potential-left
@@ -97,6 +99,8 @@ units:
         type: assignment
         config:
           attributes:
+            operand: AVG_ESP_RIGHT
+            value: "[np.mean(average_potential_profile['yDataSeries'][1])]"
             input:
               - name: average_potential_profile
                 scope: average-electrostatic-potential-right
@@ -194,5 +198,18 @@ units:
             input:
               - name: DATA
                 scope: io-material-right
-  - name: valence_band_offset_bulk
+  - name: average_electrostatic_potential_find_block_averages
     type: subworkflow
+  - name: valence_band_offset_calc_from_previous_esp_vbm
+    type: subworkflow
+    unitConfigs:
+      - index: 2
+        type: assignment
+        config:
+          attributes:
+            value: "AVG_ESP_INTERFACE[0] - AVG_ESP_INTERFACE[1]"
+      - index: 3
+        type: assignment
+        config:
+          attributes:
+            value: "VBM_DIFF - AVG_ESP_DIFF + ESP_LINEUP"

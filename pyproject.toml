@@ -40,8 +40,8 @@ tests = [
     "gradio",
     "pydantic",
     "mat3ra-esse",
-    "mat3ra-made",
-    "mat3ra-utils"
+    "mat3ra-utils",
+    "jinja2"
 ]
 all = [
     "mat3ra-standata[tests]",

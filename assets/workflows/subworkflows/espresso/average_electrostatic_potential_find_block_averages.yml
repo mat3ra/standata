@@ -1,0 +1,27 @@
+# Note: this subworkflow is assumed to be used as part of the valence band offset (bulk method) workflow
+# and is thus NOT self-sufficient!
+# Furthermore, this subworkflow expects the following variable(s) to exist in the global context:
+# array_from_context, INTERFACE, BULK_LEFT, BULK_RIGHT
+application:
+  name: python
+  version: 3.10.13
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: Find ESP Block Averages
+units:
+  - config:
+      name: Find Block Averages
+      execName: python
+      flavorName: generic:processing:find_block_averages:numpy
+      flowchartId: python-find-block-averages
+    type: executionBuilder
+  - config:
+      name: Set Average ESP Values
+      operand: AVG_ESP_INTERFACE
+      value: "json.loads(STDOUT)['averages']"
+      input:
+        - name: STDOUT
+          scope: python-find-block-averages
+    type: assignment
