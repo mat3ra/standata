@@ -18,12 +18,11 @@ AVERAGES_UNIT = next(unit for unit in UNITS if unit.get("operand") == "AVG_ESP_I
 CALC_UNITS = next(subworkflow for subworkflow in SUBWORKFLOWS if subworkflow["name"] == "Calculate VBO")["units"]
 FIXTURES_DIRECTORY = Path(__file__).parent.parent / "fixtures"
 # (scope of a SiO2/HfO2 (001) superlattice job and its two bulks, the units the interface's basis is given in): offset.
-# Cubic HfO2: job y9NnPhvRqdWN4hX8N, profiles every 8th (interface) / 30th (bulks) sample. Monoclinic HfO2, c tilted
-# from the a, b normal: job cTZuQ9ek4x66jAHus, every 2nd / 30th, fine enough for the window to see the tilt.
+# Job cTZuQ9ek4x66jAHus, monoclinic HfO2 with c tilted from the a, b normal; profiles every 38th (interface) / 300th
+# (bulks) sample, where the window still sees the tilt.
 VALENCE_BAND_OFFSET_BY_SCOPE = {
-    ("valence_band_offset_bulk_cubic_hafnia_scope.json", "crystal"): -0.3535,
-    ("valence_band_offset_bulk_cubic_hafnia_scope.json", "cartesian"): -0.3535,
-    ("valence_band_offset_bulk_monoclinic_hafnia_scope.json", "crystal"): 0.6870,
+    ("valence_band_offset_bulk_monoclinic_hafnia_scope.json", "crystal"): 0.6888,
+    ("valence_band_offset_bulk_monoclinic_hafnia_scope.json", "cartesian"): 0.6888,
 }
 
 
