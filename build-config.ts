@@ -129,6 +129,16 @@ export const BUILD_CONFIG = {
         },
     },
 
+    metaProperties: {
+        assets: {
+            path: "assets/metaProperties",
+            pseudos: "pseudos.json",
+        },
+        build: {
+            path: "build/standata/metaProperties",
+        },
+    },
+
     scripts: {
         models: "scripts/models",
         methods: "scripts/methods",
@@ -137,6 +147,7 @@ export const BUILD_CONFIG = {
         workflows: "scripts/workflows",
         materials: "scripts/materials",
         properties: "scripts/properties",
+        metaProperties: "scripts/metaProperties",
     },
 
     distRuntimeDataDir: "./dist/js/runtime_data",
