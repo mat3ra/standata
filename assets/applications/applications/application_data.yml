@@ -1,3 +1,4 @@
+berkeleygw: !include 'applications/berkeleygw.yml'
 deepmd: !include 'applications/deepmd.yml'
 espresso: !include 'applications/espresso.yml'
 jupyterLab: !include 'applications/jupyterLab.yml'
