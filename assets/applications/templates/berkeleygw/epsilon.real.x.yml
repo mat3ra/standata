@@ -1,0 +1,5 @@
+- content: !readFile 'input_files_templates/berkeleygw/epsilon.j2.inp'
+  name: epsilon.inp
+  contextProviders: []
+  applicationName: berkeleygw
+  executableName: epsilon.real.x
