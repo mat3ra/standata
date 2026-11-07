@@ -52,6 +52,12 @@
   applicationName: python
   executableName: python
 
+- content: !readFile 'input_files_templates/python/generic/processing:find_block_averages.pyi'
+  name: find_block_averages.py
+  contextProviders: []
+  applicationName: python
+  executableName: python
+
 - content: !readFile 'input_files_templates/python/generic/requirements.j2.txt'
   name: processing_requirements.txt
   contextProviders: []

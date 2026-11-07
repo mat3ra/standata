@@ -71,6 +71,17 @@ flavors:
     applicationName: python
     executableName: python
 
+  "generic:processing:find_block_averages:numpy":
+    input:
+      - name: find_block_averages.py
+        templateName: find_block_averages.py
+      - name: requirements.txt
+        templateName: processing_requirements.txt
+    monitors:
+      - name: standard_output
+    applicationName: python
+    executableName: python
+
   "pyml:setup_variables_packages":
     input:
       - name: settings.py

@@ -1,0 +1,218 @@
+# Valence band offset of a periodic superlattice via the potential lineup method, with bulk references.
+# Assumes 3 structures: Interface (the superlattice, e.g. SiO2/HfO2), Interface Left and Interface Right (the two
+# materials in bulk, stacked along the interface normal, in its strain state); each block of the interface is at least
+# one bulk cell thick. Blocks are found by element, so the two bulks must differ in composition: each holds an element
+# the other lacks. The interface runs no band structure. Positive when the left VBM is above the right (Prodhomme et
+# al., Appl. Phys. Lett. 99, 022101 (2011)); unlike Valence Band Offset (2D), the sign is kept.
+# Relevant references:
+#   - http://dx.doi.org/10.1103/PhysRevB.34.5621
+#   - http://dx.doi.org/10.1103/PhysRevLett.61.734
+#   - http://dx.doi.org/10.1088/0953-8984/19/21/213203
+
+name: Valence Band Offset (Bulk Method)
+config:
+  attributes:
+    isMultiMaterial: true
+units:
+  - name: average_electrostatic_potential
+    type: subworkflow
+    config:
+      attributes:
+        name: Avg ESP (Interface)
+  - name: average_electrostatic_potential_via_band_structure
+    type: subworkflow
+    config:
+      attributes:
+        name: BS + Avg ESP (interface left)
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            name: Set Material Index (Interface left)
+            value: "1"
+      - index: 2
+        type: executionBuilder
+        config:
+          attributes:
+            flowchartId: pw-bands-calculate-band-gap-left
+      - index: 3
+        type: assignment
+        config:
+          attributes:
+            input:
+              - name: band_gaps
+                scope: pw-bands-calculate-band-gap-left
+      - index: 4
+        type: assignment
+        config:
+          attributes:
+            operand: VBM_LEFT
+      - index: 7
+        type: executionBuilder
+        config:
+          attributes:
+            flowchartId: average-electrostatic-potential-left
+      - index: 8
+        type: assignment
+        config:
+          attributes:
+            name: Set Average ESP Value (Interface left)
+            operand: AVG_ESP_LEFT
+            value: "[np.mean(average_potential_profile['yDataSeries'][1])]"
+            input:
+              - name: average_potential_profile
+                scope: average-electrostatic-potential-left
+  - name: average_electrostatic_potential_via_band_structure
+    type: subworkflow
+    config:
+      attributes:
+        name: BS + Avg ESP (interface right)
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            name: Set Material Index (Interface right)
+            value: "2"
+      - index: 2
+        type: executionBuilder
+        config:
+          attributes:
+            flowchartId: pw-bands-calculate-band-gap-right
+      - index: 3
+        type: assignment
+        config:
+          attributes:
+            input:
+              - name: band_gaps
+                scope: pw-bands-calculate-band-gap-right
+      - index: 4
+        type: assignment
+        config:
+          attributes:
+            operand: VBM_RIGHT
+      - index: 7
+        type: executionBuilder
+        config:
+          attributes:
+            flowchartId: average-electrostatic-potential-right
+      - index: 8
+        type: assignment
+        config:
+          attributes:
+            name: Set Average ESP Value (Interface right)
+            operand: AVG_ESP_RIGHT
+            value: "[np.mean(average_potential_profile['yDataSeries'][1])]"
+            input:
+              - name: average_potential_profile
+                scope: average-electrostatic-potential-right
+  - name: shell/utils/get_material_by_index
+    type: subworkflow
+    config:
+      attributes:
+        name: Load Interface Material
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            flowchartId: set-material-index-interface
+      - index: 4
+        type: assignment
+        config:
+          attributes:
+            operand: INTERFACE
+  - name: shell/utils/get_material_by_index
+    type: subworkflow
+    config:
+      attributes:
+        name: Load Left Bulk Material
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            flowchartId: set-material-index-left
+            value: "1"
+      - index: 1
+        type: io
+        config:
+          attributes:
+            flowchartId: io-job-left
+      - index: 2
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-material-id-left
+            input:
+              - name: DATA
+                scope: io-job-left
+      - index: 3
+        type: io
+        config:
+          attributes:
+            flowchartId: io-material-left
+      - index: 4
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-material-left
+            operand: BULK_LEFT
+            input:
+              - name: DATA
+                scope: io-material-left
+  - name: shell/utils/get_material_by_index
+    type: subworkflow
+    config:
+      attributes:
+        name: Load Right Bulk Material
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            flowchartId: set-material-index-right
+            value: "2"
+      - index: 1
+        type: io
+        config:
+          attributes:
+            flowchartId: io-job-right
+      - index: 2
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-material-id-right
+            input:
+              - name: DATA
+                scope: io-job-right
+      - index: 3
+        type: io
+        config:
+          attributes:
+            flowchartId: io-material-right
+      - index: 4
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-material-right
+            operand: BULK_RIGHT
+            input:
+              - name: DATA
+                scope: io-material-right
+  - name: average_electrostatic_potential_find_block_averages
+    type: subworkflow
+  - name: valence_band_offset_calc_from_previous_esp_vbm
+    type: subworkflow
+    unitConfigs:
+      - index: 2
+        type: assignment
+        config:
+          attributes:
+            value: "AVG_ESP_INTERFACE[0] - AVG_ESP_INTERFACE[1]"
+      - index: 3
+        type: assignment
+        config:
+          attributes:
+            value: "VBM_DIFF - AVG_ESP_DIFF + ESP_LINEUP"

@@ -274,6 +274,14 @@ entities:
       - non-magnetic
       - oxide
       - glass
+  - filename: SiO2-[Beta_Cristobalite]-FCC_[Fd-3m]_3D_[Bulk]-[mp-8352].json
+    categories:
+      - 3D
+      - bulk
+      - insulator
+      - non-magnetic
+      - oxide
+      - glass
   - filename: Si-[Silicon_(100)_surface_(reconstructed)]-TRI_[P1]_2D_[Surface]-[mavrl-si-100-r].json
     categories:
       - 2D

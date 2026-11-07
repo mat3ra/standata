@@ -408,6 +408,17 @@ sources:
     doi: 10.17188/1267252
     url: https://next-gen.materialsproject.org/materials/mp-546794
 
+  - filename: mp-8352.poscar
+    common_name: Beta Cristobalite
+    lattice_type: FCC
+    space_group: Fd-3m
+    dimensionality: 3D
+    form_factor: Bulk
+    source_id: mp-8352
+    source: MaterialsProject
+    doi: 10.17188/1281939
+    url: https://next-gen.materialsproject.org/materials/mp-8352
+
   - filename: mavrl-si-100-r.poscar
     common_name: Silicon (100) surface (reconstructed)
     lattice_type: TRI

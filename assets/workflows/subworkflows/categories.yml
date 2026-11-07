@@ -66,6 +66,10 @@ entities:
     categories:
       - deepmd
       - espresso
+  - filename: espresso/average_electrostatic_potential_find_block_averages.json
+    categories:
+      - espresso
+      - python
   - filename: espresso/average_electrostatic_potential_find_minima.json
     categories:
       - espresso

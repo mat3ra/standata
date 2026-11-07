@@ -1,0 +1,139 @@
+{
+    "_id": "059f5c20-b683-59b8-b6ce-ba0673c6e7f9",
+    "name": "Find ESP Block Averages",
+    "application": {
+        "name": "espresso"
+    },
+    "properties": [],
+    "model": {
+        "type": "unknown",
+        "subtype": "unknown",
+        "method": {
+            "type": "unknown",
+            "subtype": "unknown",
+            "data": {}
+        }
+    },
+    "units": [
+        {
+            "type": "execution",
+            "name": "Find Block Averages",
+            "head": true,
+            "results": [],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                }
+            ],
+            "flowchartId": "python-find-block-averages",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": false,
+                "isUsingMaterial": true,
+                "name": "python",
+                "shortName": "py",
+                "summary": "Python Script",
+                "version": "3.10.13",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "applicationName": "python",
+                "applicationVersion": "*",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "name": "python",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "applicationName": "python",
+                "applicationVersion": "*",
+                "executableName": "python",
+                "input": [
+                    {
+                        "name": "find_block_averages.py",
+                        "templateName": "find_block_averages.py"
+                    },
+                    {
+                        "name": "requirements.txt",
+                        "templateName": "processing_requirements.txt"
+                    }
+                ],
+                "isDefault": false,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    }
+                ],
+                "name": "generic:processing:find_block_averages:numpy",
+                "postProcessors": [],
+                "preProcessors": [],
+                "results": [],
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [
+                {
+                    "template": {
+                        "applicationName": "python",
+                        "applicationVersion": "*",
+                        "content": "# ----------------------------------------------------------- #\n# This script averages an array along c over each bulk block  #\n# of an interface, in a window as tall as that bulk's cell,   #\n# centred on the block's own atoms.                           #\n# Note: This template expects the array and the materials to  #\n# be defined in the context (see details below).              #\n# ----------------------------------------------------------- #\nimport json\n\nimport numpy as np\n\n# Data From Context\n# -----------------\n# 'array_from_context': the profile along c of the interface, a 1D list sampled over its cell.\n# INTERFACE, BULK_LEFT, BULK_RIGHT: the materials assigned by preceding units.\n{% raw %}profile = np.array({{array_from_context}})\nINTERFACE, BULK_LEFT, BULK_RIGHT = json.loads(r\"\"\"{{ [INTERFACE, BULK_LEFT, BULK_RIGHT] | tojson }}\"\"\"){% endraw %}\n\n\ndef get_cell_height(lattice):\n    \"\"\"Cell height normal to a, b (Å): V / |a x b| from the lattice parameters.\"\"\"\n    cosines = np.cos(np.radians([lattice[\"alpha\"], lattice[\"beta\"], lattice[\"gamma\"]]))\n    return lattice[\"c\"] * np.sqrt(1 - cosines @ cosines + 2 * cosines.prod()) / np.sqrt(1 - cosines[2] ** 2)\n\n\n# Find Block Averages\n# -------------------\ninterface_elements, left_elements, right_elements = [\n    np.array([element[\"value\"] for element in material[\"basis\"][\"elements\"]])\n    for material in (INTERFACE, BULK_LEFT, BULK_RIGHT)\n]\ncoordinates = np.array([coordinate[\"value\"] for coordinate in INTERFACE[\"basis\"][\"coordinates\"]])\nif INTERFACE[\"basis\"][\"units\"] == \"cartesian\":\n    coordinates = coordinates @ np.linalg.inv([INTERFACE[\"lattice\"][\"vectors\"][axis] for axis in \"abc\"])\nheights = coordinates[:, 2] % 1\npositions = np.arange(len(profile)) / len(profile)\naverages = []\nfor bulk, own_elements, other_elements in (\n    (BULK_LEFT, left_elements, right_elements),\n    (BULK_RIGHT, right_elements, left_elements),\n):\n    block_heights = np.sort(heights[np.isin(interface_elements, np.setdiff1d(own_elements, other_elements))])\n    # the block's centre is the middle of its atoms: half a cell from the middle of the widest gap between them\n    gaps = np.diff(block_heights, append=block_heights[0] + 1)\n    center = (block_heights[np.argmax(gaps)] + gaps.max() / 2 + 0.5) % 1\n    window = get_cell_height(bulk[\"lattice\"]) / get_cell_height(INTERFACE[\"lattice\"])\n    averages.append(profile[np.abs((positions - center + 0.5) % 1 - 0.5) <= window / 2].mean())\n\n# print final values to standard output (STDOUT),\n# so that they can be read by a subsequent assignment unit (using value=STDOUT)\nprint(json.dumps({\"averages\": averages}, indent=4))\n",
+                        "contextProviders": [],
+                        "executableName": "python",
+                        "name": "find_block_averages.py",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                },
+                {
+                    "template": {
+                        "applicationName": "python",
+                        "applicationVersion": "*",
+                        "content": "# ----------------------------------------------------------------- #\n#                                                                   #\n#  Example Python package requirements for the Mat3ra platform      #\n#                                                                   #\n#  Will be used as follows:                                         #\n#                                                                   #\n#    1. A runtime directory for this calculation is created         #\n#    2. This list is used to populate a Python virtual environment  #\n#    3. The virtual environment is activated                        #\n#    4. The Python process running the script included within this  #\n#       job is started                                              #\n#                                                                   #\n#  For more information visit:                                      #\n#   - https://pip.pypa.io/en/stable/reference/pip_install           #\n#   - https://virtualenv.pypa.io/en/stable/                         #\n#                                                                   #\n# ----------------------------------------------------------------- #\n\n\nmunch>=3.0.0\nnumpy>=1.19.5\nscipy>=1.5.4\nmatplotlib>=3.0.0\n",
+                        "contextProviders": [],
+                        "executableName": "python",
+                        "name": "requirements.txt",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                }
+            ],
+            "context": [],
+            "next": "de0c5ab6-dc8c-5c03-823a-1ad75d2effb5",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "name": "Set Average ESP Values",
+            "type": "assignment",
+            "operand": "AVG_ESP_INTERFACE",
+            "value": "json.loads(STDOUT)['averages']",
+            "input": [
+                {
+                    "name": "STDOUT",
+                    "scope": "python-find-block-averages"
+                }
+            ],
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "flowchartId": "de0c5ab6-dc8c-5c03-823a-1ad75d2effb5",
+            "head": false,
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "isDraft": false
+}
