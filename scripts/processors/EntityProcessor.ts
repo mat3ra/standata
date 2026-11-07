@@ -283,7 +283,9 @@ export abstract class EntityProcessor {
             filesMapByName: {},
         };
 
-        // Load each entity's JSON file
+        // Load each entity's JSON file; collect every missing one so a single build reports all
+        // mismatches between the categories file and the generated data
+        const missingEntityPaths: string[] = [];
         entities.forEach((entity: EntityItem) => {
             const entityPath = path.join(this.resolvedPaths.dataDir, entity.filename);
             console.log(`  Loading entity file: ${entityPath}`);
@@ -292,9 +294,16 @@ export abstract class EntityProcessor {
                 const content = serverUtils.json.readJSONFileSync(entityPath);
                 runtimeDataConfig.filesMapByName[entity.filename] = content;
             } else {
-                console.warn(`  Warning: Entity file not found: ${entityPath}`);
+                missingEntityPaths.push(entityPath);
             }
         });
+        if (missingEntityPaths.length > 0) {
+            throw new Error(
+                `Entity files listed in "${this.categoriesPath}" not found:\n${missingEntityPaths
+                    .map((entityPath) => `  - ${entityPath}`)
+                    .join("\n")}`,
+            );
+        }
         return runtimeDataConfig;
     }
 
