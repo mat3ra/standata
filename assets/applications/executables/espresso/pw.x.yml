@@ -374,6 +374,15 @@ flavors:
     applicationName: espresso
     executableName: pw.x
 
+  pw_bands_bgw_wfn:
+    input:
+      - name: pw_bands_bgw_wfn.in
+    results: []
+    monitors:
+      - name: standard_output
+    applicationName: espresso
+    executableName: pw.x
+
   pw_nscf_magn:
     input:
       - name: pw_nscf_magn.in

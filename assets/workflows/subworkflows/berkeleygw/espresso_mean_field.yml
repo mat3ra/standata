@@ -20,3 +20,8 @@ units:
     functions:
       head: true
     type: executionBuilder
+  - config:
+      execName: pw.x
+      flavorName: pw_bands_bgw_wfn
+      name: pw_bands_bgw_wfn
+    type: executionBuilder
