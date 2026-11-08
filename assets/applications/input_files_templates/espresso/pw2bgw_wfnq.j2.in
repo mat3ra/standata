@@ -1,0 +1,17 @@
+{#- See pw2bgw_wfn.j2.in. The k-grid offset wfng_dk3 is in units of the grid spacing, i.e.
+    q0_shift * nk3, where q0_shift must match pw_bands_bgw_wfnq.in and epsilon.inp. -#}
+{%- set q0_shift = 0.001 -%}
+&input_pw2bgw
+    prefix = '__prefix__'
+    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}
+    real_or_complex = 1
+    wfng_flag = .true.
+    wfng_file = '../WFNq'
+    wfng_kgrid = .true.
+    wfng_nk1 = {{ kgrid.dimensions[0] }}
+    wfng_nk2 = {{ kgrid.dimensions[1] }}
+    wfng_nk3 = {{ kgrid.dimensions[2] }}
+    wfng_dk1 = 0.0
+    wfng_dk2 = 0.0
+    wfng_dk3 = {{ (q0_shift * kgrid.dimensions[2])|sprintf("%.6f") }}
+/

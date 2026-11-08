@@ -27,7 +27,7 @@
         "@mat3ra/code": "2026.10.8-0",
         "@mat3ra/eslint-config": "^2026.7.12-0",
         "@mat3ra/esse": "2026.11.1-0",
-        "@mat3ra/fixtures": "git+https://github.com/mat3ra/fixtures.git#893cadf322a751bce34c5aef7ed9ef2927ad2d79",
+        "@mat3ra/fixtures": "git+https://github.com/mat3ra/fixtures.git#331791ce7fb0daab7bc07e071a46015a93ea3553",
         "@mat3ra/ide": "^2026.11.1-0",
         "@mat3ra/made": "^2026.11.4-0",
         "@mat3ra/mode": "^2026.10.9-1",

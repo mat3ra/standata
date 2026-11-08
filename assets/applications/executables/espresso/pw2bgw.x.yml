@@ -11,3 +11,12 @@ flavors:
       - name: standard_output
     applicationName: espresso
     executableName: pw2bgw.x
+
+  pw2bgw_wfnq:
+    input:
+      - name: pw2bgw_wfnq.in
+    results: []
+    monitors:
+      - name: standard_output
+    applicationName: espresso
+    executableName: pw2bgw.x

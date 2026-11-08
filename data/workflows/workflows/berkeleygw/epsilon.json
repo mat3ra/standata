@@ -425,6 +425,87 @@
                         }
                     ],
                     "context": [],
+                    "next": "d01f9913-f1f1-582b-b230-41dcde16c1b9",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "pw2bgw_wfnq",
+                    "head": false,
+                    "results": [],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "d01f9913-f1f1-582b-b230-41dcde16c1b9",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": false,
+                        "name": "pw2bgw.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "pw2bgw.x",
+                        "input": [
+                            {
+                                "name": "pw2bgw_wfnq.in"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "pw2bgw_wfnq",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "{#- See pw2bgw_wfn.j2.in. The k-grid offset wfng_dk3 is in units of the grid spacing, i.e.\n    q0_shift * nk3, where q0_shift must match pw_bands_bgw_wfnq.in and epsilon.inp. -#}\n{%- set q0_shift = 0.001 -%}\n&input_pw2bgw\n    prefix = '__prefix__'\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    real_or_complex = 1\n    wfng_flag = .true.\n    wfng_file = '../WFNq'\n    wfng_kgrid = .true.\n    wfng_nk1 = {{ kgrid.dimensions[0] }}\n    wfng_nk2 = {{ kgrid.dimensions[1] }}\n    wfng_nk3 = {{ kgrid.dimensions[2] }}\n    wfng_dk1 = 0.0\n    wfng_dk2 = 0.0\n    wfng_dk3 = {{ (q0_shift * kgrid.dimensions[2])|sprintf(\"%.6f\") }}\n/\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "KGridFormDataManager"
+                                    }
+                                ],
+                                "executableName": "pw2bgw.x",
+                                "name": "pw2bgw_wfnq.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 }
