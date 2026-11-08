@@ -1,16 +1,58 @@
 import { expect } from "chai";
 import * as fs from "fs";
-import * as yaml from "js-yaml";
 import { readFileSync } from "fs";
+import * as yaml from "js-yaml";
 import path from "path";
+
 import { MaterialStandata } from "../../src/js";
 
 // Read materials instead of importing due to usage of URL encoding in filenames which is needed for Pyodide and web compatibility
-const h_BN = JSON.parse(readFileSync(path.join(__dirname, "fixtures", "BN-[Hexagonal_Boron_Nitride]-HEX_[P6%2Fmmm]_2D_[Monolayer]-[2dm-4991].json"), "utf8"));
-const Graphene = JSON.parse(readFileSync(path.join(__dirname, "fixtures", "C-[Graphene]-HEX_[P6%2Fmmm]_2D_[Monolayer]-[2dm-3993].json"), "utf8"));
-const WS2 = JSON.parse(readFileSync(path.join(__dirname, "fixtures", "WS2-[Tungsten_Disulfide]-HEX_[P-6m2]_2D_[Monolayer]-[2dm-3749].json"), "utf8"));
-const Na4Cl4 = JSON.parse(readFileSync(path.join(__dirname, "fixtures", "NaCl-[Sodium_Chloride]-FCC_[Fm-3m]_3D_[Bulk]-[mp-22862].json"), "utf8"));
-const Si = JSON.parse(readFileSync(path.join(__dirname, "fixtures", "Si-[Silicon]-FCC_[Fd-3m]_3D_[Bulk]-[mp-149].json"), "utf8"));
+const h_BN = JSON.parse(
+    readFileSync(
+        path.join(
+            __dirname,
+            "fixtures",
+            "BN-[Hexagonal_Boron_Nitride]-HEX_[P6%2Fmmm]_2D_[Monolayer]-[2dm-4991].json",
+        ),
+        "utf8",
+    ),
+);
+const Graphene = JSON.parse(
+    readFileSync(
+        path.join(
+            __dirname,
+            "fixtures",
+            "C-[Graphene]-HEX_[P6%2Fmmm]_2D_[Monolayer]-[2dm-3993].json",
+        ),
+        "utf8",
+    ),
+);
+const WS2 = JSON.parse(
+    readFileSync(
+        path.join(
+            __dirname,
+            "fixtures",
+            "WS2-[Tungsten_Disulfide]-HEX_[P-6m2]_2D_[Monolayer]-[2dm-3749].json",
+        ),
+        "utf8",
+    ),
+);
+const Na4Cl4 = JSON.parse(
+    readFileSync(
+        path.join(
+            __dirname,
+            "fixtures",
+            "NaCl-[Sodium_Chloride]-FCC_[Fm-3m]_3D_[Bulk]-[mp-22862].json",
+        ),
+        "utf8",
+    ),
+);
+const Si = JSON.parse(
+    readFileSync(
+        path.join(__dirname, "fixtures", "Si-[Silicon]-FCC_[Fd-3m]_3D_[Bulk]-[mp-149].json"),
+        "utf8",
+    ),
+);
 function countEntitiesInYAML(filePath: string, entityKey: string): number {
     try {
         const fileContents = fs.readFileSync(filePath, "utf8");
