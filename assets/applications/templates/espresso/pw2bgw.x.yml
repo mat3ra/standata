@@ -1,0 +1,6 @@
+- content: !readFile 'input_files_templates/espresso/pw2bgw_wfn.j2.in'
+  name: pw2bgw_wfn.in
+  contextProviders:
+    - name: KGridFormDataManager
+  applicationName: espresso
+  executableName: pw2bgw.x

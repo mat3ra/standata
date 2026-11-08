@@ -25,3 +25,8 @@ units:
       flavorName: pw_bands_bgw_wfn
       name: pw_bands_bgw_wfn
     type: executionBuilder
+  - config:
+      execName: pw2bgw.x
+      flavorName: pw2bgw_wfn
+      name: pw2bgw_wfn
+    type: executionBuilder

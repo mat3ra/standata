@@ -22,6 +22,7 @@ espresso:
   pp.x: !include 'executables/espresso/pp.x.yml'
   projwfc.x: !include 'executables/espresso/projwfc.x.yml'
   pw.x: !include 'executables/espresso/pw.x.yml'
+  pw2bgw.x: !include 'executables/espresso/pw2bgw.x.yml'
   pw4gww.x: !include 'executables/espresso/pw4gww.x.yml'
   q2r.x: !include 'executables/espresso/q2r.x.yml'
   simple.x: !include 'executables/espresso/simple.x.yml'

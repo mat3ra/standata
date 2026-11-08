@@ -244,6 +244,87 @@
                 }
             ],
             "context": [],
+            "next": "d7227422-3de0-5ea0-9a70-ed30a18be6e0",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "execution",
+            "name": "pw2bgw_wfn",
+            "head": false,
+            "results": [],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                }
+            ],
+            "flowchartId": "d7227422-3de0-5ea0-9a70-ed30a18be6e0",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "espresso",
+                "shortName": "qe",
+                "summary": "Quantum ESPRESSO",
+                "version": "6.3",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "applicationName": "espresso",
+                "applicationVersion": "*",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": false,
+                "name": "pw2bgw.x",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "applicationName": "espresso",
+                "applicationVersion": "*",
+                "executableName": "pw2bgw.x",
+                "input": [
+                    {
+                        "name": "pw2bgw_wfn.in"
+                    }
+                ],
+                "isDefault": true,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    }
+                ],
+                "name": "pw2bgw_wfn",
+                "postProcessors": [],
+                "preProcessors": [],
+                "results": [],
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [
+                {
+                    "template": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "content": "{#- pw2bgw.x writes output files to outdir/<file>; the \"../\" prefix places them in the job\n    working directory, where the BerkeleyGW executables expect them. real_or_complex = 1 matches\n    the real flavor of BerkeleyGW (epsilon.real.x) and requires inversion symmetry. -#}\n&input_pw2bgw\n    prefix = '__prefix__'\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    real_or_complex = 1\n    wfng_flag = .true.\n    wfng_file = '../WFN'\n    wfng_kgrid = .true.\n    wfng_nk1 = {{ kgrid.dimensions[0] }}\n    wfng_nk2 = {{ kgrid.dimensions[1] }}\n    wfng_nk3 = {{ kgrid.dimensions[2] }}\n    wfng_dk1 = 0.0\n    wfng_dk2 = 0.0\n    wfng_dk3 = 0.0\n    rhog_flag = .true.\n    rhog_file = '../RHO'\n{#- vxc_diag_nmax must not exceed nbnd in pw_bands_bgw_wfn.in #}\n    vxc_flag = .true.\n    vxc_file = '../vxc.dat'\n    vxc_diag_nmin = 1\n    vxc_diag_nmax = 35\n    vxc_offdiag_nmin = 0\n    vxc_offdiag_nmax = 0\n/\n",
+                        "contextProviders": [
+                            {
+                                "name": "KGridFormDataManager"
+                            }
+                        ],
+                        "executableName": "pw2bgw.x",
+                        "name": "pw2bgw_wfn.in",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                }
+            ],
+            "context": [],
             "schemaVersion": "2022.8.16",
             "isDefault": false
         }

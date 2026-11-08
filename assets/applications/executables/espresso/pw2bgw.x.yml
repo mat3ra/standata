@@ -1,0 +1,13 @@
+monitors:
+  - name: standard_output
+results: []
+flavors:
+  pw2bgw_wfn:
+    isDefault: true
+    input:
+      - name: pw2bgw_wfn.in
+    results: []
+    monitors:
+      - name: standard_output
+    applicationName: espresso
+    executableName: pw2bgw.x
