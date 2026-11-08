@@ -419,3 +419,12 @@
     - name: PlanewaveCutoffDataManager
   applicationName: espresso
   executableName: pw.x
+
+- content: !readFile 'input_files_templates/espresso/pw_bands_bgw_wfnq.j2.in'
+  name: pw_bands_bgw_wfnq.in
+  contextProviders:
+    - name: KGridFormDataManager
+    - name: QEPWXInputDataManager
+    - name: PlanewaveCutoffDataManager
+  applicationName: espresso
+  executableName: pw.x
