@@ -1,19 +1,26 @@
+{#- q-grid = WFN k-grid (full grid, see pw_bands_bgw_wfn.in), with q = 0 replaced by the small
+    q0 = (0, 0, q0_shift) that matches the WFNq offset (see pw_bands_bgw_wfnq.in). #}
+{%- set q0_shift = 0.001 %}
+{%- set n1 = kgrid.dimensions[0] %}
+{%- set n2 = kgrid.dimensions[1] %}
+{%- set n3 = kgrid.dimensions[2] -%}
 # Energy cutoff for the dielectric matrix (Ry)
 epsilon_cutoff 10.0
 
-# Total number of bands (occupied + unoccupied) used in the summation
+# Total number of bands (occupied + unoccupied) used in the summation; must not exceed
+# nbnd in WFN (see pw_bands_bgw_wfn.in)
 number_bands 32
 
 # q-points in crystal coordinates: qx qy qz 1/scale_factor is_q0
-# The q-grid must be commensurate with the k-grid of WFN; the first q-point is the
-# small q0 shift (matching the WFNq k-grid offset) and is flagged with is_q0 = 1.
 begin qpoints
-  0.000000000  0.000000000  0.001000000  1.0  1
-  0.000000000  0.000000000  0.250000000  1.0  0
-  0.000000000  0.000000000  0.500000000  1.0  0
-  0.000000000  0.250000000  0.250000000  1.0  0
-  0.000000000  0.250000000  0.500000000  1.0  0
-  0.000000000  0.250000000  0.750000000  1.0  0
-  0.000000000  0.500000000  0.500000000  1.0  0
-  0.250000000  0.500000000  0.750000000  1.0  0
+{{ 0|sprintf("%14.9f") }} {{ 0|sprintf("%14.9f") }} {{ q0_shift|sprintf("%14.9f") }}  1.0  1
+{% for i in range(n1) -%}
+{% for j in range(n2) -%}
+{% for k in range(n3) -%}
+{% if i or j or k -%}
+{{ (i / n1)|sprintf("%14.9f") }} {{ (j / n2)|sprintf("%14.9f") }} {{ (k / n3)|sprintf("%14.9f") }}  1.0  0
+{% endif -%}
+{% endfor -%}
+{% endfor -%}
+{% endfor -%}
 end

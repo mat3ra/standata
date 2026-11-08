@@ -512,6 +512,124 @@
             ],
             "schemaVersion": "2022.8.16",
             "isDraft": false
+        },
+        {
+            "_id": "7898b9d3-810c-5c08-8ca8-747629195734",
+            "name": "Dielectric Matrix (BerkeleyGW Epsilon)",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "berkeleygw",
+                "runConfig": {
+                    "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\n$EXEC_CMD mpirun -machinefile {MACHINEFILE} -np {NP} {EXECUTABLE} > {OUTPUTFILE}\n",
+                    "outFileName": "berkeleygw.out"
+                },
+                "shortName": "bgw",
+                "summary": "BerkeleyGW",
+                "version": "4.0",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [],
+            "model": {
+                "type": "unknown",
+                "subtype": "unknown",
+                "method": {
+                    "type": "unknown",
+                    "subtype": "unknown",
+                    "data": {}
+                }
+            },
+            "units": [
+                {
+                    "type": "execution",
+                    "name": "epsilon",
+                    "head": true,
+                    "results": [],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "37b818a1-9cda-5325-80b1-ebab8323056f",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "berkeleygw",
+                        "runConfig": {
+                            "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\n$EXEC_CMD mpirun -machinefile {MACHINEFILE} -np {NP} {EXECUTABLE} > {OUTPUTFILE}\n",
+                            "outFileName": "berkeleygw.out"
+                        },
+                        "shortName": "bgw",
+                        "summary": "BerkeleyGW",
+                        "version": "4.0",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "berkeleygw",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "name": "epsilon.real.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "berkeleygw",
+                        "applicationVersion": "*",
+                        "executableName": "epsilon.real.x",
+                        "input": [
+                            {
+                                "name": "epsilon.inp"
+                            }
+                        ],
+                        "isDefault": true,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "epsilon",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "berkeleygw",
+                                "applicationVersion": "*",
+                                "content": "{#- q-grid = WFN k-grid (full grid, see pw_bands_bgw_wfn.in), with q = 0 replaced by the small\n    q0 = (0, 0, q0_shift) that matches the WFNq offset (see pw_bands_bgw_wfnq.in). #}\n{%- set q0_shift = 0.001 %}\n{%- set n1 = kgrid.dimensions[0] %}\n{%- set n2 = kgrid.dimensions[1] %}\n{%- set n3 = kgrid.dimensions[2] -%}\n# Energy cutoff for the dielectric matrix (Ry)\nepsilon_cutoff 10.0\n\n# Total number of bands (occupied + unoccupied) used in the summation; must not exceed\n# nbnd in WFN (see pw_bands_bgw_wfn.in)\nnumber_bands 32\n\n# q-points in crystal coordinates: qx qy qz 1/scale_factor is_q0\nbegin qpoints\n{{ 0|sprintf(\"%14.9f\") }} {{ 0|sprintf(\"%14.9f\") }} {{ q0_shift|sprintf(\"%14.9f\") }}  1.0  1\n{% for i in range(n1) -%}\n{% for j in range(n2) -%}\n{% for k in range(n3) -%}\n{% if i or j or k -%}\n{{ (i / n1)|sprintf(\"%14.9f\") }} {{ (j / n2)|sprintf(\"%14.9f\") }} {{ (k / n3)|sprintf(\"%14.9f\") }}  1.0  0\n{% endif -%}\n{% endfor -%}\n{% endfor -%}\n{% endfor -%}\nend\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "KGridFormDataManager"
+                                    }
+                                ],
+                                "executableName": "epsilon.real.x",
+                                "name": "epsilon.inp",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
         }
     ],
     "units": [
@@ -527,6 +645,21 @@
             "tags": [],
             "_id": "8372b898-e303-5ef2-b671-6d5b6e3ef9f4",
             "flowchartId": "c4f2fcfb-7513-57f5-bd45-519037067a87",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "subworkflow",
+            "name": "Dielectric Matrix (BerkeleyGW Epsilon)",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "7898b9d3-810c-5c08-8ca8-747629195734",
+            "flowchartId": "645f9c32-2e67-5d35-8ea4-568b2fedd765",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         }

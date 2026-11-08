@@ -1,0 +1,16 @@
+application:
+  name: berkeleygw
+  version: "4.0"
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: Dielectric Matrix (BerkeleyGW Epsilon)
+units:
+  - config:
+      execName: epsilon.real.x
+      flavorName: epsilon
+      name: epsilon
+    functions:
+      head: true
+    type: executionBuilder

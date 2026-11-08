@@ -60,6 +60,9 @@ categories:
     - shell
     - vasp
 entities:
+  - filename: berkeleygw/epsilon.json
+    categories:
+      - berkeleygw
   - filename: berkeleygw/espresso_mean_field.json
     categories:
       - atomic_forces
