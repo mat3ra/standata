@@ -52,13 +52,13 @@
                 "applicationVersion": "*",
                 "hasAdvancedComputeOptions": false,
                 "isDefault": true,
-                "name": "epsilon.real.x",
+                "name": "epsilon.cplx.x",
                 "schemaVersion": "2022.8.16"
             },
             "flavor": {
                 "applicationName": "berkeleygw",
                 "applicationVersion": "*",
-                "executableName": "epsilon.real.x",
+                "executableName": "epsilon.cplx.x",
                 "input": [
                     {
                         "name": "epsilon.inp"
@@ -87,7 +87,7 @@
                                 "name": "KGridFormDataManager"
                             }
                         ],
-                        "executableName": "epsilon.real.x",
+                        "executableName": "epsilon.cplx.x",
                         "name": "epsilon.inp",
                         "schemaVersion": "2022.8.16"
                     },

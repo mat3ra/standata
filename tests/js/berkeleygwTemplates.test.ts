@@ -13,6 +13,9 @@ const WFNQ_CONVERSION_TEMPLATE = "espresso/pw2bgw_wfnq.j2.in";
 const EPSILON_TEMPLATE = "berkeleygw/epsilon.j2.inp";
 const Q0_SHIFT_TEMPLATES = [WFNQ_BANDS_TEMPLATE, WFNQ_CONVERSION_TEMPLATE, EPSILON_TEMPLATE];
 
+/// pw2bgw.x real_or_complex value for the complex flavor of BerkeleyGW (*.cplx.x)
+const COMPLEX_FLAVOR = 2;
+
 const KGRID_DIMENSIONS = [2, 3, 4];
 const NUMBER_OF_KPOINTS = KGRID_DIMENSIONS[0] * KGRID_DIMENSIONS[1] * KGRID_DIMENSIONS[2];
 
@@ -126,6 +129,13 @@ describe("BerkeleyGW Template Rendering", () => {
 
             expect(numberOfEpsilonBands).to.be.at.most(numberOfWfnBands);
             expect(maximumVxcBand).to.be.at.most(numberOfWfnBands);
+        });
+
+        it("writes WFN and WFNq for the complex flavor used by epsilon.cplx.x", () => {
+            [WFN_CONVERSION_TEMPLATE, WFNQ_CONVERSION_TEMPLATE].forEach((templatePath) => {
+                const realOrComplex = readIntegerParameter(render(templatePath), "real_or_complex");
+                expect(realOrComplex, templatePath).to.equal(COMPLEX_FLAVOR);
+            });
         });
     });
 

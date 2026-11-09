@@ -8,7 +8,7 @@ model:
 name: Dielectric Matrix (BerkeleyGW Epsilon)
 units:
   - config:
-      execName: epsilon.real.x
+      execName: epsilon.cplx.x
       flavorName: epsilon
       name: epsilon
     functions:

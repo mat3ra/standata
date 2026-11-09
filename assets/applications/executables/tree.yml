@@ -1,5 +1,5 @@
 berkeleygw:
-  epsilon.real.x: !include 'executables/berkeleygw/epsilon.real.x.yml'
+  epsilon.cplx.x: !include 'executables/berkeleygw/epsilon.cplx.x.yml'
 deepmd:
   dp: !include 'executables/deepmd/dp.yml'
   lmp: !include 'executables/deepmd/lmp.yml'

@@ -1,10 +1,15 @@
 {#- pw2bgw.x writes output files to outdir/<file>; the "../" prefix places them in the job
-    working directory, where the BerkeleyGW executables expect them. real_or_complex = 1 matches
-    the real flavor of BerkeleyGW (epsilon.real.x) and requires inversion symmetry. -#}
+    working directory, where the BerkeleyGW executables expect them.
+    real_or_complex selects the BerkeleyGW flavor the wavefunctions are written for:
+      1 - real flavor (*.real.x): for systems with both inversion symmetry (about the origin) and
+          time-reversal symmetry, where wavefunctions can be chosen real, saving memory and cost.
+      2 - complex flavor (*.cplx.x, default): required for general symmetry, magnetism, or
+          spin-orbit coupling, where wavefunctions are inherently complex.
+    It must match the flavor of the BerkeleyGW executables in the workflow (epsilon.cplx.x). -#}
 &input_pw2bgw
     prefix = '__prefix__'
     outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}
-    real_or_complex = 1
+    real_or_complex = 2
     wfng_flag = .true.
     wfng_file = '../WFN'
     wfng_kgrid = .true.

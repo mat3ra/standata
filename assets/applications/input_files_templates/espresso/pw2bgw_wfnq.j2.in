@@ -1,10 +1,12 @@
 {#- See pw2bgw_wfn.j2.in. The k-grid offset wfng_dk3 is in units of the grid spacing, i.e.
-    q0_shift * nk3, where q0_shift must match pw_bands_bgw_wfnq.in and epsilon.inp. -#}
+    q0_shift * nk3, where q0_shift must match pw_bands_bgw_wfnq.in and epsilon.inp.
+    real_or_complex = 2 selects the complex flavor (default); it must match pw2bgw_wfn.in and the
+    BerkeleyGW executables (epsilon.cplx.x), see pw2bgw_wfn.j2.in for details. -#}
 {%- set q0_shift = 0.001 -%}
 &input_pw2bgw
     prefix = '__prefix__'
     outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}
-    real_or_complex = 1
+    real_or_complex = 2
     wfng_flag = .true.
     wfng_file = '../WFNq'
     wfng_kgrid = .true.

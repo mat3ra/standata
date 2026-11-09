@@ -3,4 +3,4 @@
   contextProviders:
     - name: KGridFormDataManager
   applicationName: berkeleygw
-  executableName: epsilon.real.x
+  executableName: epsilon.cplx.x
