@@ -5,7 +5,7 @@ method:
   name: UnknownMethod
 model:
   name: UnknownModel
-name: Dielectric Matrix (BerkeleyGW Epsilon)
+name: GW (BerkeleyGW)
 units:
   - config:
       execName: epsilon.cplx.x

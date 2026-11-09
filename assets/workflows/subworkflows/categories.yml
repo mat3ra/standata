@@ -60,9 +60,6 @@ categories:
     - shell
     - vasp
 entities:
-  - filename: berkeleygw/epsilon.json
-    categories:
-      - berkeleygw
   - filename: berkeleygw/espresso_mean_field.json
     categories:
       - atomic_forces
@@ -74,6 +71,9 @@ entities:
       - total_energy
       - total_energy_contributions
       - total_force
+  - filename: berkeleygw/gw.json
+    categories:
+      - berkeleygw
   - filename: deepmd/deepmd.json
     categories:
       - deepmd

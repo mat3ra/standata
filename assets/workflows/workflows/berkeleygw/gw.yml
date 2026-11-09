@@ -1,6 +1,6 @@
-name: Dielectric Matrix - BerkeleyGW
+name: GW Quasiparticle Energies - BerkeleyGW + QE
 units:
   - name: espresso_mean_field
     type: subworkflow
-  - name: epsilon
+  - name: gw
     type: subworkflow

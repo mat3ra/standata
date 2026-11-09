@@ -53,7 +53,7 @@ categories:
     - shell
     - vasp
 entities:
-  - filename: berkeleygw/epsilon.json
+  - filename: berkeleygw/gw.json
     categories:
       - atomic_forces
       - berkeleygw

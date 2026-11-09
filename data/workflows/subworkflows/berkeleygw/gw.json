@@ -1,6 +1,6 @@
 {
-    "_id": "7898b9d3-810c-5c08-8ca8-747629195734",
-    "name": "Dielectric Matrix (BerkeleyGW Epsilon)",
+    "_id": "a496c68b-f013-5b4c-b373-79ff04f7c15b",
+    "name": "GW (BerkeleyGW)",
     "application": {
         "name": "berkeleygw"
     },

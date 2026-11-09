@@ -1,6 +1,6 @@
 {
     "_id": "ceaaa256-00d8-575b-ae17-0e2bb2232bb8",
-    "name": "Dielectric Matrix - BerkeleyGW",
+    "name": "GW Quasiparticle Energies - BerkeleyGW + QE",
     "subworkflows": [
         {
             "_id": "8372b898-e303-5ef2-b671-6d5b6e3ef9f4",
@@ -595,8 +595,8 @@
             "isDraft": false
         },
         {
-            "_id": "7898b9d3-810c-5c08-8ca8-747629195734",
-            "name": "Dielectric Matrix (BerkeleyGW Epsilon)",
+            "_id": "a496c68b-f013-5b4c-b373-79ff04f7c15b",
+            "name": "GW (BerkeleyGW)",
             "application": {
                 "build": "GNU",
                 "hasAdvancedComputeOptions": false,
@@ -816,7 +816,7 @@
         },
         {
             "type": "subworkflow",
-            "name": "Dielectric Matrix (BerkeleyGW Epsilon)",
+            "name": "GW (BerkeleyGW)",
             "results": [],
             "monitors": [],
             "preProcessors": [],
@@ -824,8 +824,8 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "_id": "7898b9d3-810c-5c08-8ca8-747629195734",
-            "flowchartId": "645f9c32-2e67-5d35-8ea4-568b2fedd765",
+            "_id": "a496c68b-f013-5b4c-b373-79ff04f7c15b",
+            "flowchartId": "0979f259-9b64-5abe-9020-2f1f9054d83d",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         }
