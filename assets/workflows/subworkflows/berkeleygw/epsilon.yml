@@ -14,3 +14,8 @@ units:
     functions:
       head: true
     type: executionBuilder
+  - config:
+      execName: sigma.cplx.x
+      flavorName: sigma
+      name: sigma
+    type: executionBuilder

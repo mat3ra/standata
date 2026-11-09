@@ -325,6 +325,87 @@
                 }
             ],
             "context": [],
+            "next": "4bb62348-bc29-51ce-873f-f756773acf09",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "execution",
+            "name": "pw2bgw_wfn_inner",
+            "head": false,
+            "results": [],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                }
+            ],
+            "flowchartId": "4bb62348-bc29-51ce-873f-f756773acf09",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "espresso",
+                "shortName": "qe",
+                "summary": "Quantum ESPRESSO",
+                "version": "6.3",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "applicationName": "espresso",
+                "applicationVersion": "*",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": false,
+                "name": "pw2bgw.x",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "applicationName": "espresso",
+                "applicationVersion": "*",
+                "executableName": "pw2bgw.x",
+                "input": [
+                    {
+                        "name": "pw2bgw_wfn_inner.in"
+                    }
+                ],
+                "isDefault": false,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    }
+                ],
+                "name": "pw2bgw_wfn_inner",
+                "postProcessors": [],
+                "preProcessors": [],
+                "results": [],
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [
+                {
+                    "template": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "content": "{#- See pw2bgw_wfn.j2.in. Sigma reads the same wavefunctions as Epsilon, but under the name\n    WFN_inner, so the WFN bands are converted a second time; it must run before the WFNq bands\n    run overwrites them in outdir. RHO and vxc.dat are already written by pw2bgw_wfn.in. -#}\n&input_pw2bgw\n    prefix = '__prefix__'\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    real_or_complex = 2\n    wfng_flag = .true.\n    wfng_file = '../WFN_inner'\n    wfng_kgrid = .true.\n    wfng_nk1 = {{ kgrid.dimensions[0] }}\n    wfng_nk2 = {{ kgrid.dimensions[1] }}\n    wfng_nk3 = {{ kgrid.dimensions[2] }}\n    wfng_dk1 = 0.0\n    wfng_dk2 = 0.0\n    wfng_dk3 = 0.0\n    rhog_flag = .false.\n    vxc_flag = .false.\n/\n",
+                        "contextProviders": [
+                            {
+                                "name": "KGridFormDataManager"
+                            }
+                        ],
+                        "executableName": "pw2bgw.x",
+                        "name": "pw2bgw_wfn_inner.in",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                }
+            ],
+            "context": [],
             "next": "ee35e1c7-ba3d-549a-8849-16a914ee8454",
             "schemaVersion": "2022.8.16",
             "isDefault": false

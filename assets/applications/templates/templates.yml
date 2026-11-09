@@ -1,6 +1,7 @@
 !flatten
 # berkeleygw
 - !include 'templates/berkeleygw/epsilon.cplx.x.yml'
+- !include 'templates/berkeleygw/sigma.cplx.x.yml'
 # deepmd
 - !include 'templates/deepmd/dp_train.yml'
 - !include 'templates/deepmd/dp_prepare.yml'

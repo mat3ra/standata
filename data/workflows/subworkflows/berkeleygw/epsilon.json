@@ -96,6 +96,91 @@
                 }
             ],
             "context": [],
+            "next": "0632f3f9-f286-575f-bb89-8ceb088479e3",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "execution",
+            "name": "sigma",
+            "head": false,
+            "results": [],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                }
+            ],
+            "flowchartId": "0632f3f9-f286-575f-bb89-8ceb088479e3",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "berkeleygw",
+                "runConfig": {
+                    "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\n$EXEC_CMD mpirun -machinefile {MACHINEFILE} -np {NP} {EXECUTABLE} > {OUTPUTFILE}\n",
+                    "outFileName": "berkeleygw.out"
+                },
+                "shortName": "bgw",
+                "summary": "BerkeleyGW",
+                "version": "4.0",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "applicationName": "berkeleygw",
+                "applicationVersion": "*",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": false,
+                "name": "sigma.cplx.x",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "applicationName": "berkeleygw",
+                "applicationVersion": "*",
+                "executableName": "sigma.cplx.x",
+                "input": [
+                    {
+                        "name": "sigma.inp"
+                    }
+                ],
+                "isDefault": true,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    }
+                ],
+                "name": "sigma",
+                "postProcessors": [],
+                "preProcessors": [],
+                "results": [],
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [
+                {
+                    "template": {
+                        "applicationName": "berkeleygw",
+                        "applicationVersion": "*",
+                        "content": "{#- Sigma reads eps0mat.h5 and epsmat.h5 (Epsilon), WFN_inner, RHO and vxc.dat (pw2bgw.x).\n    k-points = WFN_inner k-grid (full grid, see pw_bands_bgw_wfn.in); every k-point listed here\n    must be present in WFN_inner. #}\n{%- set n1 = kgrid.dimensions[0] %}\n{%- set n2 = kgrid.dimensions[1] %}\n{%- set n3 = kgrid.dimensions[2] -%}\n# Total number of bands (occupied + unoccupied) used in the Coulomb-hole summation; must not\n# exceed nbnd in WFN_inner (see pw_bands_bgw_wfn.in)\nnumber_bands 32\n\n# Range of bands for which quasiparticle energies are computed; band_index_max must not exceed\n# vxc_diag_nmax in vxc.dat (see pw2bgw_wfn.in)\nband_index_min 1\nband_index_max 14\n\nscreening_semiconductor\n\n# k-points in crystal coordinates: kx ky kz 1/scale_factor\nbegin kpoints\n{% for i in range(n1) -%}\n{% for j in range(n2) -%}\n{% for k in range(n3) -%}\n{{ (i / n1)|sprintf(\"%14.9f\") }} {{ (j / n2)|sprintf(\"%14.9f\") }} {{ (k / n3)|sprintf(\"%14.9f\") }}  1.0\n{% endfor -%}\n{% endfor -%}\n{% endfor -%}\nend\n",
+                        "contextProviders": [
+                            {
+                                "name": "KGridFormDataManager"
+                            }
+                        ],
+                        "executableName": "sigma.cplx.x",
+                        "name": "sigma.inp",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                }
+            ],
+            "context": [],
             "schemaVersion": "2022.8.16",
             "isDefault": false
         }

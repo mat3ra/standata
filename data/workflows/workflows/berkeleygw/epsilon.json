@@ -338,6 +338,87 @@
                         }
                     ],
                     "context": [],
+                    "next": "4bb62348-bc29-51ce-873f-f756773acf09",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "pw2bgw_wfn_inner",
+                    "head": false,
+                    "results": [],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "4bb62348-bc29-51ce-873f-f756773acf09",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": true,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "espresso",
+                        "shortName": "qe",
+                        "summary": "Quantum ESPRESSO",
+                        "version": "6.3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": false,
+                        "name": "pw2bgw.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "executableName": "pw2bgw.x",
+                        "input": [
+                            {
+                                "name": "pw2bgw_wfn_inner.in"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "pw2bgw_wfn_inner",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "espresso",
+                                "applicationVersion": "*",
+                                "content": "{#- See pw2bgw_wfn.j2.in. Sigma reads the same wavefunctions as Epsilon, but under the name\n    WFN_inner, so the WFN bands are converted a second time; it must run before the WFNq bands\n    run overwrites them in outdir. RHO and vxc.dat are already written by pw2bgw_wfn.in. -#}\n&input_pw2bgw\n    prefix = '__prefix__'\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    real_or_complex = 2\n    wfng_flag = .true.\n    wfng_file = '../WFN_inner'\n    wfng_kgrid = .true.\n    wfng_nk1 = {{ kgrid.dimensions[0] }}\n    wfng_nk2 = {{ kgrid.dimensions[1] }}\n    wfng_nk3 = {{ kgrid.dimensions[2] }}\n    wfng_dk1 = 0.0\n    wfng_dk2 = 0.0\n    wfng_dk3 = 0.0\n    rhog_flag = .false.\n    vxc_flag = .false.\n/\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "KGridFormDataManager"
+                                    }
+                                ],
+                                "executableName": "pw2bgw.x",
+                                "name": "pw2bgw_wfn_inner.in",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
                     "next": "ee35e1c7-ba3d-549a-8849-16a914ee8454",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
@@ -617,6 +698,91 @@
                                 ],
                                 "executableName": "epsilon.cplx.x",
                                 "name": "epsilon.inp",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "next": "0632f3f9-f286-575f-bb89-8ceb088479e3",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "sigma",
+                    "head": false,
+                    "results": [],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "0632f3f9-f286-575f-bb89-8ceb088479e3",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "berkeleygw",
+                        "runConfig": {
+                            "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\n$EXEC_CMD mpirun -machinefile {MACHINEFILE} -np {NP} {EXECUTABLE} > {OUTPUTFILE}\n",
+                            "outFileName": "berkeleygw.out"
+                        },
+                        "shortName": "bgw",
+                        "summary": "BerkeleyGW",
+                        "version": "4.0",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "berkeleygw",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": false,
+                        "name": "sigma.cplx.x",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "berkeleygw",
+                        "applicationVersion": "*",
+                        "executableName": "sigma.cplx.x",
+                        "input": [
+                            {
+                                "name": "sigma.inp"
+                            }
+                        ],
+                        "isDefault": true,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "sigma",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "berkeleygw",
+                                "applicationVersion": "*",
+                                "content": "{#- Sigma reads eps0mat.h5 and epsmat.h5 (Epsilon), WFN_inner, RHO and vxc.dat (pw2bgw.x).\n    k-points = WFN_inner k-grid (full grid, see pw_bands_bgw_wfn.in); every k-point listed here\n    must be present in WFN_inner. #}\n{%- set n1 = kgrid.dimensions[0] %}\n{%- set n2 = kgrid.dimensions[1] %}\n{%- set n3 = kgrid.dimensions[2] -%}\n# Total number of bands (occupied + unoccupied) used in the Coulomb-hole summation; must not\n# exceed nbnd in WFN_inner (see pw_bands_bgw_wfn.in)\nnumber_bands 32\n\n# Range of bands for which quasiparticle energies are computed; band_index_max must not exceed\n# vxc_diag_nmax in vxc.dat (see pw2bgw_wfn.in)\nband_index_min 1\nband_index_max 14\n\nscreening_semiconductor\n\n# k-points in crystal coordinates: kx ky kz 1/scale_factor\nbegin kpoints\n{% for i in range(n1) -%}\n{% for j in range(n2) -%}\n{% for k in range(n3) -%}\n{{ (i / n1)|sprintf(\"%14.9f\") }} {{ (j / n2)|sprintf(\"%14.9f\") }} {{ (k / n3)|sprintf(\"%14.9f\") }}  1.0\n{% endfor -%}\n{% endfor -%}\n{% endfor -%}\nend\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "KGridFormDataManager"
+                                    }
+                                ],
+                                "executableName": "sigma.cplx.x",
+                                "name": "sigma.inp",
                                 "schemaVersion": "2022.8.16"
                             },
                             "rendered": "",

@@ -10,7 +10,9 @@ const WFN_BANDS_TEMPLATE = "espresso/pw_bands_bgw_wfn.j2.in";
 const WFNQ_BANDS_TEMPLATE = "espresso/pw_bands_bgw_wfnq.j2.in";
 const WFN_CONVERSION_TEMPLATE = "espresso/pw2bgw_wfn.j2.in";
 const WFNQ_CONVERSION_TEMPLATE = "espresso/pw2bgw_wfnq.j2.in";
+const WFN_INNER_CONVERSION_TEMPLATE = "espresso/pw2bgw_wfn_inner.j2.in";
 const EPSILON_TEMPLATE = "berkeleygw/epsilon.j2.inp";
+const SIGMA_TEMPLATE = "berkeleygw/sigma.j2.inp";
 const Q0_SHIFT_TEMPLATES = [WFNQ_BANDS_TEMPLATE, WFNQ_CONVERSION_TEMPLATE, EPSILON_TEMPLATE];
 
 /// pw2bgw.x real_or_complex value for the complex flavor of BerkeleyGW (*.cplx.x)
@@ -88,9 +90,12 @@ function extractKPoints(renderedInput: string): number[][] {
     return parseNumericRows(lines.slice(headerIndex + 2).filter((line) => line.trim().length > 0));
 }
 
-function extractQPoints(renderedInput: string): number[][] {
-    const qpointsBlock = renderedInput.split("begin qpoints\n")[1].split("\nend")[0];
-    return parseNumericRows(qpointsBlock.split("\n").filter((line) => line.trim().length > 0));
+/**
+ * Returns the rows of a BerkeleyGW `begin <blockName>` ... `end` block.
+ */
+function extractBlockRows(renderedInput: string, blockName: string): number[][] {
+    const block = renderedInput.split(`begin ${blockName}\n`)[1].split("\nend")[0];
+    return parseNumericRows(block.split("\n").filter((line) => line.trim().length > 0));
 }
 
 function expectPointsClose(actual: number[][], expected: number[][]) {
@@ -131,8 +136,30 @@ describe("BerkeleyGW Template Rendering", () => {
             expect(maximumVxcBand).to.be.at.most(numberOfWfnBands);
         });
 
-        it("writes WFN and WFNq for the complex flavor used by epsilon.cplx.x", () => {
-            [WFN_CONVERSION_TEMPLATE, WFNQ_CONVERSION_TEMPLATE].forEach((templatePath) => {
+        it("keeps Sigma band counts within WFN_inner bands and the vxc.dat band range", () => {
+            const numberOfWfnBands = readIntegerParameter(render(WFN_BANDS_TEMPLATE), "nbnd");
+            const maximumVxcBand = readIntegerParameter(
+                render(WFN_CONVERSION_TEMPLATE),
+                "vxc_diag_nmax",
+            );
+            const sigmaInput = render(SIGMA_TEMPLATE);
+            const numberOfSigmaBands = readIntegerParameter(sigmaInput, "number_bands");
+            const minimumSigmaBand = readIntegerParameter(sigmaInput, "band_index_min");
+            const maximumSigmaBand = readIntegerParameter(sigmaInput, "band_index_max");
+
+            expect(numberOfSigmaBands).to.be.at.most(numberOfWfnBands);
+            expect(minimumSigmaBand).to.be.at.least(1);
+            expect(maximumSigmaBand).to.be.at.least(minimumSigmaBand);
+            expect(maximumSigmaBand).to.be.at.most(maximumVxcBand);
+            expect(maximumSigmaBand).to.be.at.most(numberOfSigmaBands);
+        });
+
+        it("writes WFN, WFNq and WFN_inner for the complex flavor used by *.cplx.x", () => {
+            [
+                WFN_CONVERSION_TEMPLATE,
+                WFNQ_CONVERSION_TEMPLATE,
+                WFN_INNER_CONVERSION_TEMPLATE,
+            ].forEach((templatePath) => {
                 const realOrComplex = readIntegerParameter(render(templatePath), "real_or_complex");
                 expect(realOrComplex, templatePath).to.equal(COMPLEX_FLAVOR);
             });
@@ -169,6 +196,18 @@ describe("BerkeleyGW Template Rendering", () => {
             expect(renderedInput).to.include("wfng_dk3 = 0.0\n");
         });
 
+        it("converts the WFN bands a second time as WFN_inner for Sigma", () => {
+            const renderedInput = render(WFN_INNER_CONVERSION_TEMPLATE);
+            expect(renderedInput).to.include("wfng_file = '../WFN_inner'");
+            expect(renderedInput).to.include("rhog_flag = .false.");
+            expect(renderedInput).to.include("vxc_flag = .false.");
+            KGRID_DIMENSIONS.forEach((dimension, axisIndex) => {
+                const parameterName = `wfng_nk${axisIndex + 1}`;
+                expect(readIntegerParameter(renderedInput, parameterName)).to.equal(dimension);
+            });
+            expect(renderedInput).to.include("wfng_dk3 = 0.0\n");
+        });
+
         it("converts WFNq with the q0 offset in units of the grid spacing", () => {
             const renderedInput = render(WFNQ_CONVERSION_TEMPLATE);
             expect(renderedInput).to.include("wfng_file = '../WFNq'");
@@ -187,7 +226,17 @@ describe("BerkeleyGW Template Rendering", () => {
                     .slice(1)
                     .map((point) => [...point, 1, 0]),
             ];
-            expectPointsClose(extractQPoints(render(EPSILON_TEMPLATE)), expectedQPoints);
+            expectPointsClose(
+                extractBlockRows(render(EPSILON_TEMPLATE), "qpoints"),
+                expectedQPoints,
+            );
+        });
+    });
+
+    describe("Sigma (BerkeleyGW)", () => {
+        it("renders k-points as the full WFN_inner k-grid", () => {
+            const expectedKPoints = fullGridPoints().map((point) => [...point, 1]);
+            expectPointsClose(extractBlockRows(render(SIGMA_TEMPLATE), "kpoints"), expectedKPoints);
         });
     });
 });
