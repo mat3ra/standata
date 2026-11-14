@@ -8,7 +8,6 @@ runConfig:
     {BASE_CMD} &&
     {MODULE_CMD}
     $EXEC_CMD mpirun -np {NP} {EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}
-  outFileName: 'q3.out'
 versions:
   - version: '2026.11.14-0'
     isDefault: true

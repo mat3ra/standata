@@ -10,7 +10,6 @@ runConfig:
     {BASE_CMD} &&
     {MODULE_CMD}
     mpirun -machinefile {MACHINEFILE} -np {NP} $EXEC_CMD {EXECUTABLE} > {OUTPUTFILE}
-  outFileName: 'berkeleygw.out'
 versions:
   - version: '4.0'
     isDefault: true

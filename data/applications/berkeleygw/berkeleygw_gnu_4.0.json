@@ -19,7 +19,6 @@
         "environmentVariables": {}
     },
     "runConfig": {
-        "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\nmpirun -machinefile {MACHINEFILE} -np {NP} $EXEC_CMD {EXECUTABLE} > {OUTPUTFILE}\n",
-        "outFileName": "berkeleygw.out"
+        "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\nmpirun -machinefile {MACHINEFILE} -np {NP} $EXEC_CMD {EXECUTABLE} > {OUTPUTFILE}\n"
     }
 }

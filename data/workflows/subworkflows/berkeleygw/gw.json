@@ -39,8 +39,7 @@
                 "isUsingMaterial": true,
                 "name": "berkeleygw",
                 "runConfig": {
-                    "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\nmpirun -machinefile {MACHINEFILE} -np {NP} $EXEC_CMD {EXECUTABLE} > {OUTPUTFILE}\n",
-                    "outFileName": "berkeleygw.out"
+                    "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\nmpirun -machinefile {MACHINEFILE} -np {NP} $EXEC_CMD {EXECUTABLE} > {OUTPUTFILE}\n"
                 },
                 "shortName": "bgw",
                 "summary": "BerkeleyGW",
@@ -124,8 +123,7 @@
                 "isUsingMaterial": true,
                 "name": "berkeleygw",
                 "runConfig": {
-                    "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\nmpirun -machinefile {MACHINEFILE} -np {NP} $EXEC_CMD {EXECUTABLE} > {OUTPUTFILE}\n",
-                    "outFileName": "berkeleygw.out"
+                    "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\nmpirun -machinefile {MACHINEFILE} -np {NP} $EXEC_CMD {EXECUTABLE} > {OUTPUTFILE}\n"
                 },
                 "shortName": "bgw",
                 "summary": "BerkeleyGW",
