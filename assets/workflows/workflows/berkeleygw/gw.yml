@@ -1,0 +1,6 @@
+name: GW Quasiparticle Energies - BerkeleyGW + QE
+units:
+  - name: espresso_mean_field
+    type: subworkflow
+  - name: gw
+    type: subworkflow

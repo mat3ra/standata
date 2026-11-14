@@ -1,0 +1,31 @@
+{#- pw2bgw.x writes output files to outdir/<file>; the "../" prefix places them in the job
+    working directory, where the BerkeleyGW executables expect them.
+    real_or_complex selects the BerkeleyGW flavor the wavefunctions are written for:
+      1 - real flavor (*.real.x): for systems with both inversion symmetry (about the origin) and
+          time-reversal symmetry, where wavefunctions can be chosen real, saving memory and cost.
+      2 - complex flavor (*.cplx.x, default): required for general symmetry, magnetism, or
+          spin-orbit coupling, where wavefunctions are inherently complex.
+    It must match the flavor of the BerkeleyGW executables in the workflow (epsilon.cplx.x). -#}
+&input_pw2bgw
+    prefix = '__prefix__'
+    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}
+    real_or_complex = 2
+    wfng_flag = .true.
+    wfng_file = '../WFN'
+    wfng_kgrid = .true.
+    wfng_nk1 = {{ kgrid.dimensions[0] }}
+    wfng_nk2 = {{ kgrid.dimensions[1] }}
+    wfng_nk3 = {{ kgrid.dimensions[2] }}
+    wfng_dk1 = 0.0
+    wfng_dk2 = 0.0
+    wfng_dk3 = 0.0
+    rhog_flag = .true.
+    rhog_file = '../RHO'
+{#- vxc_diag_nmax must not exceed nbnd in pw_bands_bgw_wfn.in #}
+    vxc_flag = .true.
+    vxc_file = '../vxc.dat'
+    vxc_diag_nmin = 1
+    vxc_diag_nmax = 35
+    vxc_offdiag_nmin = 0
+    vxc_offdiag_nmax = 0
+/

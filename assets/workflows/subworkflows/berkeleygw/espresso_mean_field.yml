@@ -1,0 +1,47 @@
+# Mean-field (DFT) step of a BerkeleyGW calculation. BerkeleyGW requires
+# norm-conserving pseudopotentials.
+application:
+  name: espresso
+  version: "6.3"
+method:
+  config:
+    data: {}
+    subtype: nc
+    type: pseudopotential
+  name: PseudopotentialMethod
+model:
+  name: DFTModel
+name: Mean-field (Quantum ESPRESSO)
+units:
+  - config:
+      execName: pw.x
+      flavorName: pw_scf
+      name: pw_scf
+    functions:
+      head: true
+    type: executionBuilder
+  - config:
+      execName: pw.x
+      flavorName: pw_bands_bgw_wfn
+      name: pw_bands_bgw_wfn
+    type: executionBuilder
+  - config:
+      execName: pw2bgw.x
+      flavorName: pw2bgw_wfn
+      name: pw2bgw_wfn
+    type: executionBuilder
+  - config:
+      execName: pw2bgw.x
+      flavorName: pw2bgw_wfn_inner
+      name: pw2bgw_wfn_inner
+    type: executionBuilder
+  - config:
+      execName: pw.x
+      flavorName: pw_bands_bgw_wfnq
+      name: pw_bands_bgw_wfnq
+    type: executionBuilder
+  - config:
+      execName: pw2bgw.x
+      flavorName: pw2bgw_wfnq
+      name: pw2bgw_wfnq
+    type: executionBuilder

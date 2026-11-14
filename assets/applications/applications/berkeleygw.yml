@@ -1,0 +1,25 @@
+name: berkeleygw
+shortName: bgw
+summary: BerkeleyGW
+defaultVersion: '4.0'
+isUsingMaterial: true
+runConfig:
+  # BerkeleyGW executables read a fixed-name input file (e.g. epsilon.inp) from the working
+  # directory and take no command-line arguments, hence no {INPUTFILE} below.
+  commandTemplate: |
+    {BASE_CMD} &&
+    {MODULE_CMD}
+    mpirun -machinefile {MACHINEFILE} -np {NP} $EXEC_CMD {EXECUTABLE} > {OUTPUTFILE}
+  outFileName: 'berkeleygw.out'
+versions:
+  - version: '4.0'
+    isDefault: true
+    build: GNU
+    buildConfig:
+      moduleName: '4.0-gnu'
+      imageName: 'berkeleygw'
+      imageTag: '4.0-gnu-0'
+      bio: 'BerkeleyGW 4.0 (GCC 11.5.0, OpenMPI 4.1.1, OpenBLAS)'
+      dependencies:
+        - 'mpi/ompi-4.1.1'
+      environmentVariables: {}

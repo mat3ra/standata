@@ -75,3 +75,11 @@ entities:
       - default_version
       - default_build
       - default
+  - filename: berkeleygw/berkeleygw_gnu_4.0.json
+    categories:
+      - quantum-mechanical
+      - modeling
+      - compiled
+      - default_version
+      - default_build
+      - default

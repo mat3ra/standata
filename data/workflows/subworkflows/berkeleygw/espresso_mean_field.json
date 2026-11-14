@@ -1,0 +1,583 @@
+{
+    "_id": "8372b898-e303-5ef2-b671-6d5b6e3ef9f4",
+    "name": "Mean-field (Quantum ESPRESSO)",
+    "application": {
+        "name": "berkeleygw"
+    },
+    "properties": [
+        "atomic_forces",
+        "fermi_energy",
+        "pressure",
+        "stress_tensor",
+        "total_energy",
+        "total_energy_contributions",
+        "total_force"
+    ],
+    "model": {
+        "type": "dft",
+        "subtype": "gga",
+        "method": {
+            "type": "pseudopotential",
+            "subtype": "nc",
+            "data": {}
+        },
+        "functional": "pbe"
+    },
+    "units": [
+        {
+            "type": "execution",
+            "name": "pw_scf",
+            "head": true,
+            "results": [
+                {
+                    "name": "atomic_forces"
+                },
+                {
+                    "name": "fermi_energy"
+                },
+                {
+                    "name": "pressure"
+                },
+                {
+                    "name": "stress_tensor"
+                },
+                {
+                    "name": "total_energy"
+                },
+                {
+                    "name": "total_energy_contributions"
+                },
+                {
+                    "name": "total_force"
+                }
+            ],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                },
+                {
+                    "name": "convergence_electronic"
+                }
+            ],
+            "flowchartId": "9fc7a088-5533-5f70-bb33-f676ec65f565",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "espresso",
+                "shortName": "qe",
+                "summary": "Quantum ESPRESSO",
+                "version": "6.3",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "applicationName": "espresso",
+                "applicationVersion": "*",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "name": "pw.x",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "applicationName": "espresso",
+                "applicationVersion": "*",
+                "executableName": "pw.x",
+                "input": [
+                    {
+                        "name": "pw_scf.in"
+                    }
+                ],
+                "isDefault": true,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    },
+                    {
+                        "name": "convergence_electronic"
+                    }
+                ],
+                "name": "pw_scf",
+                "postProcessors": [],
+                "preProcessors": [],
+                "results": [
+                    {
+                        "name": "atomic_forces"
+                    },
+                    {
+                        "name": "fermi_energy"
+                    },
+                    {
+                        "name": "pressure"
+                    },
+                    {
+                        "name": "stress_tensor"
+                    },
+                    {
+                        "name": "total_energy"
+                    },
+                    {
+                        "name": "total_energy_contributions"
+                    },
+                    {
+                        "name": "total_force"
+                    }
+                ],
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [
+                {
+                    "template": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "content": "{% if subworkflowContext.MATERIAL_INDEX %}\n{%- set input = input.perMaterial[subworkflowContext.MATERIAL_INDEX] -%}\n{% endif -%}\n&CONTROL\n    calculation = 'scf'\n    title = ''\n    verbosity = 'low'\n    restart_mode = '{{ input.RESTART_MODE }}'\n    wf_collect = .true.\n    tstress = .true.\n    tprnfor = .true.\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    wfcdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    prefix = '__prefix__'\n    pseudo_dir = {% raw %}'{{ JOB_WORK_DIR }}/pseudo'{% endraw %}\n/\n&SYSTEM\n    ibrav = {{ input.IBRAV }}\n    nat = {{ input.NAT }}\n    ntyp = {{ input.NTYP }}\n    ecutwfc = {{ cutoffs.wavefunction }}\n    ecutrho = {{ cutoffs.density }}\n    occupations = 'smearing'\n    degauss = 0.005\n/\n&ELECTRONS\n    diagonalization = 'david'\n    diago_david_ndim = 4\n    diago_full_acc = .true.\n    mixing_beta = 0.3\n    startingwfc = 'atomic+random'\n/\n&IONS\n/\n&CELL\n/\nATOMIC_SPECIES\n{% for specie in input.ATOMIC_SPECIES -%}\n{{ specie.X }} {{ specie.Mass_X|sprintf(\"%f\") }} {{ specie.PseudoPot_X }}\n{% endfor %}\nATOMIC_POSITIONS crystal\n{%- set print_constraints = false %}\n{%- for position in input.ATOMIC_POSITIONS %}\n    {%- if position[\"if_pos(1)\"] != 1 or position[\"if_pos(2)\"] != 1 or position[\"if_pos(3)\"] != 1 %}\n        {%- set print_constraints = true %}\n    {%- endif %}\n{%- endfor %}\n{% for position in input.ATOMIC_POSITIONS -%}\n{{ position.X|sprintf(\"%-3s\") }} {{ position.x|sprintf(\"%14.9f\") }} {{ position.y|sprintf(\"%14.9f\") }} {{ position.z|sprintf(\"%14.9f\") }}{% if print_constraints %} {{ position[\"if_pos(1)\"] }} {{ position[\"if_pos(2)\"] }} {{ position[\"if_pos(3)\"] }}{% endif %}\n{% endfor %}\nCELL_PARAMETERS angstrom\n{{ input.CELL_PARAMETERS.v1[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v2[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v3[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[2]|sprintf(\"%14.9f\") }}\nK_POINTS automatic\n{% for d in kgrid.dimensions %}{{d}} {% endfor %}{% for s in kgrid.shifts %}{{s}} {% endfor %}\n",
+                        "contextProviders": [
+                            {
+                                "name": "KGridFormDataManager"
+                            },
+                            {
+                                "name": "QEPWXInputDataManager"
+                            },
+                            {
+                                "name": "PlanewaveCutoffDataManager"
+                            }
+                        ],
+                        "executableName": "pw.x",
+                        "name": "pw_scf.in",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                }
+            ],
+            "context": [],
+            "next": "408d3e13-9b2b-5de6-8f45-38f64333d5d9",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "execution",
+            "name": "pw_bands_bgw_wfn",
+            "head": false,
+            "results": [],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                }
+            ],
+            "flowchartId": "408d3e13-9b2b-5de6-8f45-38f64333d5d9",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "espresso",
+                "shortName": "qe",
+                "summary": "Quantum ESPRESSO",
+                "version": "6.3",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "applicationName": "espresso",
+                "applicationVersion": "*",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "name": "pw.x",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "applicationName": "espresso",
+                "applicationVersion": "*",
+                "executableName": "pw.x",
+                "input": [
+                    {
+                        "name": "pw_bands_bgw_wfn.in"
+                    }
+                ],
+                "isDefault": false,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    }
+                ],
+                "name": "pw_bands_bgw_wfn",
+                "postProcessors": [],
+                "preProcessors": [],
+                "results": [],
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [
+                {
+                    "template": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "content": "&CONTROL\n    calculation = 'bands'\n    title = ''\n    verbosity = 'high'\n    restart_mode = '{{ input.RESTART_MODE }}'\n    wf_collect = .true.\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    wfcdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    prefix = '__prefix__'\n    pseudo_dir = {% raw %}'{{ JOB_WORK_DIR }}/pseudo'{% endraw %}\n/\n&SYSTEM\n    ibrav = {{ input.IBRAV }}\n    nat = {{ input.NAT }}\n    ntyp = {{ input.NTYP }}\n    ecutwfc = {{ cutoffs.wavefunction }}\n    ecutrho = {{ cutoffs.density }}\n{#- Bands in WFN (occupied + unoccupied): must be >= number_bands in epsilon.inp #}\n    nbnd = 35\n/\n&ELECTRONS\n    conv_thr = 1.0d-10\n    diagonalization = 'david'\n    diago_david_ndim = 4\n    diago_full_acc = .true.\n/\n&IONS\n/\n&CELL\n/\nATOMIC_SPECIES\n{% for specie in input.ATOMIC_SPECIES -%}\n{{ specie.X }} {{ specie.Mass_X|sprintf(\"%f\") }} {{ specie.PseudoPot_X }}\n{% endfor %}\nATOMIC_POSITIONS crystal\n{%- set print_constraints = false %}\n{%- for position in input.ATOMIC_POSITIONS %}\n    {%- if position[\"if_pos(1)\"] != 1 or position[\"if_pos(2)\"] != 1 or position[\"if_pos(3)\"] != 1 %}\n        {%- set print_constraints = true %}\n    {%- endif %}\n{%- endfor %}\n{% for position in input.ATOMIC_POSITIONS -%}\n{{ position.X|sprintf(\"%-3s\") }} {{ position.x|sprintf(\"%14.9f\") }} {{ position.y|sprintf(\"%14.9f\") }} {{ position.z|sprintf(\"%14.9f\") }}{% if print_constraints %} {{ position[\"if_pos(1)\"] }} {{ position[\"if_pos(2)\"] }} {{ position[\"if_pos(3)\"] }}{% endif %}\n{% endfor %}\nCELL_PARAMETERS angstrom\n{{ input.CELL_PARAMETERS.v1[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v2[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v3[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[2]|sprintf(\"%14.9f\") }}\n{#- Full, unshifted (Gamma-centered) k-grid without symmetry reduction: BerkeleyGW unfolds the\n    WFN k-points with the crystal symmetries, so the full grid is always a valid (if not the\n    cheapest) choice. kgrid.shifts are intentionally ignored: Epsilon expects an unshifted WFN. #}\n{%- set n1 = kgrid.dimensions[0] %}\n{%- set n2 = kgrid.dimensions[1] %}\n{%- set n3 = kgrid.dimensions[2] %}\nK_POINTS crystal\n{{ n1 * n2 * n3 }}\n{% for i in range(n1) -%}\n{% for j in range(n2) -%}\n{% for k in range(n3) -%}\n{{ (i / n1)|sprintf(\"%14.9f\") }} {{ (j / n2)|sprintf(\"%14.9f\") }} {{ (k / n3)|sprintf(\"%14.9f\") }} 1.0\n{% endfor -%}\n{% endfor -%}\n{% endfor -%}\n",
+                        "contextProviders": [
+                            {
+                                "name": "KGridFormDataManager"
+                            },
+                            {
+                                "name": "QEPWXInputDataManager"
+                            },
+                            {
+                                "name": "PlanewaveCutoffDataManager"
+                            }
+                        ],
+                        "executableName": "pw.x",
+                        "name": "pw_bands_bgw_wfn.in",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                }
+            ],
+            "context": [],
+            "next": "d7227422-3de0-5ea0-9a70-ed30a18be6e0",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "execution",
+            "name": "pw2bgw_wfn",
+            "head": false,
+            "results": [],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                }
+            ],
+            "flowchartId": "d7227422-3de0-5ea0-9a70-ed30a18be6e0",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "espresso",
+                "shortName": "qe",
+                "summary": "Quantum ESPRESSO",
+                "version": "6.3",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "applicationName": "espresso",
+                "applicationVersion": "*",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": false,
+                "name": "pw2bgw.x",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "applicationName": "espresso",
+                "applicationVersion": "*",
+                "executableName": "pw2bgw.x",
+                "input": [
+                    {
+                        "name": "pw2bgw_wfn.in"
+                    }
+                ],
+                "isDefault": true,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    }
+                ],
+                "name": "pw2bgw_wfn",
+                "postProcessors": [],
+                "preProcessors": [],
+                "results": [],
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [
+                {
+                    "template": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "content": "{#- pw2bgw.x writes output files to outdir/<file>; the \"../\" prefix places them in the job\n    working directory, where the BerkeleyGW executables expect them.\n    real_or_complex selects the BerkeleyGW flavor the wavefunctions are written for:\n      1 - real flavor (*.real.x): for systems with both inversion symmetry (about the origin) and\n          time-reversal symmetry, where wavefunctions can be chosen real, saving memory and cost.\n      2 - complex flavor (*.cplx.x, default): required for general symmetry, magnetism, or\n          spin-orbit coupling, where wavefunctions are inherently complex.\n    It must match the flavor of the BerkeleyGW executables in the workflow (epsilon.cplx.x). -#}\n&input_pw2bgw\n    prefix = '__prefix__'\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    real_or_complex = 2\n    wfng_flag = .true.\n    wfng_file = '../WFN'\n    wfng_kgrid = .true.\n    wfng_nk1 = {{ kgrid.dimensions[0] }}\n    wfng_nk2 = {{ kgrid.dimensions[1] }}\n    wfng_nk3 = {{ kgrid.dimensions[2] }}\n    wfng_dk1 = 0.0\n    wfng_dk2 = 0.0\n    wfng_dk3 = 0.0\n    rhog_flag = .true.\n    rhog_file = '../RHO'\n{#- vxc_diag_nmax must not exceed nbnd in pw_bands_bgw_wfn.in #}\n    vxc_flag = .true.\n    vxc_file = '../vxc.dat'\n    vxc_diag_nmin = 1\n    vxc_diag_nmax = 35\n    vxc_offdiag_nmin = 0\n    vxc_offdiag_nmax = 0\n/\n",
+                        "contextProviders": [
+                            {
+                                "name": "KGridFormDataManager"
+                            }
+                        ],
+                        "executableName": "pw2bgw.x",
+                        "name": "pw2bgw_wfn.in",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                }
+            ],
+            "context": [],
+            "next": "4bb62348-bc29-51ce-873f-f756773acf09",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "execution",
+            "name": "pw2bgw_wfn_inner",
+            "head": false,
+            "results": [],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                }
+            ],
+            "flowchartId": "4bb62348-bc29-51ce-873f-f756773acf09",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "espresso",
+                "shortName": "qe",
+                "summary": "Quantum ESPRESSO",
+                "version": "6.3",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "applicationName": "espresso",
+                "applicationVersion": "*",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": false,
+                "name": "pw2bgw.x",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "applicationName": "espresso",
+                "applicationVersion": "*",
+                "executableName": "pw2bgw.x",
+                "input": [
+                    {
+                        "name": "pw2bgw_wfn_inner.in"
+                    }
+                ],
+                "isDefault": false,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    }
+                ],
+                "name": "pw2bgw_wfn_inner",
+                "postProcessors": [],
+                "preProcessors": [],
+                "results": [],
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [
+                {
+                    "template": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "content": "{#- See pw2bgw_wfn.j2.in. Sigma reads the same wavefunctions as Epsilon, but under the name\n    WFN_inner, so the WFN bands are converted a second time; it must run before the WFNq bands\n    run overwrites them in outdir. RHO and vxc.dat are already written by pw2bgw_wfn.in. -#}\n&input_pw2bgw\n    prefix = '__prefix__'\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    real_or_complex = 2\n    wfng_flag = .true.\n    wfng_file = '../WFN_inner'\n    wfng_kgrid = .true.\n    wfng_nk1 = {{ kgrid.dimensions[0] }}\n    wfng_nk2 = {{ kgrid.dimensions[1] }}\n    wfng_nk3 = {{ kgrid.dimensions[2] }}\n    wfng_dk1 = 0.0\n    wfng_dk2 = 0.0\n    wfng_dk3 = 0.0\n    rhog_flag = .false.\n    vxc_flag = .false.\n/\n",
+                        "contextProviders": [
+                            {
+                                "name": "KGridFormDataManager"
+                            }
+                        ],
+                        "executableName": "pw2bgw.x",
+                        "name": "pw2bgw_wfn_inner.in",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                }
+            ],
+            "context": [],
+            "next": "ee35e1c7-ba3d-549a-8849-16a914ee8454",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "execution",
+            "name": "pw_bands_bgw_wfnq",
+            "head": false,
+            "results": [],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                }
+            ],
+            "flowchartId": "ee35e1c7-ba3d-549a-8849-16a914ee8454",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "espresso",
+                "shortName": "qe",
+                "summary": "Quantum ESPRESSO",
+                "version": "6.3",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "applicationName": "espresso",
+                "applicationVersion": "*",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "name": "pw.x",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "applicationName": "espresso",
+                "applicationVersion": "*",
+                "executableName": "pw.x",
+                "input": [
+                    {
+                        "name": "pw_bands_bgw_wfnq.in"
+                    }
+                ],
+                "isDefault": false,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    }
+                ],
+                "name": "pw_bands_bgw_wfnq",
+                "postProcessors": [],
+                "preProcessors": [],
+                "results": [],
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [
+                {
+                    "template": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "content": "&CONTROL\n    calculation = 'bands'\n    title = ''\n    verbosity = 'high'\n    restart_mode = '{{ input.RESTART_MODE }}'\n    wf_collect = .true.\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    wfcdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    prefix = '__prefix__'\n    pseudo_dir = {% raw %}'{{ JOB_WORK_DIR }}/pseudo'{% endraw %}\n/\n&SYSTEM\n    ibrav = {{ input.IBRAV }}\n    nat = {{ input.NAT }}\n    ntyp = {{ input.NTYP }}\n    ecutwfc = {{ cutoffs.wavefunction }}\n    ecutrho = {{ cutoffs.density }}\n{#- nbnd is omitted on purpose: WFNq only needs the occupied bands (pw.x default) #}\n/\n&ELECTRONS\n    conv_thr = 1.0d-10\n    diagonalization = 'david'\n    diago_david_ndim = 4\n    diago_full_acc = .true.\n/\n&IONS\n/\n&CELL\n/\nATOMIC_SPECIES\n{% for specie in input.ATOMIC_SPECIES -%}\n{{ specie.X }} {{ specie.Mass_X|sprintf(\"%f\") }} {{ specie.PseudoPot_X }}\n{% endfor %}\nATOMIC_POSITIONS crystal\n{%- set print_constraints = false %}\n{%- for position in input.ATOMIC_POSITIONS %}\n    {%- if position[\"if_pos(1)\"] != 1 or position[\"if_pos(2)\"] != 1 or position[\"if_pos(3)\"] != 1 %}\n        {%- set print_constraints = true %}\n    {%- endif %}\n{%- endfor %}\n{% for position in input.ATOMIC_POSITIONS -%}\n{{ position.X|sprintf(\"%-3s\") }} {{ position.x|sprintf(\"%14.9f\") }} {{ position.y|sprintf(\"%14.9f\") }} {{ position.z|sprintf(\"%14.9f\") }}{% if print_constraints %} {{ position[\"if_pos(1)\"] }} {{ position[\"if_pos(2)\"] }} {{ position[\"if_pos(3)\"] }}{% endif %}\n{% endfor %}\nCELL_PARAMETERS angstrom\n{{ input.CELL_PARAMETERS.v1[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v1[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v2[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v2[2]|sprintf(\"%14.9f\") }}\n{{ input.CELL_PARAMETERS.v3[0]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[1]|sprintf(\"%14.9f\") }} {{ input.CELL_PARAMETERS.v3[2]|sprintf(\"%14.9f\") }}\n{#- Same k-grid as WFN, shifted by the small q0 = (0, 0, q0_shift) used by Epsilon for q -> 0.\n    Must match the q0 point in epsilon.inp and wfng_dk3 in pw2bgw_wfnq.in. #}\n{%- set q0_shift = 0.001 %}\n{%- set n1 = kgrid.dimensions[0] %}\n{%- set n2 = kgrid.dimensions[1] %}\n{%- set n3 = kgrid.dimensions[2] %}\nK_POINTS crystal\n{{ n1 * n2 * n3 }}\n{% for i in range(n1) -%}\n{% for j in range(n2) -%}\n{% for k in range(n3) -%}\n{{ (i / n1)|sprintf(\"%14.9f\") }} {{ (j / n2)|sprintf(\"%14.9f\") }} {{ (k / n3 + q0_shift)|sprintf(\"%14.9f\") }} 1.0\n{% endfor -%}\n{% endfor -%}\n{% endfor -%}\n",
+                        "contextProviders": [
+                            {
+                                "name": "KGridFormDataManager"
+                            },
+                            {
+                                "name": "QEPWXInputDataManager"
+                            },
+                            {
+                                "name": "PlanewaveCutoffDataManager"
+                            }
+                        ],
+                        "executableName": "pw.x",
+                        "name": "pw_bands_bgw_wfnq.in",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                }
+            ],
+            "context": [],
+            "next": "d01f9913-f1f1-582b-b230-41dcde16c1b9",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "execution",
+            "name": "pw2bgw_wfnq",
+            "head": false,
+            "results": [],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                }
+            ],
+            "flowchartId": "d01f9913-f1f1-582b-b230-41dcde16c1b9",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": true,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "espresso",
+                "shortName": "qe",
+                "summary": "Quantum ESPRESSO",
+                "version": "6.3",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "applicationName": "espresso",
+                "applicationVersion": "*",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": false,
+                "name": "pw2bgw.x",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "applicationName": "espresso",
+                "applicationVersion": "*",
+                "executableName": "pw2bgw.x",
+                "input": [
+                    {
+                        "name": "pw2bgw_wfnq.in"
+                    }
+                ],
+                "isDefault": false,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    }
+                ],
+                "name": "pw2bgw_wfnq",
+                "postProcessors": [],
+                "preProcessors": [],
+                "results": [],
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [
+                {
+                    "template": {
+                        "applicationName": "espresso",
+                        "applicationVersion": "*",
+                        "content": "{#- See pw2bgw_wfn.j2.in. The k-grid offset wfng_dk3 is in units of the grid spacing, i.e.\n    q0_shift * nk3, where q0_shift must match pw_bands_bgw_wfnq.in and epsilon.inp.\n    real_or_complex = 2 selects the complex flavor (default); it must match pw2bgw_wfn.in and the\n    BerkeleyGW executables (epsilon.cplx.x), see pw2bgw_wfn.j2.in for details. -#}\n{%- set q0_shift = 0.001 -%}\n&input_pw2bgw\n    prefix = '__prefix__'\n    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}\n    real_or_complex = 2\n    wfng_flag = .true.\n    wfng_file = '../WFNq'\n    wfng_kgrid = .true.\n    wfng_nk1 = {{ kgrid.dimensions[0] }}\n    wfng_nk2 = {{ kgrid.dimensions[1] }}\n    wfng_nk3 = {{ kgrid.dimensions[2] }}\n    wfng_dk1 = 0.0\n    wfng_dk2 = 0.0\n    wfng_dk3 = {{ (q0_shift * kgrid.dimensions[2])|sprintf(\"%.6f\") }}\n/\n",
+                        "contextProviders": [
+                            {
+                                "name": "KGridFormDataManager"
+                            }
+                        ],
+                        "executableName": "pw2bgw.x",
+                        "name": "pw2bgw_wfnq.in",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                }
+            ],
+            "context": [],
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "isDraft": false
+}
