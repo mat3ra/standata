@@ -15,3 +15,13 @@ flavors:
       - name: standard_output
     applicationName: q3
     executableName: q3
+  q3_nscf:
+    input:
+      - name: q3_nscf.yml
+      - name: material.json
+    results:
+      - name: fermi_energy
+    monitors:
+      - name: standard_output
+    applicationName: q3
+    executableName: q3

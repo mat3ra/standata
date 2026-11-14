@@ -11,6 +11,14 @@ type Q3Input = {
     };
 };
 
+type Q3NonSelfConsistentInput = {
+    control: {
+        calculation: string;
+        prefix: string;
+        kpoints_list: [number, number, number, number][];
+    };
+};
+
 describe("Q3 Template Rendering", () => {
     const templateDirectory = path.join(
         __dirname,
@@ -43,5 +51,31 @@ describe("Q3 Template Rendering", () => {
             Fe: ironPseudopotentialPath,
             O: oxygenPseudopotentialPath,
         });
+    });
+
+    it("renders the full Monkhorst-Pack grid as the NSCF k-point list", () => {
+        const template = environment.getTemplate("nscf.inp");
+        const renderedInput = template.render({
+            input: {
+                ATOMIC_SPECIES: [{ X: "Cu", Mass_X: 63.546, PseudoPot_X: "/pseudo/cu.upf" }],
+            },
+            cutoffs: { wavefunction: 40, density: 320 },
+            kgrid: { dimensions: [4, 3, 2], shifts: [0, 1, 0] },
+        });
+        const input = yaml.load(renderedInput) as Q3NonSelfConsistentInput;
+        const kpointsList = input.control.kpoints_list;
+        const weightSum = kpointsList.reduce((sum, kpoint) => sum + kpoint[3], 0);
+        const coordinates = kpointsList.flatMap((kpoint) => kpoint.slice(0, 3));
+
+        expect(input.control.calculation).to.equal("nscf");
+        expect(input.control.prefix).to.equal("q3");
+        expect(kpointsList).to.have.lengthOf(4 * 3 * 2);
+        expect(weightSum).to.be.closeTo(2.0, 1.0e-9);
+        expect(coordinates.every((value) => value >= -0.5 && value < 0.5)).to.equal(true);
+        // Unshifted 4-point axis folds 0.5 to -0.5; shifted 3-point axis starts at 1/6
+        const [foldedX, shiftedY, unshiftedZ] = kpointsList[2 * 3 * 2];
+        expect(foldedX).to.equal(-0.5);
+        expect(shiftedY).to.be.closeTo(1 / 6, 1.0e-9);
+        expect(unshiftedZ).to.equal(0);
     });
 });

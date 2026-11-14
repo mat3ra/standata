@@ -1,0 +1,59 @@
+{#- Non-self-consistent run on the effective potential of a preceding q3 SCF run (same prefix and
+    outdir, so the engine finds <outdir>/<prefix>.save/effective-potential.q3cp).
+    The q3 engine generates no k-points for an NSCF run: it reads control.kpoints_list as given and
+    applies no symmetry reduction. The list below is therefore the full (unreduced)
+    Monkhorst-Pack grid of this unit's k-grid, in crystal coordinates folded into [-0.5, 0.5), the
+    same convention as q3.workflows.pdos.monkhorst_pack_grid. Each point weighs 2 / (n1 * n2 * n3),
+    so the weights sum to 2 (spin degeneracy), as on the SCF grid. #}
+{%- set n1 = kgrid.dimensions[0] %}
+{%- set n2 = kgrid.dimensions[1] %}
+{%- set n3 = kgrid.dimensions[2] %}
+{%- set s1 = kgrid.shifts[0] %}
+{%- set s2 = kgrid.shifts[1] %}
+{%- set s3 = kgrid.shifts[2] %}
+{%- set weight = 2.0 / (n1 * n2 * n3) -%}
+material: material.json
+
+method:
+  type: pseudopotential
+  subtype: ultrasoft
+
+  pseudopotentials:
+{%- for specie in input.ATOMIC_SPECIES %}
+    {{ specie.X }}: {{ specie.PseudoPot_X }}
+{%- endfor %}
+
+  cutoffs:
+    wavefunction: {{ cutoffs.wavefunction }}
+    density: {{ cutoffs.density }}
+
+  scf:
+    convergence_threshold: 1.0e-9
+    max_iterations: 100
+
+    smearing:
+      type: gaussian
+      degauss: 0.02
+
+    mixing:
+      beta: 0.3
+      mode: broyden
+
+control:
+  calculation: nscf
+  prefix: q3
+  outdir: ./outdir/
+  kpoints_list:
+{%- for i in range(n1) %}
+{%- set x = i / n1 + (0.5 / n1 if s1 else 0.0) %}
+{%- set x = x - 1.0 if x >= 0.5 else x %}
+{%- for j in range(n2) %}
+{%- set y = j / n2 + (0.5 / n2 if s2 else 0.0) %}
+{%- set y = y - 1.0 if y >= 0.5 else y %}
+{%- for k in range(n3) %}
+{%- set z = k / n3 + (0.5 / n3 if s3 else 0.0) %}
+{%- set z = z - 1.0 if z >= 0.5 else z %}
+    - [{{ x | sprintf("%.9f") }}, {{ y | sprintf("%.9f") }}, {{ z | sprintf("%.9f") }}, {{ weight | sprintf("%.12f") }}]
+{%- endfor %}
+{%- endfor %}
+{%- endfor %}
