@@ -499,6 +499,11 @@ entities:
   - filename: python/python_script.json
     categories:
       - python
+  - filename: q3/nscf.json
+    categories:
+      - fermi_energy
+      - q3
+      - total_energy
   - filename: q3/total_energy.json
     categories:
       - fermi_energy

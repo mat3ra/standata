@@ -1,6 +1,6 @@
 application:
   name: q3
-  version: '2026.10.31-0'
+  version: '2026.11.14-0'
 method:
   name: PseudopotentialMethod
 model:
