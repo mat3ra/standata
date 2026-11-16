@@ -1,4 +1,6 @@
 name: Non-self-consistent field - Q3
 units:
+- name: total_energy
+  type: subworkflow
 - name: nscf
   type: subworkflow

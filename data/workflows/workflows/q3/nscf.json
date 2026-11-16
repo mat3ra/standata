@@ -1,10 +1,10 @@
 {
-    "_id": "9d476f86-7530-5de0-9f09-b3c6754964aa",
+    "_id": "b876c9f1-aaaf-5e66-a9c7-b25a225fb30e",
     "name": "Non-self-consistent field - Q3",
     "subworkflows": [
         {
-            "_id": "87ec7a0a-54e2-5737-92d2-029219aa1ec2",
-            "name": "Non-Self-Consistent Field",
+            "_id": "82eb90a9-1ceb-513d-8674-0f2322dd81df",
+            "name": "Total Energy",
             "application": {
                 "build": "GNU",
                 "hasAdvancedComputeOptions": false,
@@ -47,7 +47,7 @@
                     "statusTrack": [],
                     "tags": [],
                     "source": "api",
-                    "flowchartId": "io-material-flowchart-id-q3-nscf",
+                    "flowchartId": "io-material-flowchart-id-q3-scf",
                     "input": [
                         {
                             "type": "api",
@@ -74,7 +74,7 @@
                     "input": [
                         {
                             "name": "DATA",
-                            "scope": "io-material-flowchart-id-q3-nscf"
+                            "scope": "io-material-flowchart-id-q3-scf"
                         }
                     ],
                     "results": [],
@@ -206,14 +206,49 @@
                         }
                     ],
                     "context": [],
-                    "next": "5f365bf9-afcd-5ae5-94db-14159515ccec",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
+            "_id": "87ec7a0a-54e2-5737-92d2-029219aa1ec2",
+            "name": "Non-Self-Consistent Field",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "q3",
+                "runConfig": {
+                    "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\n$EXEC_CMD mpirun -np {NP} {EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}\n"
                 },
+                "shortName": "q3",
+                "summary": "Quantum 3xplorer",
+                "version": "2026.11.14-0",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [
+                "fermi_energy"
+            ],
+            "model": {
+                "type": "dft",
+                "subtype": "gga",
+                "method": {
+                    "type": "localorbital",
+                    "subtype": "pople",
+                    "data": {}
+                },
+                "functional": "pbe"
+            },
+            "units": [
                 {
                     "type": "execution",
                     "name": "q3_nscf",
-                    "head": false,
+                    "head": true,
                     "results": [
                         {
                             "name": "fermi_energy"
@@ -329,6 +364,21 @@
         }
     ],
     "units": [
+        {
+            "type": "subworkflow",
+            "name": "Total Energy",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "82eb90a9-1ceb-513d-8674-0f2322dd81df",
+            "flowchartId": "6059d61a-6a92-5657-9130-02208639aff8",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
         {
             "type": "subworkflow",
             "name": "Non-Self-Consistent Field",

@@ -1,0 +1,528 @@
+{
+    "_id": "b876c9f1-aaaf-5e66-a9c7-b25a225fb30e",
+    "name": "Density of States - Q3",
+    "subworkflows": [
+        {
+            "_id": "82eb90a9-1ceb-513d-8674-0f2322dd81df",
+            "name": "Total Energy",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "q3",
+                "runConfig": {
+                    "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\n$EXEC_CMD mpirun -np {NP} {EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}\n"
+                },
+                "shortName": "q3",
+                "summary": "Quantum 3xplorer",
+                "version": "2026.11.14-0",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [
+                "fermi_energy",
+                "total_energy"
+            ],
+            "model": {
+                "type": "dft",
+                "subtype": "gga",
+                "method": {
+                    "type": "localorbital",
+                    "subtype": "pople",
+                    "data": {}
+                },
+                "functional": "pbe"
+            },
+            "units": [
+                {
+                    "name": "io-material",
+                    "type": "io",
+                    "subtype": "input",
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "source": "api",
+                    "flowchartId": "io-material-flowchart-id-q3-scf",
+                    "input": [
+                        {
+                            "type": "api",
+                            "endpoint": "materials",
+                            "endpoint_options": {
+                                "params": {
+                                    "query": "{'_id': MATERIAL_ID}",
+                                    "projection": "{}"
+                                }
+                            },
+                            "name": "DATA"
+                        }
+                    ],
+                    "head": true,
+                    "next": "51e48ac9-872f-5ee3-b4bf-1a4e83ea3e5a",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "assign-material",
+                    "type": "assignment",
+                    "operand": "MATERIAL",
+                    "value": "DATA[0]",
+                    "input": [
+                        {
+                            "name": "DATA",
+                            "scope": "io-material-flowchart-id-q3-scf"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "51e48ac9-872f-5ee3-b4bf-1a4e83ea3e5a",
+                    "head": false,
+                    "next": "6621ee4a-fc69-592e-a6fd-707001301632",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "type": "execution",
+                    "name": "q3_scf",
+                    "head": false,
+                    "results": [
+                        {
+                            "name": "total_energy"
+                        },
+                        {
+                            "name": "fermi_energy"
+                        }
+                    ],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "6621ee4a-fc69-592e-a6fd-707001301632",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "q3",
+                        "runConfig": {
+                            "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\n$EXEC_CMD mpirun -np {NP} {EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}\n"
+                        },
+                        "shortName": "q3",
+                        "summary": "Quantum 3xplorer",
+                        "version": "2026.11.14-0",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "q3",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "name": "q3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "q3",
+                        "applicationVersion": "*",
+                        "executableName": "q3",
+                        "input": [
+                            {
+                                "name": "q3_scf.yml"
+                            },
+                            {
+                                "name": "material.json"
+                            }
+                        ],
+                        "isDefault": true,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "q3_scf",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [
+                            {
+                                "name": "total_energy"
+                            },
+                            {
+                                "name": "fermi_energy"
+                            }
+                        ],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "q3",
+                                "applicationVersion": "*",
+                                "content": "material: material.json\n\nmethod:\n  type: pseudopotential\n  subtype: ultrasoft\n\n  pseudopotentials:\n{%- for specie in input.ATOMIC_SPECIES %}\n    {{ specie.X }}: {{ specie.PseudoPot_X }}\n{%- endfor %}\n\n  cutoffs:\n    wavefunction: {{ cutoffs.wavefunction }}\n    density: {{ cutoffs.density }}\n\n  scf:\n    convergence_threshold: 1.0e-9\n    max_iterations: 100\n\n    smearing:\n      type: gaussian\n      degauss: 0.02\n\n    mixing:\n      beta: 0.3\n      mode: broyden\n\n    kgrid:\n      dimensions: [{{ kgrid.dimensions | join(', ') }}]\n      shifts: [{{ kgrid.shifts | join(', ') }}]\n\ncontrol:\n  calculation: scf\n  prefix: q3\n  outdir: ./outdir/\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "Q3InputDataManager"
+                                    },
+                                    {
+                                        "name": "KGridFormDataManager"
+                                    },
+                                    {
+                                        "name": "PlanewaveCutoffDataManager"
+                                    }
+                                ],
+                                "executableName": "q3",
+                                "name": "q3_scf.yml",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        },
+                        {
+                            "template": {
+                                "applicationName": "q3",
+                                "applicationVersion": "*",
+                                "content": "{% raw %}{{ MATERIAL | default({}) | tojson }}{% endraw %}\n",
+                                "contextProviders": [],
+                                "executableName": "q3",
+                                "name": "material.json",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
+            "_id": "87ec7a0a-54e2-5737-92d2-029219aa1ec2",
+            "name": "Non-Self-Consistent Field",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": true,
+                "name": "q3",
+                "runConfig": {
+                    "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\n$EXEC_CMD mpirun -np {NP} {EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}\n"
+                },
+                "shortName": "q3",
+                "summary": "Quantum 3xplorer",
+                "version": "2026.11.14-0",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [
+                "fermi_energy"
+            ],
+            "model": {
+                "type": "dft",
+                "subtype": "gga",
+                "method": {
+                    "type": "localorbital",
+                    "subtype": "pople",
+                    "data": {}
+                },
+                "functional": "pbe"
+            },
+            "units": [
+                {
+                    "type": "execution",
+                    "name": "q3_nscf",
+                    "head": true,
+                    "results": [
+                        {
+                            "name": "fermi_energy"
+                        }
+                    ],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "5f365bf9-afcd-5ae5-94db-14159515ccec",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": true,
+                        "name": "q3",
+                        "runConfig": {
+                            "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\n$EXEC_CMD mpirun -np {NP} {EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}\n"
+                        },
+                        "shortName": "q3",
+                        "summary": "Quantum 3xplorer",
+                        "version": "2026.11.14-0",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "q3",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "name": "q3",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "q3",
+                        "applicationVersion": "*",
+                        "executableName": "q3",
+                        "input": [
+                            {
+                                "name": "q3_nscf.yml"
+                            },
+                            {
+                                "name": "material.json"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "q3_nscf",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [
+                            {
+                                "name": "fermi_energy"
+                            }
+                        ],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "q3",
+                                "applicationVersion": "*",
+                                "content": "{#- Non-self-consistent run on the effective potential of a preceding q3 SCF run (same prefix and\n    outdir, so the engine finds <outdir>/<prefix>.save/effective-potential.q3cp).\n    The q3 engine generates no k-points for an NSCF run: it reads control.kpoints_list as given and\n    applies no symmetry reduction. The list below is therefore the full (unreduced)\n    Monkhorst-Pack grid of this unit's k-grid, in crystal coordinates folded into [-0.5, 0.5), the\n    same convention as q3.workflows.pdos.monkhorst_pack_grid. Each point weighs 2 / (n1 * n2 * n3),\n    so the weights sum to 2 (spin degeneracy), as on the SCF grid. #}\n{%- set n1 = kgrid.dimensions[0] %}\n{%- set n2 = kgrid.dimensions[1] %}\n{%- set n3 = kgrid.dimensions[2] %}\n{%- set s1 = kgrid.shifts[0] %}\n{%- set s2 = kgrid.shifts[1] %}\n{%- set s3 = kgrid.shifts[2] %}\n{%- set weight = 2.0 / (n1 * n2 * n3) -%}\nmaterial: material.json\n\nmethod:\n  type: pseudopotential\n  subtype: ultrasoft\n\n  pseudopotentials:\n{%- for specie in input.ATOMIC_SPECIES %}\n    {{ specie.X }}: {{ specie.PseudoPot_X }}\n{%- endfor %}\n\n  cutoffs:\n    wavefunction: {{ cutoffs.wavefunction }}\n    density: {{ cutoffs.density }}\n\n  scf:\n    convergence_threshold: 1.0e-9\n    max_iterations: 100\n\n    smearing:\n      type: gaussian\n      degauss: 0.02\n\n    mixing:\n      beta: 0.3\n      mode: broyden\n\ncontrol:\n  calculation: nscf\n  prefix: q3\n  outdir: ./outdir/\n  kpoints_list:\n{%- for i in range(n1) %}\n{%- set x = i / n1 + (0.5 / n1 if s1 else 0.0) %}\n{%- set x = x - 1.0 if x >= 0.5 else x %}\n{%- for j in range(n2) %}\n{%- set y = j / n2 + (0.5 / n2 if s2 else 0.0) %}\n{%- set y = y - 1.0 if y >= 0.5 else y %}\n{%- for k in range(n3) %}\n{%- set z = k / n3 + (0.5 / n3 if s3 else 0.0) %}\n{%- set z = z - 1.0 if z >= 0.5 else z %}\n    - [{{ x | sprintf(\"%.9f\") }}, {{ y | sprintf(\"%.9f\") }}, {{ z | sprintf(\"%.9f\") }}, {{ weight | sprintf(\"%.12f\") }}]\n{%- endfor %}\n{%- endfor %}\n{%- endfor %}\n",
+                                "contextProviders": [
+                                    {
+                                        "name": "Q3InputDataManager"
+                                    },
+                                    {
+                                        "name": "KGridFormDataManager"
+                                    },
+                                    {
+                                        "name": "PlanewaveCutoffDataManager"
+                                    }
+                                ],
+                                "executableName": "q3",
+                                "name": "q3_nscf.yml",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        },
+                        {
+                            "template": {
+                                "applicationName": "q3",
+                                "applicationVersion": "*",
+                                "content": "{% raw %}{{ MATERIAL | default({}) | tojson }}{% endraw %}\n",
+                                "contextProviders": [],
+                                "executableName": "q3",
+                                "name": "material.json",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        },
+        {
+            "_id": "16206c39-7e5a-5388-9650-3ebe192c5656",
+            "name": "Density of States",
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": false,
+                "name": "shell",
+                "shortName": "sh",
+                "summary": "Shell Script",
+                "version": "5.1.8",
+                "schemaVersion": "2022.8.16"
+            },
+            "properties": [],
+            "model": {
+                "type": "unknown",
+                "subtype": "unknown",
+                "method": {
+                    "type": "unknown",
+                    "subtype": "unknown",
+                    "data": {}
+                }
+            },
+            "units": [
+                {
+                    "type": "execution",
+                    "name": "q3_dos",
+                    "head": true,
+                    "results": [],
+                    "monitors": [
+                        {
+                            "name": "standard_output"
+                        }
+                    ],
+                    "flowchartId": "dee43e42-b9ab-5908-86ff-8e24c516751e",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "application": {
+                        "build": "GNU",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "isDefaultVersion": true,
+                        "isUsingMaterial": false,
+                        "name": "shell",
+                        "shortName": "sh",
+                        "summary": "Shell Script",
+                        "version": "5.1.8",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "executable": {
+                        "applicationName": "shell",
+                        "applicationVersion": "*",
+                        "hasAdvancedComputeOptions": false,
+                        "isDefault": true,
+                        "name": "sh",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "flavor": {
+                        "applicationName": "shell",
+                        "applicationVersion": "*",
+                        "executableName": "sh",
+                        "input": [
+                            {
+                                "name": "q3_dos.sh"
+                            }
+                        ],
+                        "isDefault": false,
+                        "monitors": [
+                            {
+                                "name": "standard_output"
+                            }
+                        ],
+                        "name": "q3_dos",
+                        "postProcessors": [],
+                        "preProcessors": [],
+                        "results": [],
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "input": [
+                        {
+                            "template": {
+                                "applicationName": "shell",
+                                "applicationVersion": "*",
+                                "content": "#!/bin/bash\n\n# ---------------------------------------------------------------- #\n#                                                                  #\n#  Density of states from a Quantum 3xplorer (q3) NSCF run         #\n#                                                                  #\n#  Reads the eigenvalues that the preceding q3_nscf unit wrote to  #\n#  ./outdir/q3_results.json, applies Gaussian broadening with the  #\n#  q3 Python package (q3.io.output_writer.extract_dos), and writes #\n#  the curve to q3_dos.json. Runs inside the q3 container, which   #\n#  ships the q3 Python package on its PATH.                        #\n#                                                                  #\n#  Edit BROADENING_RY and ENERGY_STEPS below to tune the curve.    #\n#                                                                  #\n# ---------------------------------------------------------------- #\n\n# sets EXEC_CMD to the q3 container execution command\nmodule load q3\n\ncat > q3_dos.py <<'EOF'\n\"\"\"Gaussian-broadened density of states from a q3 NSCF results file.\"\"\"\n\nimport json\nimport logging\nfrom pathlib import Path\n\nfrom q3.io.output_writer import extract_dos\nfrom q3.io.results.classes import Results\n\nRESULTS_PATH = Path(\"outdir\") / \"q3_results.json\"\nOUTPUT_PATH = Path(\"q3_dos.json\")\nBROADENING_RY = 0.01\nENERGY_STEPS = 1000\nRYDBERG_TO_ELECTRONVOLT = 13.605693122994\n\nlogger = logging.getLogger(\"q3_dos\")\n\n\ndef compute_density_of_states(results_path: Path) -> dict:\n    \"\"\"Broaden the eigenvalues of *results_path* and add the energies in eV.\"\"\"\n    results = Results.read(results_path)\n    density_of_states = extract_dos(\n        results, broadening_ry=BROADENING_RY, energy_steps=ENERGY_STEPS\n    )\n    density_of_states[\"energies_ev\"] = [\n        energy * RYDBERG_TO_ELECTRONVOLT for energy in density_of_states[\"energies_ry\"]\n    ]\n    density_of_states[\"fermi_energy_ev\"] = (\n        density_of_states[\"fermi_energy_ry\"] * RYDBERG_TO_ELECTRONVOLT\n    )\n    return density_of_states\n\n\ndef main() -> None:\n    logging.basicConfig(level=logging.INFO, format=\"%(message)s\")\n    density_of_states = compute_density_of_states(RESULTS_PATH)\n    with open(OUTPUT_PATH, \"w\") as output_file:\n        json.dump(density_of_states, output_file, indent=4)\n    logger.info(\"Density of states written to %s\", OUTPUT_PATH)\n    logger.info(\"Energy points: %d\", len(density_of_states[\"energies_ry\"]))\n    logger.info(\"Fermi energy: %.6f eV\", density_of_states[\"fermi_energy_ev\"])\n\n\nif __name__ == \"__main__\":\n    main()\nEOF\n\n# run the post-processing inside the q3 container\n$EXEC_CMD python q3_dos.py\n",
+                                "contextProviders": [],
+                                "executableName": "sh",
+                                "name": "q3_dos.sh",
+                                "schemaVersion": "2022.8.16"
+                            },
+                            "rendered": "",
+                            "isManuallyChanged": false
+                        }
+                    ],
+                    "context": [],
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                }
+            ],
+            "schemaVersion": "2022.8.16",
+            "isDraft": false
+        }
+    ],
+    "units": [
+        {
+            "type": "subworkflow",
+            "name": "Total Energy",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "82eb90a9-1ceb-513d-8674-0f2322dd81df",
+            "flowchartId": "6059d61a-6a92-5657-9130-02208639aff8",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "subworkflow",
+            "name": "Non-Self-Consistent Field",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "87ec7a0a-54e2-5737-92d2-029219aa1ec2",
+            "flowchartId": "897987d6-48fd-5610-bca4-9e6c1758c595",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        },
+        {
+            "type": "subworkflow",
+            "name": "Density of States",
+            "results": [],
+            "monitors": [],
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "_id": "16206c39-7e5a-5388-9650-3ebe192c5656",
+            "flowchartId": "3e64fdb4-ab5b-52a0-a1d5-51343c49481c",
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "properties": [
+        "fermi_energy",
+        "total_energy"
+    ],
+    "workflows": [],
+    "schemaVersion": "2022.8.16",
+    "application": {
+        "name": "q3"
+    }
+}

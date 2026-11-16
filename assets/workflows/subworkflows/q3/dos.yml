@@ -1,0 +1,14 @@
+application:
+  name: shell
+  version: 5.1.8
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: Density of States
+units:
+  - config:
+      execName: sh
+      flavorName: q3_dos
+      name: q3_dos
+    type: executionBuilder

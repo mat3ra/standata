@@ -10,6 +10,12 @@
   applicationName: shell
   executableName: sh
 
+- content: !readFile 'input_files_templates/shell/bash_q3_dos.j2.sh'
+  name: q3_dos.sh
+  contextProviders: []
+  applicationName: shell
+  executableName: sh
+
 - content: !readFile 'input_files_templates/shell/bash_espresso_link_outdir_save.j2.sh'
   name: espresso_link_outdir_save.sh
   contextProviders: []

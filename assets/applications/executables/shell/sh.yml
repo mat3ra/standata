@@ -39,6 +39,14 @@ flavors:
     applicationName: shell
     executableName: sh
 
+  q3_dos:
+    input:
+      - name: q3_dos.sh
+    monitors:
+      - name: standard_output
+    applicationName: shell
+    executableName: sh
+
   espresso_link_outdir_save:
     input:
       - name: espresso_link_outdir_save.sh

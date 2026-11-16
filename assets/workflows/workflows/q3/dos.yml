@@ -1,0 +1,8 @@
+name: Density of States - Q3
+units:
+- name: total_energy
+  type: subworkflow
+- name: nscf
+  type: subworkflow
+- name: dos
+  type: subworkflow

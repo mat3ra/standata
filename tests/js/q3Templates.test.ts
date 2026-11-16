@@ -1,4 +1,5 @@
 import { expect } from "chai";
+import * as fs from "fs";
 import * as yaml from "js-yaml";
 import { Environment, FileSystemLoader } from "nunjucks";
 import * as path from "path";
@@ -77,5 +78,22 @@ describe("Q3 Template Rendering", () => {
         expect(foldedX).to.equal(-0.5);
         expect(shiftedY).to.be.closeTo(1 / 6, 1.0e-9);
         expect(unshiftedZ).to.equal(0);
+    });
+
+    it("renders the DOS shell script verbatim, embedded Python included", () => {
+        const shellTemplateDirectory = path.join(
+            __dirname,
+            "../../assets/applications/input_files_templates/shell",
+        );
+        const shellEnvironment = setupNunjucksEnvironment(
+            new Environment(new FileSystemLoader(shellTemplateDirectory)),
+        );
+        const templateName = "bash_q3_dos.j2.sh";
+        const rawScript = fs.readFileSync(path.join(shellTemplateDirectory, templateName), "utf8");
+        const renderedScript = shellEnvironment.getTemplate(templateName).render({});
+
+        expect(renderedScript.trim()).to.equal(rawScript.trim());
+        expect(renderedScript).to.include("module load q3");
+        expect(renderedScript).to.include("$EXEC_CMD python q3_dos.py");
     });
 });
