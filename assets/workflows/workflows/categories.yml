@@ -505,11 +505,6 @@ entities:
       - fermi_energy
       - q3
       - total_energy
-  - filename: q3/nscf.json
-    categories:
-      - fermi_energy
-      - q3
-      - total_energy
   - filename: q3/total_energy.json
     categories:
       - fermi_energy
