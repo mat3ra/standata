@@ -42,6 +42,9 @@ flavors:
   q3_dos:
     input:
       - name: q3_dos.sh
+    results:
+      - name: density_of_states
+      - name: fermi_energy
     monitors:
       - name: standard_output
     applicationName: shell

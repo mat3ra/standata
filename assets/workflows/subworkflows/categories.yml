@@ -557,6 +557,8 @@ entities:
       - python
   - filename: q3/dos.json
     categories:
+      - density_of_states
+      - fermi_energy
       - q3
       - shell
   - filename: q3/nscf.json

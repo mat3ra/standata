@@ -377,7 +377,10 @@
                 "version": "5.1.8",
                 "schemaVersion": "2022.8.16"
             },
-            "properties": [],
+            "properties": [
+                "density_of_states",
+                "fermi_energy"
+            ],
             "model": {
                 "type": "unknown",
                 "subtype": "unknown",
@@ -392,7 +395,14 @@
                     "type": "execution",
                     "name": "q3_dos",
                     "head": true,
-                    "results": [],
+                    "results": [
+                        {
+                            "name": "density_of_states"
+                        },
+                        {
+                            "name": "fermi_energy"
+                        }
+                    ],
                     "monitors": [
                         {
                             "name": "standard_output"
@@ -442,7 +452,14 @@
                         "name": "q3_dos",
                         "postProcessors": [],
                         "preProcessors": [],
-                        "results": [],
+                        "results": [
+                            {
+                                "name": "density_of_states"
+                            },
+                            {
+                                "name": "fermi_energy"
+                            }
+                        ],
                         "schemaVersion": "2022.8.16"
                     },
                     "input": [
@@ -518,7 +535,8 @@
     ],
     "properties": [
         "fermi_energy",
-        "total_energy"
+        "total_energy",
+        "density_of_states"
     ],
     "workflows": [],
     "schemaVersion": "2022.8.16",
