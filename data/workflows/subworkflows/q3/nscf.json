@@ -1,5 +1,5 @@
 {
-    "_id": "87ec7a0a-54e2-5737-92d2-029219aa1ec2",
+    "_id": "0b42981f-bf92-52be-8978-c4a71ab95703",
     "name": "Non-Self-Consistent Field",
     "application": {
         "name": "q3"
@@ -11,8 +11,8 @@
         "type": "dft",
         "subtype": "gga",
         "method": {
-            "type": "localorbital",
-            "subtype": "pople",
+            "type": "pseudopotential",
+            "subtype": "us",
             "data": {}
         },
         "functional": "pbe"

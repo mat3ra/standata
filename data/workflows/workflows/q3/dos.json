@@ -3,7 +3,7 @@
     "name": "Density of States - Q3",
     "subworkflows": [
         {
-            "_id": "82eb90a9-1ceb-513d-8674-0f2322dd81df",
+            "_id": "def1fa2c-6052-52ef-bd37-df300e931e73",
             "name": "Total Energy",
             "application": {
                 "build": "GNU",
@@ -28,8 +28,8 @@
                 "type": "dft",
                 "subtype": "gga",
                 "method": {
-                    "type": "localorbital",
-                    "subtype": "pople",
+                    "type": "pseudopotential",
+                    "subtype": "us",
                     "data": {}
                 },
                 "functional": "pbe"
@@ -214,7 +214,7 @@
             "isDraft": false
         },
         {
-            "_id": "87ec7a0a-54e2-5737-92d2-029219aa1ec2",
+            "_id": "0b42981f-bf92-52be-8978-c4a71ab95703",
             "name": "Non-Self-Consistent Field",
             "application": {
                 "build": "GNU",
@@ -238,8 +238,8 @@
                 "type": "dft",
                 "subtype": "gga",
                 "method": {
-                    "type": "localorbital",
-                    "subtype": "pople",
+                    "type": "pseudopotential",
+                    "subtype": "us",
                     "data": {}
                 },
                 "functional": "pbe"
@@ -497,7 +497,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "_id": "82eb90a9-1ceb-513d-8674-0f2322dd81df",
+            "_id": "def1fa2c-6052-52ef-bd37-df300e931e73",
             "flowchartId": "6059d61a-6a92-5657-9130-02208639aff8",
             "schemaVersion": "2022.8.16",
             "isDefault": false
@@ -512,7 +512,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "_id": "87ec7a0a-54e2-5737-92d2-029219aa1ec2",
+            "_id": "0b42981f-bf92-52be-8978-c4a71ab95703",
             "flowchartId": "897987d6-48fd-5610-bca4-9e6c1758c595",
             "schemaVersion": "2022.8.16",
             "isDefault": false

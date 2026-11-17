@@ -3,9 +3,10 @@
 # UPF files and VASP POTCAR files.
 "GNU":
   q3:
-    q3_scf:
+    q3_scf: &q3_plane_wave_methods
       - path: /qm/wf/none/pw/none
       - path: /qm/wf/none/smearing/gaussian
       - regex: \/qm\/wf\/none\/psp\/(nc|nc-fr|us|paw)
         defaultPath: /qm/wf/none/psp/us
       - path: /linalg/diag/none/davidson/none
+    q3_nscf: *q3_plane_wave_methods
