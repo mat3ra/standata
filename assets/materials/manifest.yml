@@ -474,6 +474,17 @@ sources:
     doi: 10.17188/1267443
     url: https://next-gen.materialsproject.org/materials/mp-550893
 
+  - filename: mp-685097.poscar
+    common_name: Hafnium IV Oxide
+    lattice_type: ORC
+    space_group: Pca2_1
+    dimensionality: 3D
+    form_factor: Bulk
+    source_id: mp-685097
+    source: MaterialsProject
+    doi: 10.17188/1284096
+    url: https://next-gen.materialsproject.org/materials/mp-685097
+
   - filename: mp-2097.poscar
     common_name: Tin Oxide
     lattice_type: TET
