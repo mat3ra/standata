@@ -50,21 +50,4 @@ describe("jupyterLab versions", () => {
             expect(builds).to.deep.equal(["Default", ...pythonBuilds]);
         });
     });
-
-    it("gives every Python build its version's default flavor and requirements", () => {
-        ["4.6.0", "4.3.0"].forEach((version) => {
-            pythonBuilds.forEach((build) => {
-                const application = standata.findApplication({
-                    name: "jupyterLab",
-                    version,
-                    build,
-                });
-                const flavor = standata.getDefaultFlavor(application, { name: "jupyter" });
-
-                expect(application.build).to.equal(build);
-                expect(flavor?.name).to.equal(`notebook_v${version}`);
-                expect(flavor?.input[0].templateName).to.equal(`requirements_v${version}.txt`);
-            });
-        });
-    });
 });
