@@ -1,0 +1,97 @@
+{
+    "_id": "3a990e3f-d2cb-51e8-b832-e233ffd12fc9",
+    "name": "Backup SCF Results",
+    "application": {
+        "name": "q3"
+    },
+    "properties": [],
+    "model": {
+        "type": "unknown",
+        "subtype": "unknown",
+        "method": {
+            "type": "unknown",
+            "subtype": "unknown",
+            "data": {}
+        }
+    },
+    "units": [
+        {
+            "type": "execution",
+            "name": "q3_backup_scf_results",
+            "head": true,
+            "results": [],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                }
+            ],
+            "flowchartId": "85c675b6-9d73-510e-8e9d-0b93db71f582",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": false,
+                "name": "shell",
+                "shortName": "sh",
+                "summary": "Shell Script",
+                "version": "5.1.8",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "applicationName": "shell",
+                "applicationVersion": "*",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "name": "sh",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "applicationName": "shell",
+                "applicationVersion": "*",
+                "executableName": "sh",
+                "input": [
+                    {
+                        "name": "q3_backup_scf_results.sh"
+                    }
+                ],
+                "isDefault": false,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    }
+                ],
+                "name": "q3_backup_scf_results",
+                "postProcessors": [],
+                "preProcessors": [],
+                "results": [],
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [
+                {
+                    "template": {
+                        "applicationName": "shell",
+                        "applicationVersion": "*",
+                        "content": "#!/bin/bash\n\n# ---------------------------------------------------------------- #\n#                                                                  #\n#  Keep the Quantum 3xplorer (q3) SCF results file                 #\n#                                                                  #\n#  q3 always writes <outdir>/<prefix>_results.json, and the NSCF   #\n#  run that follows overwrites the SCF one. This keeps a copy      #\n#  beside it in outdir. The copy's name does not end in            #\n#  _results.json, so the result parsers keep reading the NSCF      #\n#  file.                                                           #\n#                                                                  #\n# ---------------------------------------------------------------- #\n\ncp outdir/q3_results.json outdir/q3_results_scf.json\n",
+                        "contextProviders": [],
+                        "executableName": "sh",
+                        "name": "q3_backup_scf_results.sh",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                }
+            ],
+            "context": [],
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "isDraft": false
+}

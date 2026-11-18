@@ -10,6 +10,12 @@
   applicationName: shell
   executableName: sh
 
+- content: !readFile 'input_files_templates/shell/bash_q3_backup_scf_results.j2.sh'
+  name: q3_backup_scf_results.sh
+  contextProviders: []
+  applicationName: shell
+  executableName: sh
+
 - content: !readFile 'input_files_templates/shell/bash_q3_dos.j2.sh'
   name: q3_dos.sh
   contextProviders: []

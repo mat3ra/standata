@@ -24,6 +24,17 @@ describe("Q3 Workflows", () => {
         expect(methodConfig.path).to.include("/psp/");
     });
 
+    it("backs up the SCF results before the NSCF run overwrites them", () => {
+        expect(
+            densityOfStatesWorkflow.subworkflows.map((subworkflow) => subworkflow.name),
+        ).to.deep.equal([
+            "Total Energy",
+            "Backup SCF Results",
+            "Non-Self-Consistent Field",
+            "Density of States",
+        ]);
+    });
+
     // Job creation fills pseudopotentials only into subworkflows whose method is "pseudopotential";
     // any other type leaves the q3 input with an empty pseudopotential path.
     it("gives every q3 subworkflow of the DOS workflow a pseudopotential method", () => {

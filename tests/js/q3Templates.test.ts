@@ -80,7 +80,7 @@ describe("Q3 Template Rendering", () => {
         expect(unshiftedZ).to.equal(0);
     });
 
-    it("renders the DOS shell script verbatim, embedded Python included", () => {
+    describe("shell scripts", () => {
         const shellTemplateDirectory = path.join(
             __dirname,
             "../../assets/applications/input_files_templates/shell",
@@ -88,12 +88,28 @@ describe("Q3 Template Rendering", () => {
         const shellEnvironment = setupNunjucksEnvironment(
             new Environment(new FileSystemLoader(shellTemplateDirectory)),
         );
-        const templateName = "bash_q3_dos.j2.sh";
-        const rawScript = fs.readFileSync(path.join(shellTemplateDirectory, templateName), "utf8");
-        const renderedScript = shellEnvironment.getTemplate(templateName).render({});
+        const renderScript = (templateName: string) => {
+            const rawScript = fs.readFileSync(
+                path.join(shellTemplateDirectory, templateName),
+                "utf8",
+            );
+            const renderedScript = shellEnvironment.getTemplate(templateName).render({});
+            return { rawScript, renderedScript };
+        };
 
-        expect(renderedScript.trim()).to.equal(rawScript.trim());
-        expect(renderedScript).to.include("module load q3");
-        expect(renderedScript).to.include("$EXEC_CMD python q3_dos.py");
+        it("renders the DOS shell script verbatim, embedded Python included", () => {
+            const { rawScript, renderedScript } = renderScript("bash_q3_dos.j2.sh");
+            expect(renderedScript.trim()).to.equal(rawScript.trim());
+            expect(renderedScript).to.include("module load q3");
+            expect(renderedScript).to.include("$EXEC_CMD python q3_dos.py");
+        });
+
+        it("copies the SCF results to a name the result parsers do not match", () => {
+            const { rawScript, renderedScript } = renderScript("bash_q3_backup_scf_results.j2.sh");
+            expect(renderedScript.trim()).to.equal(rawScript.trim());
+            expect(renderedScript).to.include(
+                "cp outdir/q3_results.json outdir/q3_results_scf.json",
+            );
+        });
     });
 });

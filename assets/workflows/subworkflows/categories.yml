@@ -555,6 +555,10 @@ entities:
   - filename: python/python_script.json
     categories:
       - python
+  - filename: q3/backup_scf_results.json
+    categories:
+      - q3
+      - shell
   - filename: q3/dos.json
     categories:
       - density_of_states
