@@ -5,7 +5,6 @@ import StandataDriver from "../../src/js/StandataDriver";
 
 describe("jupyterLab versions", () => {
     const standata = new ApplicationRegistry(new StandataDriver());
-    const pythonBuilds = ["3.10.13", "3.11.10", "3.12.7"];
 
     it("resolves every version to its default build", () => {
         ["4.6.0", "4.3.0"].forEach((version) => {
@@ -39,15 +38,20 @@ describe("jupyterLab versions", () => {
         });
     });
 
-    it("offers Default and the Python builds on every version", () => {
-        ["4.6.0", "4.3.0"].forEach((version) => {
+    it("offers the Python builds on 4.6.0 only", () => {
+        const buildsByVersion = {
+            "4.6.0": ["Default", "Python - 3.10.13", "Python - 3.11.10", "Python - 3.12.7"],
+            "4.3.0": ["Default"],
+        };
+
+        Object.entries(buildsByVersion).forEach(([version, expectedBuilds]) => {
             const builds = standata
                 .getApplications()
                 .filter((application) => application.name === "jupyterLab")
                 .filter((application) => application.version === version)
                 .map((application) => application.build);
 
-            expect(builds).to.deep.equal(["Default", ...pythonBuilds]);
+            expect(builds).to.deep.equal(expectedBuilds);
         });
     });
 });
