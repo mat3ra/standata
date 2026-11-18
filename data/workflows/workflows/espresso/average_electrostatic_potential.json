@@ -333,6 +333,30 @@
                         }
                     ],
                     "context": [],
+                    "next": "c6c11873-91d7-5422-8302-3dcc1ce971e9",
+                    "schemaVersion": "2022.8.16",
+                    "isDefault": false
+                },
+                {
+                    "name": "Set Macroscopically Averaged ESP Data",
+                    "type": "assignment",
+                    "operand": "array_from_context",
+                    "value": "average_potential_profile['yDataSeries'][1]",
+                    "input": [
+                        {
+                            "name": "average_potential_profile",
+                            "scope": "average-electrostatic-potential"
+                        }
+                    ],
+                    "results": [],
+                    "monitors": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "status": "idle",
+                    "statusTrack": [],
+                    "tags": [],
+                    "flowchartId": "c6c11873-91d7-5422-8302-3dcc1ce971e9",
+                    "head": false,
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 }

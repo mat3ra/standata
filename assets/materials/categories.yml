@@ -224,6 +224,12 @@ entities:
       - bulk
       - semiconductor
       - non-magnetic
+  - filename: AlAs-[Aluminum_Arsenide]-FCC_[F-43m]_3D_[Bulk]-[mp-2172].json
+    categories:
+      - 3D
+      - bulk
+      - semiconductor
+      - non-magnetic
   - filename: AlN-[Aluminum_Nitride]-HEX_[P6_3mc]_3D_[Bulk]-[mp-661].json
     categories:
       - 3D

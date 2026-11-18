@@ -1,0 +1,35 @@
+material: material.json
+
+method:
+  type: pseudopotential
+  subtype: ultrasoft
+
+  pseudopotentials:
+{%- for specie in input.ATOMIC_SPECIES %}
+    {{ specie.X }}: {{ specie.PseudoPot_X }}
+{%- endfor %}
+
+  cutoffs:
+    wavefunction: {{ cutoffs.wavefunction }}
+    density: {{ cutoffs.density }}
+
+  scf:
+    convergence_threshold: 1.0e-9
+    max_iterations: 100
+
+    smearing:
+      type: gaussian
+      degauss: 0.02
+
+    mixing:
+      beta: 0.3
+      mode: broyden
+
+    kgrid:
+      dimensions: [{{ kgrid.dimensions | join(', ') }}]
+      shifts: [{{ kgrid.shifts | join(', ') }}]
+
+control:
+  calculation: scf
+  prefix: q3
+  outdir: ./outdir/

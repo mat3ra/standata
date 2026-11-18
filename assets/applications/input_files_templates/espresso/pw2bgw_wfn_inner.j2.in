@@ -1,0 +1,19 @@
+{#- See pw2bgw_wfn.j2.in. Sigma reads the same wavefunctions as Epsilon, but under the name
+    WFN_inner, so the WFN bands are converted a second time; it must run before the WFNq bands
+    run overwrites them in outdir. RHO and vxc.dat are already written by pw2bgw_wfn.in. -#}
+&input_pw2bgw
+    prefix = '__prefix__'
+    outdir = {% raw %}'{{ JOB_WORK_DIR }}/outdir'{% endraw %}
+    real_or_complex = 2
+    wfng_flag = .true.
+    wfng_file = '../WFN_inner'
+    wfng_kgrid = .true.
+    wfng_nk1 = {{ kgrid.dimensions[0] }}
+    wfng_nk2 = {{ kgrid.dimensions[1] }}
+    wfng_nk3 = {{ kgrid.dimensions[2] }}
+    wfng_dk1 = 0.0
+    wfng_dk2 = 0.0
+    wfng_dk3 = 0.0
+    rhog_flag = .false.
+    vxc_flag = .false.
+/

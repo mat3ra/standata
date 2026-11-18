@@ -1,0 +1,6 @@
+- content: !readFile 'input_files_templates/berkeleygw/sigma.j2.inp'
+  name: sigma.inp
+  contextProviders:
+    - name: KGridFormDataManager
+  applicationName: berkeleygw
+  executableName: sigma.cplx.x

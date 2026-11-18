@@ -14,6 +14,7 @@ function buildModelsTreeConfigs(): Record<string, ModelTree> {
     const VASP_MODELS_TREE = deepClone(_.pick(MODEL_TREE, "dft")) as DftOnlyTree;
     const ESPRESSO_MODELS_TREE = deepClone(_.pick(MODEL_TREE, "dft")) as DftOnlyTree;
     const NWCHEM_MODELS_TREE = deepClone(_.pick(MODEL_TREE, "dft")) as DftOnlyTree;
+    const Q3_MODELS_TREE = deepClone(_.pick(MODEL_TREE, "dft")) as DftOnlyTree;
 
     (["gga", "lda"] as const).forEach((approximation) => {
         VASP_MODELS_TREE.dft[approximation].methods.pseudopotential = VASP_MODELS_TREE.dft[
@@ -22,6 +23,9 @@ function buildModelsTreeConfigs(): Record<string, ModelTree> {
 
         ESPRESSO_MODELS_TREE.dft[approximation].methods.pseudopotential =
             ESPRESSO_MODELS_TREE.dft[approximation].methods.pseudopotential.reverse();
+
+        Q3_MODELS_TREE.dft[approximation].methods.pseudopotential =
+            Q3_MODELS_TREE.dft[approximation].methods.pseudopotential.reverse();
     });
 
     const UNKNOWN_MODELS_TREE = _.pick(MODEL_TREE, "unknown") as ModelTree;
@@ -29,6 +33,7 @@ function buildModelsTreeConfigs(): Record<string, ModelTree> {
     return {
         vasp: VASP_MODELS_TREE,
         espresso: ESPRESSO_MODELS_TREE,
+        q3: Q3_MODELS_TREE,
         python: UNKNOWN_MODELS_TREE,
         shell: UNKNOWN_MODELS_TREE,
         jupyterLab: UNKNOWN_MODELS_TREE,

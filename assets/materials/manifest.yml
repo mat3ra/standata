@@ -110,6 +110,17 @@ sources:
     doi: 10.17188/1200591
     url: https://next-gen.materialsproject.org/materials/mp-2534
 
+  - filename: mp-2172.poscar
+    common_name: Aluminum Arsenide
+    lattice_type: FCC
+    space_group: F-43m
+    dimensionality: 3D
+    form_factor: Bulk
+    source_id: mp-2172
+    source: MaterialsProject
+    doi: 10.17188/1197136
+    url: https://next-gen.materialsproject.org/materials/mp-2172
+
   - filename: mp-804.poscar
     common_name: Gallium Nitride
     lattice_type: HEX

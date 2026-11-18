@@ -1,0 +1,25 @@
+{
+    "name": "berkeleygw",
+    "shortName": "bgw",
+    "summary": "BerkeleyGW",
+    "isUsingMaterial": true,
+    "version": "4.0",
+    "isDefault": true,
+    "isDefaultVersion": true,
+    "build": "GNU",
+    "hasAdvancedComputeOptions": false,
+    "buildConfig": {
+        "moduleName": "4.0-gnu",
+        "imageName": "berkeleygw",
+        "imageTag": "4.0-gnu-0",
+        "bio": "BerkeleyGW 4.0 (GCC 11.5.0, OpenMPI 4.1.1, OpenBLAS)",
+        "dependencies": [
+            "mpi/ompi-4.1.1"
+        ],
+        "environmentVariables": {}
+    },
+    "runConfig": {
+        "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\nmpirun -machinefile {MACHINEFILE} -np {NP} $EXEC_CMD {EXECUTABLE} > {OUTPUTFILE}\n",
+        "outFileName": "berkeleygw.out"
+    }
+}

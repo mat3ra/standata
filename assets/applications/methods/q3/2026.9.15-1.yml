@@ -1,0 +1,11 @@
+# Quantum 3xplorer is a plane-wave pseudopotential code and it has its own
+# pseudopotential set. In addition, it is also compatible with Quantum ESPRESSO
+# UPF files and VASP POTCAR files.
+"GNU":
+  q3:
+    q3_scf:
+      - path: /qm/wf/none/pw/none
+      - path: /qm/wf/none/smearing/gaussian
+      - regex: \/qm\/wf\/none\/psp\/(nc|nc-fr|us|paw)
+        defaultPath: /qm/wf/none/psp/us
+      - path: /linalg/diag/none/davidson/none
