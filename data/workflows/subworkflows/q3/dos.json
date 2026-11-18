@@ -68,6 +68,9 @@
                 "input": [
                     {
                         "name": "q3_dos.sh"
+                    },
+                    {
+                        "name": "extract_dos.py"
                     }
                 ],
                 "isDefault": false,
@@ -94,10 +97,23 @@
                     "template": {
                         "applicationName": "shell",
                         "applicationVersion": "*",
-                        "content": "#!/bin/bash\n\n# ---------------------------------------------------------------- #\n#                                                                  #\n#  Density of states from a Quantum 3xplorer (q3) NSCF run         #\n#                                                                  #\n#  Reads the eigenvalues that the preceding q3_nscf unit wrote to  #\n#  ./outdir/q3_results.json, applies Gaussian broadening with the  #\n#  q3 Python package (q3.io.output_writer.extract_dos), and writes #\n#  the curve to q3_dos.json. Runs inside the q3 container, which   #\n#  ships the q3 Python package on its PATH.                        #\n#                                                                  #\n#  Edit BROADENING_RY and ENERGY_STEPS below to tune the curve.    #\n#                                                                  #\n# ---------------------------------------------------------------- #\n\n# sets EXEC_CMD to the q3 container execution command\nmodule load q3\n\ncat > q3_dos.py <<'EOF'\n\"\"\"Gaussian-broadened density of states from a q3 NSCF results file.\"\"\"\n\nimport json\nimport logging\nfrom pathlib import Path\n\nfrom q3.io.output_writer import extract_dos\nfrom q3.io.results.classes import Results\n\nRESULTS_PATH = Path(\"outdir\") / \"q3_results.json\"\nOUTPUT_PATH = Path(\"q3_dos.json\")\nBROADENING_RY = 0.01\nENERGY_STEPS = 1000\nRYDBERG_TO_ELECTRONVOLT = 13.605693122994\n\nlogger = logging.getLogger(\"q3_dos\")\n\n\ndef compute_density_of_states(results_path: Path) -> dict:\n    \"\"\"Broaden the eigenvalues of *results_path* and add the energies in eV.\"\"\"\n    results = Results.read(results_path)\n    density_of_states = extract_dos(\n        results, broadening_ry=BROADENING_RY, energy_steps=ENERGY_STEPS\n    )\n    density_of_states[\"energies_ev\"] = [\n        energy * RYDBERG_TO_ELECTRONVOLT for energy in density_of_states[\"energies_ry\"]\n    ]\n    density_of_states[\"fermi_energy_ev\"] = (\n        density_of_states[\"fermi_energy_ry\"] * RYDBERG_TO_ELECTRONVOLT\n    )\n    return density_of_states\n\n\ndef main() -> None:\n    logging.basicConfig(level=logging.INFO, format=\"%(message)s\")\n    density_of_states = compute_density_of_states(RESULTS_PATH)\n    with open(OUTPUT_PATH, \"w\") as output_file:\n        json.dump(density_of_states, output_file, indent=4)\n    logger.info(\"Density of states written to %s\", OUTPUT_PATH)\n    logger.info(\"Energy points: %d\", len(density_of_states[\"energies_ry\"]))\n    logger.info(\"Fermi energy: %.6f eV\", density_of_states[\"fermi_energy_ev\"])\n\n\nif __name__ == \"__main__\":\n    main()\nEOF\n\n# run the post-processing inside the q3 container\n$EXEC_CMD python q3_dos.py\n",
+                        "content": "#!/bin/bash\n\n# ---------------------------------------------------------------- #\n#                                                                  #\n#  Density of states from a Quantum 3xplorer (q3) NSCF run         #\n#                                                                  #\n#  Reads the eigenvalues that the preceding q3_nscf unit wrote to  #\n#  ./outdir/q3_results.json, applies Gaussian broadening with the  #\n#  q3 Python package (q3.io.output_writer.extract_dos), and writes #\n#  the curve to q3_dos.json. Runs inside the q3 container, which   #\n#  ships the q3 Python package on its PATH.                        #\n#                                                                  #\n#  Edit BROADENING_RY and ENERGY_STEPS in extract_dos.py to tune   #\n#  the curve.                                                      #\n#                                                                  #\n# ---------------------------------------------------------------- #\n\n# sets EXEC_CMD to the q3 container execution command\nmodule load q3\n\n# run the post-processing (extract_dos.py, the second input of this unit)\n# inside the q3 container\n$EXEC_CMD python extract_dos.py\n",
                         "contextProviders": [],
                         "executableName": "sh",
                         "name": "q3_dos.sh",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                },
+                {
+                    "template": {
+                        "applicationName": "shell",
+                        "applicationVersion": "*",
+                        "content": "\"\"\"Gaussian-broadened density of states from a q3 NSCF results file.\"\"\"\n\nimport json\nimport logging\nfrom pathlib import Path\n\nfrom q3.io.output_writer import extract_dos\nfrom q3.io.results.classes import Results\n\nRESULTS_PATH = Path(\"outdir\") / \"q3_results.json\"\nOUTPUT_PATH = Path(\"q3_dos.json\")\nBROADENING_RY = 0.01\nENERGY_STEPS = 1000\nRYDBERG_TO_ELECTRONVOLT = 13.605693122994\n\nlogger = logging.getLogger(\"q3_dos\")\n\n\ndef compute_density_of_states(results_path: Path) -> dict:\n    \"\"\"Broaden the eigenvalues of *results_path* and add the energies in eV.\"\"\"\n    results = Results.read(results_path)\n    density_of_states = extract_dos(\n        results, broadening_ry=BROADENING_RY, energy_steps=ENERGY_STEPS\n    )\n    density_of_states[\"energies_ev\"] = [\n        energy * RYDBERG_TO_ELECTRONVOLT for energy in density_of_states[\"energies_ry\"]\n    ]\n    density_of_states[\"fermi_energy_ev\"] = (\n        density_of_states[\"fermi_energy_ry\"] * RYDBERG_TO_ELECTRONVOLT\n    )\n    return density_of_states\n\n\ndef main() -> None:\n    logging.basicConfig(level=logging.INFO, format=\"%(message)s\")\n    density_of_states = compute_density_of_states(RESULTS_PATH)\n    with open(OUTPUT_PATH, \"w\") as output_file:\n        json.dump(density_of_states, output_file, indent=4)\n    logger.info(\"Density of states written to %s\", OUTPUT_PATH)\n    logger.info(\"Energy points: %d\", len(density_of_states[\"energies_ry\"]))\n    logger.info(\"Fermi energy: %.6f eV\", density_of_states[\"fermi_energy_ev\"])\n\n\nif __name__ == \"__main__\":\n    main()\n",
+                        "contextProviders": [],
+                        "executableName": "sh",
+                        "name": "extract_dos.py",
                         "schemaVersion": "2022.8.16"
                     },
                     "rendered": "",

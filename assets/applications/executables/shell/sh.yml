@@ -50,6 +50,7 @@ flavors:
   q3_dos:
     input:
       - name: q3_dos.sh
+      - name: extract_dos.py
     results:
       - name: density_of_states
       - name: fermi_energy

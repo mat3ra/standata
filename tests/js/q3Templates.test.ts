@@ -80,6 +80,16 @@ describe("Q3 Template Rendering", () => {
         expect(unshiftedZ).to.equal(0);
     });
 
+    it("renders the DOS Python script verbatim", () => {
+        const templateName = "extract_dos.inp";
+        const rawScript = fs.readFileSync(path.join(templateDirectory, templateName), "utf8");
+        const renderedScript = environment.getTemplate(templateName).render({});
+
+        expect(renderedScript.trim()).to.equal(rawScript.trim());
+        expect(renderedScript).to.include("from q3.io.output_writer import extract_dos");
+        expect(renderedScript).to.include('OUTPUT_PATH = Path("q3_dos.json")');
+    });
+
     describe("shell scripts", () => {
         const shellTemplateDirectory = path.join(
             __dirname,
@@ -97,11 +107,11 @@ describe("Q3 Template Rendering", () => {
             return { rawScript, renderedScript };
         };
 
-        it("renders the DOS shell script verbatim, embedded Python included", () => {
+        it("renders the DOS shell script verbatim", () => {
             const { rawScript, renderedScript } = renderScript("bash_q3_dos.j2.sh");
             expect(renderedScript.trim()).to.equal(rawScript.trim());
             expect(renderedScript).to.include("module load q3");
-            expect(renderedScript).to.include("$EXEC_CMD python q3_dos.py");
+            expect(renderedScript).to.include("$EXEC_CMD python extract_dos.py");
         });
 
         it("copies the SCF results to a name the result parsers do not match", () => {
