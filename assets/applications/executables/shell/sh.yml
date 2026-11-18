@@ -39,14 +39,6 @@ flavors:
     applicationName: shell
     executableName: sh
 
-  q3_backup_scf_results:
-    input:
-      - name: q3_backup_scf_results.sh
-    monitors:
-      - name: standard_output
-    applicationName: shell
-    executableName: sh
-
   q3_dos:
     input:
       - name: q3_dos.sh

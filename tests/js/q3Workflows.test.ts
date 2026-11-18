@@ -24,12 +24,11 @@ describe("Q3 Workflows", () => {
         expect(methodConfig.path).to.include("/psp/");
     });
 
-    it("backs up the SCF results before the NSCF run overwrites them", () => {
+    it("runs SCF, NSCF, and DOS in order", () => {
         expect(
             densityOfStatesWorkflow.subworkflows.map((subworkflow) => subworkflow.name),
         ).to.deep.equal([
             "Total Energy",
-            "Backup SCF Results",
             "Non-Self-Consistent Field",
             "Density of States",
         ]);

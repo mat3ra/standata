@@ -113,13 +113,5 @@ describe("Q3 Template Rendering", () => {
             expect(renderedScript).to.include("module load q3");
             expect(renderedScript).to.include("$EXEC_CMD python extract_dos.py");
         });
-
-        it("copies the SCF results to a name the result parsers do not match", () => {
-            const { rawScript, renderedScript } = renderScript("bash_q3_backup_scf_results.j2.sh");
-            expect(renderedScript.trim()).to.equal(rawScript.trim());
-            expect(renderedScript).to.include(
-                "cp outdir/q3_results.json outdir/q3_results_scf.json",
-            );
-        });
     });
 });
