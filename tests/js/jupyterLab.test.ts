@@ -40,7 +40,7 @@ describe("jupyterLab versions", () => {
 
     it("offers the Python builds on 4.6.0 only", () => {
         const buildsByVersion = {
-            "4.6.0": ["Default", "Python - 3.10.13", "Python - 3.11.10", "Python - 3.12.7"],
+            "4.6.0": ["Default", "Python-3.10.13", "Python-3.11.10", "Python-3.12.7"],
             "4.3.0": ["Default"],
         };
 

@@ -6,6 +6,6 @@
     "version": "4.6.0",
     "isDefault": false,
     "isDefaultVersion": true,
-    "build": "Python - 3.12.7",
+    "build": "Python-3.11.10",
     "hasAdvancedComputeOptions": false
 }
