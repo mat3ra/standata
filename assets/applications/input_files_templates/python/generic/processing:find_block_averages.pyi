@@ -39,10 +39,11 @@ for bulk, own_elements, other_elements in (
     (BULK_LEFT, left_elements, right_elements),
     (BULK_RIGHT, right_elements, left_elements),
 ):
-    block_heights = np.sort(heights[np.isin(interface_elements, np.setdiff1d(own_elements, other_elements))])
-    # the block's centre is the middle of its atoms: half a cell from the middle of the widest gap between them
+    own_only, other_only = np.setdiff1d(own_elements, other_elements), np.setdiff1d(other_elements, own_elements)
+    block_heights = np.sort(heights[np.isin(interface_elements, own_only if own_only.size else other_only)])
+    # centre: the middle of the block's atoms (half a cell from their widest gap's), or of the other's widest gap
     gaps = np.diff(block_heights, append=block_heights[0] + 1)
-    center = (block_heights[np.argmax(gaps)] + gaps.max() / 2 + 0.5) % 1
+    center = (block_heights[np.argmax(gaps)] + gaps.max() / 2 + 0.5 * bool(own_only.size)) % 1
     window = get_cell_height(bulk["lattice"]) / get_cell_height(INTERFACE["lattice"])
     averages.append(profile[np.abs((positions - center + 0.5) % 1 - 0.5) <= window / 2].mean())
 
