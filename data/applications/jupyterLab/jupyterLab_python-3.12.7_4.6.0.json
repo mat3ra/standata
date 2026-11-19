@@ -7,5 +7,10 @@
     "isDefault": false,
     "isDefaultVersion": true,
     "build": "Python-3.12.7",
-    "hasAdvancedComputeOptions": false
+    "hasAdvancedComputeOptions": false,
+    "buildConfig": {
+        "dependencies": [
+            "python/3.12.7"
+        ]
+    }
 }

@@ -8,16 +8,31 @@ versions:
     # This sets the default build for each version
     isDefault: true
     build: Default
+    buildConfig:
+      dependencies:
+        - 'python'
   # Python builds mirror the versions in python.yml; the two lists change together.
   - version: '4.6.0'
     isDefault: false
     build: 'Python-3.10.13'
+    buildConfig:
+      dependencies:
+        - 'python/3.10.13'
   - version: '4.6.0'
     isDefault: false
     build: 'Python-3.11.10'
+    buildConfig:
+      dependencies:
+        - 'python/3.11.10'
   - version: '4.6.0'
     isDefault: false
     build: 'Python-3.12.7'
+    buildConfig:
+      dependencies:
+        - 'python/3.12.7'
   - version: '4.3.0'
     isDefault: true
     build: Default
+    buildConfig:
+      dependencies:
+        - 'python'
