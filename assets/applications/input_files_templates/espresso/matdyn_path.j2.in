@@ -4,6 +4,7 @@
     flfrq ='frequencies.freq'
     flvec ='normal_modes.out'
     q_in_band_form = .true.
+    q_in_cryst_coord = .true.
  /
 {{ipath.length}}
 {% for point in ipath -%}
