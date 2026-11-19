@@ -13,7 +13,7 @@
                 "isUsingMaterial": true,
                 "name": "q3",
                 "runConfig": {
-                    "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\n$EXEC_CMD mpirun -np {NP} {EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}\n"
+                    "commandTemplate": "$EXEC_CMD mpirun -np {NP} {EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}"
                 },
                 "shortName": "q3",
                 "summary": "Quantum 3xplorer",
@@ -121,7 +121,7 @@
                         "isUsingMaterial": true,
                         "name": "q3",
                         "runConfig": {
-                            "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\n$EXEC_CMD mpirun -np {NP} {EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}\n"
+                            "commandTemplate": "$EXEC_CMD mpirun -np {NP} {EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}"
                         },
                         "shortName": "q3",
                         "summary": "Quantum 3xplorer",
@@ -224,7 +224,7 @@
                 "isUsingMaterial": true,
                 "name": "q3",
                 "runConfig": {
-                    "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\n$EXEC_CMD mpirun -np {NP} {EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}\n"
+                    "commandTemplate": "$EXEC_CMD mpirun -np {NP} {EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}"
                 },
                 "shortName": "q3",
                 "summary": "Quantum 3xplorer",
@@ -273,7 +273,7 @@
                         "isUsingMaterial": true,
                         "name": "q3",
                         "runConfig": {
-                            "commandTemplate": "{BASE_CMD} &&\n{MODULE_CMD}\n$EXEC_CMD mpirun -np {NP} {EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}\n"
+                            "commandTemplate": "$EXEC_CMD mpirun -np {NP} {EXECUTABLE} {INPUTFILE} > {OUTPUTFILE}"
                         },
                         "shortName": "q3",
                         "summary": "Quantum 3xplorer",
