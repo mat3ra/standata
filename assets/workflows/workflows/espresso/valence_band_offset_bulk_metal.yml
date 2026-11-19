@@ -3,8 +3,9 @@
 # valence band maximum.
 # Assumes 3 structures: Interface (the superlattice, e.g. HfO2/TiN), Interface Left and Interface Right (the two
 # materials in bulk, stacked along the interface normal, in its strain state); each block of the interface is at least
-# one bulk cell thick. Blocks are found by element; a bulk with no element of its own is centred in the widest gap of
-# the other's atoms. The interface runs no band structure. Positive when the left VBM is above the right Fermi energy
+# one bulk cell thick. Blocks are found by element, so the two bulks must differ in composition; a bulk with no element
+# of its own is centred in the widest gap between atoms of elements only the other bulk holds. The interface runs no
+# band structure. Positive when the left VBM is above the right Fermi energy
 # (Prodhomme et al., Appl. Phys. Lett. 99, 022101 (2011)).
 # Relevant references:
 #   - http://dx.doi.org/10.1103/PhysRevB.34.5621
@@ -222,6 +223,8 @@ units:
         type: assignment
         config:
           attributes:
+            name: Difference of left valence band maximum and right Fermi energy
+            operand: VBM_LEFT_MINUS_FERMI_ENERGY_RIGHT
             value: "VBM_LEFT - FERMI_ENERGY_RIGHT"
       - index: 2
         type: assignment
@@ -232,4 +235,4 @@ units:
         type: assignment
         config:
           attributes:
-            value: "VBM_DIFF - AVG_ESP_DIFF + ESP_LINEUP"
+            value: "VBM_LEFT_MINUS_FERMI_ENERGY_RIGHT - AVG_ESP_DIFF + ESP_LINEUP"

@@ -44,8 +44,9 @@ def _get_scope_with_local_data(units_by_subworkflow, scope_name, basis_units):
             coordinate["value"] = (np.array(coordinate["value"]) @ cell).tolist()
         basis["units"] = basis_units
     for units in units_by_subworkflow.values():
-        for unit in [unit for unit in units if unit.get("operand") in LOCAL_SCOPE_OPERANDS]:
-            scope[unit["operand"]] = _evaluate(unit, scope, job_scope["local"])
+        for unit in units:
+            if unit.get("operand") in LOCAL_SCOPE_OPERANDS:
+                scope[unit["operand"]] = _evaluate(unit, scope, job_scope["local"])
     return scope
 
 

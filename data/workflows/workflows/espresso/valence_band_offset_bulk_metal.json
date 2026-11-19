@@ -2214,9 +2214,9 @@
             },
             "units": [
                 {
-                    "name": "Difference of valence band maxima",
+                    "name": "Difference of left valence band maximum and right Fermi energy",
                     "type": "assignment",
-                    "operand": "VBM_DIFF",
+                    "operand": "VBM_LEFT_MINUS_FERMI_ENERGY_RIGHT",
                     "value": "VBM_LEFT - FERMI_ENERGY_RIGHT",
                     "input": [],
                     "results": [],
@@ -2226,7 +2226,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "bd4eaa98-b001-5694-87ef-ec77540502ab",
+                    "flowchartId": "0dd35d41-7ed4-5231-ab50-6aea307c1f15",
                     "head": true,
                     "next": "2626f7bb-d392-5fd4-ab71-329b508de347",
                     "schemaVersion": "2022.8.16",
@@ -2274,7 +2274,7 @@
                     "name": "Valence Band Offset",
                     "type": "assignment",
                     "operand": "VALENCE_BAND_OFFSET",
-                    "value": "VBM_DIFF - AVG_ESP_DIFF + ESP_LINEUP",
+                    "value": "VBM_LEFT_MINUS_FERMI_ENERGY_RIGHT - AVG_ESP_DIFF + ESP_LINEUP",
                     "input": [],
                     "results": [
                         {
