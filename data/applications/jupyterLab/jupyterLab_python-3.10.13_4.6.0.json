@@ -9,8 +9,11 @@
     "build": "Python-3.10.13",
     "hasAdvancedComputeOptions": false,
     "buildConfig": {
+        "moduleName": "4.6.0-python-3.10.13",
+        "bio": "JupyterLab 4.6.0 (Python 3.10.13)",
         "dependencies": [
             "python/3.10.13"
-        ]
+        ],
+        "environmentVariables": {}
     }
 }

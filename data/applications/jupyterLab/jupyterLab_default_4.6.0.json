@@ -9,8 +9,11 @@
     "build": "Default",
     "hasAdvancedComputeOptions": false,
     "buildConfig": {
+        "moduleName": "4.6.0",
+        "bio": "JupyterLab 4.6.0 (default Python)",
         "dependencies": [
             "python"
-        ]
+        ],
+        "environmentVariables": {}
     }
 }

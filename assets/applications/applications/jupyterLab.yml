@@ -3,36 +3,53 @@ shortName: jl
 summary: JupyterLab
 defaultVersion: '4.6.0'
 isUsingMaterial: false
+# JupyterLab is installed into a per-job virtualenv, so a build is defined by the python it runs on.
+# The "Default" build depends on the cluster's default python module; builds pinned to a specific
+# python (e.g. "Python-3.12.X" depending on "python/3.12.7") can be added next to it.
 versions:
   - version: '4.6.0'
     # This sets the default build for each version
     isDefault: true
     build: Default
     buildConfig:
+      moduleName: '4.6.0'
+      bio: 'JupyterLab 4.6.0 (default Python)'
       dependencies:
-        - 'python'
-  # Python builds mirror the versions in python.yml; the two lists change together.
+        - python
+      environmentVariables: {}
   - version: '4.6.0'
     isDefault: false
     build: 'Python-3.10.13'
     buildConfig:
+      moduleName: '4.6.0-python-3.10.13'
+      bio: 'JupyterLab 4.6.0 (Python 3.10.13)'
       dependencies:
-        - 'python/3.10.13'
+        - python/3.10.13
+      environmentVariables: {}
   - version: '4.6.0'
     isDefault: false
     build: 'Python-3.11.10'
     buildConfig:
+      moduleName: '4.6.0-python-3.11.10'
+      bio: 'JupyterLab 4.6.0 (Python 3.11.10)'
       dependencies:
-        - 'python/3.11.10'
+        - python/3.11.10
+      environmentVariables: {}
   - version: '4.6.0'
     isDefault: false
     build: 'Python-3.12.7'
     buildConfig:
+      moduleName: '4.6.0-python-3.12.7'
+      bio: 'JupyterLab 4.6.0 (Python 3.12.7)'
       dependencies:
-        - 'python/3.12.7'
+        - python/3.12.7
+      environmentVariables: {}
   - version: '4.3.0'
     isDefault: true
     build: Default
     buildConfig:
+      moduleName: '4.3.0'
+      bio: 'JupyterLab 4.3.0 (default Python)'
       dependencies:
-        - 'python'
+        - python
+      environmentVariables: {}
