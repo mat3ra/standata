@@ -39,6 +39,18 @@ flavors:
     applicationName: shell
     executableName: sh
 
+  q3_dos:
+    input:
+      - name: q3_dos.sh
+      - name: extract_dos.py
+    results:
+      - name: density_of_states
+      - name: fermi_energy
+    monitors:
+      - name: standard_output
+    applicationName: shell
+    executableName: sh
+
   espresso_link_outdir_save:
     input:
       - name: espresso_link_outdir_save.sh
