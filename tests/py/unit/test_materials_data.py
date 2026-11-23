@@ -1,4 +1,5 @@
 import pytest
+from mat3ra.esse.models.apse.db.third_party_sources import Source
 from mat3ra.standata.data.materials import materials_data
 from mat3ra.standata.materials import Materials
 
@@ -18,16 +19,6 @@ ANGLES_BY_LATTICE_TYPE = {
     "HEX": {"alpha": 90.0, "beta": 90.0, "gamma": 120.0},
     "TET": {"alpha": 90.0, "beta": 90.0, "gamma": 90.0},
 }
-LATTICE_TYPE_MISMATCH_BY_FILENAME = {
-    "C-[Graphene]-HEX_[P6%2Fmmm]_2D_[Monolayer]-[2dm-3993].json": "2dmatpedia source: a != b",
-    "BN-[Hexagonal_Boron_Nitride]-HEX_[P6%2Fmmm]_2D_[Monolayer]-[2dm-4991].json": "2dmatpedia source: a != b",
-    "Si-[Silicene]-HEX_[P-3m1]_2D_[Monolayer]-[2dm-5934].json": "2dmatpedia source: a != b, gamma != 120",
-    "Te2Mo-[Molybdenum_Telluride]-HEX_[P-6m2]_2D_[Monolayer]-[2dm-5370].json": "2dmatpedia source: a != b",
-    "NbSe2-[Niobium_Diselenide]-HEX_[P-6m2]_2D_[Monolayer]-[2dm-3941].json": "2dmatpedia source: gamma = 60",
-    "SiO2-[Cristobalite]-TET_[I-42d]_3D_[Bulk]-[mp-546794].json": "body-centered: primitive cell is BCT",
-    "N2-[Nitrogen]-FCC_[P2_13]_3D_[Bulk]-[mp-154].json": "simple cubic labeled FCC",
-    "Te-[Tellurium]-RHL_[P3_121]_3D_[Bulk]-[mp-19].json": "hexagonal lattice labeled RHL",
-}
 
 
 @pytest.mark.parametrize(
@@ -35,12 +26,11 @@ LATTICE_TYPE_MISMATCH_BY_FILENAME = {
     [
         filename
         for filename, material in materials_data["filesMapByName"].items()
-        if material["lattice"]["type"] in ANGLES_BY_LATTICE_TYPE
+        if material["external"]["source"] == Source.MaterialsProject.value
+        and material["lattice"]["type"] in ANGLES_BY_LATTICE_TYPE
     ],
 )
-def test_lattice_type_equalities(filename, request):
-    if filename in LATTICE_TYPE_MISMATCH_BY_FILENAME:
-        request.applymarker(pytest.mark.xfail(strict=True, reason=LATTICE_TYPE_MISMATCH_BY_FILENAME[filename]))
+def test_lattice_type_equalities(filename):
     lattice = materials_data["filesMapByName"][filename]["lattice"]
     for key, equal_key in EQUAL_PARAMETERS_BY_LATTICE_TYPE[lattice["type"]].items():
         assert lattice[key] == lattice[equal_key]

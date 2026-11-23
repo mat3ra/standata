@@ -426,7 +426,7 @@ sources:
 
   - filename: mp-546794.poscar
     common_name: Cristobalite
-    lattice_type: TET
+    lattice_type: BCT
     space_group: I-42d
     dimensionality: 3D
     form_factor: Bulk
@@ -785,7 +785,7 @@ sources:
       - elemental
   - filename: mp-19.poscar
     common_name: Tellurium
-    lattice_type: RHL
+    lattice_type: HEX
     space_group: P3_121
     dimensionality: 3D
     form_factor: Bulk

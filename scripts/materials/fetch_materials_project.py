@@ -1,12 +1,12 @@
 import os
 
+from mat3ra.esse.models.apse.db.third_party_sources import Source
 from pymatgen.ext.matproj import MPRester
 from ruamel.yaml import YAML
 
 # Paths configured in build-config.js: BUILD_CONFIG.materials.*
 MANIFEST_PATH = "assets/materials/manifest.yml"  # BUILD_CONFIG.materials.assets.path + manifest
 SOURCES_PATH = "assets/materials"  # BUILD_CONFIG.materials.assets.path
-MATERIALS_PROJECT_SOURCE = "MaterialsProject"
 
 
 def main():
@@ -20,7 +20,7 @@ def main():
         manifest = yaml.load(file)
     with MPRester(os.environ["MP_API_KEY"]) as rester:
         for source in manifest["sources"]:
-            if source["source"] != MATERIALS_PROJECT_SOURCE:
+            if source["source"] != Source.MaterialsProject.value:
                 continue
             record = rester.summary.search(
                 material_ids=source["source_id"], _fields="material_id,structure,builder_meta"

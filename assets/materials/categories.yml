@@ -266,7 +266,7 @@ entities:
       - insulator
       - non-magnetic
       - oxide
-  - filename: SiO2-[Cristobalite]-TET_[I-42d]_3D_[Bulk]-[mp-546794].json
+  - filename: SiO2-[Cristobalite]-BCT_[I-42d]_3D_[Bulk]-[mp-546794].json
     categories:
       - 3D
       - bulk
@@ -409,7 +409,7 @@ entities:
       - metal
       - non-magnetic
       - metals & alloys
-  - filename: N2-[Nitrogen]-FCC_[P2_13]_3D_[Bulk]-[mp-154].json
+  - filename: N2-[Nitrogen]-CUB_[P2_13]_3D_[Bulk]-[mp-154].json
     categories:
       - 3D
       - bulk
@@ -461,7 +461,7 @@ entities:
       - metal
       - non-magnetic
       - metals & alloys
-  - filename: Te-[Tellurium]-RHL_[P3_121]_3D_[Bulk]-[mp-19].json
+  - filename: Te-[Tellurium]-HEX_[P3_121]_3D_[Bulk]-[mp-19].json
     categories:
       - 3D
       - bulk

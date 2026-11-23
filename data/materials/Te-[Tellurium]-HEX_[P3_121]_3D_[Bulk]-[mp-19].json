@@ -1,5 +1,5 @@
 {
-  "name": "Te, Tellurium, RHL (P3_121) 3D (Bulk), mp-19",
+  "name": "Te, Tellurium, HEX (P3_121) 3D (Bulk), mp-19",
   "lattice": {
     "a": 4.601353,
     "b": 4.601353,
@@ -11,7 +11,7 @@
       "length": "angstrom",
       "angle": "degree"
     },
-    "type": "RHL"
+    "type": "HEX"
   },
   "basis": {
     "elements": [
@@ -55,8 +55,8 @@
       }
     ],
     "units": "crystal",
-    "constraints": [],
-    "labels": []
+    "labels": [],
+    "constraints": []
   },
   "external": {
     "id": "mp-19",

@@ -162,7 +162,7 @@ pip install ".[dev]"
 
 The materials data is sourced from the [Materials Project](https://next-gen.materialsproject.org) for 3D materials and [2dmatpedia](http://www.2dmatpedia.org) for 2D materials. The structural data in POSCAR format is stored in the `assets/materials` directory alongside the `manifest.yml` file that contains the additional description and metadata for each material.
 
-To add new materials to Standata, place the POSCAR file in the `assets/materials` directory and update the `manifest.yml` file with the new material's metadata. Then run to create the materials data:
+To add new materials to Standata, place the POSCAR file in the `assets/materials` directory and update the `manifest.yml` file with the new material's metadata. For entries with source `MaterialsProject`, the POSCAR and the `database_version` are written from the Materials Project API by `MP_API_KEY=<key> python scripts/materials/fetch_materials_project.py`; `create_materials.py` stores their standard primitive cell. Then run to create the materials data:
 
 ```shell
 python scripts/materials/create_materials.py
