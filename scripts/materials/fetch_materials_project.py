@@ -4,7 +4,7 @@ from mat3ra.esse.models.apse.db.third_party_sources import Source
 from pymatgen.ext.matproj import MPRester
 from ruamel.yaml import YAML
 
-# Paths configured in build-config.js: BUILD_CONFIG.materials.*
+# Paths configured in build-config.ts: BUILD_CONFIG.materials.*
 MANIFEST_PATH = "assets/materials/manifest.yml"  # BUILD_CONFIG.materials.assets.path + manifest
 SOURCES_PATH = "assets/materials"  # BUILD_CONFIG.materials.assets.path
 

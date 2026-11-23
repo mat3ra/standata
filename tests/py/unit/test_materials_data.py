@@ -10,6 +10,7 @@ EQUAL_PARAMETERS_BY_LATTICE_TYPE = {
     "RHL": {"b": "a", "c": "a", "beta": "alpha", "gamma": "alpha"},
     "HEX": {"b": "a"},
     "TET": {"b": "a"},
+    "BCT": {"b": "a", "c": "a", "beta": "alpha"},
 }
 ANGLES_BY_LATTICE_TYPE = {
     "CUB": {"alpha": 90.0, "beta": 90.0, "gamma": 90.0},
@@ -18,6 +19,7 @@ ANGLES_BY_LATTICE_TYPE = {
     "RHL": {},
     "HEX": {"alpha": 90.0, "beta": 90.0, "gamma": 120.0},
     "TET": {"alpha": 90.0, "beta": 90.0, "gamma": 90.0},
+    "BCT": {},
 }
 
 
