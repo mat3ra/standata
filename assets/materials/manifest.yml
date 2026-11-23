@@ -18,6 +18,7 @@ sources:
     form_factor: Bulk
     source_id: mp-48
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1208406
     url: https://next-gen.materialsproject.org/materials/mp-48
     metadata:
@@ -44,6 +45,7 @@ sources:
     form_factor: Bulk
     source_id: mp-7991
     source: MaterialsProject
+    database_version: 2026.09.28
     doi:
     url: https://next-gen.materialsproject.org/materials/mp-7991
 
@@ -55,6 +57,7 @@ sources:
     form_factor: Bulk
     source_id: mp-1143
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1187823
     url: https://next-gen.materialsproject.org/materials/mp-1143
 
@@ -66,6 +69,7 @@ sources:
     form_factor: Bulk
     source_id: mp-661
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1268470
     url: https://next-gen.materialsproject.org/materials/mp-661
 
@@ -77,6 +81,7 @@ sources:
     form_factor: Bulk
     source_id: mp-81
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1307925
     url: https://next-gen.materialsproject.org/materials/mp-81
     metadata:
@@ -92,6 +97,7 @@ sources:
     form_factor: Bulk
     source_id: mp-30
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1204433
     url: https://next-gen.materialsproject.org/materials/mp-30s
     metadata:
@@ -107,6 +113,7 @@ sources:
     form_factor: Bulk
     source_id: mp-2534
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1200591
     url: https://next-gen.materialsproject.org/materials/mp-2534
 
@@ -118,6 +125,7 @@ sources:
     form_factor: Bulk
     source_id: mp-2172
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1197136
     url: https://next-gen.materialsproject.org/materials/mp-2172
 
@@ -129,6 +137,7 @@ sources:
     form_factor: Bulk
     source_id: mp-804
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1268467
     url: https://next-gen.materialsproject.org/materials/mp-804
 
@@ -140,6 +149,7 @@ sources:
     form_factor: Bulk
     source_id: mp-352
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1206948
     url: https://next-gen.materialsproject.org/materials/mp-352
 
@@ -162,6 +172,7 @@ sources:
     form_factor: Bulk
     source_id: mp-2815
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1202268
     url: https://next-gen.materialsproject.org/materials/mp-2815
 
@@ -184,6 +195,7 @@ sources:
     form_factor: Bulk
     source_id: mp-602
     source: MaterialsProject
+    database_version: 2026.09.28
     doi:
     url: https://next-gen.materialsproject.org/materials/mp-602
 
@@ -195,6 +207,7 @@ sources:
     form_factor: Bulk
     source_id: mp-22862
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1199028
     url: https://next-gen.materialsproject.org/materials/mp-22862
 
@@ -206,6 +219,7 @@ sources:
     form_factor: Bulk
     source_id: mp-23
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1199153
     url: https://next-gen.materialsproject.org/materials/mp-23
     metadata:
@@ -232,6 +246,7 @@ sources:
     form_factor: Bulk
     source_id: mp-149
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1190959
     url: https://next-gen.materialsproject.org/materials/mp-149
     metadata:
@@ -247,6 +262,7 @@ sources:
     form_factor: Bulk
     source_id: mp-7000
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1272685
     url: https://next-gen.materialsproject.org/materials/mp-7000
 
@@ -258,6 +274,7 @@ sources:
     form_factor: Bulk
     source_id: mp-2657
     source: MaterialsProject
+    database_version: 2026.09.28
     doi:
     url: https://next-gen.materialsproject.org/materials/mp-2657
 
@@ -269,6 +286,7 @@ sources:
     form_factor: Bulk
     source_id: mp-19094
     source: MaterialsProject
+    database_version: 2026.09.28
     doi:
     url: https://next-gen.materialsproject.org/materials/mp-19094
 
@@ -291,6 +309,7 @@ sources:
     form_factor: Bulk
     source_id: mp-224
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1197614
     url: https://next-gen.materialsproject.org/materials/mp-224
 
@@ -313,6 +332,7 @@ sources:
     form_factor: Bulk
     source_id: mp-1821
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1192989
     url: https://next-gen.materialsproject.org/materials/mp-1821
 
@@ -324,6 +344,7 @@ sources:
     form_factor: Bulk
     source_id: mp-558573
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1272685
     url: https://next-gen.materialsproject.org/materials/mp-558573
 
@@ -335,6 +356,7 @@ sources:
     form_factor: Bulk
     source_id: mp-2133
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1196748
     url: https://next-gen.materialsproject.org/materials/mp-2133
 
@@ -346,6 +368,7 @@ sources:
     form_factor: Bulk
     source_id: mp-2858
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1202679
     url: https://next-gen.materialsproject.org/materials/mp-2858
 
@@ -357,6 +380,7 @@ sources:
     form_factor: Bulk
     source_id: mp-492
     source: MaterialsProject
+    database_version: 2026.09.28
     doi:
     url: https://next-gen.materialsproject.org/materials/mp-492
 
@@ -368,6 +392,7 @@ sources:
     form_factor: Bulk
     source_id: mp-66
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.1063/1.4812323
     url: https://next-gen.materialsproject.org/materials/mp-66
 
@@ -379,6 +404,7 @@ sources:
     form_factor: Bulk
     source_id: mp-126
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1204433
     url: https://next-gen.materialsproject.org/materials/mp-126
     metadata:
@@ -394,6 +420,7 @@ sources:
     form_factor: Bulk
     source_id: mp-5229
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1263154
     url: https://next-gen.materialsproject.org/materials/mp-5229
 
@@ -405,6 +432,7 @@ sources:
     form_factor: Bulk
     source_id: mp-546794
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1267252
     url: https://next-gen.materialsproject.org/materials/mp-546794
 
@@ -438,6 +466,7 @@ sources:
     form_factor: Bulk
     source_id: mp-10033
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1185067
     url: https://next-gen.materialsproject.org/materials/mp-10033
 
@@ -449,6 +478,7 @@ sources:
     form_factor: Bulk
     source_id: mp-2207
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1197331
     url: https://next-gen.materialsproject.org/materials/mp-2207
 
@@ -460,6 +490,7 @@ sources:
     form_factor: Bulk
     source_id: mp-741
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1287952
     url: https://next-gen.materialsproject.org/materials/mp-741
 
@@ -471,6 +502,7 @@ sources:
     form_factor: Bulk
     source_id: mp-550893
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1267443
     url: https://next-gen.materialsproject.org/materials/mp-550893
 
@@ -482,6 +514,7 @@ sources:
     form_factor: Bulk
     source_id: mp-685097
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1284096
     url: https://next-gen.materialsproject.org/materials/mp-685097
 
@@ -493,6 +526,7 @@ sources:
     form_factor: Bulk
     source_id: mp-2097
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1196204
     url: https://next-gen.materialsproject.org/materials/mp-2097
 
@@ -504,6 +538,7 @@ sources:
     form_factor: Bulk
     source_id: mp-856
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1272823
     url: https://next-gen.materialsproject.org/materials/mp-856
 
@@ -548,6 +583,7 @@ sources:
     form_factor: Bulk
     source_id: mp-1219182
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.1063/1.4812323
     url: https://next-gen.materialsproject.org/materials/mp-1219182
 
@@ -559,6 +595,7 @@ sources:
     form_factor: Bulk
     source_id: mp-32
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1206032
     url: https://next-gen.materialsproject.org/materials/mp-32
     metadata:
@@ -574,6 +611,7 @@ sources:
     form_factor: Bulk
     source_id: mp-134
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1189564
     url: https://next-gen.materialsproject.org/materials/mp-134
     metadata:
@@ -588,6 +626,7 @@ sources:
     form_factor: Bulk
     source_id: mp-158
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1191388
     url: https://next-gen.materialsproject.org/materials/mp-158
     metadata:
@@ -602,6 +641,7 @@ sources:
     form_factor: Bulk
     source_id: mp-160
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1191505
     url: https://next-gen.materialsproject.org/materials/mp-160
     metadata:
@@ -616,6 +656,7 @@ sources:
     form_factor: Bulk
     source_id: mp-142
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1190202
     url: https://next-gen.materialsproject.org/materials/mp-142
     metadata:
@@ -630,6 +671,7 @@ sources:
     form_factor: Bulk
     source_id: mp-103
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1186884
     url: https://next-gen.materialsproject.org/materials/mp-103
     metadata:
@@ -644,6 +686,7 @@ sources:
     form_factor: Bulk
     source_id: mp-129
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1189253
     url: https://next-gen.materialsproject.org/materials/mp-129
     metadata:
@@ -658,6 +701,7 @@ sources:
     form_factor: Bulk
     source_id: mp-10172
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1186701
     url: https://next-gen.materialsproject.org/materials/mp-10172
     metadata:
@@ -672,6 +716,7 @@ sources:
     form_factor: Bulk
     source_id: mp-75
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1288516
     url: https://next-gen.materialsproject.org/materials/mp-75
     metadata:
@@ -686,6 +731,7 @@ sources:
     form_factor: Bulk
     source_id: mp-77
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1299376
     url: https://next-gen.materialsproject.org/materials/mp-77
     metadata:
@@ -700,6 +746,7 @@ sources:
     form_factor: Bulk
     source_id: mp-570481
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1275729
     url: https://next-gen.materialsproject.org/materials/mp-570481
     metadata:
@@ -714,6 +761,7 @@ sources:
     form_factor: Bulk
     source_id: mp-117
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1188292
     url: https://next-gen.materialsproject.org/materials/mp-117
     metadata:
@@ -728,6 +776,7 @@ sources:
     form_factor: Bulk
     source_id: mp-139
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1189798
     url: https://next-gen.materialsproject.org/materials/mp-139
     metadata:
@@ -742,6 +791,7 @@ sources:
     form_factor: Bulk
     source_id: mp-19
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1193780
     url: https://next-gen.materialsproject.org/materials/mp-19
     metadata:
@@ -756,6 +806,7 @@ sources:
     form_factor: Bulk
     source_id: mp-72
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1287108
     url: https://next-gen.materialsproject.org/materials/mp-72
     metadata:
@@ -770,6 +821,7 @@ sources:
     form_factor: Bulk
     source_id: mp-146
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1190785
     url: https://next-gen.materialsproject.org/materials/mp-146
     metadata:
@@ -784,6 +836,7 @@ sources:
     form_factor: Bulk
     source_id: mp-91
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1312984
     url: https://next-gen.materialsproject.org/materials/mp-91
     metadata:
@@ -798,6 +851,7 @@ sources:
     form_factor: Bulk
     source_id: mp-112
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1187627
     url: https://next-gen.materialsproject.org/materials/mp-112
     metadata:
@@ -812,6 +866,7 @@ sources:
     form_factor: Bulk
     source_id: mp-79
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1307804
     url: https://next-gen.materialsproject.org/materials/mp-79
     metadata:
@@ -826,6 +881,7 @@ sources:
     form_factor: Bulk
     source_id: mp-131
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1189385
     url: https://next-gen.materialsproject.org/materials/mp-131
     metadata:
@@ -840,6 +896,7 @@ sources:
     form_factor: Bulk
     source_id: mp-12957
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1189289
     url: https://next-gen.materialsproject.org/materials/mp-12957
     metadata:
@@ -854,6 +911,7 @@ sources:
     form_factor: Bulk
     source_id: mp-22848
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1199013
     url: https://next-gen.materialsproject.org/materials/mp-22848
     metadata:
@@ -868,6 +926,7 @@ sources:
     form_factor: Bulk
     source_id: mp-154
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1191155
     url: https://next-gen.materialsproject.org/materials/mp-154
     metadata:
@@ -883,6 +942,7 @@ sources:
     form_factor: Bulk
     source_id: mp-13
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1189317
     url: https://next-gen.materialsproject.org/materials/mp-13
     metadata:
@@ -898,6 +958,7 @@ sources:
     form_factor: Bulk
     source_id: mp-20311
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1195438
     url: https://next-gen.materialsproject.org/materials/mp-20311
 
@@ -909,6 +970,7 @@ sources:
     form_factor: Bulk
     source_id: mp-541837
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1266263
     url: https://next-gen.materialsproject.org/materials/mp-541837
 
@@ -920,6 +982,7 @@ sources:
     form_factor: Bulk
     source_id: mp-23152
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1199272
     url: https://next-gen.materialsproject.org/materials/mp-23152
     metadata:
@@ -935,6 +998,7 @@ sources:
     form_factor: Bulk
     source_id: mp-1274279
     source: MaterialsProject
+    database_version: 2026.09.28
     doi:
     url: https://next-gen.materialsproject.org/materials/mp-1274279
 
@@ -946,5 +1010,6 @@ sources:
     form_factor: Bulk
     source_id: mp-1559
     source: MaterialsProject
+    database_version: 2026.09.28
     doi: 10.17188/1191251
     url: https://next-gen.materialsproject.org/materials/mp-1559

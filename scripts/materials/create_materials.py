@@ -4,15 +4,18 @@ from typing import Dict
 
 import yaml
 from mat3ra.made.material import Material
+from mat3ra.made.tools.analyze.lattice import get_material_with_primitive_lattice
 from mat3ra.made.tools.convert import (
     from_poscar,
     from_poscar_molecule,
+    from_pymatgen,
     to_pymatgen,
 )
 from mat3ra.utils.mixins import RoundNumericValuesMixin
 
 LATTICE_LENGTH_PRECISION = 6
 LATTICE_ANGLE_PRECISION = 4
+PRIMITIVE_LATTICE_SOURCE = "MaterialsProject"
 
 # Paths configured in build-config.js: BUILD_CONFIG.materials.*
 MANIFEST_PATH = 'assets/materials/manifest.yml'  # BUILD_CONFIG.materials.assets.path + manifest
@@ -50,9 +53,12 @@ def read_manifest(manifest_path: str):
     return manifest["sources"]
 
 
-def convert_to_esse(poscar: str, is_non_periodic: bool = False) -> Dict:
+def convert_to_esse(poscar: str, is_non_periodic: bool = False, use_primitive_lattice: bool = False) -> Dict:
     material_dict = from_poscar_molecule(poscar) if is_non_periodic else from_poscar(poscar)
     material = Material.create(material_dict)
+    if use_primitive_lattice:
+        material = get_material_with_primitive_lattice(material, keep_orientation=False)
+        material_dict = from_pymatgen(to_pymatgen(material))
     
     # Round lattice values for human-readable JSON output
     for key in ['a', 'b', 'c']:
@@ -151,7 +157,8 @@ def main():
         with open(f"{SOURCES_PATH}/{source['filename']}", "r") as file:
             poscar = file.read()
             is_non_periodic = source.get("isNonPeriodic", False)
-            material_config = convert_to_esse(poscar, is_non_periodic=is_non_periodic)
+            use_primitive_lattice = source["source"] == PRIMITIVE_LATTICE_SOURCE
+            material_config = convert_to_esse(poscar, is_non_periodic, use_primitive_lattice)
             final_config = create_material_config(material_config, source)
             filename = construct_filename(material_config, source)
 
