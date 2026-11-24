@@ -36,15 +36,15 @@
       {
         "id": 1,
         "value": [
-          0.25,
-          0.25,
-          0.25
+          0.75,
+          0.75,
+          0.75
         ]
       }
     ],
     "units": "crystal",
-    "constraints": [],
-    "labels": []
+    "labels": [],
+    "constraints": []
   },
   "external": {
     "id": "mp-2172",

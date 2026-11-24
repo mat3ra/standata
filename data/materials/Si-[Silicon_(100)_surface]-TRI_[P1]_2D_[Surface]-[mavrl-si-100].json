@@ -115,8 +115,8 @@
       }
     ],
     "units": "crystal",
-    "constraints": [],
-    "labels": []
+    "labels": [],
+    "constraints": []
   },
   "external": {
     "id": "mavrl-si-100",

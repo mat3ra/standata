@@ -1,12 +1,12 @@
 {
   "name": "Bi, Bismuth, RHL (R-3m) 3D (Bulk), mp-23152",
   "lattice": {
-    "a": 4.538009,
-    "b": 4.538009,
+    "a": 4.86803,
+    "b": 4.86803,
     "c": 4.86803,
-    "alpha": 62.2184,
-    "beta": 62.2184,
-    "gamma": 60.0,
+    "alpha": 55.5633,
+    "beta": 55.5633,
+    "gamma": 55.5633,
     "units": {
       "length": "angstrom",
       "angle": "degree"
@@ -30,7 +30,7 @@
         "value": [
           0.23200202,
           0.23200202,
-          0.30399394
+          0.23200202
         ]
       },
       {
@@ -38,13 +38,13 @@
         "value": [
           0.76799798,
           0.76799798,
-          0.69600606
+          0.76799798
         ]
       }
     ],
     "units": "crystal",
-    "constraints": [],
-    "labels": []
+    "labels": [],
+    "constraints": []
   },
   "external": {
     "id": "mp-23152",

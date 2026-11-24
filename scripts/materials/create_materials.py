@@ -3,7 +3,9 @@ import re
 from typing import Dict
 
 import yaml
+from mat3ra.esse.models.apse.db.third_party_sources import Source
 from mat3ra.made.material import Material
+from mat3ra.made.tools.analyze.lattice import get_material_with_primitive_lattice
 from mat3ra.made.tools.convert import (
     from_poscar,
     from_poscar_molecule,
@@ -50,10 +52,13 @@ def read_manifest(manifest_path: str):
     return manifest["sources"]
 
 
-def convert_to_esse(poscar: str, is_non_periodic: bool = False) -> Dict:
+def convert_to_esse(poscar: str, is_non_periodic: bool = False, use_primitive_lattice: bool = False) -> Dict:
     material_dict = from_poscar_molecule(poscar) if is_non_periodic else from_poscar(poscar)
     material = Material.create(material_dict)
-    
+    if use_primitive_lattice:
+        material = get_material_with_primitive_lattice(material, keep_orientation=False)
+    material_dict = material.to_dict()
+
     # Round lattice values for human-readable JSON output
     for key in ['a', 'b', 'c']:
         material_dict['lattice'][key] = RoundNumericValuesMixin.round_array_or_number(
@@ -63,8 +68,7 @@ def convert_to_esse(poscar: str, is_non_periodic: bool = False) -> Dict:
         material_dict['lattice'][key] = RoundNumericValuesMixin.round_array_or_number(
             material_dict['lattice'][key], LATTICE_ANGLE_PRECISION
         )
-    del material_dict['lattice']['vectors']
-    
+
     # Add reduced formula (Made doesn't populate this by default)
     material_dict['formula'] = to_pymatgen(material).composition.reduced_formula
     
@@ -151,7 +155,8 @@ def main():
         with open(f"{SOURCES_PATH}/{source['filename']}", "r") as file:
             poscar = file.read()
             is_non_periodic = source.get("isNonPeriodic", False)
-            material_config = convert_to_esse(poscar, is_non_periodic=is_non_periodic)
+            use_primitive_lattice = source["source"] == Source.MaterialsProject.value
+            material_config = convert_to_esse(poscar, is_non_periodic, use_primitive_lattice)
             final_config = create_material_config(material_config, source)
             filename = construct_filename(material_config, source)
 

@@ -30,7 +30,8 @@ dev = [
     "isort",
     "mypy",
     "pip-tools",
-    "mat3ra-made[tools]"
+    "mat3ra-made[tools]",
+    "ruamel.yaml"
 ]
 tests = [
     "coverage[toml]>=5.3",

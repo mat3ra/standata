@@ -1,9 +1,9 @@
 {
   "name": "Nb, Niobium, BCC (Im-3m) 3D (Bulk), mp-75",
   "lattice": {
-    "a": 2.873155,
+    "a": 2.873154,
     "b": 2.873154,
-    "c": 2.873153,
+    "c": 2.873154,
     "alpha": 109.4712,
     "beta": 109.4712,
     "gamma": 109.4712,
@@ -31,8 +31,8 @@
       }
     ],
     "units": "crystal",
-    "constraints": [],
-    "labels": []
+    "labels": [],
+    "constraints": []
   },
   "external": {
     "id": "mp-75",

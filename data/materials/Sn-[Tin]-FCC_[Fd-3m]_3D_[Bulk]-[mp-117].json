@@ -28,23 +28,23 @@
       {
         "id": 0,
         "value": [
-          0.875,
-          0.875,
-          0.875
+          0.0,
+          0.0,
+          1.0
         ]
       },
       {
         "id": 1,
         "value": [
-          0.125,
-          0.125,
-          0.125
+          0.25,
+          0.25,
+          0.25
         ]
       }
     ],
     "units": "crystal",
-    "constraints": [],
-    "labels": []
+    "labels": [],
+    "constraints": []
   },
   "external": {
     "id": "mp-117",

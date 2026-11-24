@@ -1,0 +1,105 @@
+{
+  "name": "SiO2, Cristobalite, BCT (I-42d) 3D (Bulk), mp-546794",
+  "lattice": {
+    "a": 5.063385,
+    "b": 5.063385,
+    "c": 5.063385,
+    "alpha": 121.4166,
+    "beta": 121.4166,
+    "gamma": 87.5633,
+    "units": {
+      "length": "angstrom",
+      "angle": "degree"
+    },
+    "type": "BCT"
+  },
+  "basis": {
+    "elements": [
+      {
+        "id": 0,
+        "value": "Si"
+      },
+      {
+        "id": 1,
+        "value": "Si"
+      },
+      {
+        "id": 2,
+        "value": "O"
+      },
+      {
+        "id": 3,
+        "value": "O"
+      },
+      {
+        "id": 4,
+        "value": "O"
+      },
+      {
+        "id": 5,
+        "value": "O"
+      }
+    ],
+    "coordinates": [
+      {
+        "id": 0,
+        "value": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": 1,
+        "value": [
+          0.75,
+          0.25,
+          0.5
+        ]
+      },
+      {
+        "id": 2,
+        "value": [
+          0.375,
+          0.22178613,
+          0.34678613
+        ]
+      },
+      {
+        "id": 3,
+        "value": [
+          0.97178613,
+          0.625,
+          0.84678613
+        ]
+      },
+      {
+        "id": 4,
+        "value": [
+          0.77821387,
+          0.125,
+          0.15321387
+        ]
+      },
+      {
+        "id": 5,
+        "value": [
+          0.875,
+          0.02821387,
+          0.65321387
+        ]
+      }
+    ],
+    "units": "crystal",
+    "labels": [],
+    "constraints": []
+  },
+  "external": {
+    "id": "mp-546794",
+    "source": "MaterialsProject",
+    "doi": "10.17188/1267252",
+    "url": "https://next-gen.materialsproject.org/materials/mp-546794",
+    "origin": true
+  },
+  "isNonPeriodic": false
+}

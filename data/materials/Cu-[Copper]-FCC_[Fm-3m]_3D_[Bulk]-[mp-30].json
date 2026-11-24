@@ -1,9 +1,9 @@
 {
   "name": "Cu, Copper, FCC (Fm-3m) 3D (Bulk), mp-30",
   "lattice": {
-    "a": 2.560619,
-    "b": 2.56062,
-    "c": 2.560619,
+    "a": 2.529625,
+    "b": 2.529625,
+    "c": 2.529625,
     "alpha": 60.0,
     "beta": 60.0,
     "gamma": 60.0,
@@ -31,8 +31,8 @@
       }
     ],
     "units": "crystal",
-    "constraints": [],
-    "labels": []
+    "labels": [],
+    "constraints": []
   },
   "external": {
     "id": "mp-30",

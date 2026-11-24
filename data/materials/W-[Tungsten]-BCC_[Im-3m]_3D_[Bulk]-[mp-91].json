@@ -3,7 +3,7 @@
   "lattice": {
     "a": 2.745574,
     "b": 2.745574,
-    "c": 2.745575,
+    "c": 2.745574,
     "alpha": 109.4712,
     "beta": 109.4712,
     "gamma": 109.4712,
@@ -31,8 +31,8 @@
       }
     ],
     "units": "crystal",
-    "constraints": [],
-    "labels": []
+    "labels": [],
+    "constraints": []
   },
   "external": {
     "id": "mp-91",
