@@ -86,8 +86,20 @@ describe("Q3 Template Rendering", () => {
         const renderedScript = environment.getTemplate(templateName).render({});
 
         expect(renderedScript.trim()).to.equal(rawScript.trim());
-        expect(renderedScript).to.include("from q3.io.output_writer import extract_dos");
-        expect(renderedScript).to.include('OUTPUT_PATH = Path("q3_dos.json")');
+        expect(renderedScript).to.include(
+            "from q3.workflows.dos import add_density_of_states_to_results",
+        );
+        expect(renderedScript).to.include('OUTDIR = Path("outdir")');
+        expect(renderedScript).to.include('PREFIX = "q3"');
+    });
+
+    it("adds the DOS to the results file of the NSCF run it reads", () => {
+        const nonSelfConsistentInput = fs.readFileSync(
+            path.join(templateDirectory, "nscf.inp"),
+            "utf8",
+        );
+        expect(nonSelfConsistentInput).to.include("prefix: q3\n");
+        expect(nonSelfConsistentInput).to.include("outdir: ./outdir/\n");
     });
 
     describe("shell scripts", () => {

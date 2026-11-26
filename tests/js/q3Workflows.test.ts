@@ -19,7 +19,7 @@ describe("Q3 Workflows", () => {
     it("resolves a default pseudopotential method for the current q3 version", () => {
         const methodConfig = new ApplicationMethodStandata().getDefaultMethodConfigForApplication({
             name: "q3",
-            version: "2026.11.14-0",
+            version: "2026.11.26-0",
             build: "GNU",
         } as never);
         expect(methodConfig.path).to.include("/psp/");

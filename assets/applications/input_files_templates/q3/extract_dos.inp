@@ -1,44 +1,28 @@
-"""Gaussian-broadened density of states from a q3 NSCF results file."""
+"""Gaussian-broadened density of states of a q3 NSCF run, added to its results file."""
 
-import json
 import logging
 from pathlib import Path
 
-from q3.io.output_writer import extract_dos
-from q3.io.results.classes import Results
+from q3.workflows.dos import add_density_of_states_to_results
 
-RESULTS_PATH = Path("outdir") / "q3_results.json"
-OUTPUT_PATH = Path("q3_dos.json")
+# The outdir and prefix of the preceding q3_nscf unit: the engine wrote its
+# results to <outdir>/<prefix>_results.json.
+OUTDIR = Path("outdir")
+PREFIX = "q3"
 BROADENING_RY = 0.01
 ENERGY_STEPS = 1000
-RYDBERG_TO_ELECTRONVOLT = 13.605693122994
 
 logger = logging.getLogger("q3_dos")
 
 
-def compute_density_of_states(results_path: Path) -> dict:
-    """Broaden the eigenvalues of *results_path* and add the energies in eV."""
-    results = Results.read(results_path)
-    density_of_states = extract_dos(
-        results, broadening_ry=BROADENING_RY, energy_steps=ENERGY_STEPS
-    )
-    density_of_states["energies_ev"] = [
-        energy * RYDBERG_TO_ELECTRONVOLT for energy in density_of_states["energies_ry"]
-    ]
-    density_of_states["fermi_energy_ev"] = (
-        density_of_states["fermi_energy_ry"] * RYDBERG_TO_ELECTRONVOLT
-    )
-    return density_of_states
-
-
 def main() -> None:
     logging.basicConfig(level=logging.INFO, format="%(message)s")
-    density_of_states = compute_density_of_states(RESULTS_PATH)
-    with open(OUTPUT_PATH, "w") as output_file:
-        json.dump(density_of_states, output_file, indent=4)
-    logger.info("Density of states written to %s", OUTPUT_PATH)
-    logger.info("Energy points: %d", len(density_of_states["energies_ry"]))
-    logger.info("Fermi energy: %.6f eV", density_of_states["fermi_energy_ev"])
+    results_path = OUTDIR / f"{PREFIX}_results.json"
+    record = add_density_of_states_to_results(
+        results_path, broadening_ry=BROADENING_RY, energy_steps=ENERGY_STEPS
+    )
+    logger.info("Density of states added to %s", results_path)
+    logger.info("Energy points: %d", len(record["xDataArray"]))
 
 
 if __name__ == "__main__":
