@@ -7,5 +7,13 @@
     "isDefault": true,
     "isDefaultVersion": false,
     "build": "Default",
-    "hasAdvancedComputeOptions": false
+    "hasAdvancedComputeOptions": false,
+    "buildConfig": {
+        "moduleName": "4.3.0",
+        "bio": "JupyterLab 4.3.0 (default Python)",
+        "dependencies": [
+            "python"
+        ],
+        "environmentVariables": {}
+    }
 }

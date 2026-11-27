@@ -1,0 +1,19 @@
+{
+    "name": "jupyterLab",
+    "shortName": "jl",
+    "summary": "JupyterLab",
+    "isUsingMaterial": false,
+    "version": "4.6.0",
+    "isDefault": false,
+    "isDefaultVersion": true,
+    "build": "Python-3.12.7",
+    "hasAdvancedComputeOptions": false,
+    "buildConfig": {
+        "moduleName": "4.6.0-python-3.12.7",
+        "bio": "JupyterLab 4.6.0 (Python 3.12.7)",
+        "dependencies": [
+            "python/3.12.7"
+        ],
+        "environmentVariables": {}
+    }
+}

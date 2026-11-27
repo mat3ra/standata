@@ -1,0 +1,14 @@
+isDefault: true
+monitors:
+  - name: standard_output
+results: []
+flavors:
+  epsilon:
+    isDefault: true
+    input:
+      - name: epsilon.inp
+    results: []
+    monitors:
+      - name: standard_output
+    applicationName: berkeleygw
+    executableName: epsilon.cplx.x

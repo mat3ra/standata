@@ -37,4 +37,21 @@ describe("jupyterLab versions", () => {
             expect(flavor?.input[0].templateName ?? flavor?.input[0].name).to.equal(template);
         });
     });
+
+    it("offers the Python builds on 4.6.0 only", () => {
+        const buildsByVersion = {
+            "4.6.0": ["Default", "Python-3.10.13", "Python-3.11.10", "Python-3.12.7"],
+            "4.3.0": ["Default"],
+        };
+
+        Object.entries(buildsByVersion).forEach(([version, expectedBuilds]) => {
+            const builds = standata
+                .getApplications()
+                .filter((application) => application.name === "jupyterLab")
+                .filter((application) => application.version === version)
+                .map((application) => application.build);
+
+            expect(builds).to.deep.equal(expectedBuilds);
+        });
+    });
 });

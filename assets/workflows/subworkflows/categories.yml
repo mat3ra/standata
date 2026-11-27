@@ -49,6 +49,7 @@ categories:
     - wfn
     - wfn_plot
   application:
+    - berkeleygw
     - deepmd
     - espresso
     - jupyterLab
@@ -59,6 +60,20 @@ categories:
     - shell
     - vasp
 entities:
+  - filename: berkeleygw/espresso_mean_field.json
+    categories:
+      - atomic_forces
+      - berkeleygw
+      - espresso
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
+  - filename: berkeleygw/gw.json
+    categories:
+      - berkeleygw
   - filename: deepmd/deepmd.json
     categories:
       - deepmd

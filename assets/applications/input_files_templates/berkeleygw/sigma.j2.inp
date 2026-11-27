@@ -1,0 +1,27 @@
+{#- Sigma reads eps0mat.h5 and epsmat.h5 (Epsilon), WFN_inner, RHO and vxc.dat (pw2bgw.x).
+    k-points = WFN_inner k-grid (full grid, see pw_bands_bgw_wfn.in); every k-point listed here
+    must be present in WFN_inner. #}
+{%- set n1 = kgrid.dimensions[0] %}
+{%- set n2 = kgrid.dimensions[1] %}
+{%- set n3 = kgrid.dimensions[2] -%}
+# Total number of bands (occupied + unoccupied) used in the Coulomb-hole summation; must not
+# exceed nbnd in WFN_inner (see pw_bands_bgw_wfn.in)
+number_bands 32
+
+# Range of bands for which quasiparticle energies are computed; band_index_max must not exceed
+# vxc_diag_nmax in vxc.dat (see pw2bgw_wfn.in)
+band_index_min 1
+band_index_max 14
+
+screening_semiconductor
+
+# k-points in crystal coordinates: kx ky kz 1/scale_factor
+begin kpoints
+{% for i in range(n1) -%}
+{% for j in range(n2) -%}
+{% for k in range(n3) -%}
+{{ (i / n1)|sprintf("%14.9f") }} {{ (j / n2)|sprintf("%14.9f") }} {{ (k / n3)|sprintf("%14.9f") }}  1.0
+{% endfor -%}
+{% endfor -%}
+{% endfor -%}
+end

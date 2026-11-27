@@ -1,0 +1,21 @@
+application:
+  name: berkeleygw
+  version: "4.0"
+method:
+  name: UnknownMethod
+model:
+  name: UnknownModel
+name: GW (BerkeleyGW)
+units:
+  - config:
+      execName: epsilon.cplx.x
+      flavorName: epsilon
+      name: epsilon
+    functions:
+      head: true
+    type: executionBuilder
+  - config:
+      execName: sigma.cplx.x
+      flavorName: sigma
+      name: sigma
+    type: executionBuilder

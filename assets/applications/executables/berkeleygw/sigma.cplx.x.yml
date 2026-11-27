@@ -1,0 +1,13 @@
+monitors:
+  - name: standard_output
+results: []
+flavors:
+  sigma:
+    isDefault: true
+    input:
+      - name: sigma.inp
+    results: []
+    monitors:
+      - name: standard_output
+    applicationName: berkeleygw
+    executableName: sigma.cplx.x
