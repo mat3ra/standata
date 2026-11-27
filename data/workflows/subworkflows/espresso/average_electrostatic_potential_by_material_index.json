@@ -1,6 +1,6 @@
 {
-    "_id": "4e838a27-e759-5940-bcbc-cd7c335a438a",
-    "name": "Average Electrostatic Potential (Metal)",
+    "_id": "b87a8001-65ef-5888-9cef-828bd3986ed2",
+    "name": "Average Electrostatic Potential by Material Index",
     "application": {
         "name": "espresso"
     },
@@ -26,10 +26,10 @@
     },
     "units": [
         {
-            "name": "Set Material Index (Metal)",
+            "name": "Set Material Index",
             "type": "assignment",
             "operand": "MATERIAL_INDEX",
-            "value": "2",
+            "value": 0,
             "input": [],
             "results": [],
             "monitors": [],
@@ -38,7 +38,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "8a4e565b-6c21-5bda-a377-520a7d190296",
+            "flowchartId": "2d360607-c739-54ad-97a0-8a83f0971f2c",
             "head": true,
             "next": "9fc7a088-5533-5f70-bb33-f676ec65f565",
             "schemaVersion": "2022.8.16",
@@ -254,7 +254,7 @@
                 }
             ],
             "context": [],
-            "next": "average-electrostatic-potential-metal",
+            "next": "average-electrostatic-potential",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
@@ -272,7 +272,7 @@
                     "name": "standard_output"
                 }
             ],
-            "flowchartId": "average-electrostatic-potential-metal",
+            "flowchartId": "average-electrostatic-potential",
             "preProcessors": [],
             "postProcessors": [],
             "status": "idle",
@@ -339,19 +339,19 @@
                 }
             ],
             "context": [],
-            "next": "85d6201d-1155-5687-953e-55027430a294",
+            "next": "c6c11873-91d7-5422-8302-3dcc1ce971e9",
             "schemaVersion": "2022.8.16",
             "isDefault": false
         },
         {
-            "name": "Set Average ESP Value (Metal)",
+            "name": "Set Macroscopically Averaged ESP Data",
             "type": "assignment",
-            "operand": "AVG_ESP_METAL",
-            "value": "[np.mean(average_potential_profile['yDataSeries'][1])]",
+            "operand": "array_from_context",
+            "value": "average_potential_profile['yDataSeries'][1]",
             "input": [
                 {
                     "name": "average_potential_profile",
-                    "scope": "average-electrostatic-potential-metal"
+                    "scope": "average-electrostatic-potential"
                 }
             ],
             "results": [],
@@ -361,7 +361,7 @@
             "status": "idle",
             "statusTrack": [],
             "tags": [],
-            "flowchartId": "85d6201d-1155-5687-953e-55027430a294",
+            "flowchartId": "c6c11873-91d7-5422-8302-3dcc1ce971e9",
             "head": false,
             "schemaVersion": "2022.8.16",
             "isDefault": false

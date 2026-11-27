@@ -2027,12 +2027,12 @@
                     "tags": [],
                     "flowchartId": "7c975d2f-90c1-572d-a823-7fcf55ce5eaf",
                     "head": false,
-                    "next": "ad6b5e8e-e515-5b16-a904-5ca20b126de9",
+                    "next": "f5db0202-7571-5c30-b75d-db53c282ec6d",
                     "schemaVersion": "2022.8.16",
                     "isDefault": false
                 },
                 {
-                    "name": "Fermi energy relative to macroscopically averaged ESP in interface",
+                    "name": "Fermi energy of metal bulk relative to macroscopically averaged ESP of semiconductor in interface",
                     "type": "assignment",
                     "operand": "FERMI_ENERGY_TO_ESP",
                     "value": "fermi_energy - AVG_ESP_METAL[0] + AVG_ESP_INTERFACE[1] - AVG_ESP_INTERFACE[0]",
@@ -2049,7 +2049,7 @@
                     "status": "idle",
                     "statusTrack": [],
                     "tags": [],
-                    "flowchartId": "ad6b5e8e-e515-5b16-a904-5ca20b126de9",
+                    "flowchartId": "f5db0202-7571-5c30-b75d-db53c282ec6d",
                     "head": false,
                     "next": "1554c2ba-5f27-5e56-9e45-103eca16fa9c",
                     "schemaVersion": "2022.8.16",

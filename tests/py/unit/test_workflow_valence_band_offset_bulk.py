@@ -54,10 +54,13 @@ def _get_units_by_subworkflow(workflow_name):
 
 def _get_scope_with_local_data(units_by_subworkflow, local_scope_operands, scope_name, basis_units):
     """The job's global scope, the interface's basis in the given units, after the units that read the local scope;
-    and the local scope, its keys also under the scopes the workflow reads them from."""
+    and the local scope, its keys also under the mapped scopes that are the workflow's unit flowchartIds."""
     job_scope = json.loads((FIXTURES_DIRECTORY / scope_name).read_text())["scope"]
+    flowchart_ids = {unit["flowchartId"] for units in units_by_subworkflow.values() for unit in units}
     local_scope = dict(job_scope["local"])
-    local_scope.update({scope: local_scope[key] for scope, key in FIXTURE_KEY_BY_SCOPE.items()})
+    local_scope.update(
+        {scope: local_scope[key] for scope, key in FIXTURE_KEY_BY_SCOPE.items() if scope in flowchart_ids}
+    )
     scope = dict(job_scope["global"])
     basis, lattice_vectors = scope["INTERFACE"]["basis"], scope["INTERFACE"]["lattice"]["vectors"]
     if basis["units"] != basis_units:

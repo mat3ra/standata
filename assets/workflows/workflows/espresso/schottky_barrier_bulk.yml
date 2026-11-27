@@ -54,17 +54,38 @@ units:
             input:
               - name: average_potential_profile
                 scope: average-electrostatic-potential-semiconductor
-  - name: average_electrostatic_potential_metal
+  - name: average_electrostatic_potential_by_material_index
     type: subworkflow
     config:
       attributes:
         name: Avg ESP (Metal)
     unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            name: Set Material Index (Metal)
+            value: "2"
       - index: 1
         type: executionBuilder
         config:
           attributes:
             flowchartId: pw-scf-metal
+      - index: 3
+        type: executionBuilder
+        config:
+          attributes:
+            flowchartId: average-electrostatic-potential-metal
+      - index: 4
+        type: assignment
+        config:
+          attributes:
+            name: Set Average ESP Value (Metal)
+            operand: AVG_ESP_METAL
+            value: "[np.mean(average_potential_profile['yDataSeries'][1])]"
+            input:
+              - name: average_potential_profile
+                scope: average-electrostatic-potential-metal
   - name: shell/utils/get_material_by_index
     type: subworkflow
     config:
@@ -168,6 +189,7 @@ units:
         type: assignment
         config:
           attributes:
+            name: Fermi energy of metal bulk relative to macroscopically averaged ESP of semiconductor in interface
             value: "fermi_energy - AVG_ESP_METAL[0] + AVG_ESP_INTERFACE[1] - AVG_ESP_INTERFACE[0]"
             input:
               - name: fermi_energy

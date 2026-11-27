@@ -5,12 +5,12 @@ method:
   name: PseudopotentialMethod
 model:
   name: DFTModel
-name: Average Electrostatic Potential (Metal)
+name: Average Electrostatic Potential by Material Index
 units:
   - config:
-      name: Set Material Index (Metal)
+      name: Set Material Index
       operand: MATERIAL_INDEX
-      value: "2"
+      value: 0
     type: assignment
   - config:
       execName: pw.x
@@ -26,13 +26,13 @@ units:
       execName: average.x
       flavorName: average_potential
       name: average ESP
-      flowchartId: average-electrostatic-potential-metal
+      flowchartId: average-electrostatic-potential
     type: executionBuilder
   - config:
-      name: Set Average ESP Value (Metal)
-      operand: AVG_ESP_METAL
-      value: "[np.mean(average_potential_profile['yDataSeries'][1])]"
+      name: Set Macroscopically Averaged ESP Data
+      operand: array_from_context
+      value: "average_potential_profile['yDataSeries'][1]"
       input:
         - name: average_potential_profile
-          scope: average-electrostatic-potential-metal
+          scope: average-electrostatic-potential
     type: assignment
