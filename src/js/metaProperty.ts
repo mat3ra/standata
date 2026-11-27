@@ -1,24 +1,25 @@
-import type { MetaPropertyHolderSchema } from "@mat3ra/esse/dist/js/types";
+import { type MetaPropertySeedEntry, PseudopotentialStandata } from "./pseudopotential";
 
-import PSEUDOPOTENTIALS from "./runtime_data/metaProperties/pseudos.json";
+export type { MetaPropertySeedEntry, PseudopotentialFilter } from "./pseudopotential";
+export { PseudopotentialStandata } from "./pseudopotential";
 
-export type MetaPropertySeedEntry = Required<
-    Pick<MetaPropertyHolderSchema, "slug" | "data" | "source">
->;
-
-/** Known meta-property method names. Extend as new collections are added. */
+/** Known meta-property method names. Extend as new meta-property types are added. */
 export type MetaPropertyMethodName = "pseudopotential";
 
-const META_PROPERTIES_BY_METHOD_NAME: Record<MetaPropertyMethodName, MetaPropertySeedEntry[]> = {
-    pseudopotential: PSEUDOPOTENTIALS as MetaPropertySeedEntry[],
+const GET_ALL_BY_METHOD_NAME: Record<MetaPropertyMethodName, () => MetaPropertySeedEntry[]> = {
+    pseudopotential: () => PseudopotentialStandata.getAll(),
 };
 
+/**
+ * Server-only entry point (statically imports large seed data): import from
+ * "@mat3ra/standata/dist/js/metaProperty", never from the package root.
+ */
 export class MetaPropertyStandata {
     static getAllByMethodName(methodName: MetaPropertyMethodName): MetaPropertySeedEntry[] {
-        const entries = META_PROPERTIES_BY_METHOD_NAME[methodName];
-        if (!entries) {
+        const getAll = GET_ALL_BY_METHOD_NAME[methodName];
+        if (!getAll) {
             throw new Error(`Unknown meta-property method name: ${methodName}`);
         }
-        return entries;
+        return getAll();
     }
 }

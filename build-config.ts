@@ -132,7 +132,7 @@ export const BUILD_CONFIG = {
     metaProperties: {
         assets: {
             path: "assets/metaProperties",
-            pseudos: "pseudos.json",
+            pseudopotentials: "pseudopotentials",
         },
         build: {
             path: "build/standata/metaProperties",

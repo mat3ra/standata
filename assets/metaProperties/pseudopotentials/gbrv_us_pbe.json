@@ -1,0 +1,3425 @@
+[
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ag",
+      "hash": "4ddcca2395fa3b0141b4af353ae8a34c",
+      "filename": "ag_pbe_gbrv_1.4.upf",
+      "path": "ag/gga/pbe/gbrv/1.4/us/ag_pbe_gbrv_1.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 0.5
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 5,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Al",
+      "hash": "3b1d126fb1e66ab2efe8bd44990cb083",
+      "filename": "al_pbe_gbrv_1.0.upf",
+      "path": "al/gga/pbe/gbrv/1.0/us/al_pbe_gbrv_1.0.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.0"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "As",
+      "hash": "679d209d388a0bfebb386e16dc1a6f28",
+      "filename": "as_pbe_gbrv_1.0.upf",
+      "path": "as/gga/pbe/gbrv/1.0/us/as_pbe_gbrv_1.0.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 3.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.0"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Au",
+      "hash": "40c10030ac949aa605172b67388715bf",
+      "filename": "au_pbe_gbrv_1.0.upf",
+      "path": "au/gga/pbe/gbrv/1.0/us/au_pbe_gbrv_1.0.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 2,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "6P",
+          "orbitalIndex": 3,
+          "principalNumber": 6,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.0"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "B",
+      "hash": "bf83610ec9a22d90f81c3b2fb595ac5a",
+      "filename": "b_pbe_gbrv_1.4.upf",
+      "path": "b/gga/pbe/gbrv/1.4/us/b_pbe_gbrv_1.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "2S",
+          "orbitalIndex": 1,
+          "principalNumber": 2,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "2P",
+          "orbitalIndex": 2,
+          "principalNumber": 2,
+          "angularMomentum": 1,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ba",
+      "hash": "6cb606f5a16512cc71761e603099dfc9",
+      "filename": "ba_pbe_gbrv_1.0.upf",
+      "path": "ba/gga/pbe/gbrv/1.0/us/ba_pbe_gbrv_1.0.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 0.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 4,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6P",
+          "orbitalIndex": 5,
+          "principalNumber": 6,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.0"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Be",
+      "hash": "40a858d6b49980e931786be2c8d0974b",
+      "filename": "be_pbe_gbrv_1.4.upf",
+      "path": "be/gga/pbe/gbrv/1.4/us/be_pbe_gbrv_1.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "1S",
+          "orbitalIndex": 1,
+          "principalNumber": 1,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "2S",
+          "orbitalIndex": 2,
+          "principalNumber": 2,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "2P",
+          "orbitalIndex": 3,
+          "principalNumber": 2,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Bi",
+      "hash": "db86f56060eaeabef54aa5c1a5fa91c1",
+      "filename": "bi_pbe_gbrv_1.0.upf",
+      "path": "bi/gga/pbe/gbrv/1.0/us/bi_pbe_gbrv_1.0.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 2,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6P",
+          "orbitalIndex": 3,
+          "principalNumber": 6,
+          "angularMomentum": 1,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.0"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Br",
+      "hash": "5fe538d8dab130b29776692c39480c9b",
+      "filename": "br_pbe_gbrv_1.4.upf",
+      "path": "br/gga/pbe/gbrv/1.4/us/br_pbe_gbrv_1.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 5.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "C",
+      "hash": "7e0bbbe6b1aa8942eaa711895fe2c0bb",
+      "filename": "c_pbe_gbrv_1.2.upf",
+      "path": "c/gga/pbe/gbrv/1.2/us/c_pbe_gbrv_1.2.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "2S",
+          "orbitalIndex": 1,
+          "principalNumber": 2,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "2P",
+          "orbitalIndex": 2,
+          "principalNumber": 2,
+          "angularMomentum": 1,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.2"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ca",
+      "hash": "6f9ba965e37b92ea8bfc1c724c78786f",
+      "filename": "ca_pbe_gbrv_1.0.upf",
+      "path": "ca/gga/pbe/gbrv/1.0/us/ca_pbe_gbrv_1.0.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 4,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.0"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Cd",
+      "hash": "e0639ad07d5cb868a1e25eba8e91083c",
+      "filename": "cd_pbe_gbrv_1.0.upf",
+      "path": "cd/gga/pbe/gbrv/1.0/us/cd_pbe_gbrv_1.0.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 9.5
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.0"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Cl",
+      "hash": "0470ca36744f41d5e970a7c8d629485e",
+      "filename": "cl_pbe_gbrv_1.4.upf",
+      "path": "cl/gga/pbe/gbrv/1.4/us/cl_pbe_gbrv_1.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 5.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Co",
+      "hash": "1272e15f2a65ee8d3688cf1a7e89e6aa",
+      "filename": "co_pbe_gbrv_1.2.upf",
+      "path": "co/gga/pbe/gbrv/1.2/us/co_pbe_gbrv_1.2.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 7.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 5,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.2"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Cr",
+      "hash": "3226ae20c25452fad7a8908d56ad79c0",
+      "filename": "cr_pbe_gbrv_1.5.upf",
+      "path": "cr/gga/pbe/gbrv/1.5/us/cr_pbe_gbrv_1.5.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 1.6
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 4,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 3.4
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.5"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Cs",
+      "hash": "839545954dab5eb50d021b128108d162",
+      "filename": "cs_pbe_gbrv_1.0.upf",
+      "path": "cs/gga/pbe/gbrv/1.0/us/cs_pbe_gbrv_1.0.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 0.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 4,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "6P",
+          "orbitalIndex": 5,
+          "principalNumber": 6,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.0"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Cu",
+      "hash": "0e489722316d7ada0cdb7c42f6250241",
+      "filename": "cu_pbe_gbrv_1.2.upf",
+      "path": "cu/gga/pbe/gbrv/1.2/us/cu_pbe_gbrv_1.2.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 8.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 5,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.2"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "F",
+      "hash": "9d65eadb30004481209d7c0449fc5057",
+      "filename": "f_pbe_gbrv_1.4.upf",
+      "path": "f/gga/pbe/gbrv/1.4/us/f_pbe_gbrv_1.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "2S",
+          "orbitalIndex": 1,
+          "principalNumber": 2,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "2P",
+          "orbitalIndex": 2,
+          "principalNumber": 2,
+          "angularMomentum": 1,
+          "occupation": 5.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Fe",
+      "hash": "e19cf6e789eab0f3be2aeecffc4f4f02",
+      "filename": "fe_pbe_gbrv_1.5.upf",
+      "path": "fe/gga/pbe/gbrv/1.5/us/fe_pbe_gbrv_1.5.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 5.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 5,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.5"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ga",
+      "hash": "2b8ae0e6a970d79cfd87cf7dd181fe2c",
+      "filename": "ga_pbe_gbrv_1.4.upf",
+      "path": "ga/gga/pbe/gbrv/1.4/us/ga_pbe_gbrv_1.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ge",
+      "hash": "59d0ecddc603a33bb353df5aed9c18fd",
+      "filename": "ge_pbe_gbrv_1.4.upf",
+      "path": "ge/gga/pbe/gbrv/1.4/us/ge_pbe_gbrv_1.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "H",
+      "hash": "431f4da4dff935860b7788b5be02a8bc",
+      "filename": "h_pbe_gbrv_1.4.upf",
+      "path": "h/gga/pbe/gbrv/1.4/us/h_pbe_gbrv_1.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "1S",
+          "orbitalIndex": 1,
+          "principalNumber": 1,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Hf",
+      "hash": "98a51c043fdac90dc918d2362da6537d",
+      "filename": "hf_pbe_gbrv_1.0.upf",
+      "path": "hf/gga/pbe/gbrv/1.0/us/hf_pbe_gbrv_1.0.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 3,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 0.0
+        },
+        {
+          "orbitalName": "6P",
+          "orbitalIndex": 4,
+          "principalNumber": 6,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 5,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.0"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Hg",
+      "hash": "330964cdf49e1951813d67723e9bd506",
+      "filename": "hg_pbe_gbrv_1.0.upf",
+      "path": "hg/gga/pbe/gbrv/1.0/us/hg_pbe_gbrv_1.0.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 2,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6P",
+          "orbitalIndex": 3,
+          "principalNumber": 6,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.0"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "I",
+      "hash": "675e36bc6880705e624869337b2e675f",
+      "filename": "i_pbe_gbrv_1.0.upf",
+      "path": "i/gga/pbe/gbrv/1.0/us/i_pbe_gbrv_1.0.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 5.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.0"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "In",
+      "hash": "f6a756a4a9a9ecc8624fa0657586a684",
+      "filename": "in_pbe_gbrv_1.4.upf",
+      "path": "in/gga/pbe/gbrv/1.4/us/in_pbe_gbrv_1.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 1.5
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ir",
+      "hash": "4275452c4c786107e8ac2bdeac71bc5f",
+      "filename": "ir_pbe_gbrv_1.2.upf",
+      "path": "ir/gga/pbe/gbrv/1.2/us/ir_pbe_gbrv_1.2.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 8.5
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 3,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 0.0
+        },
+        {
+          "orbitalName": "6P",
+          "orbitalIndex": 4,
+          "principalNumber": 6,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.2"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "K",
+      "hash": "fdeb5c714e0731e5a52805a8bbd39764",
+      "filename": "k_pbe_gbrv_1.4.upf",
+      "path": "k/gga/pbe/gbrv/1.4/us/k_pbe_gbrv_1.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 0.5
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "La",
+      "hash": "a8ef9227d4e235055579edaccae7f89d",
+      "filename": "la_pbe_gbrv_1.0.upf",
+      "path": "la/gga/pbe/gbrv/1.0/us/la_pbe_gbrv_1.0.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 4,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 1.5
+        },
+        {
+          "orbitalName": "6P",
+          "orbitalIndex": 5,
+          "principalNumber": 6,
+          "angularMomentum": 1,
+          "occupation": 0.5
+        },
+        {
+          "orbitalName": "4F",
+          "orbitalIndex": 6,
+          "principalNumber": 4,
+          "angularMomentum": 3,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.0"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Li",
+      "hash": "851a726508a7645657a2fade18e76701",
+      "filename": "li_pbe_gbrv_1.4.upf",
+      "path": "li/gga/pbe/gbrv/1.4/us/li_pbe_gbrv_1.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "1S",
+          "orbitalIndex": 1,
+          "principalNumber": 1,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "2S",
+          "orbitalIndex": 2,
+          "principalNumber": 2,
+          "angularMomentum": 0,
+          "occupation": 0.55
+        },
+        {
+          "orbitalName": "2P",
+          "orbitalIndex": 3,
+          "principalNumber": 2,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Mg",
+      "hash": "c324e59be7555d09c1d83889e1d61703",
+      "filename": "mg_pbe_gbrv_1.4.upf",
+      "path": "mg/gga/pbe/gbrv/1.4/us/mg_pbe_gbrv_1.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "2S",
+          "orbitalIndex": 1,
+          "principalNumber": 2,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "2P",
+          "orbitalIndex": 2,
+          "principalNumber": 2,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 1.7
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Mn",
+      "hash": "b33cfa94beeb5e7225c70410fbbda189",
+      "filename": "mn_pbe_gbrv_1.5.upf",
+      "path": "mn/gga/pbe/gbrv/1.5/us/mn_pbe_gbrv_1.5.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 1.5
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 4,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 5.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 5,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.5"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Mo",
+      "hash": "52b57517e4ef946da06214684f4436c0",
+      "filename": "mo_pbe_gbrv_1.0.upf",
+      "path": "mo/gga/pbe/gbrv/1.0/us/mo_pbe_gbrv_1.0.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 4.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 5,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.0"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "N",
+      "hash": "5422f14f3cc5842b82f41a4799b5dcc1",
+      "filename": "n_pbe_gbrv_1.2.upf",
+      "path": "n/gga/pbe/gbrv/1.2/us/n_pbe_gbrv_1.2.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "2S",
+          "orbitalIndex": 1,
+          "principalNumber": 2,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "2P",
+          "orbitalIndex": 2,
+          "principalNumber": 2,
+          "angularMomentum": 1,
+          "occupation": 3.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.2"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Na",
+      "hash": "d703788946214b15359a245c3e0ceab8",
+      "filename": "na_pbe_gbrv_1.5.upf",
+      "path": "na/gga/pbe/gbrv/1.5/us/na_pbe_gbrv_1.5.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "2S",
+          "orbitalIndex": 1,
+          "principalNumber": 2,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "2P",
+          "orbitalIndex": 2,
+          "principalNumber": 2,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.5"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Nb",
+      "hash": "123946fd83994d93c98527073eda74d7",
+      "filename": "nb_pbe_gbrv_1.0.upf",
+      "path": "nb/gga/pbe/gbrv/1.0/us/nb_pbe_gbrv_1.0.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 4.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 5,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.0"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ni",
+      "hash": "01b4c1f30d401f30ae68ef37d44540e0",
+      "filename": "ni_pbe_gbrv_1.4.upf",
+      "path": "ni/gga/pbe/gbrv/1.4/us/ni_pbe_gbrv_1.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 8.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 0.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 5,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "O",
+      "hash": "92360fef2b41936ac20dff99359df6bb",
+      "filename": "o_pbe_gbrv_1.2.upf",
+      "path": "o/gga/pbe/gbrv/1.2/us/o_pbe_gbrv_1.2.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "2S",
+          "orbitalIndex": 1,
+          "principalNumber": 2,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "2P",
+          "orbitalIndex": 2,
+          "principalNumber": 2,
+          "angularMomentum": 1,
+          "occupation": 4.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.2"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Os",
+      "hash": "0ece9898689623823b3491ab6f25411d",
+      "filename": "os_pbe_gbrv_1.2.upf",
+      "path": "os/gga/pbe/gbrv/1.2/us/os_pbe_gbrv_1.2.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 5.5
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 4,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6P",
+          "orbitalIndex": 5,
+          "principalNumber": 6,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.2"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "P",
+      "hash": "d763265d0b5d148b1e7bf6337a80fbb8",
+      "filename": "p_pbe_gbrv_1.5.upf",
+      "path": "p/gga/pbe/gbrv/1.5/us/p_pbe_gbrv_1.5.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 3.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.5"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Pb",
+      "hash": "8eaa4d50722defc51ef0f70d67e61a45",
+      "filename": "pb_pbe_gbrv_1.0.upf",
+      "path": "pb/gga/pbe/gbrv/1.0/us/pb_pbe_gbrv_1.0.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 2,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6P",
+          "orbitalIndex": 3,
+          "principalNumber": 6,
+          "angularMomentum": 1,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.0"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Pd",
+      "hash": "96fd2ebc9751e2f1aa97e052553563f4",
+      "filename": "pd_pbe_gbrv_1.4.upf",
+      "path": "pd/gga/pbe/gbrv/1.4/us/pd_pbe_gbrv_1.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 9.5
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 0.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Pt",
+      "hash": "324ed432ad13b0b155bc309d5acb0a4d",
+      "filename": "pt_pbe_gbrv_1.4.upf",
+      "path": "pt/gga/pbe/gbrv/1.4/us/pt_pbe_gbrv_1.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 9.5
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 3,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 0.0
+        },
+        {
+          "orbitalName": "6P",
+          "orbitalIndex": 4,
+          "principalNumber": 6,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Rb",
+      "hash": "fa0290c61b38a00f7154203f389163a7",
+      "filename": "rb_pbe_gbrv_1.0.upf",
+      "path": "rb/gga/pbe/gbrv/1.0/us/rb_pbe_gbrv_1.0.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 0.5
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.0"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Re",
+      "hash": "e686deb1d39d976bd6a9b44d6bb69011",
+      "filename": "re_pbe_gbrv_1.2.upf",
+      "path": "re/gga/pbe/gbrv/1.2/us/re_pbe_gbrv_1.2.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 4.5
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 4,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6P",
+          "orbitalIndex": 5,
+          "principalNumber": 6,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.2"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Rh",
+      "hash": "46f327322e1db43e5efe6010db29a5fc",
+      "filename": "rh_pbe_gbrv_1.4.upf",
+      "path": "rh/gga/pbe/gbrv/1.4/us/rh_pbe_gbrv_1.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 7.5
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ru",
+      "hash": "73facd8d5e8ee937ad663e221e611b49",
+      "filename": "ru_pbe_gbrv_1.2.upf",
+      "path": "ru/gga/pbe/gbrv/1.2/us/ru_pbe_gbrv_1.2.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 5,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.2"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "S",
+      "hash": "60fa883c9d1537afb5c486d587b042f0",
+      "filename": "s_pbe_gbrv_1.4.upf",
+      "path": "s/gga/pbe/gbrv/1.4/us/s_pbe_gbrv_1.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 4.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Sb",
+      "hash": "7231a637b94fd60b2deca43b514a86e7",
+      "filename": "sb_pbe_gbrv_1.4.upf",
+      "path": "sb/gga/pbe/gbrv/1.4/us/sb_pbe_gbrv_1.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Sc",
+      "hash": "f2175d739c60246d77caf346e8ff4bad",
+      "filename": "sc_pbe_gbrv_1.0.upf",
+      "path": "sc/gga/pbe/gbrv/1.0/us/sc_pbe_gbrv_1.0.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 4,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 5,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.0"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Se",
+      "hash": "3bf93c64b8669416aeccf20681a64f24",
+      "filename": "se_pbe_gbrv_1.0.upf",
+      "path": "se/gga/pbe/gbrv/1.0/us/se_pbe_gbrv_1.0.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 4.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.0"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Si",
+      "hash": "9d3353ad597f4669d598900a4a25d674",
+      "filename": "si_pbe_gbrv_1.0.upf",
+      "path": "si/gga/pbe/gbrv/1.0/us/si_pbe_gbrv_1.0.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.0"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Sn",
+      "hash": "2d25b91e0e7fbda164d5811ce241fd75",
+      "filename": "sn_pbe_gbrv_1.4.upf",
+      "path": "sn/gga/pbe/gbrv/1.4/us/sn_pbe_gbrv_1.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Sr",
+      "hash": "f08bd66cb129dec05529392a5b469f54",
+      "filename": "sr_pbe_gbrv_1.0.upf",
+      "path": "sr/gga/pbe/gbrv/1.0/us/sr_pbe_gbrv_1.0.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 5,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.0"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ta",
+      "hash": "597c374535470b939d3b4c1665f19b6b",
+      "filename": "ta_pbe_gbrv_1.0.upf",
+      "path": "ta/gga/pbe/gbrv/1.0/us/ta_pbe_gbrv_1.0.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 3.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 4,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6P",
+          "orbitalIndex": 5,
+          "principalNumber": 6,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.0"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Tc",
+      "hash": "f0c4c3a5d03bf75b607d84013c642d34",
+      "filename": "tc_pbe_gbrv_1.0.upf",
+      "path": "tc/gga/pbe/gbrv/1.0/us/tc_pbe_gbrv_1.0.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 5.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 5,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.0"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Te",
+      "hash": "381fe2b598690cfcd15ef862dcc6cb7f",
+      "filename": "te_pbe_gbrv_1.0.upf",
+      "path": "te/gga/pbe/gbrv/1.0/us/te_pbe_gbrv_1.0.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 4.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.0"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ti",
+      "hash": "e27fad1fc1a0921cb5980e447dd9c075",
+      "filename": "ti_pbe_gbrv_1.4.upf",
+      "path": "ti/gga/pbe/gbrv/1.4/us/ti_pbe_gbrv_1.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 4,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Tl",
+      "hash": "23d6c1cdf5c4a2f6adb07cbe31a00d0d",
+      "filename": "tl_pbe_gbrv_1.2.upf",
+      "path": "tl/gga/pbe/gbrv/1.2/us/tl_pbe_gbrv_1.2.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 2,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6P",
+          "orbitalIndex": 3,
+          "principalNumber": 6,
+          "angularMomentum": 1,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.2"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "V",
+      "hash": "733fb6b58db8634a764c8a1e904a8e6f",
+      "filename": "v_pbe_gbrv_1.4.upf",
+      "path": "v/gga/pbe/gbrv/1.4/us/v_pbe_gbrv_1.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 4,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 3.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "W",
+      "hash": "af87b394be8b1c9b5f697cc716b9fd24",
+      "filename": "w_pbe_gbrv_1.2.upf",
+      "path": "w/gga/pbe/gbrv/1.2/us/w_pbe_gbrv_1.2.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 3.9
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 4,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6P",
+          "orbitalIndex": 5,
+          "principalNumber": 6,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.2"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Y",
+      "hash": "8d1172477d0b5fa6f3f8a9cc43ab3fe8",
+      "filename": "y_pbe_gbrv_1.4.upf",
+      "path": "y/gga/pbe/gbrv/1.4/us/y_pbe_gbrv_1.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 5,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Zn",
+      "hash": "ab83168ce2c1740baeca3f136b5207e0",
+      "filename": "zn_pbe_gbrv_1.0.upf",
+      "path": "zn/gga/pbe/gbrv/1.0/us/zn_pbe_gbrv_1.0.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 5,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.0"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Zr",
+      "hash": "f0a4cf960b61c9d9ca10b395dea3d881",
+      "filename": "zr_pbe_gbrv_1.0.upf",
+      "path": "zr/gga/pbe/gbrv/1.0/us/zr_pbe_gbrv_1.0.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 5,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "gbrv",
+      "type": "us",
+      "version": "1.0"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  }
+]
