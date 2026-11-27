@@ -1,0 +1,174 @@
+# Schottky barrier height of a periodic metal/semiconductor superlattice via the potential lineup method, with bulk
+# references: Φ_p = (E_F − V̄)_metal − (E_VBM − V̄)_semiconductor + (V̄_metal − V̄_semiconductor)_interface, each V̄
+# averaged over one bulk cell (in the interface, at each block's centre); Φ_n = E_g − Φ_p with the computed gap.
+# Assumes 3 structures, in this order: Interface (the superlattice, e.g. HfO2/TiN), Semiconductor and Metal (the two
+# materials in bulk, stacked along the interface normal, in the interface's strain state). The order is not checked:
+# swapped materials give a number, not an error. Blocks are found by element, so the two bulks must differ in
+# composition.
+# The metal's Fermi level comes from its bulk: the potential step converges within a few layers and the bulk E_F − V̄
+# with its own k-points, while the interface's E_F depends on the metal thickness. The interface's Fermi energy is
+# stored with the job; with a bulk-like metal block it gives the same Φ_p.
+# Meaningful when: the cell's two interfaces are equivalent (in a polar stacking the semiconductor block carries a
+# field, and its average belongs to neither interface); each block is at least one bulk cell thick, with a flat V̄
+# there (the stored potential profile shows it); the three calculations use the same functional, pseudopotentials
+# and cutoffs. Φ_n uses the computed gap, which LDA and GGA underestimate; for small gaps it can come out negative.
+# Relevant references:
+#   - http://dx.doi.org/10.1103/PhysRevB.34.5621
+#   - http://dx.doi.org/10.1103/PhysRevLett.61.734
+#   - Prodhomme et al., Appl. Phys. Lett. 99, 022101 (2011)
+
+name: Schottky Barrier Height (Bulk Method)
+config:
+  attributes:
+    isMultiMaterial: true
+units:
+  - name: average_electrostatic_potential
+    type: subworkflow
+    config:
+      attributes:
+        name: Avg ESP (Interface)
+  - name: average_electrostatic_potential_via_band_structure
+    type: subworkflow
+    config:
+      attributes:
+        name: BS + Avg ESP (Semiconductor)
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            name: Set Material Index (Semiconductor)
+            value: "1"
+      - index: 7
+        type: executionBuilder
+        config:
+          attributes:
+            flowchartId: average-electrostatic-potential-semiconductor
+      - index: 8
+        type: assignment
+        config:
+          attributes:
+            name: Set Average ESP Value (Semiconductor)
+            operand: AVG_ESP_SEMICONDUCTOR
+            value: "[np.mean(average_potential_profile['yDataSeries'][1])]"
+            input:
+              - name: average_potential_profile
+                scope: average-electrostatic-potential-semiconductor
+  - name: average_electrostatic_potential_metal
+    type: subworkflow
+    config:
+      attributes:
+        name: Avg ESP (Metal)
+    unitConfigs:
+      - index: 1
+        type: executionBuilder
+        config:
+          attributes:
+            flowchartId: pw-scf-metal
+  - name: shell/utils/get_material_by_index
+    type: subworkflow
+    config:
+      attributes:
+        name: Load Interface Material
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            flowchartId: set-material-index-interface
+      - index: 4
+        type: assignment
+        config:
+          attributes:
+            operand: INTERFACE
+  - name: shell/utils/get_material_by_index
+    type: subworkflow
+    config:
+      attributes:
+        name: Load Semiconductor Material
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            flowchartId: set-material-index-semiconductor
+            value: "1"
+      - index: 1
+        type: io
+        config:
+          attributes:
+            flowchartId: io-job-semiconductor
+      - index: 2
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-material-id-semiconductor
+            input:
+              - name: DATA
+                scope: io-job-semiconductor
+      - index: 3
+        type: io
+        config:
+          attributes:
+            flowchartId: io-material-semiconductor
+      - index: 4
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-material-semiconductor
+            operand: BULK_LEFT
+            input:
+              - name: DATA
+                scope: io-material-semiconductor
+  - name: shell/utils/get_material_by_index
+    type: subworkflow
+    config:
+      attributes:
+        name: Load Metal Material
+    unitConfigs:
+      - index: 0
+        type: assignment
+        config:
+          attributes:
+            flowchartId: set-material-index-metal
+            value: "2"
+      - index: 1
+        type: io
+        config:
+          attributes:
+            flowchartId: io-job-metal
+      - index: 2
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-material-id-metal
+            input:
+              - name: DATA
+                scope: io-job-metal
+      - index: 3
+        type: io
+        config:
+          attributes:
+            flowchartId: io-material-metal
+      - index: 4
+        type: assignment
+        config:
+          attributes:
+            flowchartId: assign-material-metal
+            operand: BULK_RIGHT
+            input:
+              - name: DATA
+                scope: io-material-metal
+  - name: average_electrostatic_potential_find_block_averages
+    type: subworkflow
+  - name: schottky_barrier
+    type: subworkflow
+    unitConfigs:
+      - index: 2
+        type: assignment
+        config:
+          attributes:
+            value: "fermi_energy - AVG_ESP_METAL[0] + AVG_ESP_INTERFACE[1] - AVG_ESP_INTERFACE[0]"
+            input:
+              - name: fermi_energy
+                scope: pw-scf-metal

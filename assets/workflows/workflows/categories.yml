@@ -341,6 +341,20 @@ entities:
     categories:
       - band_structure
       - espresso
+  - filename: espresso/schottky_barrier_bulk.json
+    categories:
+      - atomic_forces
+      - average_potential_profile
+      - band_gaps
+      - espresso
+      - fermi_energy
+      - pressure
+      - schottky_barrier_height_n
+      - schottky_barrier_height_p
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
   - filename: espresso/schottky_barrier.json
     categories:
       - atomic_forces
@@ -377,19 +391,6 @@ entities:
       - total_energy
       - total_energy_contributions
       - total_force
-  - filename: espresso/valence_band_offset_bulk_metal.json
-    categories:
-      - atomic_forces
-      - average_potential_profile
-      - band_gaps
-      - espresso
-      - fermi_energy
-      - pressure
-      - stress_tensor
-      - total_energy
-      - total_energy_contributions
-      - total_force
-      - valence_band_offset
   - filename: espresso/valence_band_offset_bulk.json
     categories:
       - atomic_forces

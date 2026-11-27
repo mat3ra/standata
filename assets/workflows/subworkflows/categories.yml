@@ -74,6 +74,17 @@ entities:
     categories:
       - espresso
       - python
+  - filename: espresso/average_electrostatic_potential_metal.json
+    categories:
+      - atomic_forces
+      - average_potential_profile
+      - espresso
+      - fermi_energy
+      - pressure
+      - stress_tensor
+      - total_energy
+      - total_energy_contributions
+      - total_force
   - filename: espresso/average_electrostatic_potential_via_band_structure.json
     categories:
       - atomic_forces

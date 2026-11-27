@@ -8,7 +8,8 @@
             "BULK_RIGHT": {"basis": {"elements": [{"id": 0, "value": "Hf"}, {"id": 1, "value": "Hf"}, {"id": 2, "value": "Hf"}, {"id": 3, "value": "Hf"}, {"id": 4, "value": "O"}, {"id": 5, "value": "O"}, {"id": 6, "value": "O"}, {"id": 7, "value": "O"}, {"id": 8, "value": "O"}, {"id": 9, "value": "O"}, {"id": 10, "value": "O"}, {"id": 11, "value": "O"}]}, "lattice": {"a": 5.231694, "b": 5.231694, "c": 5.328674, "alpha": 90, "beta": 99.8394, "gamma": 90}}
         },
         "local": {
-            "pw-scf-right": {"fermi_energy": 12.679794176249985},
+            "b89d6348-3915-5c24-9fbb-350bc98ac708": {"fermi_energy": 12.679794176249985},
+            "pw-bands-calculate-band-gap-left": {"band_gaps": {"values": [{"type": "direct", "units": "eV", "value": 5.327953066532567, "spin": 0.5, "kpointValence": [0.0, 0.0, 0.0], "kpointConduction": [0.0, 0.0, 0.0], "eigenvalueValence": -0.10999410415509958, "eigenvalueConduction": 5.217958962377467}, {"type": "indirect", "units": "eV", "value": 5.321915637021654, "spin": 0.5, "kpointValence": [0.0, -0.5, 0.5], "kpointConduction": [0.0, 0.0, 0.0], "eigenvalueValence": -0.10395667464418734, "eigenvalueConduction": 5.217958962377467}]}},
             "average-electrostatic-potential": {
                 "average_potential_profile": {
                     "yDataSeries": [

@@ -8,16 +8,35 @@ import numpy as np
 import pytest
 from mat3ra.standata.data.workflows import workflows_data
 
-LOCAL_SCOPE_OPERANDS = ["array_from_context", "AVG_ESP_LEFT", "AVG_ESP_RIGHT", "FERMI_ENERGY_RIGHT"]
 FIXTURES_DIRECTORY = Path(__file__).parent.parent / "fixtures"
+# workflow: (the operands its units set from the job's local scope, its calc subworkflow, the operand of its result)
+CHAIN_BY_WORKFLOW = {
+    "valence_band_offset_bulk": (
+        ["array_from_context", "AVG_ESP_LEFT", "AVG_ESP_RIGHT"],
+        "Calculate VBO",
+        "VALENCE_BAND_OFFSET",
+    ),
+    "schottky_barrier_bulk": (
+        ["array_from_context", "BAND_GAP_INDIRECT", "VBM", "AVG_ESP_SEMICONDUCTOR", "AVG_ESP_METAL"],
+        "Calculate Schottky Barrier",
+        "SCHOTTKY_BARRIER_P",
+    ),
+}
+# The job's local scope keys, by the scopes the Schottky workflow reads them from: SiO2 is the semiconductor, and the
+# HfO2 bulk's Fermi energy (its pw_scf) stands in for the metal's.
+FIXTURE_KEY_BY_SCOPE = {
+    "pw-bands-calculate-band-gap": "pw-bands-calculate-band-gap-left",
+    "average-electrostatic-potential-semiconductor": "average-electrostatic-potential-left",
+    "average-electrostatic-potential-metal": "average-electrostatic-potential-right",
+    "pw-scf-metal": "b89d6348-3915-5c24-9fbb-350bc98ac708",
+}
 # (workflow, scope of a SiO2/HfO2 (001) superlattice job and its two bulks, the units the interface's basis is given
-# in): offset. Job cTZuQ9ek4x66jAHus, monoclinic HfO2 with c tilted from the a, b normal; profiles every 38th
-# (interface) / 300th (bulks) sample, where the window still sees the tilt. The metal workflow reads the HfO2 bulk's
-# Fermi energy (its pw_scf) in place of its VBM.
-VALENCE_BAND_OFFSET_BY_SCOPE = {
+# in): result. Job cTZuQ9ek4x66jAHus, monoclinic HfO2 with c tilted from the a, b normal; profiles every 38th
+# (interface) / 300th (bulks) sample, where the window still sees the tilt.
+RESULT_BY_SCOPE = {
     ("valence_band_offset_bulk", "valence_band_offset_bulk_monoclinic_hafnia_scope.json", "crystal"): 0.6888,
     ("valence_band_offset_bulk", "valence_band_offset_bulk_monoclinic_hafnia_scope.json", "cartesian"): 0.6888,
-    ("valence_band_offset_bulk_metal", "valence_band_offset_bulk_monoclinic_hafnia_scope.json", "crystal"): -2.0725,
+    ("schottky_barrier_bulk", "valence_band_offset_bulk_monoclinic_hafnia_scope.json", "crystal"): 2.0725,
 }
 
 
@@ -33,9 +52,12 @@ def _get_units_by_subworkflow(workflow_name):
     return {subworkflow["name"]: subworkflow["units"] for subworkflow in subworkflows}
 
 
-def _get_scope_with_local_data(units_by_subworkflow, scope_name, basis_units):
-    """The job's scope, the interface's basis in the given units, after the units that read the job's local scope."""
+def _get_scope_with_local_data(units_by_subworkflow, local_scope_operands, scope_name, basis_units):
+    """The job's global scope, the interface's basis in the given units, after the units that read the local scope;
+    and the local scope, its keys also under the scopes the workflow reads them from."""
     job_scope = json.loads((FIXTURES_DIRECTORY / scope_name).read_text())["scope"]
+    local_scope = dict(job_scope["local"])
+    local_scope.update({scope: local_scope[key] for scope, key in FIXTURE_KEY_BY_SCOPE.items()})
     scope = dict(job_scope["global"])
     basis, lattice_vectors = scope["INTERFACE"]["basis"], scope["INTERFACE"]["lattice"]["vectors"]
     if basis["units"] != basis_units:
@@ -45,9 +67,9 @@ def _get_scope_with_local_data(units_by_subworkflow, scope_name, basis_units):
         basis["units"] = basis_units
     for units in units_by_subworkflow.values():
         for unit in units:
-            if unit.get("operand") in LOCAL_SCOPE_OPERANDS:
-                scope[unit["operand"]] = _evaluate(unit, scope, job_scope["local"])
-    return scope
+            if unit.get("operand") in local_scope_operands:
+                scope[unit["operand"]] = _evaluate(unit, scope, local_scope)
+    return scope, local_scope
 
 
 def _run_template(find_unit, scope):
@@ -61,14 +83,15 @@ def _run_template(find_unit, scope):
     return stdout.getvalue()
 
 
-@pytest.mark.parametrize("workflow_scope_name_and_basis_units, expected", VALENCE_BAND_OFFSET_BY_SCOPE.items())
-def test_calc_subworkflow_valence_band_offset(workflow_scope_name_and_basis_units, expected):
+@pytest.mark.parametrize("workflow_scope_name_and_basis_units, expected", RESULT_BY_SCOPE.items())
+def test_calc_subworkflow_result(workflow_scope_name_and_basis_units, expected):
     workflow_name, scope_name, basis_units = workflow_scope_name_and_basis_units
+    local_scope_operands, calc_subworkflow_name, result_operand = CHAIN_BY_WORKFLOW[workflow_name]
     units_by_subworkflow = _get_units_by_subworkflow(workflow_name)
-    scope = _get_scope_with_local_data(units_by_subworkflow, scope_name, basis_units)
+    scope, local_scope = _get_scope_with_local_data(units_by_subworkflow, local_scope_operands, scope_name, basis_units)
     find_unit, averages_unit = units_by_subworkflow["Find ESP Block Averages"]
-    find_scope = {find_unit["flowchartId"]: {"STDOUT": _run_template(find_unit, scope)}}
-    scope[averages_unit["operand"]] = _evaluate(averages_unit, scope, find_scope)
-    for unit in units_by_subworkflow["Calculate VBO"]:
-        scope[unit["operand"]] = _evaluate(unit, scope, {})
-    assert scope["VALENCE_BAND_OFFSET"] == pytest.approx(expected, abs=1e-4)
+    local_scope[find_unit["flowchartId"]] = {"STDOUT": _run_template(find_unit, scope)}
+    scope[averages_unit["operand"]] = _evaluate(averages_unit, scope, local_scope)
+    for unit in units_by_subworkflow[calc_subworkflow_name]:
+        scope[unit["operand"]] = _evaluate(unit, scope, local_scope)
+    assert scope[result_operand] == pytest.approx(expected, abs=1e-4)
