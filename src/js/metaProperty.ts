@@ -1,6 +1,14 @@
-import { type MetaPropertySeedEntry, PseudopotentialStandata } from "./pseudopotential";
+import type { MetaPropertySeedEntry } from "./metaPropertyBase";
+import { PseudopotentialStandata } from "./pseudopotential";
 
-export type { MetaPropertySeedEntry, PseudopotentialFilter } from "./pseudopotential";
+export type {
+    MetaPropertyData,
+    MetaPropertyDataMatcher,
+    MetaPropertyFilter,
+    MetaPropertySeedEntry,
+} from "./metaPropertyBase";
+export { BaseMetaPropertyStandata } from "./metaPropertyBase";
+export type { PseudopotentialFilter } from "./pseudopotential";
 export { PseudopotentialStandata } from "./pseudopotential";
 
 /** Known meta-property method names. Extend as new meta-property types are added. */

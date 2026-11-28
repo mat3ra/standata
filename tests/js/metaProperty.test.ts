@@ -68,6 +68,13 @@ describe("PseudopotentialStandata", () => {
         );
     });
 
+    it("throws for an unknown filter field", () => {
+        const filter = { color: "red" } as PseudopotentialFilter;
+        expect(() => PseudopotentialStandata.filter(filter)).to.throw(
+            "Unknown pseudopotential filter field: color",
+        );
+    });
+
     it("returns everything for an empty filter", () => {
         expect(PseudopotentialStandata.filter()).to.deep.equal(PseudopotentialStandata.getAll());
     });
