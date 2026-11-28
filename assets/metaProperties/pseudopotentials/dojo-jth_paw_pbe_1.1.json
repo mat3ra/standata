@@ -1,0 +1,3860 @@
+[
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ag",
+      "hash": "a6be7502038987a117c6f5e02532fd18",
+      "filename": "ag_pbe_dojo-jth_1.1.upf",
+      "path": "ag/gga/pbe/dojo-jth/1.1/paw/ag_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Al",
+      "hash": "0465f66e64733079e00b6c8f983cecc5",
+      "filename": "al_pbe_dojo-jth_1.1.upf",
+      "path": "al/gga/pbe/dojo-jth/1.1/paw/al_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ar",
+      "hash": "1b28b82a4d01c1453d08a85a0088d0f6",
+      "filename": "ar_pbe_dojo-jth_1.1.upf",
+      "path": "ar/gga/pbe/dojo-jth/1.1/paw/ar_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "As",
+      "hash": "433b49b4236d64488f41910cd8cafe78",
+      "filename": "as_pbe_dojo-jth_1.1.upf",
+      "path": "as/gga/pbe/dojo-jth/1.1/paw/as_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 3.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "At",
+      "hash": "3370c5f19103e165809e23d1385e78ca",
+      "filename": "at_pbe_dojo-jth_1.1.upf",
+      "path": "at/gga/pbe/dojo-jth/1.1/paw/at_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 1,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6P",
+          "orbitalIndex": 2,
+          "principalNumber": 6,
+          "angularMomentum": 1,
+          "occupation": 5.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Au",
+      "hash": "491b4a537cb8af1b3e03a3ddf7339469",
+      "filename": "au_pbe_dojo-jth_1.1.upf",
+      "path": "au/gga/pbe/dojo-jth/1.1/paw/au_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "B",
+      "hash": "147f42f1d392547cb8a8d8ba6c612dcc",
+      "filename": "b_pbe_dojo-jth_1.1.upf",
+      "path": "b/gga/pbe/dojo-jth/1.1/paw/b_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "2S",
+          "orbitalIndex": 1,
+          "principalNumber": 2,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "2P",
+          "orbitalIndex": 2,
+          "principalNumber": 2,
+          "angularMomentum": 1,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ba",
+      "hash": "8e2669eb54947761bdc20c730b59eea1",
+      "filename": "ba_pbe_dojo-jth_1.1.upf",
+      "path": "ba/gga/pbe/dojo-jth/1.1/paw/ba_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Be",
+      "hash": "4f85671e14525e639cbcfaa366282120",
+      "filename": "be_pbe_dojo-jth_1.1.upf",
+      "path": "be/gga/pbe/dojo-jth/1.1/paw/be_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Bi",
+      "hash": "7316ec98d0b145f89b7efeae2c0fa26e",
+      "filename": "bi_pbe_dojo-jth_1.1.upf",
+      "path": "bi/gga/pbe/dojo-jth/1.1/paw/bi_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 1,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6P",
+          "orbitalIndex": 2,
+          "principalNumber": 6,
+          "angularMomentum": 1,
+          "occupation": 3.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Br",
+      "hash": "1e7386ddbf9da269437d0da87ba7e72b",
+      "filename": "br_pbe_dojo-jth_1.1.upf",
+      "path": "br/gga/pbe/dojo-jth/1.1/paw/br_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 5.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "C",
+      "hash": "581f8a52c8fd2a4509ea10f7be9dc652",
+      "filename": "c_pbe_dojo-jth_1.1.upf",
+      "path": "c/gga/pbe/dojo-jth/1.1/paw/c_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "2S",
+          "orbitalIndex": 1,
+          "principalNumber": 2,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "2P",
+          "orbitalIndex": 2,
+          "principalNumber": 2,
+          "angularMomentum": 1,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ca",
+      "hash": "6d00da80e8d4b1f451a9b7575821fc42",
+      "filename": "ca_pbe_dojo-jth_1.1.upf",
+      "path": "ca/gga/pbe/dojo-jth/1.1/paw/ca_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Cd",
+      "hash": "765dcb5f74d0e9103a39853158f94460",
+      "filename": "cd_pbe_dojo-jth_1.1.upf",
+      "path": "cd/gga/pbe/dojo-jth/1.1/paw/cd_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ce",
+      "hash": "476dda42cab52c0c7279b379c5bf4c1b",
+      "filename": "ce_pbe_dojo-jth_1.1.upf",
+      "path": "ce/gga/pbe/dojo-jth/1.1/paw/ce_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 2,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "4F",
+          "orbitalIndex": 5,
+          "principalNumber": 4,
+          "angularMomentum": 3,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Cl",
+      "hash": "9d4a99bfcf2f6d79fff838a96103aec1",
+      "filename": "cl_pbe_dojo-jth_1.1.upf",
+      "path": "cl/gga/pbe/dojo-jth/1.1/paw/cl_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 5.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Co",
+      "hash": "300f018ce35a46a5b9002e81b1087bba",
+      "filename": "co_pbe_dojo-jth_1.1.upf",
+      "path": "co/gga/pbe/dojo-jth/1.1/paw/co_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 4,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 8.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Cr",
+      "hash": "2f7111cbf806c61302f4ea70c1a02987",
+      "filename": "cr_pbe_dojo-jth_1.1.upf",
+      "path": "cr/gga/pbe/dojo-jth/1.1/paw/cr_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 4,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 5.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Cs",
+      "hash": "07f8b646debb8bb2165561f1a470d856",
+      "filename": "cs_pbe_dojo-jth_1.1.upf",
+      "path": "cs/gga/pbe/dojo-jth/1.1/paw/cs_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Cu",
+      "hash": "0a40eeddff8ab73ab9be1b174c91fc04",
+      "filename": "cu_pbe_dojo-jth_1.1.upf",
+      "path": "cu/gga/pbe/dojo-jth/1.1/paw/cu_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 4,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Dy",
+      "hash": "6b484c3947d40a5d021f3db15e67462c",
+      "filename": "dy_pbe_dojo-jth_1.1.upf",
+      "path": "dy/gga/pbe/dojo-jth/1.1/paw/dy_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 2,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "4F",
+          "orbitalIndex": 5,
+          "principalNumber": 4,
+          "angularMomentum": 3,
+          "occupation": 9.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Er",
+      "hash": "f986d65072c4e340de91860f4b77541a",
+      "filename": "er_pbe_dojo-jth_1.1.upf",
+      "path": "er/gga/pbe/dojo-jth/1.1/paw/er_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 2,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "4F",
+          "orbitalIndex": 5,
+          "principalNumber": 4,
+          "angularMomentum": 3,
+          "occupation": 11.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Eu",
+      "hash": "73a18a19531e73a9d40251699ca05d7f",
+      "filename": "eu_pbe_dojo-jth_1.1.upf",
+      "path": "eu/gga/pbe/dojo-jth/1.1/paw/eu_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 2,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "4F",
+          "orbitalIndex": 5,
+          "principalNumber": 4,
+          "angularMomentum": 3,
+          "occupation": 6.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "F",
+      "hash": "d2c83c0e9f42f53487f9f505e0e6c5cc",
+      "filename": "f_pbe_dojo-jth_1.1.upf",
+      "path": "f/gga/pbe/dojo-jth/1.1/paw/f_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "2S",
+          "orbitalIndex": 1,
+          "principalNumber": 2,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "2P",
+          "orbitalIndex": 2,
+          "principalNumber": 2,
+          "angularMomentum": 1,
+          "occupation": 5.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Fe",
+      "hash": "67b2416391887dd9b61a483e654b930e",
+      "filename": "fe_pbe_dojo-jth_1.1.upf",
+      "path": "fe/gga/pbe/dojo-jth/1.1/paw/fe_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 4,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 7.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ga",
+      "hash": "2a0ce01c19d62a2960e011f6ee55a9d1",
+      "filename": "ga_pbe_dojo-jth_1.1.upf",
+      "path": "ga/gga/pbe/dojo-jth/1.1/paw/ga_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Gd",
+      "hash": "91aa2a46c7e8b98d97fd33a973cd0167",
+      "filename": "gd_pbe_dojo-jth_1.1.upf",
+      "path": "gd/gga/pbe/dojo-jth/1.1/paw/gd_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 2,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "4F",
+          "orbitalIndex": 5,
+          "principalNumber": 4,
+          "angularMomentum": 3,
+          "occupation": 7.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ge",
+      "hash": "965440a3866c1d464a1d97767ff52f6b",
+      "filename": "ge_pbe_dojo-jth_1.1.upf",
+      "path": "ge/gga/pbe/dojo-jth/1.1/paw/ge_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "H",
+      "hash": "dd47cfd76f08f31bfff53b775a76e195",
+      "filename": "h_pbe_dojo-jth_1.1.upf",
+      "path": "h/gga/pbe/dojo-jth/1.1/paw/h_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "1S",
+          "orbitalIndex": 1,
+          "principalNumber": 1,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "He",
+      "hash": "ffb31b678a873efeea9d418d7253c00f",
+      "filename": "he_pbe_dojo-jth_1.1.upf",
+      "path": "he/gga/pbe/dojo-jth/1.1/paw/he_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "1S",
+          "orbitalIndex": 1,
+          "principalNumber": 1,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Hf",
+      "hash": "23c359db9e6dbaae4c2b8f0042545d2d",
+      "filename": "hf_pbe_dojo-jth_1.1.upf",
+      "path": "hf/gga/pbe/dojo-jth/1.1/paw/hf_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Hg",
+      "hash": "6def89a9acf3dbf79f8448d55c7246b6",
+      "filename": "hg_pbe_dojo-jth_1.1.upf",
+      "path": "hg/gga/pbe/dojo-jth/1.1/paw/hg_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ho",
+      "hash": "6c1b46b0d38a98669df95fdd390cced0",
+      "filename": "ho_pbe_dojo-jth_1.1.upf",
+      "path": "ho/gga/pbe/dojo-jth/1.1/paw/ho_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 2,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "4F",
+          "orbitalIndex": 5,
+          "principalNumber": 4,
+          "angularMomentum": 3,
+          "occupation": 10.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "I",
+      "hash": "fbc616197da3191496b1c10b28de67bd",
+      "filename": "i_pbe_dojo-jth_1.1.upf",
+      "path": "i/gga/pbe/dojo-jth/1.1/paw/i_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 5.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "In",
+      "hash": "ea8176bc7ff2d5e6c6c7a1e82ab8a419",
+      "filename": "in_pbe_dojo-jth_1.1.upf",
+      "path": "in/gga/pbe/dojo-jth/1.1/paw/in_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ir",
+      "hash": "a3e5db883161b9c44cacf152af0bc5dc",
+      "filename": "ir_pbe_dojo-jth_1.1.upf",
+      "path": "ir/gga/pbe/dojo-jth/1.1/paw/ir_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 1,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 8.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "K",
+      "hash": "c6562ac95ea2a1b98121ba983c9aa13b",
+      "filename": "k_pbe_dojo-jth_1.1.upf",
+      "path": "k/gga/pbe/dojo-jth/1.1/paw/k_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Kr",
+      "hash": "68cdfe4520c0b98fa66bc8417d86c211",
+      "filename": "kr_pbe_dojo-jth_1.1.upf",
+      "path": "kr/gga/pbe/dojo-jth/1.1/paw/kr_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "La",
+      "hash": "8dca694799637be6126fc827603cff16",
+      "filename": "la_pbe_dojo-jth_1.1.upf",
+      "path": "la/gga/pbe/dojo-jth/1.1/paw/la_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 2,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "4F",
+          "orbitalIndex": 5,
+          "principalNumber": 4,
+          "angularMomentum": 3,
+          "occupation": 0.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Li",
+      "hash": "b71b38bb1bc8dbec63faa2dc96bf3f1e",
+      "filename": "li_pbe_dojo-jth_1.1.upf",
+      "path": "li/gga/pbe/dojo-jth/1.1/paw/li_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Lu",
+      "hash": "8e08699556f041007296ba7255063bd3",
+      "filename": "lu_pbe_dojo-jth_1.1.upf",
+      "path": "lu/gga/pbe/dojo-jth/1.1/paw/lu_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 2,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "4F",
+          "orbitalIndex": 5,
+          "principalNumber": 4,
+          "angularMomentum": 3,
+          "occupation": 14.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Mg",
+      "hash": "cb060a06765be64a21d51d1d37c5fc7d",
+      "filename": "mg_pbe_dojo-jth_1.1.upf",
+      "path": "mg/gga/pbe/dojo-jth/1.1/paw/mg_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Mn",
+      "hash": "e4c10d98747b5912c63b91b02afe6fd9",
+      "filename": "mn_pbe_dojo-jth_1.1.upf",
+      "path": "mn/gga/pbe/dojo-jth/1.1/paw/mn_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 4,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 6.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Mo",
+      "hash": "7655557ceaa2bb566da5630d1faf8559",
+      "filename": "mo_pbe_dojo-jth_1.1.upf",
+      "path": "mo/gga/pbe/dojo-jth/1.1/paw/mo_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 5.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "N",
+      "hash": "8e56984150f08dec4bde8d989c093748",
+      "filename": "n_pbe_dojo-jth_1.1.upf",
+      "path": "n/gga/pbe/dojo-jth/1.1/paw/n_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "2S",
+          "orbitalIndex": 1,
+          "principalNumber": 2,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "2P",
+          "orbitalIndex": 2,
+          "principalNumber": 2,
+          "angularMomentum": 1,
+          "occupation": 3.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Na",
+      "hash": "d5d0488248398987e91b34f34545f00e",
+      "filename": "na_pbe_dojo-jth_1.1.upf",
+      "path": "na/gga/pbe/dojo-jth/1.1/paw/na_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Nb",
+      "hash": "e2ce857604a8ba2835171a30df35331e",
+      "filename": "nb_pbe_dojo-jth_1.1.upf",
+      "path": "nb/gga/pbe/dojo-jth/1.1/paw/nb_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Nd",
+      "hash": "b23ccad38a5674035c3d2cb207c09d81",
+      "filename": "nd_pbe_dojo-jth_1.1.upf",
+      "path": "nd/gga/pbe/dojo-jth/1.1/paw/nd_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 2,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "4F",
+          "orbitalIndex": 5,
+          "principalNumber": 4,
+          "angularMomentum": 3,
+          "occupation": 3.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ne",
+      "hash": "e90dbac0d6d384a9e307c4a5681316c3",
+      "filename": "ne_pbe_dojo-jth_1.1.upf",
+      "path": "ne/gga/pbe/dojo-jth/1.1/paw/ne_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "2S",
+          "orbitalIndex": 1,
+          "principalNumber": 2,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "2P",
+          "orbitalIndex": 2,
+          "principalNumber": 2,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ni",
+      "hash": "c8388628dd699937e12198484b92f162",
+      "filename": "ni_pbe_dojo-jth_1.1.upf",
+      "path": "ni/gga/pbe/dojo-jth/1.1/paw/ni_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 4,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 8.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "O",
+      "hash": "fc7ba7301d4436ee678ed4ebf4e0f064",
+      "filename": "o_pbe_dojo-jth_1.1.upf",
+      "path": "o/gga/pbe/dojo-jth/1.1/paw/o_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "2S",
+          "orbitalIndex": 1,
+          "principalNumber": 2,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "2P",
+          "orbitalIndex": 2,
+          "principalNumber": 2,
+          "angularMomentum": 1,
+          "occupation": 4.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Os",
+      "hash": "a0b95402cfee3ab9850b2ccdde668932",
+      "filename": "os_pbe_dojo-jth_1.1.upf",
+      "path": "os/gga/pbe/dojo-jth/1.1/paw/os_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 1,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 7.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "P",
+      "hash": "04ef151f6f0736907814ecf04360d8b6",
+      "filename": "p_pbe_dojo-jth_1.1.upf",
+      "path": "p/gga/pbe/dojo-jth/1.1/paw/p_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 3.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Pb",
+      "hash": "0b5a6eb4eb7e45c81de1893a2b790f92",
+      "filename": "pb_pbe_dojo-jth_1.1.upf",
+      "path": "pb/gga/pbe/dojo-jth/1.1/paw/pb_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 1,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6P",
+          "orbitalIndex": 2,
+          "principalNumber": 6,
+          "angularMomentum": 1,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Pd",
+      "hash": "fae56f57ef2e029ec572111d35f0692a",
+      "filename": "pd_pbe_dojo-jth_1.1.upf",
+      "path": "pd/gga/pbe/dojo-jth/1.1/paw/pd_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 9.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Pm",
+      "hash": "9c3bd64cb1ae54595b38be277c49f611",
+      "filename": "pm_pbe_dojo-jth_1.1.upf",
+      "path": "pm/gga/pbe/dojo-jth/1.1/paw/pm_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 2,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "4F",
+          "orbitalIndex": 5,
+          "principalNumber": 4,
+          "angularMomentum": 3,
+          "occupation": 4.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Po",
+      "hash": "405461ab739a5f1c9759091accf5f7b8",
+      "filename": "po_pbe_dojo-jth_1.1.upf",
+      "path": "po/gga/pbe/dojo-jth/1.1/paw/po_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 1,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6P",
+          "orbitalIndex": 2,
+          "principalNumber": 6,
+          "angularMomentum": 1,
+          "occupation": 4.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Pr",
+      "hash": "7722c6c94e1bab565305f1c18347bde3",
+      "filename": "pr_pbe_dojo-jth_1.1.upf",
+      "path": "pr/gga/pbe/dojo-jth/1.1/paw/pr_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 2,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "4F",
+          "orbitalIndex": 5,
+          "principalNumber": 4,
+          "angularMomentum": 3,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Pt",
+      "hash": "f2ad3983351b3a7eddb6698a916b0dc1",
+      "filename": "pt_pbe_dojo-jth_1.1.upf",
+      "path": "pt/gga/pbe/dojo-jth/1.1/paw/pt_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Rb",
+      "hash": "28e4372c8776c1547abc39ae1a701b25",
+      "filename": "rb_pbe_dojo-jth_1.1.upf",
+      "path": "rb/gga/pbe/dojo-jth/1.1/paw/rb_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Re",
+      "hash": "2cda79d1dbccc6015c5506b82e48ed8e",
+      "filename": "re_pbe_dojo-jth_1.1.upf",
+      "path": "re/gga/pbe/dojo-jth/1.1/paw/re_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Rh",
+      "hash": "5c34448c04a19964aeb6ca3922e72a11",
+      "filename": "rh_pbe_dojo-jth_1.1.upf",
+      "path": "rh/gga/pbe/dojo-jth/1.1/paw/rh_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 8.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Rn",
+      "hash": "3a0fe42b5ddd6048ce11df30bd0db417",
+      "filename": "rn_pbe_dojo-jth_1.1.upf",
+      "path": "rn/gga/pbe/dojo-jth/1.1/paw/rn_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 1,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6P",
+          "orbitalIndex": 2,
+          "principalNumber": 6,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ru",
+      "hash": "91acd4b54c66d0b7b9d09243dea76771",
+      "filename": "ru_pbe_dojo-jth_1.1.upf",
+      "path": "ru/gga/pbe/dojo-jth/1.1/paw/ru_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 7.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "S",
+      "hash": "e84f7cd3defcafba72e61a35d62f281a",
+      "filename": "s_pbe_dojo-jth_1.1.upf",
+      "path": "s/gga/pbe/dojo-jth/1.1/paw/s_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 4.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Sb",
+      "hash": "267dbbf26cf4e7b985b7c95186267ac2",
+      "filename": "sb_pbe_dojo-jth_1.1.upf",
+      "path": "sb/gga/pbe/dojo-jth/1.1/paw/sb_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 3.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Sc",
+      "hash": "3d5137442b3d4928264586e5dfaf3f71",
+      "filename": "sc_pbe_dojo-jth_1.1.upf",
+      "path": "sc/gga/pbe/dojo-jth/1.1/paw/sc_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 4,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Se",
+      "hash": "91470b33cbcce99013d82d66dea994ed",
+      "filename": "se_pbe_dojo-jth_1.1.upf",
+      "path": "se/gga/pbe/dojo-jth/1.1/paw/se_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 4.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Si",
+      "hash": "8621b1e56e721feb9ba48381024e82ba",
+      "filename": "si_pbe_dojo-jth_1.1.upf",
+      "path": "si/gga/pbe/dojo-jth/1.1/paw/si_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Sm",
+      "hash": "85401f92a36fc251c3ec7d1e02c565b0",
+      "filename": "sm_pbe_dojo-jth_1.1.upf",
+      "path": "sm/gga/pbe/dojo-jth/1.1/paw/sm_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 2,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "4F",
+          "orbitalIndex": 5,
+          "principalNumber": 4,
+          "angularMomentum": 3,
+          "occupation": 5.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Sn",
+      "hash": "d892beadce1061f574a01bfa8d896640",
+      "filename": "sn_pbe_dojo-jth_1.1.upf",
+      "path": "sn/gga/pbe/dojo-jth/1.1/paw/sn_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Sr",
+      "hash": "3467bb9f0b4e01d8c7b07fa0d0962024",
+      "filename": "sr_pbe_dojo-jth_1.1.upf",
+      "path": "sr/gga/pbe/dojo-jth/1.1/paw/sr_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ta",
+      "hash": "711a1fe6da042b3e7809bf85e9056181",
+      "filename": "ta_pbe_dojo-jth_1.1.upf",
+      "path": "ta/gga/pbe/dojo-jth/1.1/paw/ta_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Tb",
+      "hash": "ea0792b9f40f74cb25a570eefa17a122",
+      "filename": "tb_pbe_dojo-jth_1.1.upf",
+      "path": "tb/gga/pbe/dojo-jth/1.1/paw/tb_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 2,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "4F",
+          "orbitalIndex": 5,
+          "principalNumber": 4,
+          "angularMomentum": 3,
+          "occupation": 8.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Tc",
+      "hash": "115c816f9efd44172974c76a68bddba0",
+      "filename": "tc_pbe_dojo-jth_1.1.upf",
+      "path": "tc/gga/pbe/dojo-jth/1.1/paw/tc_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 6.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Te",
+      "hash": "55d50bdcfee3648b64d709aaf04c5de2",
+      "filename": "te_pbe_dojo-jth_1.1.upf",
+      "path": "te/gga/pbe/dojo-jth/1.1/paw/te_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 4.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ti",
+      "hash": "7715a110fe090934347b701de2fd4285",
+      "filename": "ti_pbe_dojo-jth_1.1.upf",
+      "path": "ti/gga/pbe/dojo-jth/1.1/paw/ti_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 4,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 3.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Tl",
+      "hash": "635e713fb206f9ac68aa564cb4d72231",
+      "filename": "tl_pbe_dojo-jth_1.1.upf",
+      "path": "tl/gga/pbe/dojo-jth/1.1/paw/tl_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 1,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6P",
+          "orbitalIndex": 2,
+          "principalNumber": 6,
+          "angularMomentum": 1,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Tm",
+      "hash": "d5c62c7720dd440ad8d76f19a3013cda",
+      "filename": "tm_pbe_dojo-jth_1.1.upf",
+      "path": "tm/gga/pbe/dojo-jth/1.1/paw/tm_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 2,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "4F",
+          "orbitalIndex": 5,
+          "principalNumber": 4,
+          "angularMomentum": 3,
+          "occupation": 12.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "V",
+      "hash": "6ed878a9a7672dcc359724671bfb8522",
+      "filename": "v_pbe_dojo-jth_1.1.upf",
+      "path": "v/gga/pbe/dojo-jth/1.1/paw/v_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 4,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 3.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "W",
+      "hash": "2be0d39480e408fd684e6612f0267e30",
+      "filename": "w_pbe_dojo-jth_1.1.upf",
+      "path": "w/gga/pbe/dojo-jth/1.1/paw/w_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Xe",
+      "hash": "40a59e315a71f43bc14316eb66ec8971",
+      "filename": "xe_pbe_dojo-jth_1.1.upf",
+      "path": "xe/gga/pbe/dojo-jth/1.1/paw/xe_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Y",
+      "hash": "e867a194cb679d5713164edfee6bc5d3",
+      "filename": "y_pbe_dojo-jth_1.1.upf",
+      "path": "y/gga/pbe/dojo-jth/1.1/paw/y_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Yb",
+      "hash": "d911e2b87afbdf84d69b808ddcc0400d",
+      "filename": "yb_pbe_dojo-jth_1.1.upf",
+      "path": "yb/gga/pbe/dojo-jth/1.1/paw/yb_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 2,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "4F",
+          "orbitalIndex": 5,
+          "principalNumber": 4,
+          "angularMomentum": 3,
+          "occupation": 13.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Zn",
+      "hash": "8ff5677032f374014d5c23291002ab02",
+      "filename": "zn_pbe_dojo-jth_1.1.upf",
+      "path": "zn/gga/pbe/dojo-jth/1.1/paw/zn_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Zr",
+      "hash": "8b6a09017f71baadb970bef3830ff22b",
+      "filename": "zr_pbe_dojo-jth_1.1.upf",
+      "path": "zr/gga/pbe/dojo-jth/1.1/paw/zr_pbe_dojo-jth_1.1.upf",
+      "valenceConfiguration": [],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-jth",
+      "type": "paw",
+      "version": "1.1"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  }
+]

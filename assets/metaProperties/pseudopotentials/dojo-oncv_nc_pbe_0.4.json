@@ -1,0 +1,3789 @@
+[
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ag",
+      "hash": "4e6194d3936cc4ce481758b98daad482",
+      "filename": "ag_pbe_dojo-oncv_0.4.upf",
+      "path": "ag/gga/pbe/dojo-oncv/0.4/nc/ag_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Al",
+      "hash": "3bc3288027fed50485879d657ae4c71d",
+      "filename": "al_pbe_dojo-oncv_0.4.upf",
+      "path": "al/gga/pbe/dojo-oncv/0.4/nc/al_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ar",
+      "hash": "c5e2f5e7f7f125ba610bacdc82b1c58d",
+      "filename": "ar_pbe_dojo-oncv_0.4.upf",
+      "path": "ar/gga/pbe/dojo-oncv/0.4/nc/ar_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "As",
+      "hash": "fdd9f6c5b331301897d4b520b45920dc",
+      "filename": "as_pbe_dojo-oncv_0.4.upf",
+      "path": "as/gga/pbe/dojo-oncv/0.4/nc/as_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 5,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 3.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Au",
+      "hash": "8c58630bb4c31a5fa9fc3faab7666781",
+      "filename": "au_pbe_dojo-oncv_0.4.upf",
+      "path": "au/gga/pbe/dojo-oncv/0.4/nc/au_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 4,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "B",
+      "hash": "be21cb19c6ce68767c7574bd6bd4a28d",
+      "filename": "b_pbe_dojo-oncv_0.4.upf",
+      "path": "b/gga/pbe/dojo-oncv/0.4/nc/b_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "2S",
+          "orbitalIndex": 1,
+          "principalNumber": 2,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "2P",
+          "orbitalIndex": 2,
+          "principalNumber": 2,
+          "angularMomentum": 1,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ba",
+      "hash": "0fc4d5e3554db7f5dac0965ba256b1a2",
+      "filename": "ba_pbe_dojo-oncv_0.4.upf",
+      "path": "ba/gga/pbe/dojo-oncv/0.4/nc/ba_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 3,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Be",
+      "hash": "755e97d823b5133249dfb2c5d41bb929",
+      "filename": "be_pbe_dojo-oncv_0.4.upf",
+      "path": "be/gga/pbe/dojo-oncv/0.4/nc/be_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "1S",
+          "orbitalIndex": 1,
+          "principalNumber": 1,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "2S",
+          "orbitalIndex": 2,
+          "principalNumber": 2,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Bi",
+      "hash": "59f73f67b7a6724c750aaf2dd04a5383",
+      "filename": "bi_pbe_dojo-oncv_0.4.upf",
+      "path": "bi/gga/pbe/dojo-oncv/0.4/nc/bi_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 4,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6P",
+          "orbitalIndex": 5,
+          "principalNumber": 6,
+          "angularMomentum": 1,
+          "occupation": 3.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Br",
+      "hash": "6c5327b9a2dd831f21fafc30255cfe15",
+      "filename": "br_pbe_dojo-oncv_0.4.upf",
+      "path": "br/gga/pbe/dojo-oncv/0.4/nc/br_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 5.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "C",
+      "hash": "03496712900f273cac8dfdda85c2af3e",
+      "filename": "c_pbe_dojo-oncv_0.4.upf",
+      "path": "c/gga/pbe/dojo-oncv/0.4/nc/c_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "2S",
+          "orbitalIndex": 1,
+          "principalNumber": 2,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "2P",
+          "orbitalIndex": 2,
+          "principalNumber": 2,
+          "angularMomentum": 1,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ca",
+      "hash": "8d487f470c86b44a7cfb6063a6d76118",
+      "filename": "ca_pbe_dojo-oncv_0.4.upf",
+      "path": "ca/gga/pbe/dojo-oncv/0.4/nc/ca_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Cd",
+      "hash": "cb7fe1e48bb54f502753361d5a373c8a",
+      "filename": "cd_pbe_dojo-oncv_0.4.upf",
+      "path": "cd/gga/pbe/dojo-oncv/0.4/nc/cd_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Cl",
+      "hash": "e35b0eb3db11c25fab17b3d3ed1f23bc",
+      "filename": "cl_pbe_dojo-oncv_0.4.upf",
+      "path": "cl/gga/pbe/dojo-oncv/0.4/nc/cl_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 5.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Co",
+      "hash": "47839e21f7ed1359bb2c88cae86d064b",
+      "filename": "co_pbe_dojo-oncv_0.4.upf",
+      "path": "co/gga/pbe/dojo-oncv/0.4/nc/co_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 7.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Cr",
+      "hash": "6eac5c157515b137d45b168b0401cd79",
+      "filename": "cr_pbe_dojo-oncv_0.4.upf",
+      "path": "cr/gga/pbe/dojo-oncv/0.4/nc/cr_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 5.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Cs",
+      "hash": "84a5ab0e8f44fa2caadb8bb484a1a24a",
+      "filename": "cs_pbe_dojo-oncv_0.4.upf",
+      "path": "cs/gga/pbe/dojo-oncv/0.4/nc/cs_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 3,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Cu",
+      "hash": "ac044561ac36be4cfb0ca1c99943961e",
+      "filename": "cu_pbe_dojo-oncv_0.4.upf",
+      "path": "cu/gga/pbe/dojo-oncv/0.4/nc/cu_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "F",
+      "hash": "8770dfc9a769269a47e91c4cb1eb23af",
+      "filename": "f_pbe_dojo-oncv_0.4.upf",
+      "path": "f/gga/pbe/dojo-oncv/0.4/nc/f_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "2S",
+          "orbitalIndex": 1,
+          "principalNumber": 2,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "2P",
+          "orbitalIndex": 2,
+          "principalNumber": 2,
+          "angularMomentum": 1,
+          "occupation": 5.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Fe",
+      "hash": "f80fdf53ba691fda1803a14eb424b106",
+      "filename": "fe_pbe_dojo-oncv_0.4.upf",
+      "path": "fe/gga/pbe/dojo-oncv/0.4/nc/fe_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ga",
+      "hash": "f7fdcd04f565ff0ebf9b0d065ba52895",
+      "filename": "ga_pbe_dojo-oncv_0.4.upf",
+      "path": "ga/gga/pbe/dojo-oncv/0.4/nc/ga_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 5,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ge",
+      "hash": "407b6133785fb790bd4d4357175fe2ae",
+      "filename": "ge_pbe_dojo-oncv_0.4.upf",
+      "path": "ge/gga/pbe/dojo-oncv/0.4/nc/ge_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 5,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "H",
+      "hash": "7b39d05135473462b8d7518693a01bb3",
+      "filename": "h_pbe_dojo-oncv_0.4.upf",
+      "path": "h/gga/pbe/dojo-oncv/0.4/nc/h_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "1S",
+          "orbitalIndex": 1,
+          "principalNumber": 1,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "He",
+      "hash": "bcae6709111c6faec7aca7ab0e9216ff",
+      "filename": "he_pbe_dojo-oncv_0.4.upf",
+      "path": "he/gga/pbe/dojo-oncv/0.4/nc/he_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "1S",
+          "orbitalIndex": 1,
+          "principalNumber": 1,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Hf",
+      "hash": "bcfb0e57edc5197ef210e502c6759af1",
+      "filename": "hf_pbe_dojo-oncv_0.4.upf",
+      "path": "hf/gga/pbe/dojo-oncv/0.4/nc/hf_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4F",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 3,
+          "occupation": 14.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 5,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Hg",
+      "hash": "54c662145e316d4213903df88b1c7852",
+      "filename": "hg_pbe_dojo-oncv_0.4.upf",
+      "path": "hg/gga/pbe/dojo-oncv/0.4/nc/hg_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 4,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "I",
+      "hash": "c2dd787f309e2515ea8f61521985b630",
+      "filename": "i_pbe_dojo-oncv_0.4.upf",
+      "path": "i/gga/pbe/dojo-oncv/0.4/nc/i_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 5.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "In",
+      "hash": "06e2bfcdd2097385b2b12cf0a22829d0",
+      "filename": "in_pbe_dojo-oncv_0.4.upf",
+      "path": "in/gga/pbe/dojo-oncv/0.4/nc/in_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 5,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ir",
+      "hash": "bb8a2de365d73832eb53b60e661c8acd",
+      "filename": "ir_pbe_dojo-oncv_0.4.upf",
+      "path": "ir/gga/pbe/dojo-oncv/0.4/nc/ir_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 7.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 4,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "K",
+      "hash": "46bd9b7fd0f9233cd90e79506b15f597",
+      "filename": "k_pbe_dojo-oncv_0.4.upf",
+      "path": "k/gga/pbe/dojo-oncv/0.4/nc/k_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Kr",
+      "hash": "537c9bb2814cfcd6301118c3c5e8fa19",
+      "filename": "kr_pbe_dojo-oncv_0.4.upf",
+      "path": "kr/gga/pbe/dojo-oncv/0.4/nc/kr_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "La",
+      "hash": "b854a085263f1212f6d8796f348fbddf",
+      "filename": "la_pbe_dojo-oncv_0.4.upf",
+      "path": "la/gga/pbe/dojo-oncv/0.4/nc/la_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 4,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Li",
+      "hash": "4aaca973249eb8956c265df3de007948",
+      "filename": "li_pbe_dojo-oncv_0.4.upf",
+      "path": "li/gga/pbe/dojo-oncv/0.4/nc/li_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "1S",
+          "orbitalIndex": 1,
+          "principalNumber": 1,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "2S",
+          "orbitalIndex": 2,
+          "principalNumber": 2,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Lu",
+      "hash": "2b8250cecfbfc09d388ad2606afd33fb",
+      "filename": "lu_pbe_dojo-oncv_0.4.upf",
+      "path": "lu/gga/pbe/dojo-oncv/0.4/nc/lu_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4F",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 3,
+          "occupation": 14.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 5,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Mg",
+      "hash": "90f8998a52be4f5a1b6356cfa4d3ef8e",
+      "filename": "mg_pbe_dojo-oncv_0.4.upf",
+      "path": "mg/gga/pbe/dojo-oncv/0.4/nc/mg_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "2S",
+          "orbitalIndex": 1,
+          "principalNumber": 2,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "2P",
+          "orbitalIndex": 2,
+          "principalNumber": 2,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Mn",
+      "hash": "c450904507197850ccc0a5e9539fbf19",
+      "filename": "mn_pbe_dojo-oncv_0.4.upf",
+      "path": "mn/gga/pbe/dojo-oncv/0.4/nc/mn_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 5.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Mo",
+      "hash": "0b9adf024200c4d0ef34444bd9ee251c",
+      "filename": "mo_pbe_dojo-oncv_0.4.upf",
+      "path": "mo/gga/pbe/dojo-oncv/0.4/nc/mo_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 5.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "N",
+      "hash": "4c5844b5e1ec62a70bbc9b3b4bbd6b29",
+      "filename": "n_pbe_dojo-oncv_0.4.upf",
+      "path": "n/gga/pbe/dojo-oncv/0.4/nc/n_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "2S",
+          "orbitalIndex": 1,
+          "principalNumber": 2,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "2P",
+          "orbitalIndex": 2,
+          "principalNumber": 2,
+          "angularMomentum": 1,
+          "occupation": 3.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Na",
+      "hash": "a02327eb004def1822fc489435259044",
+      "filename": "na_pbe_dojo-oncv_0.4.upf",
+      "path": "na/gga/pbe/dojo-oncv/0.4/nc/na_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "2S",
+          "orbitalIndex": 1,
+          "principalNumber": 2,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "2P",
+          "orbitalIndex": 2,
+          "principalNumber": 2,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Nb",
+      "hash": "3e40ca47e405f0ed518a231801b42e93",
+      "filename": "nb_pbe_dojo-oncv_0.4.upf",
+      "path": "nb/gga/pbe/dojo-oncv/0.4/nc/nb_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 4.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ne",
+      "hash": "2841df4b9a41568a1f7f78c9927060c2",
+      "filename": "ne_pbe_dojo-oncv_0.4.upf",
+      "path": "ne/gga/pbe/dojo-oncv/0.4/nc/ne_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "2S",
+          "orbitalIndex": 1,
+          "principalNumber": 2,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "2P",
+          "orbitalIndex": 2,
+          "principalNumber": 2,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ni",
+      "hash": "c4ce84facb8273128ec09a916acdf004",
+      "filename": "ni_pbe_dojo-oncv_0.4.upf",
+      "path": "ni/gga/pbe/dojo-oncv/0.4/nc/ni_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 8.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "O",
+      "hash": "bdd00367335891c71e5697ec0ef8f383",
+      "filename": "o_pbe_dojo-oncv_0.4.upf",
+      "path": "o/gga/pbe/dojo-oncv/0.4/nc/o_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "2S",
+          "orbitalIndex": 1,
+          "principalNumber": 2,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "2P",
+          "orbitalIndex": 2,
+          "principalNumber": 2,
+          "angularMomentum": 1,
+          "occupation": 4.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Os",
+      "hash": "f1eaf308d65b871af19ab055c4c3341d",
+      "filename": "os_pbe_dojo-oncv_0.4.upf",
+      "path": "os/gga/pbe/dojo-oncv/0.4/nc/os_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 4,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "P",
+      "hash": "d679104e06d4f91ce1578fb9b4b98e61",
+      "filename": "p_pbe_dojo-oncv_0.4.upf",
+      "path": "p/gga/pbe/dojo-oncv/0.4/nc/p_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 3.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Pb",
+      "hash": "c75a16a59d2cc0864f634d8bf7e40fc2",
+      "filename": "pb_pbe_dojo-oncv_0.4.upf",
+      "path": "pb/gga/pbe/dojo-oncv/0.4/nc/pb_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 4,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6P",
+          "orbitalIndex": 5,
+          "principalNumber": 6,
+          "angularMomentum": 1,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Pd",
+      "hash": "c3ba83f9e4386668a155d68491dafbab",
+      "filename": "pd_pbe_dojo-oncv_0.4.upf",
+      "path": "pd/gga/pbe/dojo-oncv/0.4/nc/pd_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Po",
+      "hash": "b8596e0475a28b3fe64772a4ab532625",
+      "filename": "po_pbe_dojo-oncv_0.4.upf",
+      "path": "po/gga/pbe/dojo-oncv/0.4/nc/po_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 4,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6P",
+          "orbitalIndex": 5,
+          "principalNumber": 6,
+          "angularMomentum": 1,
+          "occupation": 4.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Pt",
+      "hash": "79cf62f7a9700e25e939fdc6e05fc34c",
+      "filename": "pt_pbe_dojo-oncv_0.4.upf",
+      "path": "pt/gga/pbe/dojo-oncv/0.4/nc/pt_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 9.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 4,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Rb",
+      "hash": "43c180bf64dcab4d78c412dc7c20744c",
+      "filename": "rb_pbe_dojo-oncv_0.4.upf",
+      "path": "rb/gga/pbe/dojo-oncv/0.4/nc/rb_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Re",
+      "hash": "0b207b2be02eb9d4090f64f5249bf681",
+      "filename": "re_pbe_dojo-oncv_0.4.upf",
+      "path": "re/gga/pbe/dojo-oncv/0.4/nc/re_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 5.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 4,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Rh",
+      "hash": "144d1ace5e6a6f1425d65c0130429993",
+      "filename": "rh_pbe_dojo-oncv_0.4.upf",
+      "path": "rh/gga/pbe/dojo-oncv/0.4/nc/rh_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 8.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Rn",
+      "hash": "d3fa6214f55be5749970b10077c535a3",
+      "filename": "rn_pbe_dojo-oncv_0.4.upf",
+      "path": "rn/gga/pbe/dojo-oncv/0.4/nc/rn_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 2,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6P",
+          "orbitalIndex": 3,
+          "principalNumber": 6,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ru",
+      "hash": "3349af97451e04faae570056fb6a110b",
+      "filename": "ru_pbe_dojo-oncv_0.4.upf",
+      "path": "ru/gga/pbe/dojo-oncv/0.4/nc/ru_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 7.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "S",
+      "hash": "b9e0c1f9e1a611aed78846c821eca919",
+      "filename": "s_pbe_dojo-oncv_0.4.upf",
+      "path": "s/gga/pbe/dojo-oncv/0.4/nc/s_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 4.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Sb",
+      "hash": "e87e4738192b64dbf9416e7544e2135f",
+      "filename": "sb_pbe_dojo-oncv_0.4.upf",
+      "path": "sb/gga/pbe/dojo-oncv/0.4/nc/sb_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 5,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 3.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Sc",
+      "hash": "a9e00c9192a05c9c31fc88aea2223c39",
+      "filename": "sc_pbe_dojo-oncv_0.4.upf",
+      "path": "sc/gga/pbe/dojo-oncv/0.4/nc/sc_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Se",
+      "hash": "827504733feac6e11cc46820fb3ae8e3",
+      "filename": "se_pbe_dojo-oncv_0.4.upf",
+      "path": "se/gga/pbe/dojo-oncv/0.4/nc/se_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 5,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 4.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Si",
+      "hash": "031e731297e9d8d5caaeaacb5bb524fa",
+      "filename": "si_pbe_dojo-oncv_0.4.upf",
+      "path": "si/gga/pbe/dojo-oncv/0.4/nc/si_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Sn",
+      "hash": "facc96a51ea1db63de88e50220f68937",
+      "filename": "sn_pbe_dojo-oncv_0.4.upf",
+      "path": "sn/gga/pbe/dojo-oncv/0.4/nc/sn_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 5,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Sr",
+      "hash": "56b39bb85389bebca9500adc7f565dbf",
+      "filename": "sr_pbe_dojo-oncv_0.4.upf",
+      "path": "sr/gga/pbe/dojo-oncv/0.4/nc/sr_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ta",
+      "hash": "11eb155e5f6a276db77187f7fdfd41e3",
+      "filename": "ta_pbe_dojo-oncv_0.4.upf",
+      "path": "ta/gga/pbe/dojo-oncv/0.4/nc/ta_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4F",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 3,
+          "occupation": 14.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 3.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 5,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Tc",
+      "hash": "66898c6d708f79178876454af23c2436",
+      "filename": "tc_pbe_dojo-oncv_0.4.upf",
+      "path": "tc/gga/pbe/dojo-oncv/0.4/nc/tc_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 5.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Te",
+      "hash": "5496a9512bb4703e8bec0ef1a1b47010",
+      "filename": "te_pbe_dojo-oncv_0.4.upf",
+      "path": "te/gga/pbe/dojo-oncv/0.4/nc/te_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 5,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 4.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Ti",
+      "hash": "2e1ad79da46e67a5ade5e7bdd0651d50",
+      "filename": "ti_pbe_dojo-oncv_0.4.upf",
+      "path": "ti/gga/pbe/dojo-oncv/0.4/nc/ti_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Tl",
+      "hash": "b9282c9383b7a70eeafaef297b513798",
+      "filename": "tl_pbe_dojo-oncv_0.4.upf",
+      "path": "tl/gga/pbe/dojo-oncv/0.4/nc/tl_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 4,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "6P",
+          "orbitalIndex": 5,
+          "principalNumber": 6,
+          "angularMomentum": 1,
+          "occupation": 1.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "V",
+      "hash": "63c838ff6ef527502b951c9deeb150ab",
+      "filename": "v_pbe_dojo-oncv_0.4.upf",
+      "path": "v/gga/pbe/dojo-oncv/0.4/nc/v_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 3.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "W",
+      "hash": "4b028d9d7033c83ea57723078d0c0be9",
+      "filename": "w_pbe_dojo-oncv_0.4.upf",
+      "path": "w/gga/pbe/dojo-oncv/0.4/nc/w_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "5D",
+          "orbitalIndex": 3,
+          "principalNumber": 5,
+          "angularMomentum": 2,
+          "occupation": 4.0
+        },
+        {
+          "orbitalName": "6S",
+          "orbitalIndex": 4,
+          "principalNumber": 6,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Xe",
+      "hash": "f940b2d313b55dda5f1da3cd2ae246e4",
+      "filename": "xe_pbe_dojo-oncv_0.4.upf",
+      "path": "xe/gga/pbe/dojo-oncv/0.4/nc/xe_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 1,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5P",
+          "orbitalIndex": 2,
+          "principalNumber": 5,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Y",
+      "hash": "0a92462425d4f92cfa84175a46513a46",
+      "filename": "y_pbe_dojo-oncv_0.4.upf",
+      "path": "y/gga/pbe/dojo-oncv/0.4/nc/y_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 1.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Zn",
+      "hash": "3a1f9004ced6bfb01000d2661a054d02",
+      "filename": "zn_pbe_dojo-oncv_0.4.upf",
+      "path": "zn/gga/pbe/dojo-oncv/0.4/nc/zn_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "3S",
+          "orbitalIndex": 1,
+          "principalNumber": 3,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "3P",
+          "orbitalIndex": 2,
+          "principalNumber": 3,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "3D",
+          "orbitalIndex": 3,
+          "principalNumber": 3,
+          "angularMomentum": 2,
+          "occupation": 10.0
+        },
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 4,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  },
+  {
+    "slug": "pseudopotential",
+    "data": {
+      "element": "Zr",
+      "hash": "e127af32f06ee1f4e515e44c8c544919",
+      "filename": "zr_pbe_dojo-oncv_0.4.upf",
+      "path": "zr/gga/pbe/dojo-oncv/0.4/nc/zr_pbe_dojo-oncv_0.4.upf",
+      "valenceConfiguration": [
+        {
+          "orbitalName": "4S",
+          "orbitalIndex": 1,
+          "principalNumber": 4,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "4P",
+          "orbitalIndex": 2,
+          "principalNumber": 4,
+          "angularMomentum": 1,
+          "occupation": 6.0
+        },
+        {
+          "orbitalName": "4D",
+          "orbitalIndex": 3,
+          "principalNumber": 4,
+          "angularMomentum": 2,
+          "occupation": 2.0
+        },
+        {
+          "orbitalName": "5S",
+          "orbitalIndex": 4,
+          "principalNumber": 5,
+          "angularMomentum": 0,
+          "occupation": 2.0
+        }
+      ],
+      "cutoffs": {},
+      "apps": [
+        "espresso",
+        "q3"
+      ],
+      "exchangeCorrelation": {
+        "functional": "pbe",
+        "approximation": "gga"
+      },
+      "name": "pseudopotential",
+      "source": "dojo-oncv",
+      "type": "nc",
+      "version": "0.4"
+    },
+    "source": {
+      "info": {},
+      "type": "exabyte"
+    }
+  }
+]

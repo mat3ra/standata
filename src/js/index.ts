@@ -5,6 +5,14 @@ import baseUiSchema from "./ui/schemas.json";
 
 export { Standata } from "./base";
 export { MaterialStandata } from "./material";
+// MetaPropertyStandata and PseudopotentialStandata are intentionally NOT re-exported: they statically
+// import large server-only seed data. Import them from "@mat3ra/standata/dist/js/metaProperty"
+// (server code only).
+export type {
+    MetaPropertyMethodName,
+    MetaPropertySeedEntry,
+    PseudopotentialFilter,
+} from "./metaProperty";
 export { PropertyStandata } from "./property";
 export {
     WorkflowStandata,
