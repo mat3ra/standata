@@ -4,7 +4,8 @@
 # leaves the exchange-correlation pseudopotential filter with nothing to match.
 GNU:
   q3:
-    q3_scf:
+    q3_scf: &q3_density_functional_models
       - path: /pb/qm/dft/ksdft/lda?functional=pz
       - path: /pb/qm/dft/ksdft/gga?functional=pbe
       - path: /pb/qm/dft/ksdft/gga?functional=pbesol
+    q3_nscf: *q3_density_functional_models

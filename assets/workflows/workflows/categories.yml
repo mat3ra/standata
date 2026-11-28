@@ -499,6 +499,12 @@ entities:
   - filename: python/python_script.json
     categories:
       - python
+  - filename: q3/dos.json
+    categories:
+      - density_of_states
+      - fermi_energy
+      - q3
+      - total_energy
   - filename: q3/total_energy.json
     categories:
       - fermi_energy

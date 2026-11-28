@@ -1,0 +1,29 @@
+"""Gaussian-broadened density of states of a q3 NSCF run, added to its results file."""
+
+import logging
+from pathlib import Path
+
+from q3.workflows.dos import add_density_of_states_to_results
+
+# The outdir and prefix of the preceding q3_nscf unit: the engine wrote its
+# results to <outdir>/<prefix>_results.json.
+OUTDIR = Path("outdir")
+PREFIX = "q3"
+BROADENING_RY = 0.01
+ENERGY_STEPS = 1000
+
+logger = logging.getLogger("q3_dos")
+
+
+def main() -> None:
+    logging.basicConfig(level=logging.INFO, format="%(message)s")
+    results_path = OUTDIR / f"{PREFIX}_results.json"
+    record = add_density_of_states_to_results(
+        results_path, broadening_ry=BROADENING_RY, energy_steps=ENERGY_STEPS
+    )
+    logger.info("Density of states added to %s", results_path)
+    logger.info("Energy points: %d", len(record["xDataArray"]))
+
+
+if __name__ == "__main__":
+    main()

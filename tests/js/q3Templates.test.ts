@@ -1,4 +1,5 @@
 import { expect } from "chai";
+import * as fs from "fs";
 import * as yaml from "js-yaml";
 import { Environment, FileSystemLoader } from "nunjucks";
 import * as path from "path";
@@ -8,6 +9,14 @@ import { setupNunjucksEnvironment } from "../../src/js/utils/template";
 type Q3Input = {
     method: {
         pseudopotentials: Record<string, string>;
+    };
+};
+
+type Q3NonSelfConsistentInput = {
+    control: {
+        calculation: string;
+        prefix: string;
+        kpoints_list: [number, number, number, number][];
     };
 };
 
@@ -42,6 +51,79 @@ describe("Q3 Template Rendering", () => {
         expect(input.method.pseudopotentials).to.deep.equal({
             Fe: ironPseudopotentialPath,
             O: oxygenPseudopotentialPath,
+        });
+    });
+
+    it("renders the full Monkhorst-Pack grid as the NSCF k-point list", () => {
+        const template = environment.getTemplate("nscf.inp");
+        const renderedInput = template.render({
+            input: {
+                ATOMIC_SPECIES: [{ X: "Cu", Mass_X: 63.546, PseudoPot_X: "/pseudo/cu.upf" }],
+            },
+            cutoffs: { wavefunction: 40, density: 320 },
+            kgrid: { dimensions: [4, 3, 2], shifts: [0, 1, 0] },
+        });
+        const input = yaml.load(renderedInput) as Q3NonSelfConsistentInput;
+        const kpointsList = input.control.kpoints_list;
+        const weightSum = kpointsList.reduce((sum, kpoint) => sum + kpoint[3], 0);
+        const coordinates = kpointsList.flatMap((kpoint) => kpoint.slice(0, 3));
+
+        expect(input.control.calculation).to.equal("nscf");
+        expect(input.control.prefix).to.equal("q3");
+        expect(kpointsList).to.have.lengthOf(4 * 3 * 2);
+        expect(weightSum).to.be.closeTo(2.0, 1.0e-9);
+        expect(coordinates.every((value) => value >= -0.5 && value < 0.5)).to.equal(true);
+        // Unshifted 4-point axis folds 0.5 to -0.5; shifted 3-point axis starts at 1/6
+        const [foldedX, shiftedY, unshiftedZ] = kpointsList[2 * 3 * 2];
+        expect(foldedX).to.equal(-0.5);
+        expect(shiftedY).to.be.closeTo(1 / 6, 1.0e-9);
+        expect(unshiftedZ).to.equal(0);
+    });
+
+    it("renders the DOS Python script verbatim", () => {
+        const templateName = "extract_dos.inp";
+        const rawScript = fs.readFileSync(path.join(templateDirectory, templateName), "utf8");
+        const renderedScript = environment.getTemplate(templateName).render({});
+
+        expect(renderedScript.trim()).to.equal(rawScript.trim());
+        expect(renderedScript).to.include(
+            "from q3.workflows.dos import add_density_of_states_to_results",
+        );
+        expect(renderedScript).to.include('OUTDIR = Path("outdir")');
+        expect(renderedScript).to.include('PREFIX = "q3"');
+    });
+
+    it("adds the DOS to the results file of the NSCF run it reads", () => {
+        const nonSelfConsistentInput = fs.readFileSync(
+            path.join(templateDirectory, "nscf.inp"),
+            "utf8",
+        );
+        expect(nonSelfConsistentInput).to.include("prefix: q3\n");
+        expect(nonSelfConsistentInput).to.include("outdir: ./outdir/\n");
+    });
+
+    describe("shell scripts", () => {
+        const shellTemplateDirectory = path.join(
+            __dirname,
+            "../../assets/applications/input_files_templates/shell",
+        );
+        const shellEnvironment = setupNunjucksEnvironment(
+            new Environment(new FileSystemLoader(shellTemplateDirectory)),
+        );
+        const renderScript = (templateName: string) => {
+            const rawScript = fs.readFileSync(
+                path.join(shellTemplateDirectory, templateName),
+                "utf8",
+            );
+            const renderedScript = shellEnvironment.getTemplate(templateName).render({});
+            return { rawScript, renderedScript };
+        };
+
+        it("renders the DOS shell script verbatim", () => {
+            const { rawScript, renderedScript } = renderScript("bash_q3_dos.j2.sh");
+            expect(renderedScript.trim()).to.equal(rawScript.trim());
+            expect(renderedScript).to.include("module load q3");
+            expect(renderedScript).to.include("$EXEC_CMD python extract_dos.py");
         });
     });
 });
