@@ -1,0 +1,6 @@
+name: Density of States - Q3
+units:
+- name: scf_nscf
+  type: subworkflow
+- name: dos
+  type: subworkflow

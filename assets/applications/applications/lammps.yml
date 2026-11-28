@@ -4,11 +4,7 @@ summary: LAMMPS
 defaultVersion: '2025.07.22.2'
 isUsingMaterial: true
 runConfig:
-  commandTemplate: |
-    {BASE_CMD} &&
-    {MODULE_CMD}
-    $EXEC_CMD mpirun -machinefile {MACHINEFILE} -np {NP} {EXECUTABLE} -i {INPUTFILE} -l {OUTPUTFILE}
-  outFileName: 'log.out'
+  commandTemplate: '$EXEC_CMD mpirun -machinefile {MACHINEFILE} -np {NP} {EXECUTABLE} -i {INPUTFILE} -l {OUTPUTFILE}'
 versions:
   - version: '2025.07.22.2'
     isDefault: true

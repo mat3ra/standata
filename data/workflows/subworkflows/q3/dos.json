@@ -1,0 +1,130 @@
+{
+    "_id": "16206c39-7e5a-5388-9650-3ebe192c5656",
+    "name": "Density of States",
+    "application": {
+        "name": "q3"
+    },
+    "properties": [
+        "density_of_states",
+        "fermi_energy"
+    ],
+    "model": {
+        "type": "unknown",
+        "subtype": "unknown",
+        "method": {
+            "type": "unknown",
+            "subtype": "unknown",
+            "data": {}
+        }
+    },
+    "units": [
+        {
+            "type": "execution",
+            "name": "q3_dos",
+            "head": true,
+            "results": [
+                {
+                    "name": "density_of_states"
+                },
+                {
+                    "name": "fermi_energy"
+                }
+            ],
+            "monitors": [
+                {
+                    "name": "standard_output"
+                }
+            ],
+            "flowchartId": "dee43e42-b9ab-5908-86ff-8e24c516751e",
+            "preProcessors": [],
+            "postProcessors": [],
+            "status": "idle",
+            "statusTrack": [],
+            "tags": [],
+            "application": {
+                "build": "GNU",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "isDefaultVersion": true,
+                "isUsingMaterial": false,
+                "name": "shell",
+                "shortName": "sh",
+                "summary": "Shell Script",
+                "version": "5.1.8",
+                "schemaVersion": "2022.8.16"
+            },
+            "executable": {
+                "applicationName": "shell",
+                "applicationVersion": "*",
+                "hasAdvancedComputeOptions": false,
+                "isDefault": true,
+                "name": "sh",
+                "schemaVersion": "2022.8.16"
+            },
+            "flavor": {
+                "applicationName": "shell",
+                "applicationVersion": "*",
+                "executableName": "sh",
+                "input": [
+                    {
+                        "name": "q3_dos.sh"
+                    },
+                    {
+                        "name": "extract_dos.py"
+                    }
+                ],
+                "isDefault": false,
+                "monitors": [
+                    {
+                        "name": "standard_output"
+                    }
+                ],
+                "name": "q3_dos",
+                "postProcessors": [],
+                "preProcessors": [],
+                "results": [
+                    {
+                        "name": "density_of_states"
+                    },
+                    {
+                        "name": "fermi_energy"
+                    }
+                ],
+                "schemaVersion": "2022.8.16"
+            },
+            "input": [
+                {
+                    "template": {
+                        "applicationName": "shell",
+                        "applicationVersion": "*",
+                        "content": "#!/bin/bash\n\n# ---------------------------------------------------------------- #\n#                                                                  #\n#  Density of states from a Quantum 3xplorer (q3) NSCF run         #\n#                                                                  #\n#  Reads the eigenvalues that the preceding q3_nscf unit wrote to  #\n#  ./outdir/q3_results.json, applies Gaussian broadening with the  #\n#  q3 Python package, and writes the curve back into that file as  #\n#  ESSE's density_of_states record under properties.records (q3.   #\n#  workflows.dos.add_density_of_states_to_results). Runs inside    #\n#  the q3 container, which ships the q3 Python package.            #\n#                                                                  #\n#  Edit BROADENING_RY and ENERGY_STEPS in extract_dos.py to tune   #\n#  the curve.                                                      #\n#                                                                  #\n# ---------------------------------------------------------------- #\n\n# sets EXEC_CMD to the q3 container execution command\nmodule load q3\n\n# run the post-processing (extract_dos.py, the second input of this unit)\n# inside the q3 container\n$EXEC_CMD python extract_dos.py\n",
+                        "contextProviders": [],
+                        "executableName": "sh",
+                        "name": "q3_dos.sh",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                },
+                {
+                    "template": {
+                        "applicationName": "shell",
+                        "applicationVersion": "*",
+                        "content": "\"\"\"Gaussian-broadened density of states of a q3 NSCF run, added to its results file.\"\"\"\n\nimport logging\nfrom pathlib import Path\n\nfrom q3.workflows.dos import add_density_of_states_to_results\n\n# The outdir and prefix of the preceding q3_nscf unit: the engine wrote its\n# results to <outdir>/<prefix>_results.json.\nOUTDIR = Path(\"outdir\")\nPREFIX = \"q3\"\nBROADENING_RY = 0.01\nENERGY_STEPS = 1000\n\nlogger = logging.getLogger(\"q3_dos\")\n\n\ndef main() -> None:\n    logging.basicConfig(level=logging.INFO, format=\"%(message)s\")\n    results_path = OUTDIR / f\"{PREFIX}_results.json\"\n    record = add_density_of_states_to_results(\n        results_path, broadening_ry=BROADENING_RY, energy_steps=ENERGY_STEPS\n    )\n    logger.info(\"Density of states added to %s\", results_path)\n    logger.info(\"Energy points: %d\", len(record[\"xDataArray\"]))\n\n\nif __name__ == \"__main__\":\n    main()\n",
+                        "contextProviders": [],
+                        "executableName": "sh",
+                        "name": "extract_dos.py",
+                        "schemaVersion": "2022.8.16"
+                    },
+                    "rendered": "",
+                    "isManuallyChanged": false
+                }
+            ],
+            "context": [],
+            "schemaVersion": "2022.8.16",
+            "isDefault": false
+        }
+    ],
+    "schemaVersion": "2022.8.16",
+    "isDraft": false
+}
